@@ -12,8 +12,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   entities: MODELS,
   migrations: ["dist/database/migrations/*.js"],
-  synchronize: false,
-  migrationsRun: true,
+  synchronize: true,
   logging: true,
   extra: {
     waitForConnections: true,

@@ -22,7 +22,7 @@
   },
   "scripts": {
     "serve": "concurrently \"npm start\" \"cd ./backend && npm run build && npm start\"",
-    "setup": "concurrently \"npm install\" \"cd ./backend && npm install\"",
+    "setup": "cd ./backend && npm install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
