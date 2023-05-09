@@ -1,0 +1,30 @@
+import { Repository } from "typeorm";
+import AppDataSource from "../database";
+import { ReferralModel } from "../database/referral";
+
+export default class ReferralService {
+  private _referralRepository: Repository<ReferralModel>;
+
+  constructor() {
+    this._referralRepository = AppDataSource.getRepository(ReferralModel);
+  }
+
+  public async getReferral(id: string) {
+    return await this._referralRepository.findOne({
+      select: [
+        "id",
+        "enable",
+        "points_amount",
+        "points_limit",
+        "selected_option",
+        "review_app",
+        "limit_count_enabled",
+      ],
+      where: { id },
+    });
+  }
+
+  public async updateReferral(id: string, data: any) {
+    await this._referralRepository.update({ id }, { ...data });
+  }
+}
