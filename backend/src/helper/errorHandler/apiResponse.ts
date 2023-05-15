@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { ErrorResponseBody } from "./apiErrorResponseBody";
 
-export interface EmptyObject {
+export interface IEmptyObject {
   [key: string]: void;
 }
 
-export class APIResponse<T = EmptyObject> {
+export class APIResponse<T = IEmptyObject> {
   public status: number = StatusCodes.BAD_REQUEST;
   public message = "";
   public body: T = <T>{};

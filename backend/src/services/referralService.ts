@@ -1,6 +1,6 @@
+import { ReferralModel } from "../database/models/referral";
 import { Repository } from "typeorm";
 import AppDataSource from "../database";
-import { ReferralModel } from "../database/referral";
 
 export default class ReferralService {
   private _referralRepository: Repository<ReferralModel>;
