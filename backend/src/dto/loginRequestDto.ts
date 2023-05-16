@@ -5,7 +5,7 @@ export default class LoginRequestDTO {
   password: string;
 
   constructor(body: TLoginRequest) {
-    this.userName = body.userName;
+    this.userName = body.userName || "";
     this.password = body.password;
   }
 }
