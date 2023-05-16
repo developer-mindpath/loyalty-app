@@ -40,9 +40,7 @@ export default class LoginService {
     return {
       token: generateAuthToken({
         userName: data.userName,
-        userId: data.userId,
       }),
-      userId: data.userId,
     };
   }
 }

@@ -8,8 +8,4 @@ export class UserModel extends ModelTemplate {
 
   @Column("varchar")
   password: string;
-
-  @Column("uuid")
-  @Index({ unique: true })
-  userId: string;
 }

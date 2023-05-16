@@ -10,7 +10,7 @@ export default class LoginRepository {
 
   public async login(userName: string): Promise<UserModel | null> {
     return await this._userModel.findOne({
-      select: ["userId", "password"],
+      select: ["password"],
       where: { userName },
     });
   }
