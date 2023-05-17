@@ -1,6 +1,6 @@
+import { ReferralModel } from "../database/models/referral";
 import { Repository } from "typeorm";
 import AppDataSource from "../database";
-import { ReferralModel } from "../database/referral";
 
 export default class ReferralService {
   private _referralRepository: Repository<ReferralModel>;
@@ -9,7 +9,7 @@ export default class ReferralService {
     this._referralRepository = AppDataSource.getRepository(ReferralModel);
   }
 
-  public async getReferral(id: string) {
+  public async getReferral(id: number) {
     return await this._referralRepository.findOne({
       select: [
         "id",
@@ -24,7 +24,7 @@ export default class ReferralService {
     });
   }
 
-  public async updateReferral(id: string, data: any) {
+  public async updateReferral(id: number, data: any) {
     await this._referralRepository.update({ id }, { ...data });
   }
 }

@@ -11,7 +11,7 @@ export default class ReferralController {
   public async getReferral(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const response = await this._referralService.getReferral(id);
+      const response = await this._referralService.getReferral(Number(id));
       res.status(200).send(response);
     } catch (e) {
       next(e);
@@ -22,7 +22,7 @@ export default class ReferralController {
     try {
       const { id } = req.params;
       const { body } = req;
-      await this._referralService.updateReferral(id, body);
+      await this._referralService.updateReferral(Number(id), body);
       res.status(200).send({ body: "Success" });
     } catch (e) {
       next(e);
