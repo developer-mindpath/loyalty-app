@@ -152,7 +152,7 @@ function SetRule() {
         title="Post a Product Review - Photo"
         divider
         fullWidth
-        backAction={{ url: "/programs/points/", content: "Products" }}
+        // backAction={{ url: "/programs/points/", content: "Products" }}
       >
         <Layout>
           <Layout.Section>
@@ -188,7 +188,7 @@ function SetRule() {
                     }
                     autoComplete="off"
                     connectedRight={
-                      <Text alignment="center" as={"h1"}>
+                      <Text variant="bodyMd" alignment="center" as={"h1"}>
                         {"Points"}
                       </Text>
                     }
@@ -217,7 +217,9 @@ function SetRule() {
                             style={{ display: "flex", alignItems: "center" }}
                           >
                             <div style={{ margin: "0px, 8px" }}>
-                              <Text as="p">Per</Text>
+                              <Text variant="bodyMd" as="p">
+                                Per
+                              </Text>
                             </div>
                             <Select
                               label=""
