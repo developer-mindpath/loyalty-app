@@ -1,13 +1,15 @@
 import { DataSource } from "typeorm";
+import { config } from "dotenv";
 import { ModelTemplate } from "./models/modelTemplate";
 import { ReferralModel } from "./models/referral";
 import { StoreModel } from "./models/store";
 import { UserModel } from "./models/user";
-import { config } from "dotenv";
 import { AdminActivityModel } from "./models/adminActivity";
 import { AdminActivityTypeModel } from "./models/adminActivityType";
 import { PointActionModel } from "./models/pointAction";
 import { PointActionDetailsModel } from "./models/pointActionDetails";
+import { SettingEmailModel } from "./models/settingEmail";
+import { SettingOrderModel } from "./models/settingOrder";
 config();
 
 const MODELS = [
@@ -19,6 +21,8 @@ const MODELS = [
   AdminActivityTypeModel,
   PointActionModel,
   PointActionDetailsModel,
+  SettingEmailModel,
+  SettingOrderModel,
 ];
 const AppDataSource = new DataSource({
   type: "mysql",

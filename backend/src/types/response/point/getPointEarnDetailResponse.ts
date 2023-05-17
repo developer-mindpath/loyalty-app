@@ -1,5 +1,5 @@
 export type GetPointEarnDetailResponse = {
-  id: string;
+  id: number;
   point_action_id: number;
   app_id: number;
   points_amounts: string;

@@ -7,6 +7,9 @@ export class AdminActivityTypeModel extends ModelTemplate {
   title: string;
 
   @Column("varchar")
+  key: string;
+
+  @Column("varchar")
   description: string;
 
   @Column("tinyint")

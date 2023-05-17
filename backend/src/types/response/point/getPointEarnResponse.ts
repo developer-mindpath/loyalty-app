@@ -1,5 +1,5 @@
 export type GetPointEarnResponse = {
-  id: string;
+  id: number;
   action_key: string;
   action_key_display_text: string;
   action_visible_order: number;
