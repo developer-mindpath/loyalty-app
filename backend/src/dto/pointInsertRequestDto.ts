@@ -1,4 +1,4 @@
-import { PointInsertRequest } from "src/types/request/point/pointInsertRequest";
+import { PointInsertRequest } from "../types/request/point/pointInsertRequest";
 
 export default class PointInsertRequestDTO {
   action_key: string;
@@ -11,7 +11,6 @@ export default class PointInsertRequestDTO {
   user_id: number;
   admin_ref: number;
   created_by: number;
-  updated_by: number;
 
   constructor(body: PointInsertRequest) {
     this.action_key = body.action_key;
@@ -24,6 +23,5 @@ export default class PointInsertRequestDTO {
     this.user_id = body.user_id;
     this.admin_ref = body.admin_ref;
     this.created_by = body.created_by;
-    this.updated_by = body.updated_by;
   }
 }

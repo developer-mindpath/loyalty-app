@@ -1,4 +1,6 @@
 import { UpdateResult } from "typeorm";
+import { SettingEmailModel } from "../database/models/settingEmail";
+import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
 import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
 import SettingEmailRepository from "../repository/settingEmailRepository";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
@@ -20,6 +22,14 @@ export default class SettingEmailService {
   ): Promise<UpdateResult> {
     return await this._settingEmailRepository.updateEmailSettingByUserId(
       updateEmailSettingRequestDTO
+    );
+  }
+
+  public async insertEmailSettingByUserId(
+    insertEmailSettingRequestDTO: InsertEmailSettingRequestDTO
+  ): Promise<SettingEmailModel> {
+    return await this._settingEmailRepository.insertEmailSettingByUserId(
+      insertEmailSettingRequestDTO
     );
   }
 }

@@ -4,6 +4,7 @@ import { SettingEmailModel } from "../database/models/settingEmail";
 import AppDataSource from "../database";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
 import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
 
 export default class SettingEmailRepository {
   private _settingEmailModel: Repository<SettingEmailModel>;
@@ -28,5 +29,11 @@ export default class SettingEmailRepository {
       { user_id },
       updateEmailSettingRequestDTO
     );
+  }
+
+  public async insertEmailSettingByUserId(
+    insertEmailSettingRequestDTO: InsertEmailSettingRequestDTO
+  ): Promise<SettingEmailModel> {
+    return await this._settingEmailModel.save(insertEmailSettingRequestDTO);
   }
 }

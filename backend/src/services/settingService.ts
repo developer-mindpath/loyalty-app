@@ -8,6 +8,10 @@ import { GetOrderSettingResponse } from "../types/response/setting/getOrderSetti
 import SettingOrderService from "./settingOrderService";
 import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
 import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
+import { SettingEmailModel } from "../database/models/settingEmail";
+import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
+import { SettingOrderModel } from "../database/models/settingOrder";
 
 export default class SettingService {
   private _settingEmailService: SettingEmailService;
@@ -62,6 +66,22 @@ export default class SettingService {
   ): Promise<UpdateResult> {
     return await this._settingOrderService.updateOrderSettingByUserId(
       updateOrderSettingRequestDTO
+    );
+  }
+
+  public async insertEmailSettingByUserId(
+    insertEmailSettingRequestDTO: InsertEmailSettingRequestDTO
+  ): Promise<SettingEmailModel> {
+    return await this._settingEmailService.insertEmailSettingByUserId(
+      insertEmailSettingRequestDTO
+    );
+  }
+
+  public async insertOrderSettingByUserId(
+    insertOrderSettingRequestDTO: InsertOrderSettingRequestDTO
+  ): Promise<SettingOrderModel> {
+    return await this._settingOrderService.insertOrderSettingByUserId(
+      insertOrderSettingRequestDTO
     );
   }
 }
