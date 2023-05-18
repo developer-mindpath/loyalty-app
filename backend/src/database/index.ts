@@ -10,6 +10,8 @@ import { PointActionModel } from "./models/pointAction";
 import { PointActionDetailsModel } from "./models/pointActionDetails";
 import { SettingEmailModel } from "./models/settingEmail";
 import { SettingOrderModel } from "./models/settingOrder";
+import { PointRedeemModel } from "./models/pointRedeem";
+import { PointRedeemDetailModel } from "./models/pointRedeemDetail";
 config();
 
 const MODELS = [
@@ -23,6 +25,8 @@ const MODELS = [
   PointActionDetailsModel,
   SettingEmailModel,
   SettingOrderModel,
+  PointRedeemModel,
+  PointRedeemDetailModel,
 ];
 const AppDataSource = new DataSource({
   type: "mysql",

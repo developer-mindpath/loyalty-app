@@ -2,7 +2,6 @@ import { Repository } from "typeorm";
 import AppDataSource from "../database";
 import { PointActionModel } from "../database/models/pointAction";
 import PointInsertRequestDTO from "../dto/pointInsertRequestDto";
-import { PointInsertResponse } from "../types/response/point/pointInsertResponse";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 
 export default class PointRepository {
@@ -13,7 +12,7 @@ export default class PointRepository {
 
   public async insertEarningPoint(
     pointInsertRequestDTO: PointInsertRequestDTO
-  ): Promise<PointInsertResponse> {
+  ): Promise<PointActionModel> {
     return await this._pointActionModel.save(pointInsertRequestDTO);
   }
 

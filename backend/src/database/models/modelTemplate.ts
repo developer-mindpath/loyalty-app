@@ -1,8 +1,10 @@
 import {
-  CreateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
   Index,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  Timestamp,
 } from "typeorm";
 
 export abstract class ModelTemplate {
@@ -10,9 +12,19 @@ export abstract class ModelTemplate {
   @Index({ unique: true })
   public id: number;
 
-  @CreateDateColumn()
-  public create_at: Date;
+  @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
+  public create_at: Timestamp;
 
-  @UpdateDateColumn()
-  public update_at: Date;
+  @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
+  public update_at: Timestamp;
+
+  @BeforeInsert()
+  createTimestamp() {
+    this.create_at = new Date().getTime() as unknown as Timestamp;
+  }
+
+  @BeforeUpdate()
+  updateTimestamp() {
+    this.update_at = new Date().getTime() as unknown as Timestamp;
+  }
 }

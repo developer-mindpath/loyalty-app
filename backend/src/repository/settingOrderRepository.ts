@@ -1,9 +1,10 @@
 import { Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
-import UpdateOrderSettingRequestDTO from "src/dto/updateOrderSettingRequestDto";
+import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
 import AppDataSource from "../database";
 import { SettingOrderModel } from "../database/models/settingOrder";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
+import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
 
 export default class SettingOrderRepository {
   private _settingOrderModel: Repository<SettingOrderModel>;
@@ -28,5 +29,11 @@ export default class SettingOrderRepository {
       { user_id },
       updateOrderSettingRequestDTO
     );
+  }
+
+  public async insertOrderSettingByUserId(
+    insertOrderSettingRequestDTO: InsertOrderSettingRequestDTO
+  ): Promise<SettingOrderModel> {
+    return await this._settingOrderModel.save(insertOrderSettingRequestDTO);
   }
 }

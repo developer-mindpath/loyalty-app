@@ -17,6 +17,10 @@ import { UpdateEmailSettingRequest } from "../types/request/setting/updateEmailS
 import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
 import { UpdateOrderSettingRequest } from "../types/request/setting/updateOrderSettingRequest";
 import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
+import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailSettingRequest";
+import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
+import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
+import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
 
 export default class SettingController {
   private _settingService: SettingService;
@@ -125,6 +129,58 @@ export default class SettingController {
       );
       await this._settingService.updateOrderSettingByUserId(
         updateOrderSettingRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertEmailSettingByUserId(
+    req: CustomRequest<IEmptyObject, IEmptyObject, InsertEmailSettingRequest>,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertEmailSettingRequestDTO = new InsertEmailSettingRequestDTO(
+        req.body
+      );
+      await this._settingService.insertEmailSettingByUserId(
+        insertEmailSettingRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertOrderSettingByUserId(
+    req: CustomRequest<IEmptyObject, IEmptyObject, InsertOrderSettingRequest>,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertOrderSettingRequestDTO = new InsertOrderSettingRequestDTO(
+        req.body
+      );
+      await this._settingService.insertOrderSettingByUserId(
+        insertOrderSettingRequestDTO
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
