@@ -29,6 +29,10 @@ const BillingSettings = () => {
       divider
       title="Billing"
       subtitle="Grow your customer base and reward existing customers for referring thier friend, family, and anyone else!"
+      backAction={{
+        id: "Settings",
+        url: "/settings",
+      }}
     >
       <Layout sectioned>
         <Layout>

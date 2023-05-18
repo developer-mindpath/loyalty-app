@@ -37,7 +37,14 @@ const OrdersSettings = () => {
   );
 
   return (
-    <Page divider title="Order Settings">
+    <Page
+      divider
+      title="Order Settings"
+      backAction={{
+        id: "Settings",
+        url: "/settings",
+      }}
+    >
       <Layout sectioned>
         <Layout>
           <Layout.Section secondary>

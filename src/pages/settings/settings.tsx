@@ -124,7 +124,14 @@ const Settings = () => {
   const navigate = useNavigate();
 
   return (
-    <Page title="Settings" divider>
+    <Page
+      title="Settings"
+      divider
+      backAction={{
+        id: "Settings",
+        url: "/settings",
+      }}
+    >
       <AlphaCard roundedAbove="sm" padding="8">
         <Grid gap={{ xs: "200px" }}>
           {settingsList.map((setting) => (

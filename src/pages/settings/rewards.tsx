@@ -1,4 +1,13 @@
-import { AlphaCard, Button, Icon, Layout, Page, Text } from "@shopify/polaris";
+import {
+  AlphaCard,
+  Banner,
+  Box,
+  Button,
+  Icon,
+  Layout,
+  Page,
+  Text,
+} from "@shopify/polaris";
 import { FlagMajor } from "@shopify/polaris-icons";
 import { styled } from "styled-components";
 
@@ -20,7 +29,14 @@ const Alert = styled.div({
 
 const RewardSettings = () => {
   return (
-    <Page divider title="Reward For Past Actions">
+    <Page
+      divider
+      title="Reward For Past Actions"
+      backAction={{
+        id: "Settings",
+        url: "/settings",
+      }}
+    >
       <Layout>
         <Layout.Section secondary>
           <div style={{ marginTop: 12 }}>
@@ -38,6 +54,24 @@ const RewardSettings = () => {
               </Text>
             </div>
             <Button>Reward for Past Actions</Button>
+            <Box paddingBlockStart="4">
+              <Banner icon={FlagMajor} status="success" title="Note">
+                <ul>
+                  <li>
+                    <Text as="p">
+                      We will backfill points for the Sign Up and Place an Order
+                      ways to earn.
+                    </Text>
+                  </li>
+                  <li>
+                    <Text as="p">
+                      Points will only be awarded if the Way to Earn is
+                      currently enabled.
+                    </Text>
+                  </li>
+                </ul>
+              </Banner>
+            </Box>
             <Alert>
               <div style={{ display: "flex", alignItems: "start" }}>
                 <div
