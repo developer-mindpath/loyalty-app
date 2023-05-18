@@ -3,35 +3,35 @@ import { ModelTemplate } from "./modelTemplate";
 
 @Entity({ name: "settings" })
 export class SettingOrderModel extends ModelTemplate {
-  @Column("int")
-  store_id: number;
+  @Column("int", { nullable: true })
+  store_id: number | null;
 
-  @Column("varchar")
-  who_can_participate: string;
+  @Column("varchar", { nullable: true })
+  who_can_participate: string | null;
 
-  @Column("tinyint")
-  orders_subtotal: number;
+  @Column("tinyint", { nullable: true })
+  orders_subtotal: number | null;
 
-  @Column("tinyint")
-  orders_exclude_subtoken_discount: number;
+  @Column("tinyint", { nullable: true })
+  orders_exclude_subtoken_discount: number | null;
 
-  @Column("tinyint")
-  orders_include_tax: number;
+  @Column("tinyint", { nullable: true })
+  orders_include_tax: number | null;
 
-  @Column("tinyint")
-  orders_include_shipping: number;
+  @Column("tinyint", { nullable: true })
+  orders_include_shipping: number | null;
 
-  @Column("tinyint")
-  points_cancelation_refunde: number;
+  @Column("tinyint", { nullable: true })
+  points_cancelation_refunde: number | null;
 
-  @Column("tinyint")
-  orders_include_partialy_refunded: number;
+  @Column("tinyint", { nullable: true })
+  orders_include_partialy_refunded: number | null;
 
-  @Column("tinyint")
-  orders_include_voided: number;
+  @Column("tinyint", { nullable: true })
+  orders_include_voided: number | null;
 
-  @Column("varchar")
-  reward_channel: string;
+  @Column("varchar", { nullable: true })
+  reward_channel: string | null;
 
   @Column("varchar")
   status: string;
@@ -45,6 +45,6 @@ export class SettingOrderModel extends ModelTemplate {
   @Column("int")
   created_by: number;
 
-  @Column("int")
-  updated_by: number;
+  @Column("int", { nullable: true })
+  updated_by: number | null;
 }

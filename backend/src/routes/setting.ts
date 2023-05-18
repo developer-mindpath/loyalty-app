@@ -17,6 +17,8 @@ import { GetOrderSettingResponse } from "../types/response/setting/getOrderSetti
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { UpdateEmailSettingRequest } from "../types/request/setting/updateEmailSettingRequest";
 import { UpdateOrderSettingRequest } from "../types/request/setting/updateOrderSettingRequest";
+import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailSettingRequest";
+import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
 
 const settingController = new SettingController();
 const router = express.Router();
@@ -39,6 +41,13 @@ router.patch<
   settingController.updateEmailSettingByUserId(...arg)
 );
 
+router.post<
+  PathParams<IEmptyObject>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertEmailSettingRequest>,
+  QueryParams
+>("/email", (...arg) => settingController.insertEmailSettingByUserId(...arg));
+
 router.get<
   PathParams<GetOrderSettingParams>,
   ResponseBody<GetOrderSettingResponse>,
@@ -56,5 +65,12 @@ router.patch<
 >("/order/:userId", (...arg) =>
   settingController.updateOrderSettingByUserId(...arg)
 );
+
+router.post<
+  PathParams<IEmptyObject>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertOrderSettingRequest>,
+  QueryParams
+>("/order", (...arg) => settingController.insertOrderSettingByUserId(...arg));
 
 module.exports = { router, basePath: "/api/setting" };

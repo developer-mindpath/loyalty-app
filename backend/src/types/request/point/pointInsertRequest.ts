@@ -9,5 +9,4 @@ export type PointInsertRequest = {
   user_id: number;
   admin_ref: number;
   created_by: number;
-  updated_by: number;
 };

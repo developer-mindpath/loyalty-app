@@ -1,4 +1,6 @@
 import { UpdateResult } from "typeorm";
+import { SettingOrderModel } from "../database/models/settingOrder";
+import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
 import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
 import SettingOrderRepository from "../repository/settingOrderRepository";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
@@ -20,6 +22,14 @@ export default class SettingOrderService {
   ): Promise<UpdateResult> {
     return await this._settingOrderRepository.updateOrderSettingByUserId(
       updateOrderSettingRequestDTO
+    );
+  }
+
+  public async insertOrderSettingByUserId(
+    insertOrderSettingRequestDTO: InsertOrderSettingRequestDTO
+  ): Promise<SettingOrderModel> {
+    return await this._settingOrderRepository.insertOrderSettingByUserId(
+      insertOrderSettingRequestDTO
     );
   }
 }
