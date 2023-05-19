@@ -27,6 +27,7 @@ import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRede
 import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
+import { InsertPointEarnDetailRequest } from "../types/request/point/insertPointEarnDetailRequest";
 
 const pointController = new PointController();
 const router = express.Router();
@@ -52,6 +53,15 @@ router.get<
   QueryParams
 >("/earn/details/:pointId", (...arg) =>
   pointController.getEarningDetailsByPointId(...arg)
+);
+
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertPointEarnDetailRequest>,
+  QueryParams
+>("/earn/details", (...arg) =>
+  pointController.insertEarningDetailsByPointId(...arg)
 );
 
 router.patch<

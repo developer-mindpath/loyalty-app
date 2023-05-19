@@ -26,7 +26,7 @@ export default class InsertPointRedeemDetailRequestDTO {
   created_by: number;
 
   constructor(body: InsertPointRedeemDetailRequest) {
-    this.points_type = body.points_type;
+    this.point_redeem_id = body.point_redeem_id;
     this.points_type = body.points_type;
     this.fixed_points_amount = body.fixed_points_amount;
     this.fixed_points_discount = body.fixed_points_discount;

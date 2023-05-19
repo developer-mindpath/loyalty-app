@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { AdminUserModel } from "./adminUser";
+import { Column, Entity, OneToMany } from "typeorm";
 import { AppModel } from "./app";
 import { LoyalityProgramActivityModel } from "./loyalityProgramActivity";
 import { ModelTemplate } from "./modelTemplate";
@@ -9,22 +8,14 @@ import { PointRedeemModel } from "./pointRedeem";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
 import { ReferralModel } from "./referral";
 import { ReferralProgramActivityModel } from "./referralProgramActivity";
+import { UserModel } from "./user";
 import { VipProgramActivityModel } from "./vipProgramActivity";
 import { VipTierModel } from "./vipTier";
 
-@Entity({ name: "user" })
-export class UserModel extends ModelTemplate {
-  @Column("varchar", { nullable: true })
-  user_name: string | null;
-
-  @Column("varchar", { nullable: true })
-  user_image: string | null;
-
-  @Column("varchar")
-  email: string;
-
-  @Column("varchar")
-  password: string;
+@Entity({ name: "admin_user" })
+export class AdminUserModel extends ModelTemplate {
+  @Column("int", { nullable: true })
+  admin_type_id: number | null;
 
   @Column("varchar", { nullable: true })
   first_name: string | null;
@@ -33,13 +24,22 @@ export class UserModel extends ModelTemplate {
   last_name: string | null;
 
   @Column("varchar", { nullable: true })
-  birthdate: string | null;
-
-  @Column("int", { nullable: true })
-  points: number | null;
+  image: string | null;
 
   @Column("varchar", { nullable: true })
-  referral_link: string | null;
+  email: string | null;
+
+  @Column("tinyint", { nullable: true })
+  is_joined: number | null;
+
+  @Column("tinyint", { nullable: true })
+  is_password_genereated: number | null;
+
+  @Column("varchar", { nullable: true })
+  password: string | null;
+
+  @Column("tinyint", { nullable: true })
+  is_active: number | null;
 
   @Column("varchar", { nullable: true })
   status: string | null;
@@ -50,55 +50,51 @@ export class UserModel extends ModelTemplate {
   @Column("int", { nullable: true })
   updated_by: number | null;
 
-  @Column("int")
-  admin_ref: number;
+  @OneToMany(() => UserModel, (users) => users.adminUser)
+  users: UserModel[];
 
-  @ManyToOne(() => AdminUserModel, (adminUserModel) => adminUserModel.users)
-  @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
-  adminUser: AdminUserModel;
-
-  @OneToMany(() => PointRedeemModel, (pointRedeem) => pointRedeem.user)
+  @OneToMany(() => PointRedeemModel, (pointRedeem) => pointRedeem.adminUser)
   pointRedeem: PointRedeemModel[];
 
   @OneToMany(
     () => PointRedeemDetailModel,
-    (pointRedeemDetail) => pointRedeemDetail.user
+    (pointRedeemDetail) => pointRedeemDetail.adminUser
   )
   pointRedeemDetail: PointRedeemDetailModel[];
 
-  @OneToMany(() => PointActionModel, (pointAction) => pointAction.user)
+  @OneToMany(() => PointActionModel, (pointAction) => pointAction.adminUser)
   pointAction: PointActionModel[];
 
   @OneToMany(
     () => PointActionDetailsModel,
-    (pointActionDetail) => pointActionDetail.user
+    (pointActionDetail) => pointActionDetail.adminUser
   )
   pointActionDetail: PointActionDetailsModel[];
 
-  @OneToMany(() => AppModel, (appModel) => appModel.user)
+  @OneToMany(() => AppModel, (appModel) => appModel.adminUser)
   appModel: AppModel[];
 
   @OneToMany(
     () => LoyalityProgramActivityModel,
-    (loyalityProgramActivity) => loyalityProgramActivity.user
+    (loyalityProgramActivity) => loyalityProgramActivity.adminUser
   )
   loyalityProgramActivity: LoyalityProgramActivityModel[];
 
   @OneToMany(
     () => ReferralProgramActivityModel,
-    (referralProgramActivity) => referralProgramActivity.user
+    (referralProgramActivity) => referralProgramActivity.adminUser
   )
   referralProgramActivity: ReferralProgramActivityModel[];
 
-  @OneToMany(() => ReferralModel, (referralModel) => referralModel.user)
+  @OneToMany(() => ReferralModel, (referralModel) => referralModel.adminUser)
   referralModel: ReferralModel[];
 
   @OneToMany(
     () => VipProgramActivityModel,
-    (vipProgramActivity) => vipProgramActivity.user
+    (vipProgramActivity) => vipProgramActivity.adminUser
   )
   vipProgramActivity: VipProgramActivityModel[];
 
-  @OneToMany(() => VipTierModel, (vipTier) => vipTier.user)
+  @OneToMany(() => VipTierModel, (vipTier) => vipTier.adminUser)
   vipTier: VipTierModel[];
 }

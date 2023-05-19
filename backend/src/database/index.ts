@@ -12,6 +12,7 @@ import { SettingEmailModel } from "./models/settingEmail";
 import { SettingOrderModel } from "./models/settingOrder";
 import { PointRedeemModel } from "./models/pointRedeem";
 import { PointRedeemDetailModel } from "./models/pointRedeemDetail";
+import { AdminUserModel } from "./models/adminUser";
 config();
 
 const MODELS = [
@@ -27,6 +28,7 @@ const MODELS = [
   SettingOrderModel,
   PointRedeemModel,
   PointRedeemDetailModel,
+  AdminUserModel,
 ];
 const AppDataSource = new DataSource({
   type: "mysql",

@@ -8,10 +8,10 @@ export default class LoginRepository {
     this._userModel = AppDataSource.getRepository(UserModel);
   }
 
-  public async login(userName: string): Promise<UserModel | null> {
+  public async login(email: string): Promise<UserModel | null> {
     return await this._userModel.findOne({
-      select: ["password"],
-      where: { userName },
+      select: ["password", "id", "admin_ref"],
+      where: { email },
     });
   }
 }

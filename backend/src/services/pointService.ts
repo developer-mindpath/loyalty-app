@@ -23,6 +23,8 @@ import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailReq
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
+import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
+import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 
 export default class PointService {
   private _pointRepository: PointRepository;
@@ -64,6 +66,14 @@ export default class PointService {
     return pointDetailResponse
       ? pointDetailResponse
       : ({} as GetPointEarnDetailResponse);
+  }
+
+  public async insertEarningDetailsByPointId(
+    insertPointEarnDetailRequestDTO: InsertPointEarnDetailRequestDTO
+  ): Promise<PointActionDetailsModel> {
+    return await this._pointDetailService.insertEarningDetailsByPointId(
+      insertPointEarnDetailRequestDTO
+    );
   }
 
   public async updateEarningDetailsByPointId(

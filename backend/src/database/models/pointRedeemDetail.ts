@@ -1,10 +1,13 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
+import { PointRedeemModel } from "./pointRedeem";
+import { UserModel } from "./user";
 
 @Entity({ name: "point_redeem_detail" })
 export class PointRedeemDetailModel extends ModelTemplate {
-  @Column("int")
-  point_redeem_id: number;
+  @Column("int", { nullable: true })
+  point_redeem_id: number | null;
 
   @Column("varchar", { nullable: true })
   points_type: string | null;
@@ -60,18 +63,36 @@ export class PointRedeemDetailModel extends ModelTemplate {
   @Column("varchar", { nullable: true })
   products: string | null;
 
-  @Column("varchar")
-  status: string;
-
-  @Column("int")
-  user_id: number;
+  @Column("varchar", { nullable: true })
+  status: string | null;
 
   @Column("int")
   admin_ref: number;
 
-  @Column("int")
-  created_by: number;
+  @Column("int", { nullable: true })
+  created_by: number | null;
 
   @Column("int", { nullable: true })
   updated_by: number | null;
+
+  @Column("int")
+  user_id: number;
+
+  @ManyToOne(
+    () => AdminUserModel,
+    (adminUserModel) => adminUserModel.pointRedeemDetail
+  )
+  @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
+  adminUser: AdminUserModel;
+
+  @ManyToOne(() => UserModel, (userModel) => userModel.pointRedeemDetail)
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  user: UserModel;
+
+  @OneToOne(
+    () => PointRedeemModel,
+    (pointRedeem) => pointRedeem.pointRedeemDetail
+  )
+  @JoinColumn({ name: "point_redeem_id", referencedColumnName: "id" })
+  pointRedeem: PointRedeemModel;
 }

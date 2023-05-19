@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import CustomRequest from "../types/request/customRequest";
 import { TLoginResponse } from "../types/response/loginResponse";
 import { TLoginRequest } from "../types/request/loginRequest";

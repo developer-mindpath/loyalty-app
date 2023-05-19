@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { TLoginRequest } from "../types/request/loginRequest";
 import { TLoginResponse } from "../types/response/loginResponse";
 import LoginController from "../controller/loginController";

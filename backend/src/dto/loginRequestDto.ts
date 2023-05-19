@@ -1,11 +1,11 @@
 import { TLoginRequest } from "../types/request/loginRequest";
 
 export default class LoginRequestDTO {
-  userName: string;
+  email: string;
   password: string;
 
   constructor(body: TLoginRequest) {
-    this.userName = body.userName || "";
+    this.email = body.email || "";
     this.password = body.password;
   }
 }
