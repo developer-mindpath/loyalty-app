@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AlphaCard,
   Box,
@@ -11,36 +12,33 @@ import Toggle from "react-toggle";
 import SectionedLayout from "../../components/layouts/sectionedLayout";
 import SectionDivider from "../../components/layouts/sectionDivider";
 import useContextualSave from "../../hooks/useContextualSave";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import {
+  getEmailSettings,
+  settingsActions,
+} from "../../redux/reducers/settings";
 
 const EmailSettings = () => {
-  const [initalState, setInital] = useState<{ bind: boolean }>({
-    bind: false,
-  });
-  const [current, setCurrent] = useState<{ bind: boolean }>(initalState);
+  const dispatch = useAppDispatch();
+  const data = useAppSelector(getEmailSettings);
+  const [initalState, setInital] = useState(data);
 
   const handleSave = () => {
-    setInital(current);
+    setInital(data);
   };
 
   const handleDiscard = () => {
-    setCurrent(initalState);
+    dispatch(settingsActions.setName(initalState.name));
   };
 
-  useContextualSave(initalState, current, {
+  useContextualSave(initalState, data, {
     handleSave,
     handleDiscard,
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("updated current value");
-
-      setCurrent({
-        bind: true,
-      });
-    }, 5000);
-  }, []);
+  const handleChange = (value: string) => {
+    dispatch(settingsActions.setName(value));
+  };
 
   return (
     <Page
@@ -58,6 +56,8 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
+              value={data.name}
+              onChange={handleChange}
               label="From name"
               autoComplete="off"
               helpText="The name of visible to customer receiving your email."

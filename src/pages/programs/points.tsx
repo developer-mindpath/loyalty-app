@@ -39,12 +39,12 @@ const DescPlusButton2 = ({ handleModalOpen2 }: any) => (
 );
 
 const a = [
-  <PointListItem />,
-  <PointListItem />,
-  <PointListItem />,
-  <PointListItem />,
-  <PointListItem />,
-  <PointListItem />,
+  <PointListItem name="Samyak" />,
+  <PointListItem name="Prayag" />,
+  <PointListItem name="Ankit" />,
+  <PointListItem name="Deeplai" />,
+  <PointListItem name="Shivani" />,
+  <PointListItem name="Mayank" />,
 ];
 
 function Points() {

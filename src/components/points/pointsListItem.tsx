@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import Toggle from "react-toggle";
 import {
   AlphaCard,
@@ -12,9 +12,7 @@ import {
 } from "@shopify/polaris";
 import { DragHandleMinor, EditMinor } from "@shopify/polaris-icons";
 
-const PointListItem = (props: any) => {
-  const [checked, setChecked] = useState<boolean>(false);
-
+const PointListItem = ({ name, checked }: any) => {
   return (
     <AlphaCard>
       <HorizontalStack align="space-between" blockAlign="center">
@@ -22,7 +20,7 @@ const PointListItem = (props: any) => {
           <Avatar customer shape="square" />
           <Box paddingInlineStart="4">
             <Text as="p" variant="headingSm">
-              Post a product review
+              {name}
             </Text>
             <Badge>250 Points</Badge>
           </Box>
@@ -37,7 +35,6 @@ const PointListItem = (props: any) => {
                 onChange={(e) => {
                   console.log("Working");
                   e.stopPropagation();
-                  setChecked((old) => !old);
                 }}
                 onClick={() => {
                   console.log("Working Click");

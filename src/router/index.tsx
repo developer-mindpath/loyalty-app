@@ -11,6 +11,8 @@ import Login from "../pages/login";
 import MainLayout from "../layouts/mainLayout";
 import DashboardRoutes from "./auth";
 import ContextualSaveProvider from "../contexts/contextualSave";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 function Link({
   children,
@@ -40,25 +42,27 @@ function Link({
 
 function RouterComponent() {
   return (
-    <BrowserRouter>
-      <AppProvider linkComponent={Link} i18n={{}}>
-        <ContextualSaveProvider>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                <AuthWrapper>
-                  <MainLayout>
-                    <DashboardRoutes />
-                  </MainLayout>
-                </AuthWrapper>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </ContextualSaveProvider>
-      </AppProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppProvider linkComponent={Link} i18n={{}}>
+          <ContextualSaveProvider>
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  <AuthWrapper>
+                    <MainLayout>
+                      <DashboardRoutes />
+                    </MainLayout>
+                  </AuthWrapper>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </ContextualSaveProvider>
+        </AppProvider>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
