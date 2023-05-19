@@ -10,6 +10,7 @@ import AuthWrapper from "../components/guards/auth";
 import Login from "../pages/login";
 import MainLayout from "../layouts/mainLayout";
 import DashboardRoutes from "./auth";
+import ContextualSaveProvider from "../contexts/contextualSave";
 
 function Link({
   children,
@@ -41,19 +42,21 @@ function RouterComponent() {
   return (
     <BrowserRouter>
       <AppProvider linkComponent={Link} i18n={{}}>
-        <Routes>
-          <Route
-            path="*"
-            element={
-              <AuthWrapper>
-                <MainLayout>
-                  <DashboardRoutes />
-                </MainLayout>
-              </AuthWrapper>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+        <ContextualSaveProvider>
+          <Routes>
+            <Route
+              path="*"
+              element={
+                <AuthWrapper>
+                  <MainLayout>
+                    <DashboardRoutes />
+                  </MainLayout>
+                </AuthWrapper>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </ContextualSaveProvider>
       </AppProvider>
     </BrowserRouter>
   );

@@ -141,28 +141,11 @@ function Points() {
               renderList={({ children, props }) => (
                 <ul {...props}>{children}</ul>
               )}
-              renderItem={({ value, isDragged, isSelected, props }) => {
+              renderItem={({ value, props }) => {
                 return (
-                  <li
-                    {...props}
-                    style={{
-                      ...props.style,
-                      padding: "1.5em",
-                      margin: "0.5em 0em",
-                      listStyleType: "none",
-                      cursor: isDragged ? "grabbing" : "grab",
-                      border: "2px solid #CCC",
-                      boxShadow: "3px 3px #AAA",
-                      color: "#333",
-                      borderRadius: "5px",
-                      fontFamily:
-                        'Arial, "Helvetica Neue", Helvetica, sans-serif',
-                      backgroundColor:
-                        isDragged || isSelected ? "#EEE" : "#FFF",
-                    }}
-                  >
+                  <div {...props} style={{ ...props.style, margin: "8px 0px" }}>
                     {a[value]}
-                  </li>
+                  </div>
                 );
               }}
             />

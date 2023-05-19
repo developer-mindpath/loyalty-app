@@ -10,8 +10,38 @@ import {
 import Toggle from "react-toggle";
 import SectionedLayout from "../../components/layouts/sectionedLayout";
 import SectionDivider from "../../components/layouts/sectionDivider";
+import useContextualSave from "../../hooks/useContextualSave";
+import { useEffect, useState } from "react";
 
 const EmailSettings = () => {
+  const [initalState, setInital] = useState<{ bind: boolean }>({
+    bind: false,
+  });
+  const [current, setCurrent] = useState<{ bind: boolean }>(initalState);
+
+  const handleSave = () => {
+    setInital(current);
+  };
+
+  const handleDiscard = () => {
+    setCurrent(initalState);
+  };
+
+  useContextualSave(initalState, current, {
+    handleSave,
+    handleDiscard,
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("updated current value");
+
+      setCurrent({
+        bind: true,
+      });
+    }, 5000);
+  }, []);
+
   return (
     <Page
       title="Email"

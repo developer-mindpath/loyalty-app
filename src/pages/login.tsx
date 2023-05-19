@@ -39,9 +39,10 @@ const Login = () => {
   const handleLogin = useCallback(async () => {
     setIsLoading(true);
     try {
-      await AuthService.login(values);
+      const response = await AuthService.login(values);
       setStatus(true);
       navigate("/");
+      sessionStorage.setItem("token", response.data.token);
     } catch (error) {
       console.error(error);
     }
