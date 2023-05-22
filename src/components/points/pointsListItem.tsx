@@ -12,17 +12,17 @@ import {
 } from "@shopify/polaris";
 import { DragHandleMinor, EditMinor } from "@shopify/polaris-icons";
 
-const PointListItem = ({ name, checked }: any) => {
+const PointListItem = ({ name, icon, checked, points, path }: any) => {
   return (
-    <AlphaCard>
+    <Box paddingBlockStart="4" paddingBlockEnd="4">
       <HorizontalStack align="space-between" blockAlign="center">
         <HorizontalStack>
-          <Avatar customer shape="square" />
+          <Icon source={icon} color="base" />
           <Box paddingInlineStart="4">
             <Text as="p" variant="headingSm">
               {name}
             </Text>
-            <Badge>250 Points</Badge>
+            <Badge>{`${points} Points`}</Badge>
           </Box>
         </HorizontalStack>
 
@@ -47,13 +47,13 @@ const PointListItem = ({ name, checked }: any) => {
           </HorizontalStack>
         </Box>
 
-        <div data-movable-handle style={{ cursor: "pointer" }}>
+        <div data-movable-handle style={{ cursor: "grab" }}>
           <Box>
             <Icon source={DragHandleMinor} />
           </Box>
         </div>
       </HorizontalStack>
-    </AlphaCard>
+    </Box>
   );
 };
 

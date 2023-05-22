@@ -2,50 +2,23 @@ import { useState, useMemo } from "react";
 import Toggle from "react-toggle";
 import { List, arrayMove } from "react-movable";
 import {
-  Card,
   Page,
   Layout,
   FormLayout,
   Banner,
-  Button,
   Modal,
   AlphaCard,
   Text,
   Box,
+  Checkbox,
 } from "@shopify/polaris";
 import PointListItem from "../../components/points/pointsListItem";
 import SectionDivider from "../../components/layouts/sectionDivider";
-
-const DescPlusButton1 = ({ handleModalOpen1 }: any) => (
-  <div>
-    Shopify and your customers will use this information to contact you.
-    <br></br>
-    <br></br>
-    <Button id="addEarnMethod" onClick={handleModalOpen1}>
-      Add More Ways to Earn
-    </Button>
-  </div>
-);
-
-const DescPlusButton2 = ({ handleModalOpen2 }: any) => (
-  <div>
-    Rewards that customers can redeem using their points
-    <br></br>
-    <br></br>
-    <Button id="addEarnMethod" onClick={handleModalOpen2}>
-      Add Another Reward
-    </Button>
-  </div>
-);
-
-const a = [
-  <PointListItem name="Samyak" />,
-  <PointListItem name="Prayag" />,
-  <PointListItem name="Ankit" />,
-  <PointListItem name="Deeplai" />,
-  <PointListItem name="Shivani" />,
-  <PointListItem name="Mayank" />,
-];
+import {
+  CircleTickOutlineMinor,
+  StarOutlineMinor,
+} from "@shopify/polaris-icons";
+import DescriptionButton from "../../components/layouts/descriptionButton";
 
 function Points() {
   const [active, setActive] = useState(false);
@@ -54,7 +27,22 @@ function Points() {
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const statusLabel = useMemo(() => (active ? "on" : "off"), [active]);
-  const [items, setItems] = useState([0, 1, 2, 3, 4, 5]);
+  const [items, setItems] = useState([
+    {
+      name: "Post a Product Review",
+      icon: StarOutlineMinor,
+      checked: true,
+      points: 500,
+      path: "/product-review",
+    },
+    {
+      name: "Complete a Referal",
+      icon: CircleTickOutlineMinor,
+      checked: false,
+      points: 1500,
+      path: "/product-review",
+    },
+  ]);
 
   const handleToggleChange = () => {
     setActive(!active);
@@ -125,12 +113,24 @@ function Points() {
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection
           title="Earn Points"
-          description={<DescPlusButton1 handleModalOpen1={handleModalOpen1} />}
+          description={
+            <DescriptionButton
+              description="Shopify and your customers will use this information to contact you."
+              buttonText="Add More Ways to Earn"
+              onClick={handleModalOpen1}
+            />
+          }
         >
-          <AlphaCard>
-            <Text as="h6" variant="headingMd">
-              Customers will earn points through the actions active below
-            </Text>
+          <AlphaCard padding="0">
+            <Box
+              paddingBlockStart="4"
+              paddingInlineStart="4"
+              paddingInlineEnd="4"
+            >
+              <Text as="h6" variant="headingMd">
+                Customers will earn points through the actions active below
+              </Text>
+            </Box>
             <SectionDivider dense />
             <List
               values={items}
@@ -144,7 +144,7 @@ function Points() {
               renderItem={({ value, props }) => {
                 return (
                   <div {...props} style={{ ...props.style, margin: "8px 0px" }}>
-                    {a[value]}
+                    <PointListItem {...value} />
                   </div>
                 );
               }}
@@ -153,26 +153,43 @@ function Points() {
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection
           title="Redeeming Points"
-          description={<DescPlusButton2 handleModalOpen2={handleModalOpen2} />}
+          description={
+            <DescriptionButton
+              description="Rewards that customers can redeem using their points"
+              buttonText="Add Another Reward"
+              onClick={handleModalOpen2}
+            />
+          }
         >
-          <Card
-            title="Customers can redeem these rewards using their points"
-            sectioned
-          >
-            {/* <Review /> */}
-          </Card>
+          <AlphaCard padding="0">
+            <Box
+              paddingBlockStart="4"
+              paddingInlineStart="4"
+              paddingInlineEnd="4"
+            >
+              <Text as="h6" variant="headingMd">
+                Customers can redeem these rewards using their points
+              </Text>
+            </Box>
+            <SectionDivider dense />
+            <Box padding="4">
+              {items.map((e) => (
+                <PointListItem {...e} />
+              ))}
+            </Box>
+          </AlphaCard>
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection
           title="Earn Points"
           description="Increase engagement by setting customer's points balances to expire after a certain amount of time."
         >
-          <Card
-            title="Reset points balance to zero after a certain period"
-            sectioned
-          ></Card>
+          <AlphaCard>
+            <Box paddingBlockEnd="16">
+              <Checkbox label="Reset points balance to zero after a certain period" />
+            </Box>
+          </AlphaCard>
         </Layout.AnnotatedSection>
       </Layout>
-
       <Modal
         open={isModalOpen1}
         onClose={handleModalClose1}
@@ -197,7 +214,6 @@ function Points() {
           </p>
         </Modal.Section>
       </Modal>
-
       <Modal
         open={isModalOpen2}
         onClose={handleModalClose2}
