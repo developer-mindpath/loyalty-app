@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { AdminActivityModel } from "./adminActivity";
+import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 
-@Entity({ name: "admin_activity_type" })
-export class AdminActivityTypeModel extends ModelTemplate {
+@Entity({ name: "admin_type" })
+export class AdminTypeModel extends ModelTemplate {
   @Column("varchar", { nullable: true })
   title: string | null;
 
@@ -12,6 +12,9 @@ export class AdminActivityTypeModel extends ModelTemplate {
 
   @Column("varchar", { nullable: true })
   description: string | null;
+
+  @Column("tinyint", { nullable: true })
+  is_able_to_delete: number | null;
 
   @Column("tinyint", { nullable: true })
   is_active: number | null;
@@ -25,9 +28,6 @@ export class AdminActivityTypeModel extends ModelTemplate {
   @Column("int", { nullable: true })
   updated_by: number | null;
 
-  @OneToMany(
-    () => AdminActivityModel,
-    (adminActivity) => adminActivity.adminActivityType
-  )
-  adminActivity: AdminActivityModel[];
+  @OneToMany(() => AdminUserModel, (adminUser) => adminUser.adminType)
+  adminUser: AdminUserModel[];
 }

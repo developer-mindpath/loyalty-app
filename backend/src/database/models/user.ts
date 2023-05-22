@@ -1,14 +1,33 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { AppModel } from "./app";
+import { ChecklistActionModel } from "./checklistAction";
+import { CustomerModel } from "./customer";
 import { LoyalityProgramActivityModel } from "./loyalityProgramActivity";
+import { LprPageEmbedModel } from "./lprPageEmbed";
 import { ModelTemplate } from "./modelTemplate";
+import { OnsiteDedicatedPageModel } from "./onsiteDedicatedPage";
+import { OnsiteDedicatedPageBannerModel } from "./onsiteDedicatedPageBanner";
+import { OnsiteDedicatedPageExplainerModel } from "./onsiteDedicatedPageExplainer";
+import { OnsiteDedicatedPageReferralModel } from "./onsiteDedicatedPageReferral";
+import { OnsiteDedicatedPageSectionConfigModel } from "./onsiteDedicatedPageSectionConfig";
+import { OnsiteDedicatedPageVipTierModel } from "./onsiteDedicatedPageVipTier";
+import { OnsiteDedicatedPageWaysToEarnModel } from "./onsiteDedicatedPageWaysToEarn";
+import { OnsiteDedicatedPageWaysToRedeemModel } from "./onsiteDedicatedPageWaysToRedeem";
+import { OnsitePopupModel } from "./onsitePopups";
+import { OnsiteWidgetModel } from "./onsiteWidget";
+import { OnsiteWidgetAdditionalSettingButtonModel } from "./onsiteWidgetAdditionalSettingButton";
+import { OnsiteWidgetAdditionalSettingTextModel } from "./onsiteWidgetAdditionalSettingText";
+import { OnsiteWidgetPanelOrderModel } from "./onsiteWidgetPanelOrder";
+import { PlanFeatureAssignedModel } from "./planFeatureAssigned";
 import { PointActionModel } from "./pointAction";
 import { PointActionDetailsModel } from "./pointActionDetails";
 import { PointRedeemModel } from "./pointRedeem";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
+import { PostModel } from "./post";
 import { ReferralModel } from "./referral";
 import { ReferralProgramActivityModel } from "./referralProgramActivity";
+import { SettingEmailModel } from "./settingEmail";
 import { VipProgramActivityModel } from "./vipProgramActivity";
 import { VipTierModel } from "./vipTier";
 
@@ -101,4 +120,102 @@ export class UserModel extends ModelTemplate {
 
   @OneToMany(() => VipTierModel, (vipTier) => vipTier.user)
   vipTier: VipTierModel[];
+
+  @OneToMany(
+    () => ChecklistActionModel,
+    (checklistAction) => checklistAction.user
+  )
+  checklistAction: ChecklistActionModel[];
+
+  @OneToMany(() => SettingEmailModel, (settingEmail) => settingEmail.user)
+  settingEmail: SettingEmailModel[];
+
+  @OneToMany(() => CustomerModel, (customer) => customer.user)
+  customer: CustomerModel[];
+
+  @OneToMany(() => LprPageEmbedModel, (lprPageEmbed) => lprPageEmbed.user)
+  lprPageEmbed: LprPageEmbedModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageModel,
+    (onsiteDedicatedPage) => onsiteDedicatedPage.user
+  )
+  onsiteDedicatedPage: OnsiteDedicatedPageModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageBannerModel,
+    (onsiteDedicatedPageBanner) => onsiteDedicatedPageBanner.user
+  )
+  onsiteDedicatedPageBanner: OnsiteDedicatedPageBannerModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageExplainerModel,
+    (onsiteDedicatedPageExplainer) => onsiteDedicatedPageExplainer.user
+  )
+  onsiteDedicatedPageExplainer: OnsiteDedicatedPageExplainerModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageReferralModel,
+    (onsiteDedicatedPageReferral) => onsiteDedicatedPageReferral.user
+  )
+  onsiteDedicatedPageReferral: OnsiteDedicatedPageReferralModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageSectionConfigModel,
+    (onsiteDedicatedPageSectionConfig) => onsiteDedicatedPageSectionConfig.user
+  )
+  onsiteDedicatedPageSectionConfig: OnsiteDedicatedPageSectionConfigModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageVipTierModel,
+    (onsiteDedicatedPageVipTier) => onsiteDedicatedPageVipTier.user
+  )
+  onsiteDedicatedPageVipTier: OnsiteDedicatedPageVipTierModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageWaysToEarnModel,
+    (onsiteDedicatedPageWaysToEarn) => onsiteDedicatedPageWaysToEarn.user
+  )
+  onsiteDedicatedPageWaysToEarn: OnsiteDedicatedPageWaysToEarnModel[];
+
+  @OneToMany(
+    () => OnsiteDedicatedPageWaysToRedeemModel,
+    (onsiteDedicatedPageWaysToRedeem) => onsiteDedicatedPageWaysToRedeem.user
+  )
+  onsiteDedicatedPageWaysToRedeem: OnsiteDedicatedPageWaysToRedeemModel[];
+
+  @OneToMany(() => OnsitePopupModel, (onsitePopup) => onsitePopup.user)
+  onsitePopup: OnsitePopupModel[];
+
+  @OneToMany(() => OnsiteWidgetModel, (onsiteWidget) => onsiteWidget.user)
+  onsiteWidget: OnsiteWidgetModel[];
+
+  @OneToMany(
+    () => OnsiteWidgetAdditionalSettingButtonModel,
+    (onsiteWidgetAdditionalSettingButton) =>
+      onsiteWidgetAdditionalSettingButton.user
+  )
+  onsiteWidgetAdditionalSettingButton: OnsiteWidgetAdditionalSettingButtonModel[];
+
+  @OneToMany(
+    () => OnsiteWidgetAdditionalSettingTextModel,
+    (onsiteWidgetAdditionalSettingText) =>
+      onsiteWidgetAdditionalSettingText.user
+  )
+  onsiteWidgetAdditionalSettingText: OnsiteWidgetAdditionalSettingTextModel[];
+
+  @OneToMany(
+    () => OnsiteWidgetPanelOrderModel,
+    (onsiteWidgetPanelOrder) => onsiteWidgetPanelOrder.user
+  )
+  onsiteWidgetPanelOrder: OnsiteWidgetPanelOrderModel[];
+
+  @OneToMany(
+    () => PlanFeatureAssignedModel,
+    (planFeatureAssigned) => planFeatureAssigned.user
+  )
+  planFeatureAssigned: PlanFeatureAssignedModel[];
+
+  @OneToMany(() => PostModel, (post) => post.user)
+  post: PostModel[];
 }
