@@ -3,6 +3,8 @@ import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { UserModel } from "./user";
 import { VipProgramActivityModel } from "./vipProgramActivity";
+import { VipTierAdditionalBenefitsModel } from "./vipTierAdditionalBenefits";
+import { VipTierRewardsModel } from "./vipTierRewards";
 
 @Entity({ name: "vip_tier" })
 export class VipTierModel extends ModelTemplate {
@@ -49,4 +51,16 @@ export class VipTierModel extends ModelTemplate {
   @ManyToOne(() => AdminUserModel, (adminUser) => adminUser.vipTier)
   @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
   adminUser: AdminUserModel;
+
+  @OneToMany(
+    () => VipTierAdditionalBenefitsModel,
+    (vipTierAdditionalBenefit) => vipTierAdditionalBenefit.vipTier
+  )
+  vipTierAdditionalBenefit: VipTierAdditionalBenefitsModel[];
+
+  @OneToMany(
+    () => VipTierRewardsModel,
+    (vipTierRewards) => vipTierRewards.vipTier
+  )
+  vipTierRewards: VipTierRewardsModel[];
 }

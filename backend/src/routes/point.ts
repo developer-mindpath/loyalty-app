@@ -92,7 +92,7 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePointRedeemRequest>,
   QueryParams
->("/redeem/:rewardKey/:userId", (...arg) =>
+>("/redeem/:pointRedeemId/:userId", (...arg) =>
   pointController.updatePointRedeem(...arg)
 );
 

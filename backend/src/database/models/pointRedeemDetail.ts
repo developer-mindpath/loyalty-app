@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { PointRedeemModel } from "./pointRedeem";
@@ -89,7 +89,7 @@ export class PointRedeemDetailModel extends ModelTemplate {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   user: UserModel;
 
-  @OneToOne(
+  @ManyToOne(
     () => PointRedeemModel,
     (pointRedeem) => pointRedeem.pointRedeemDetail
   )

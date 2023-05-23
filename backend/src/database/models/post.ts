@@ -2,6 +2,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { PostCommentModel } from "./postComment";
+import { PostNotificationModel } from "./postNotification";
+import { PostVoteModel } from "./postVote";
 import { UserModel } from "./user";
 
 @Entity({ name: "post" })
@@ -46,4 +48,13 @@ export class PostModel extends ModelTemplate {
 
   @OneToMany(() => PostCommentModel, (postComment) => postComment.post)
   postComment: PostCommentModel[];
+
+  @OneToMany(
+    () => PostNotificationModel,
+    (postNotification) => postNotification.post
+  )
+  postNotification: PostNotificationModel[];
+
+  @OneToMany(() => PostVoteModel, (postVote) => postVote.post)
+  postVote: PostVoteModel[];
 }

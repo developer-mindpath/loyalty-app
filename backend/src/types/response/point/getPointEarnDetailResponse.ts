@@ -1,5 +1,3 @@
-import { Timestamp } from "typeorm";
-
 export type GetPointEarnDetailResponse = {
   id: number;
   point_action_id: number;
@@ -14,5 +12,5 @@ export type GetPointEarnDetailResponse = {
   admin_ref: number;
   created_by: number;
   updated_by: number | null;
-  create_at: Timestamp;
+  created_at: Date;
 };

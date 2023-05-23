@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { LoyalityProgramActivityModel } from "./loyalityProgramActivity";
 import { ModelTemplate } from "./modelTemplate";
@@ -58,11 +51,11 @@ export class PointActionModel extends ModelTemplate {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   user: UserModel;
 
-  @OneToOne(
+  @OneToMany(
     () => PointActionDetailsModel,
     (pointActionDetail) => pointActionDetail.pointAction
   )
-  pointActionDetail: PointActionDetailsModel;
+  pointActionDetail: PointActionDetailsModel[];
 
   @OneToMany(
     () => LoyalityProgramActivityModel,

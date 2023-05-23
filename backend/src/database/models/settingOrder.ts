@@ -1,5 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
+import { UserModel } from "./user";
 
 @Entity({ name: "settings" })
 export class SettingOrderModel extends ModelTemplate {
@@ -47,4 +49,12 @@ export class SettingOrderModel extends ModelTemplate {
 
   @Column("int", { nullable: true })
   updated_by: number | null;
+
+  @ManyToOne(() => AdminUserModel, (adminUser) => adminUser.settingOrder)
+  @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
+  adminUser: AdminUserModel;
+
+  @ManyToOne(() => UserModel, (user) => user.settingOrder)
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  user: UserModel;
 }

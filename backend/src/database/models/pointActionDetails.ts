@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { AppModel } from "./app";
 import { ModelTemplate } from "./modelTemplate";
@@ -54,7 +54,7 @@ export class PointActionDetailsModel extends ModelTemplate {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   user: UserModel;
 
-  @OneToOne(
+  @ManyToOne(
     () => PointActionModel,
     (pointAction) => pointAction.pointActionDetail
   )

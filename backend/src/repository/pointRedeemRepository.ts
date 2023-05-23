@@ -28,10 +28,10 @@ export default class PointRedeemRepository {
     updatePointRedeemRequestDTO: UpdatePointRedeemRequestDTO
   ): Promise<UpdateResult> {
     const user_id = updatePointRedeemRequestDTO.user_id;
-    const reward_key = updatePointRedeemRequestDTO.reward_key;
-    lodash.omit(updatePointRedeemRequestDTO, ["user_id", "reward_key"]);
+    const id = updatePointRedeemRequestDTO.pointRedeemId;
+    lodash.omit(updatePointRedeemRequestDTO, ["user_id", "pointRedeemId"]);
     return await this._pointRedeemModel.update(
-      { user_id, reward_key },
+      { user_id, id },
       updatePointRedeemRequestDTO
     );
   }

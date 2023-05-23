@@ -34,12 +34,24 @@ import { PointRedeemModel } from "./pointRedeem";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
 import { PostModel } from "./post";
 import { PostCommentModel } from "./postComment";
+import { PostCommentLikeModel } from "./postCommentLike";
+import { PostCommentReplyModel } from "./postCommentReply";
+import { PostNotificationModel } from "./postNotification";
+import { PostVoteModel } from "./postVote";
+import { ProgramModel } from "./program";
+import { ProgramEmailModel } from "./programEmail";
 import { ReferralModel } from "./referral";
 import { ReferralProgramActivityModel } from "./referralProgramActivity";
 import { SettingEmailModel } from "./settingEmail";
+import { SettingOrderModel } from "./settingOrder";
 import { UserModel } from "./user";
+import { UserCurrentPlanModel } from "./userCurrentPlan";
+import { UserPaymentModel } from "./userPayment";
+import { VipModel } from "./vip";
 import { VipProgramActivityModel } from "./vipProgramActivity";
 import { VipTierModel } from "./vipTier";
+import { VipTierAdditionalBenefitsModel } from "./vipTierAdditionalBenefits";
+import { VipTierRewardsModel } from "./vipTierRewards";
 
 @Entity({ name: "admin_user" })
 export class AdminUserModel extends ModelTemplate {
@@ -266,4 +278,58 @@ export class AdminUserModel extends ModelTemplate {
 
   @OneToMany(() => PostCommentModel, (postComment) => postComment.adminUser)
   postComment: PostCommentModel[];
+
+  @OneToMany(
+    () => PostCommentLikeModel,
+    (postCommentLike) => postCommentLike.adminUser
+  )
+  postCommentLike: PostCommentLikeModel[];
+
+  @OneToMany(
+    () => PostCommentReplyModel,
+    (postCommentReply) => postCommentReply.adminUser
+  )
+  postCommentReply: PostCommentReplyModel[];
+
+  @OneToMany(
+    () => PostNotificationModel,
+    (postNotification) => postNotification.adminUser
+  )
+  postNotification: PostNotificationModel[];
+
+  @OneToMany(() => PostVoteModel, (postVote) => postVote.adminUser)
+  postVote: PostVoteModel[];
+
+  @OneToMany(() => ProgramModel, (program) => program.adminUser)
+  program: ProgramModel[];
+
+  @OneToMany(() => ProgramEmailModel, (programEmail) => programEmail.adminUser)
+  programEmail: ProgramEmailModel[];
+
+  @OneToMany(() => SettingOrderModel, (settingOrder) => settingOrder.adminUser)
+  settingOrder: SettingOrderModel[];
+
+  @OneToMany(
+    () => UserCurrentPlanModel,
+    (userCurrentPlan) => userCurrentPlan.adminUser
+  )
+  userCurrentPlan: UserCurrentPlanModel[];
+
+  @OneToMany(() => UserPaymentModel, (userPayment) => userPayment.adminUser)
+  userPayment: UserPaymentModel[];
+
+  @OneToMany(() => VipModel, (vip) => vip.adminUser)
+  vip: VipModel[];
+
+  @OneToMany(
+    () => VipTierAdditionalBenefitsModel,
+    (vipTierAdditionalBenefit) => vipTierAdditionalBenefit.adminUser
+  )
+  vipTierAdditionalBenefit: VipTierAdditionalBenefitsModel[];
+
+  @OneToMany(
+    () => VipTierRewardsModel,
+    (vipTierRewards) => vipTierRewards.adminUser
+  )
+  vipTierRewards: VipTierRewardsModel[];
 }

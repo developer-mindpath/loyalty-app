@@ -25,9 +25,18 @@ import { PointActionDetailsModel } from "./pointActionDetails";
 import { PointRedeemModel } from "./pointRedeem";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
 import { PostModel } from "./post";
+import { PostCommentLikeModel } from "./postCommentLike";
+import { PostCommentReplyModel } from "./postCommentReply";
+import { PostVoteModel } from "./postVote";
+import { ProgramModel } from "./program";
+import { ProgramEmailModel } from "./programEmail";
 import { ReferralModel } from "./referral";
 import { ReferralProgramActivityModel } from "./referralProgramActivity";
 import { SettingEmailModel } from "./settingEmail";
+import { SettingOrderModel } from "./settingOrder";
+import { UserCurrentPlanModel } from "./userCurrentPlan";
+import { UserPaymentModel } from "./userPayment";
+import { VipModel } from "./vip";
 import { VipProgramActivityModel } from "./vipProgramActivity";
 import { VipTierModel } from "./vipTier";
 
@@ -218,4 +227,40 @@ export class UserModel extends ModelTemplate {
 
   @OneToMany(() => PostModel, (post) => post.user)
   post: PostModel[];
+
+  @OneToMany(
+    () => PostCommentLikeModel,
+    (postCommentLike) => postCommentLike.user
+  )
+  postCommentLike: PostCommentLikeModel[];
+
+  @OneToMany(
+    () => PostCommentReplyModel,
+    (postCommentReply) => postCommentReply.user
+  )
+  postCommentReply: PostCommentReplyModel[];
+
+  @OneToMany(() => PostVoteModel, (postVote) => postVote.user)
+  postVote: PostVoteModel[];
+
+  @OneToMany(() => ProgramModel, (program) => program.user)
+  program: ProgramModel[];
+
+  @OneToMany(() => ProgramEmailModel, (programEmail) => programEmail.user)
+  programEmail: ProgramEmailModel[];
+
+  @OneToMany(() => SettingOrderModel, (settingOrder) => settingOrder.user)
+  settingOrder: SettingOrderModel[];
+
+  @OneToMany(
+    () => UserCurrentPlanModel,
+    (userCurrentPlan) => userCurrentPlan.user
+  )
+  userCurrentPlan: UserCurrentPlanModel[];
+
+  @OneToMany(() => UserPaymentModel, (userPayment) => userPayment.user)
+  userPayment: UserPaymentModel[];
+
+  @OneToMany(() => VipModel, (vip) => vip.user)
+  vip: VipModel[];
 }

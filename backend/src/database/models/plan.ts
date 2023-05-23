@@ -2,6 +2,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { PlanFeatureAssignedModel } from "./planFeatureAssigned";
+import { UserCurrentPlanModel } from "./userCurrentPlan";
+import { UserPaymentModel } from "./userPayment";
 
 @Entity({ name: "plan" })
 export class PlanModel extends ModelTemplate {
@@ -44,4 +46,13 @@ export class PlanModel extends ModelTemplate {
     (planFeatureAssigned) => planFeatureAssigned.plan
   )
   planFeatureAssigned: PlanFeatureAssignedModel[];
+
+  @OneToMany(
+    () => UserCurrentPlanModel,
+    (userCurrentPlan) => userCurrentPlan.plan
+  )
+  userCurrentPlan: UserCurrentPlanModel[];
+
+  @OneToMany(() => UserPaymentModel, (userPayment) => userPayment.plan)
+  userPayment: UserPaymentModel[];
 }

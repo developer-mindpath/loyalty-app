@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
 import { UserModel } from "./user";
+import { VipTierRewardsModel } from "./vipTierRewards";
 
 @Entity({ name: "point_redeem" })
 export class PointRedeemModel extends ModelTemplate {
@@ -47,9 +48,15 @@ export class PointRedeemModel extends ModelTemplate {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   user: UserModel;
 
-  @OneToOne(
+  @OneToMany(
     () => PointRedeemDetailModel,
     (pointRedeemDetail) => pointRedeemDetail.pointRedeem
   )
-  pointRedeemDetail: PointRedeemDetailModel;
+  pointRedeemDetail: PointRedeemDetailModel[];
+
+  @OneToMany(
+    () => VipTierRewardsModel,
+    (vipTierRewards) => vipTierRewards.pointRedeem
+  )
+  vipTierRewards: VipTierRewardsModel[];
 }

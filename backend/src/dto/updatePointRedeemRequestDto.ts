@@ -2,6 +2,7 @@ import { UpdateRedeemPointsParams } from "../types/request/params";
 import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRedeemRequest";
 
 export default class UpdatePointRedeemRequestDTO {
+  reward_key: string;
   reward_key_key_display_text: string;
   reward_icon: string;
   reward_description: string;
@@ -10,12 +11,13 @@ export default class UpdatePointRedeemRequestDTO {
   admin_ref: number;
   updated_by: number;
   user_id: number;
-  reward_key: string;
+  pointRedeemId: number;
 
   constructor(
     body: UpdatePointRedeemRequest,
     params: UpdateRedeemPointsParams
   ) {
+    this.reward_key = body.reward_key;
     this.reward_key_key_display_text = body.reward_key_key_display_text;
     this.reward_icon = body.reward_icon;
     this.reward_description = body.reward_description;
@@ -24,6 +26,6 @@ export default class UpdatePointRedeemRequestDTO {
     this.admin_ref = body.admin_ref;
     this.updated_by = body.updated_by;
     this.user_id = params.userId;
-    this.reward_key = params.rewardKey;
+    this.pointRedeemId = params.pointRedeemId;
   }
 }

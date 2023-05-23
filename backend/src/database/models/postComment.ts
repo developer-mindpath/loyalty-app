@@ -1,7 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
 import { PostModel } from "./post";
+import { PostCommentLikeModel } from "./postCommentLike";
+import { PostCommentReplyModel } from "./postCommentReply";
 
 @Entity({ name: "post_comment" })
 export class PostCommentModel extends ModelTemplate {
@@ -36,4 +38,16 @@ export class PostCommentModel extends ModelTemplate {
   @ManyToOne(() => PostModel, (post) => post.postComment)
   @JoinColumn({ name: "post_id", referencedColumnName: "id" })
   post: PostModel;
+
+  @OneToMany(
+    () => PostCommentLikeModel,
+    (postCommentLike) => postCommentLike.postComment
+  )
+  postCommentLike: PostCommentLikeModel[];
+
+  @OneToMany(
+    () => PostCommentReplyModel,
+    (postCommentReply) => postCommentReply.postComment
+  )
+  postCommentReply: PostCommentReplyModel[];
 }
