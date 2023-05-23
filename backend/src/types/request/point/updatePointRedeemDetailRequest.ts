@@ -19,4 +19,5 @@ export type UpdatePointRedeemDetailRequest = {
   products: string;
   status: string;
   admin_ref: number;
+  updated_by: number;
 };

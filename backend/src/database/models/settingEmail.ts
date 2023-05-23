@@ -1,5 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { AdminUserModel } from "./adminUser";
 import { ModelTemplate } from "./modelTemplate";
+import { UserModel } from "./user";
 
 @Entity({ name: "email_config" })
 export class SettingEmailModel extends ModelTemplate {
@@ -62,4 +64,15 @@ export class SettingEmailModel extends ModelTemplate {
 
   @Column("int", { nullable: true })
   updated_by: number | null;
+
+  @ManyToOne(() => UserModel, (userModel) => userModel.settingEmail)
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  user: UserModel;
+
+  @ManyToOne(
+    () => AdminUserModel,
+    (adminUserModel) => adminUserModel.settingEmail
+  )
+  @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
+  adminUser: AdminUserModel;
 }

@@ -10,8 +10,12 @@ export type RewardKey = {
   rewardKey: string;
 };
 
-export type pointRedeemId = {
+export type PointRedeemId = {
   pointRedeemId: number;
+};
+
+export type ReferralId = {
+  referralId: number;
 };
 
 export type GetEarnDetailParams = PointActionId;
@@ -22,7 +26,10 @@ export type GetOrderSettingParams = UserId;
 export type UpdateOrderSettingParams = UserId;
 export type UpdateEmailSettingParams = UserId;
 export type GetRedeemPointsParams = UserId;
-export type UpdateRedeemPointsParams = UserId & RewardKey;
-export type GetRedeemPointDetailParams = UserId & pointRedeemId;
-export type UpdateRedeemPointDetailParams = UserId & pointRedeemId;
-export type DeleteRedeemPointDetailParams = UserId & pointRedeemId;
+export type UpdateRedeemPointsParams = UserId & PointRedeemId;
+export type GetRedeemPointDetailParams = UserId & PointRedeemId;
+export type UpdateRedeemPointDetailParams = UserId & PointRedeemId;
+export type DeleteRedeemPointDetailParams = UserId & PointRedeemId;
+export type GetReferralProgramParams = UserId & ReferralId;
+export type UpdateReferralProgramParams = ReferralId;
+export type DeleteReferralProgramParams = ReferralId;

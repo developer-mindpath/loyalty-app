@@ -1,8 +1,6 @@
-import { Timestamp } from "typeorm";
-
 export type GetPointRedeemDetailResponse = {
   id: number;
-  point_redeem_id: number;
+  point_redeem_id: number | null;
   points_type: string | null;
   fixed_points_amount: string | null;
   fixed_points_discount: string | null;
@@ -21,10 +19,10 @@ export type GetPointRedeemDetailResponse = {
   purchase_type: string | null;
   reward_expiry: number | null;
   products: string | null;
-  status: string;
+  status: string | null;
   user_id: number;
   admin_ref: number;
-  created_by: number;
-  create_at: Timestamp;
-  update_at: Timestamp | null;
+  created_by: number | null;
+  created_at: Date;
+  updated_at: Date | null;
 };

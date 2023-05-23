@@ -1,30 +1,47 @@
+import { DeleteResult, UpdateResult } from "typeorm";
+import ReferralRepository from "../repository/referralRepository";
 import { ReferralModel } from "../database/models/referral";
-import { Repository } from "typeorm";
-import AppDataSource from "../database";
+import InsertReferralProgramRequestDTO from "../dto/insertReferralProgramRequestDto";
+import { GetReferralProgramParams } from "../types/request/params";
+import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
+import UpdateReferralProgramRequestDTO from "src/dto/updateReferralProgramRequestDto";
 
 export default class ReferralService {
-  private _referralRepository: Repository<ReferralModel>;
-
+  private _referralRepository: ReferralRepository;
   constructor() {
-    this._referralRepository = AppDataSource.getRepository(ReferralModel);
+    this._referralRepository = new ReferralRepository();
   }
 
-  public async getReferral(id: number) {
-    return await this._referralRepository.findOne({
-      select: [
-        "id",
-        "enable",
-        "points_amount",
-        "points_limit",
-        "selected_option",
-        "review_app",
-        "limit_count_enabled",
-      ],
-      where: { id },
-    });
+  public async insertReferralProgram(
+    insertReferralProgramRequestDTO: InsertReferralProgramRequestDTO
+  ): Promise<ReferralModel> {
+    return await this._referralRepository.insertReferralProgram(
+      insertReferralProgramRequestDTO
+    );
   }
 
-  public async updateReferral(id: number, data: any) {
-    await this._referralRepository.update({ id }, { ...data });
+  public async getReferralProgram(
+    params: GetReferralProgramParams
+  ): Promise<GetReferralProgramResponse> {
+    const referalResponse = await this._referralRepository.getReferralProgram(
+      params
+    );
+    return referalResponse
+      ? referalResponse
+      : ({} as GetReferralProgramResponse);
+  }
+
+  public async updateReferralProgram(
+    updateReferralProgramRequestDTO: UpdateReferralProgramRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._referralRepository.updateReferralProgram(
+      updateReferralProgramRequestDTO
+    );
+  }
+
+  public async deleteReferralProgram(
+    referralId: number
+  ): Promise<DeleteResult> {
+    return await this._referralRepository.deleteReferralProgram(referralId);
   }
 }
