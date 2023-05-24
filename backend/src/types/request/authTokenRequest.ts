@@ -1,3 +1,4 @@
 export type AuthTokenRequest = {
-  userName: string;
+  email: string;
+  userId: number;
 };

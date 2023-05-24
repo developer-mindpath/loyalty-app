@@ -1,5 +1,9 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { AdminUserModel } from "./adminUser";
+import { LoyalityProgramActivityModel } from "./loyalityProgramActivity";
 import { ModelTemplate } from "./modelTemplate";
+import { PointActionDetailsModel } from "./pointActionDetails";
+import { UserModel } from "./user";
 
 @Entity({ name: "point_action" })
 export class PointActionModel extends ModelTemplate {
@@ -35,4 +39,27 @@ export class PointActionModel extends ModelTemplate {
 
   @Column("int")
   updated_by: number;
+
+  @ManyToOne(
+    () => AdminUserModel,
+    (adminUserModel) => adminUserModel.pointAction
+  )
+  @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
+  adminUser: AdminUserModel;
+
+  @ManyToOne(() => UserModel, (userModel) => userModel.pointAction)
+  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  user: UserModel;
+
+  @OneToMany(
+    () => PointActionDetailsModel,
+    (pointActionDetail) => pointActionDetail.pointAction
+  )
+  pointActionDetail: PointActionDetailsModel[];
+
+  @OneToMany(
+    () => LoyalityProgramActivityModel,
+    (loyalityProgramActivity) => loyalityProgramActivity.pointAction
+  )
+  loyalityProgramActivity: LoyalityProgramActivityModel[];
 }

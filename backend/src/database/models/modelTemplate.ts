@@ -1,10 +1,8 @@
 import {
-  BeforeInsert,
-  BeforeUpdate,
-  Column,
+  CreateDateColumn,
   Index,
   PrimaryGeneratedColumn,
-  Timestamp,
+  UpdateDateColumn,
 } from "typeorm";
 
 export abstract class ModelTemplate {
@@ -12,19 +10,31 @@ export abstract class ModelTemplate {
   @Index({ unique: true })
   public id: number;
 
-  @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
-  public create_at: Timestamp;
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+  })
+  public created_at: Date;
 
-  @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
-  public update_at: Timestamp;
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
+  })
+  public updated_at: Date;
+  // @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
+  // public create_at: Timestamp;
 
-  @BeforeInsert()
-  createTimestamp() {
-    this.create_at = new Date().getTime() as unknown as Timestamp;
-  }
+  // @Column("timestamp", { default: () => "CURRENT_TIMESTAMP" })
+  // public update_at: Timestamp;
 
-  @BeforeUpdate()
-  updateTimestamp() {
-    this.update_at = new Date().getTime() as unknown as Timestamp;
-  }
+  // @BeforeInsert()
+  // createTimestamp() {
+  //   this.create_at = new Date().getTime() as unknown as Timestamp;
+  // }
+
+  // @BeforeUpdate()
+  // updateTimestamp() {
+  //   this.update_at = new Date().getTime() as unknown as Timestamp;
+  // }
 }

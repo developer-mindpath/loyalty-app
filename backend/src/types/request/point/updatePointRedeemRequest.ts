@@ -1,4 +1,5 @@
 export type UpdatePointRedeemRequest = {
+  reward_key: string;
   reward_key_key_display_text: string;
   reward_icon: string;
   reward_description: string;

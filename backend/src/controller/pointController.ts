@@ -31,6 +31,8 @@ import InsertPointRedeemDetailRequestDTO from "../dto/insertPointRedeemDetailReq
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailRequestDto";
+import { InsertPointEarnDetailRequest } from "../types/request/point/insertPointEarnDetailRequest";
+import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
 
 export default class PointController {
   private _pointService: PointService;
@@ -104,6 +106,35 @@ export default class PointController {
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = pointResponse;
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertEarningDetailsByPointId(
+    req: CustomRequest<
+      IEmptyObject,
+      IEmptyObject,
+      InsertPointEarnDetailRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertPointEarnDetailRequestDTO =
+        new InsertPointEarnDetailRequestDTO(req.body);
+      await this._pointService.insertEarningDetailsByPointId(
+        insertPointEarnDetailRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
       res.status(StatusCodes.OK).send(response);
     } catch (error) {
       if (error instanceof Error) {

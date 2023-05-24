@@ -4,6 +4,7 @@ import AppDataSource from "../database";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import UpdatePointEarnDetailRequestDTO from "../dto/updatePointEarnDetailRequestDto";
+import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
 
 export default class PointDetailRepository {
   private _pointActionDetailModel: Repository<PointActionDetailsModel>;
@@ -19,6 +20,14 @@ export default class PointDetailRepository {
     return await this._pointActionDetailModel.findOne({
       where: { point_action_id: pointId },
     });
+  }
+
+  public async insertEarningDetailsByPointId(
+    insertPointEarnDetailRequestDTO: InsertPointEarnDetailRequestDTO
+  ): Promise<PointActionDetailsModel> {
+    return await this._pointActionDetailModel.save(
+      insertPointEarnDetailRequestDTO
+    );
   }
 
   public async updateEarningDetailsByPointId(

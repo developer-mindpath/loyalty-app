@@ -16,7 +16,7 @@ export default class LoginService {
   public async login(
     loginRequestDTO: LoginRequestDTO
   ): Promise<TLoginResponse> {
-    const data = await this._loginRepository.login(loginRequestDTO.userName);
+    const data = await this._loginRepository.login(loginRequestDTO.email);
 
     if (!data) {
       throw new ExpressError(
@@ -39,8 +39,11 @@ export default class LoginService {
 
     return {
       token: generateAuthToken({
-        userName: data.userName,
+        email: data.email,
+        userId: data.id,
       }),
+      user_id: data.id,
+      admin_ref: data.admin_ref,
     };
   }
 }
