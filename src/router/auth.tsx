@@ -18,12 +18,15 @@ import ShareActivity from "../pages/programs/earn/share";
 import SignUpActivity from "../pages/programs/earn/signUp";
 import BirthdayActivity from "../pages/programs/earn/birthday";
 import OrderActivity from "../pages/programs/earn/order";
+import FeedbackPage from "../pages/fedback";
+import CouponActivity from "../pages/programs/earn/coupon";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/points/earning_rules" element={<SetRule />} />
     <Route path="/customers" element={<Customers />} />
+    <Route path="/feedback" element={<FeedbackPage />} />
     {/* Programs */}
     <Route path="/programs/points" element={<Points />} />
     <Route
@@ -38,6 +41,7 @@ const DashboardRoutes = (): JSX.Element => (
       element={<BirthdayActivity />}
     />
     <Route path="/programs/points/order/:id" element={<OrderActivity />} />
+    <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
     {/* Settings */}
     <Route path="/settings" element={<Settings />} />
     <Route path="settings/general" element={<GeneralSettings />} />

@@ -12,7 +12,6 @@ const useContextualSave = <T>(
 ): void => {
   const contextualSave = useContextualSaveContext();
   // We only need to save the inital state on initalization
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initalState = useMemo(() => inital, [inital]);
   const isEqual = useMemo(
     () => _.isEqual(initalState, current),

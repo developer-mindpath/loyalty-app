@@ -5,7 +5,6 @@ import {
   PageActions,
   FormLayout,
   TextField,
-  Form,
   Loading,
   Frame,
   Toast,
@@ -16,7 +15,7 @@ import AuthService from "../service/authService";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [status, setStatus] = useState<boolean>(false);
+  const [toast, setToast] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [values, setValues] = useState({
     email: "",
@@ -25,7 +24,7 @@ const Login = () => {
 
   const loadingMarkup = isLoading ? <Loading /> : null;
 
-  const toastMarkup = status ? (
+  const toastMarkup = toast ? (
     <Toast content="Redirecting.." duration={3000} onDismiss={() => ({})} />
   ) : null;
 
@@ -40,9 +39,9 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await AuthService.login(values);
-      setStatus(true);
+      sessionStorage.setItem("token", response.token);
+      setToast(true);
       navigate("/");
-      sessionStorage.setItem("token", response.data.token);
     } catch (error) {
       console.error(error);
     }
@@ -52,42 +51,40 @@ const Login = () => {
   return (
     <Frame>
       {loadingMarkup}
-      <Form onSubmit={() => ({})}>
-        <Page narrowWidth title="Login">
-          <AlphaCard>
-            <FormLayout>
-              <Text as="p" variant="headingMd">
-                Account
-              </Text>
-              <TextField
-                autoComplete="email"
-                value={values.email}
-                type="email"
-                name="email"
-                label="Account email"
-                onChange={handleInputChange("email")}
-              />
-              <TextField
-                autoComplete="password"
-                label="Password"
-                value={values.password}
-                name="password"
-                onChange={handleInputChange("password")}
-                type="password"
-              />
-            </FormLayout>
-          </AlphaCard>
-          <PageActions
-            primaryAction={{
-              loading: isLoading,
-              content: "Login",
-              onAction: handleLogin,
-              disabled: isLoading,
-            }}
-          />
-          {toastMarkup}
-        </Page>
-      </Form>
+      <Page narrowWidth title="Login">
+        <AlphaCard>
+          <FormLayout>
+            <Text as="p" variant="headingMd">
+              Account
+            </Text>
+            <TextField
+              autoComplete="email"
+              value={values.email}
+              type="email"
+              name="email"
+              label="Account email"
+              onChange={handleInputChange("email")}
+            />
+            <TextField
+              autoComplete="password"
+              label="Password"
+              value={values.password}
+              name="password"
+              onChange={handleInputChange("password")}
+              type="password"
+            />
+          </FormLayout>
+        </AlphaCard>
+        <PageActions
+          primaryAction={{
+            loading: isLoading,
+            content: "Login",
+            onAction: handleLogin,
+            disabled: isLoading,
+          }}
+        />
+        {toastMarkup}
+      </Page>
     </Frame>
   );
 };
