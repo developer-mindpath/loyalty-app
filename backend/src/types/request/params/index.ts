@@ -18,6 +18,10 @@ export type ReferralId = {
   referralId: number;
 };
 
+export type EmailProgramId = {
+  emailProgramId: number;
+};
+
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
@@ -33,3 +37,8 @@ export type DeleteRedeemPointDetailParams = UserId & PointRedeemId;
 export type GetReferralProgramParams = UserId & ReferralId;
 export type UpdateReferralProgramParams = ReferralId;
 export type DeleteReferralProgramParams = ReferralId;
+export type GetEmailNotificationProgramParams = EmailProgramId;
+export type GetEmailNotificationsProgramParams = UserId;
+export type UpdateEmailNotificationProgramParams = EmailProgramId;
+export type DeleteEmailNotificationProgramParams = EmailProgramId;
+export type GetLoyaltyProgramActivityParams = UserId;

@@ -12,6 +12,7 @@ export default class InsertPointEarnDetailRequestDTO {
   admin_ref: number;
   created_by: number;
   point_action_id: number;
+  user_id: number;
 
   constructor(body: InsertPointEarnDetailRequest) {
     this.app_id = body.app_id;
@@ -25,5 +26,6 @@ export default class InsertPointEarnDetailRequestDTO {
     this.admin_ref = body.admin_ref;
     this.created_by = body.created_by;
     this.point_action_id = body.point_action_id;
+    this.user_id = body.user_id;
   }
 }

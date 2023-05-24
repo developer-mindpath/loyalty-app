@@ -19,6 +19,8 @@ import { UpdateEmailSettingRequest } from "../types/request/setting/updateEmailS
 import { UpdateOrderSettingRequest } from "../types/request/setting/updateOrderSettingRequest";
 import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailSettingRequest";
 import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
+import { doValidation } from "../helper/joi";
+import settingValidations from "../requestValidator/setting";
 
 const settingController = new SettingController();
 const router = express.Router();
@@ -28,7 +30,7 @@ router.get<
   ResponseBody<GetEmailSettingResponse>,
   RequestBody,
   QueryParams
->("/email/:userId", (...arg) =>
+>("/email/:userId", doValidation(settingValidations[0]), (...arg) =>
   settingController.getEmailSettingByUserId(...arg)
 );
 
@@ -37,7 +39,7 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateEmailSettingRequest>,
   QueryParams
->("/email/:userId", (...arg) =>
+>("/email/:userId", doValidation(settingValidations[1]), (...arg) =>
   settingController.updateEmailSettingByUserId(...arg)
 );
 
@@ -46,14 +48,16 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertEmailSettingRequest>,
   QueryParams
->("/email", (...arg) => settingController.insertEmailSettingByUserId(...arg));
+>("/email", doValidation(settingValidations[2]), (...arg) =>
+  settingController.insertEmailSettingByUserId(...arg)
+);
 
 router.get<
   PathParams<GetOrderSettingParams>,
   ResponseBody<GetOrderSettingResponse>,
   RequestBody,
   QueryParams
->("/order/:userId", (...arg) =>
+>("/order/:userId", doValidation(settingValidations[3]), (...arg) =>
   settingController.getOrderSettingByUserId(...arg)
 );
 
@@ -62,7 +66,7 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateOrderSettingRequest>,
   QueryParams
->("/order/:userId", (...arg) =>
+>("/order/:userId", doValidation(settingValidations[4]), (...arg) =>
   settingController.updateOrderSettingByUserId(...arg)
 );
 
@@ -71,6 +75,8 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertOrderSettingRequest>,
   QueryParams
->("/order", (...arg) => settingController.insertOrderSettingByUserId(...arg));
+>("/order", doValidation(settingValidations[5]), (...arg) =>
+  settingController.insertOrderSettingByUserId(...arg)
+);
 
 module.exports = { router, basePath: "/api/setting" };

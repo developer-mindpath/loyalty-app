@@ -10,4 +10,5 @@ export type InsertPointEarnDetailRequest = {
   limit_count_enabled: number;
   admin_ref: number;
   created_by: number;
+  user_id: number;
 };

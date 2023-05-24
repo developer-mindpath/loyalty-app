@@ -1,0 +1,21 @@
+export type GetEmailNotificationResponse = {
+  id: number;
+  email_notification_key: string | null;
+  email_notification_enabled: number | null;
+  email_notification_subject: string | null;
+  email_notfication_title: string | null;
+  email_notfication_subtitle: string | null;
+  email_notfication_button: string | null;
+  email_notfication_subtext: string | null;
+  email_notfication_footer_text: string | null;
+  email_notfication_footer_address: string | null;
+  email_notfication_unsubscribe_text: string | null;
+  email_notfication_subscription_source: string | null;
+  status: string | null;
+  created_by: number | null;
+  updated_by: number | null;
+  user_id: number | null;
+  admin_ref: number | null;
+  created_at: Date;
+  updated_at: Date;
+};

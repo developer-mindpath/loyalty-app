@@ -24,11 +24,8 @@ export default class SettingOrderRepository {
     updateOrderSettingRequestDTO: UpdateOrderSettingRequestDTO
   ): Promise<UpdateResult> {
     const user_id = updateOrderSettingRequestDTO.user_id;
-    lodash.omit(updateOrderSettingRequestDTO, ["user_id"]);
-    return await this._settingOrderModel.update(
-      { user_id },
-      updateOrderSettingRequestDTO
-    );
+    const data = lodash.omit(updateOrderSettingRequestDTO, ["user_id"]);
+    return await this._settingOrderModel.update({ user_id }, data);
   }
 
   public async insertOrderSettingByUserId(
