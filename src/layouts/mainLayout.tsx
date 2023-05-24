@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Frame, TopBar, Navigation, Collapsible } from "@shopify/polaris";
+import { Frame, TopBar, Navigation, Collapsible, Box } from "@shopify/polaris";
 import {
   HomeMinor,
   ColorsMajor,
@@ -24,17 +24,6 @@ const StyledSubNav = styled.div`
   }
 `;
 
-const ArrowIcon = styled.div`
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-left: 2px solid #d5ebff;
-  border-bottom: 2px solid #d5ebff;
-  transform: rotate(135deg);
-  margin-left: 6px;
-  margin-bottom: 2px;
-`;
-
 interface IMainLayoutProps {
   children: JSX.Element;
 }
@@ -51,18 +40,6 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
     []
   );
 
-  const renderArrowIcon = (itemIndex: number) => {
-    const isExpanded = expandedItems.includes(itemIndex);
-    return (
-      <ArrowIcon
-        style={{
-          transform: isExpanded ? "rotate(-45deg)" : "rotate(-135deg)",
-          transition: "transform 0.3s ease",
-        }}
-      />
-    );
-  };
-
   const toggleExpandedItem = useCallback(
     (itemIndex: number) => {
       if (expandedItems.includes(itemIndex)) {
@@ -76,7 +53,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    navigate("/logout");
+    navigate("/login");
   };
 
   const userMenuMarkup = (
@@ -313,7 +290,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
       showMobileNavigation={mobileNavigationActive}
       onNavigationDismiss={toggleMobileNavigationActive}
     >
-      {children}
+      <Box paddingBlockEnd="24">{children}</Box>
     </Frame>
   );
 };

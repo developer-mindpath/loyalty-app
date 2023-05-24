@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import ContextualSaveBar from "../components/ContextualSaveBar";
-import { Frame } from "@shopify/polaris";
 import { useLocation } from "react-router-dom";
 
 export interface IFireContextualSaveContext {
@@ -65,14 +64,12 @@ const ContextualSaveProvider = ({ children }: IContextualSaveProvider) => {
 
   return (
     <ContextualSaveContext.Provider value={value}>
+      <ContextualSaveBar
+        showSaveBar={isVisible}
+        handleSave={data.handleSave}
+        handleDiscard={data.handleDiscard}
+      />
       {children}
-      <Frame>
-        <ContextualSaveBar
-          showSaveBar={isVisible}
-          handleSave={data.handleSave}
-          handleDiscard={data.handleDiscard}
-        />
-      </Frame>
     </ContextualSaveContext.Provider>
   );
 };

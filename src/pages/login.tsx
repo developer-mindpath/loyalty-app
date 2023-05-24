@@ -6,7 +6,6 @@ import {
   FormLayout,
   TextField,
   Loading,
-  Frame,
   Toast,
   Text,
 } from "@shopify/polaris";
@@ -49,7 +48,7 @@ const Login = () => {
   }, [navigate, values]);
 
   return (
-    <Frame>
+    <>
       {loadingMarkup}
       <Page narrowWidth title="Login">
         <AlphaCard>
@@ -85,7 +84,7 @@ const Login = () => {
         />
         {toastMarkup}
       </Page>
-    </Frame>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
-import { IResponseWithBody } from "../types";
-import APIUtils from "../utils/api";
+// import { IResponseWithBody } from "../types";
+// import APIUtils from "../utils/api";
 
 interface ILoginRequest {
   email: string;
@@ -20,13 +20,15 @@ class AuthService {
    * @returns {ILoginResponse}
    */
   public static async login(payload: ILoginRequest): Promise<ILoginResponse> {
-    const response = await APIUtils.send<IResponseWithBody<ILoginResponse>>({
-      url: "/api/login",
-      method: "POST",
-      data: payload,
-    });
+    // const response = await APIUtils.send<IResponseWithBody<ILoginResponse>>({
+    //   url: "/api/login",
+    //   method: "POST",
+    //   data: payload,
+    // });
 
-    return response.data.body;
+    return {
+      token: "Test Token",
+    };
   }
 }
 

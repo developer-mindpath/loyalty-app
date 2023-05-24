@@ -4,7 +4,7 @@ import {
   BrowserRouter,
   Link as ReactRouterLink,
 } from "react-router-dom";
-import { AppProvider } from "@shopify/polaris";
+import { AppProvider, Frame } from "@shopify/polaris";
 import { LinkLikeComponentProps } from "@shopify/polaris/build/ts/latest/src/utilities/link";
 import AuthWrapper from "../components/guards/auth";
 import Login from "../pages/login";
@@ -45,21 +45,30 @@ function RouterComponent() {
     <Provider store={store}>
       <BrowserRouter>
         <AppProvider linkComponent={Link} i18n={{}}>
-          <ContextualSaveProvider>
-            <Routes>
-              <Route
-                path="*"
-                element={
-                  <AuthWrapper>
-                    <MainLayout>
-                      <DashboardRoutes />
-                    </MainLayout>
-                  </AuthWrapper>
-                }
-              />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </ContextualSaveProvider>
+          <Frame>
+            <ContextualSaveProvider>
+              <Routes>
+                <Route
+                  path="*"
+                  element={
+                    <AuthWrapper>
+                      <MainLayout>
+                        <DashboardRoutes />
+                      </MainLayout>
+                    </AuthWrapper>
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <AuthWrapper reverseGuard>
+                      <Login />
+                    </AuthWrapper>
+                  }
+                />
+              </Routes>
+            </ContextualSaveProvider>
+          </Frame>
         </AppProvider>
       </BrowserRouter>
     </Provider>
