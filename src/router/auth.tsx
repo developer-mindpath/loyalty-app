@@ -21,6 +21,8 @@ import OrderActivity from "../pages/programs/earn/order";
 import FeedbackPage from "../pages/fedback";
 import CouponActivity from "../pages/programs/earn/coupon";
 import ConfigPage from "../pages/branding/Config";
+import EmailProgram from "../pages/programs/emails/emails";
+import EditEmailProgram from "../pages/programs/emails/edit";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
@@ -30,6 +32,8 @@ const DashboardRoutes = (): JSX.Element => (
     <Route path="/feedback" element={<FeedbackPage />} />
     {/* Programs */}
     <Route path="/programs/points" element={<Points />} />
+    <Route path="/programs/email" element={<EmailProgram />} />
+    <Route path="/programs/email/:id" element={<EditEmailProgram />} />
     <Route
       path="/programs/points/product_review/:id"
       element={<ProductReviewActivity />}
@@ -43,7 +47,7 @@ const DashboardRoutes = (): JSX.Element => (
     />
     <Route path="/programs/points/order/:id" element={<OrderActivity />} />
     <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
-    <Route path="/display/widget" element={<ConfigPage />} />
+    {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
     {/* Settings */}
     <Route path="/settings" element={<Settings />} />
     <Route path="settings/general" element={<GeneralSettings />} />
