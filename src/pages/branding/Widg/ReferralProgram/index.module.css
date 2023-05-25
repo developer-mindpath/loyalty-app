@@ -1,0 +1,60 @@
+.headTitle {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 10px;
+}
+
+.subheader {
+  padding: 0 12px;
+  margin-bottom: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #737376;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.referralItems {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 15px;
+}
+
+.referralItem {
+  text-align: center;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.clipboard {
+  display: flex;
+  justify-content: space-around;
+}
+.clipboard button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.clipboard button svg {
+  color: #333;
+  width: 18px;
+  height: 18px;
+}
+.referInput {
+  width: 80%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.referLinks {
+  text-align: center;
+  margin: 15px 0;
+}
+.referLinks a {
+  margin: 0 10px;
+}

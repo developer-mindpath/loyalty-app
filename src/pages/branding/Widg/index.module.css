@@ -1,0 +1,60 @@
+.widget {
+  position: relative;
+  background: #fff;
+  width: 376px;
+  max-width: 100%;
+  min-height: 450px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: rgb(0 0 0 / 16%) 0px 5px 40px;
+  padding: 135px 20px 15px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.widget::-webkit-scrollbar {
+  display: none;
+}
+
+.headTitle {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 10px;
+}
+
+.subheader {
+  padding: 0 12px;
+  margin-bottom: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #737376;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.widgetBtn {
+  padding: 15px 30px;
+  font-size: 15px;
+  line-height: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  border: 1px solid transparent;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  margin: 5px auto 15px;
+  width: 80%;
+  cursor: pointer;
+}
+
+.signIn {
+  color: #737376;
+  text-align: center;
+  font-size: 13px;
+  padding: 10px 0;
+}

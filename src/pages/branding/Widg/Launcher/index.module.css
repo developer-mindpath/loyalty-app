@@ -1,0 +1,12 @@
+.launcher {
+  border: none;
+  padding: 14px 18px;
+  line-height: 27px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.launcher svg {
+  float: left;
+}

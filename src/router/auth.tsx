@@ -20,6 +20,7 @@ import BirthdayActivity from "../pages/programs/earn/birthday";
 import OrderActivity from "../pages/programs/earn/order";
 import FeedbackPage from "../pages/fedback";
 import CouponActivity from "../pages/programs/earn/coupon";
+import ConfigPage from "../pages/branding/Config";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
@@ -42,6 +43,7 @@ const DashboardRoutes = (): JSX.Element => (
     />
     <Route path="/programs/points/order/:id" element={<OrderActivity />} />
     <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
+    <Route path="/display/widget" element={<ConfigPage />} />
     {/* Settings */}
     <Route path="/settings" element={<Settings />} />
     <Route path="settings/general" element={<GeneralSettings />} />

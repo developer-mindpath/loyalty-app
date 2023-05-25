@@ -1,0 +1,17 @@
+.headTitle {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 10px;
+}
+
+.subheader {
+  padding: 0 12px;
+  margin-bottom: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #737376;
+  font-size: 14px;
+  font-weight: 400;
+}

@@ -1,0 +1,39 @@
+.widgetHeader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 230px;
+  padding: 30px 20px;
+}
+
+.widgetHeader h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+.widgetHeader h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.widgetHeader button {
+  background: none;
+  border: none;
+  float: left;
+  margin: 0 10px 0 0;
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+}
+
+.widgetHeader button svg {
+  fill: #fff;
+}
+
+.subHeader {
+  margin: 7px 0;
+  font-size: 17px;
+}

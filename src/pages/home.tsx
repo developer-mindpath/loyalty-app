@@ -18,6 +18,7 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+import SectionDivider from "../components/layouts/sectionDivider";
 
 const data = [
   {
@@ -54,8 +55,8 @@ function Home() {
       <Box paddingBlockEnd="4">
         <Layout>
           <Layout.Section secondary>
-            <AlphaCard>
-              <Box>
+            <AlphaCard padding="0">
+              <Box padding="4" paddingBlockEnd="0">
                 <HorizontalStack align="space-between">
                   <Text as="h5" variant="headingMd">
                     Total searches
@@ -67,9 +68,11 @@ function Home() {
                     32
                   </Text>
                 </Box>
-                <Text as="p">SEARCH QUERIES OVER TIME</Text>
+                <Text as="p" variant="headingSm">
+                  SEARCH QUERIES OVER TIME
+                </Text>
               </Box>
-
+              <SectionDivider />
               <Box paddingBlockStart="2">
                 <div style={{ width: "100%", height: 250 }}>
                   <ResponsiveContainer>
@@ -143,77 +146,80 @@ function Home() {
           </Layout.Section>
 
           <Layout.Section secondary>
-            <AlphaCard>
-              <HorizontalStack align="space-between">
-                <Text as="h5" variant="headingMd">
-                  Total clicks
-                </Text>
-                <Button plain>View report</Button>
-              </HorizontalStack>
-              <Box>
-                <Box paddingBlockStart="2" paddingBlockEnd="4">
-                  <Text as="p" variant="bodyLg">
-                    16
+            <AlphaCard padding="0">
+              <Box padding="4" paddingBlockEnd="0">
+                <HorizontalStack align="space-between">
+                  <Text as="h5" variant="headingMd">
+                    Total clicks
+                  </Text>
+                  <Button plain>View report</Button>
+                </HorizontalStack>
+                <Box>
+                  <Box paddingBlockStart="2" paddingBlockEnd="4">
+                    <Text as="p" variant="bodyLg">
+                      16
+                    </Text>
+                  </Box>
+                  <Text as="p" variant="headingSm">
+                    CLICKS OVER TIME
                   </Text>
                 </Box>
-                <Text as="p">CLICKS OVER TIME</Text>
               </Box>
-              <Box paddingBlockStart="2">
-                <div style={{ width: "100%", height: 250 }}>
-                  <ResponsiveContainer>
-                    <LineChart data={data}>
-                      <CartesianGrid strokeDasharray="2 4" />
-                      <Tooltip
-                        contentStyle={{
-                          background: "#232b35",
-                          padding: "9px 12px",
-                          border: "0",
-                          borderRadius: "3px",
-                        }}
-                        labelStyle={{
-                          color: "#fff",
-                          fontSize: "12px",
-                          fontWeight: "bold",
-                          padding: "0",
-                        }}
-                        itemStyle={{
-                          color: "#fff",
-                          fontSize: "12px",
-                          padding: "0",
-                        }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="shirts"
-                        stroke="#9c6ade"
-                        strokeWidth={3}
-                        dot={false}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="hats"
-                        stroke="#47c1bf"
-                        strokeWidth={3}
-                        dot={false}
-                      />
-                      <XAxis
-                        dataKey="name"
-                        stroke="#637381"
-                        axisLine={{ stroke: "#c4cdd5" }}
-                        tickLine={false}
-                      />
-                      <Legend
-                        verticalAlign="bottom"
-                        align="right"
-                        iconType="circle"
-                        formatter={(value) => (
-                          <span style={{ color: "#637381" }}>{value}</span>
-                        )}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </Box>
+              <SectionDivider />
+              <div style={{ width: "100%", height: 250 }}>
+                <ResponsiveContainer>
+                  <LineChart data={data}>
+                    <CartesianGrid strokeDasharray="2 4" />
+                    <Tooltip
+                      contentStyle={{
+                        background: "#232b35",
+                        padding: "9px 12px",
+                        border: "0",
+                        borderRadius: "3px",
+                      }}
+                      labelStyle={{
+                        color: "#fff",
+                        fontSize: "12px",
+                        fontWeight: "bold",
+                        padding: "0",
+                      }}
+                      itemStyle={{
+                        color: "#fff",
+                        fontSize: "12px",
+                        padding: "0",
+                      }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="shirts"
+                      stroke="#9c6ade"
+                      strokeWidth={3}
+                      dot={false}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="hats"
+                      stroke="#47c1bf"
+                      strokeWidth={3}
+                      dot={false}
+                    />
+                    <XAxis
+                      dataKey="name"
+                      stroke="#637381"
+                      axisLine={{ stroke: "#c4cdd5" }}
+                      tickLine={false}
+                    />
+                    <Legend
+                      verticalAlign="bottom"
+                      align="right"
+                      iconType="circle"
+                      formatter={(value) => (
+                        <span style={{ color: "#637381" }}>{value}</span>
+                      )}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </AlphaCard>
           </Layout.Section>
         </Layout>
@@ -221,8 +227,8 @@ function Home() {
 
       <Layout>
         <Layout.Section secondary>
-          <AlphaCard>
-            <Box paddingBlockEnd="2">
+          <AlphaCard padding="0">
+            <Box padding="4">
               <HorizontalStack align="space-between">
                 <Text as="h5" variant="headingMd">
                   Top products searched
@@ -244,8 +250,8 @@ function Home() {
           </AlphaCard>
         </Layout.Section>
         <Layout.Section secondary>
-          <AlphaCard>
-            <Box paddingBlockEnd="2">
+          <AlphaCard padding="0">
+            <Box padding="4">
               <HorizontalStack align="space-between">
                 <Text as="h5" variant="headingMd">
                   Top products clicked

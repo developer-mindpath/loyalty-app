@@ -1,0 +1,31 @@
+.p-colorpicker input {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  margin: 0 5px 0 0;
+}
+.p-colorpicker-panel {
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.drag-list,
+.drag-item {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.drag-item {
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+.drag-item svg {
+  width: 20px;
+  float: left;
+  margin: 0 5px 0 0;
+  fill: #333;
+}
