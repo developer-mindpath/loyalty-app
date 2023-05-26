@@ -1,5 +1,6 @@
-import LoyaltyProgramActivityRepository from "src/repository/loyaltyProgramActivityRepository";
-import { GetLoyaltyProgramActivityResponse } from "src/types/response/activity/getLoyaltyProgramActivityResponse";
+import { GetLoyaltyProgramActivityResponse } from "../types/response/activity/getLoyaltyProgramActivityResponse";
+import LoyaltyProgramActivityRepository from "../repository/loyaltyProgramActivityRepository";
+import PaginationDTO from "../dto/paginationDTO";
 
 export default class LoyaltyProgramActivityService {
   private _loyaltyProgramActivityRepository: LoyaltyProgramActivityRepository;
@@ -9,10 +10,12 @@ export default class LoyaltyProgramActivityService {
   }
 
   public async getLoyaltyProgramActivity(
-    userId: number
-  ): Promise<GetLoyaltyProgramActivityResponse[]> {
+    userId: number,
+    paginationDTO: PaginationDTO
+  ): Promise<Array<GetLoyaltyProgramActivityResponse>> {
     return await this._loyaltyProgramActivityRepository.getLoyaltyProgramActivity(
-      userId
+      userId,
+      paginationDTO
     );
   }
 }

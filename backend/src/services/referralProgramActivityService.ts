@@ -1,4 +1,6 @@
-import ReferralProgramActivityRepository from "src/repository/referralProgramActivityRepository";
+import PaginationDTO from "../dto/paginationDTO";
+import { GetReferralProgramActivityResponse } from "../types/response/activity/getReferralProgramActivityResponse";
+import ReferralProgramActivityRepository from "../repository/referralProgramActivityRepository";
 
 export default class ReferralProgramActivityService {
   private _referralProgramActivityRepository: ReferralProgramActivityRepository;
@@ -8,10 +10,12 @@ export default class ReferralProgramActivityService {
   }
 
   public async getReferralProgramActivity(
-    userId: number
-  ): Promise<GetPointEarnResponse[]> {
+    userId: number,
+    paginationDTO: PaginationDTO
+  ): Promise<Array<GetReferralProgramActivityResponse>> {
     return await this._referralProgramActivityRepository.getReferralProgramActivity(
-      userId
+      userId,
+      paginationDTO
     );
   }
 }

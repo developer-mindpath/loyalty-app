@@ -22,6 +22,11 @@ export type EmailProgramId = {
   emailProgramId: number;
 };
 
+export type Pagination = {
+  page: number;
+  limit: number;
+};
+
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
@@ -42,3 +47,15 @@ export type GetEmailNotificationsProgramParams = UserId;
 export type UpdateEmailNotificationProgramParams = EmailProgramId;
 export type DeleteEmailNotificationProgramParams = EmailProgramId;
 export type GetLoyaltyProgramActivityParams = UserId;
+export type GetReferralProgramActivityParams = UserId;
+export type GetVipProgramActivityParams = UserId;
+export type GetDedicatedPageParams = UserId;
+export type UpdateDedicatedPageParams = UserId;
+export type GetDedicatedPageBannerParams = UserId;
+export type UpdateDedicatedPageBannerParams = UserId;
+export type GetDedicatedPageExplainerParams = UserId;
+export type UpdateDedicatedPageExplainerParams = UserId;
+export type GetDedicatedPageReferralParams = UserId;
+export type UpdateDedicatedPageReferralParams = UserId;
+export type GetDedicatedPageWayToEarnParams = UserId;
+export type UpdateDedicatedPageWayToEarnParams = UserId;

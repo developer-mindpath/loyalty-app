@@ -32,7 +32,7 @@ export class OnsiteDedicatedPageModel extends ModelTemplate {
   @Column("int", { nullable: true })
   updated_by: number | null;
 
-  @Column("int", { nullable: true })
+  @Column("int")
   user_id: number;
 
   @Column("int", { nullable: true })

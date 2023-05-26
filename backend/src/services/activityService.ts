@@ -1,5 +1,7 @@
-import { GetLoyaltyProgramActivityResponse } from "src/types/response/activity/getLoyaltyProgramActivityResponse";
-import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
+import { GetReferralProgramActivityResponse } from "../types/response/activity/getReferralProgramActivityResponse";
+import { GetVipProgramActivityResponse } from "../types/response/activity/getVipProgramActivityResponse";
+import PaginationDTO from "../dto/paginationDTO";
+import { GetLoyaltyProgramActivityResponse } from "../types/response/activity/getLoyaltyProgramActivityResponse";
 import LoyaltyProgramActivityService from "./loyaltyProgramActivityService";
 import ReferralProgramActivityService from "./referralProgramActivityService";
 import VipProgramActivityService from "./vipProgramActivityService";
@@ -15,10 +17,32 @@ export default class ActivityService {
   }
 
   public async getLoyaltyProgramActivity(
-    userId: number
-  ): Promise<GetLoyaltyProgramActivityResponse[]> {
+    userId: number,
+    paginationDTO: PaginationDTO
+  ): Promise<Array<GetLoyaltyProgramActivityResponse>> {
     return await this._loyaltyProgramActivityService.getLoyaltyProgramActivity(
-      userId
+      userId,
+      paginationDTO
+    );
+  }
+
+  public async getReferralProgramActivity(
+    userId: number,
+    paginationDTO: PaginationDTO
+  ): Promise<Array<GetReferralProgramActivityResponse>> {
+    return await this._referralProgramActivityService.getReferralProgramActivity(
+      userId,
+      paginationDTO
+    );
+  }
+
+  public async getVipProgramActivity(
+    userId: number,
+    paginationDTO: PaginationDTO
+  ): Promise<Array<GetVipProgramActivityResponse>> {
+    return await this._vipProgramActivityService.getVipProgramActivity(
+      userId,
+      paginationDTO
     );
   }
 }

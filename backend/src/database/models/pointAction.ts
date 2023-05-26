@@ -7,38 +7,38 @@ import { UserModel } from "./user";
 
 @Entity({ name: "point_action" })
 export class PointActionModel extends ModelTemplate {
-  @Column("varchar")
-  action_key: string;
+  @Column("varchar", { nullable: true })
+  action_key: string | null;
 
-  @Column("varchar")
-  action_key_display_text: string;
+  @Column("varchar", { nullable: true })
+  action_key_display_text: string | null;
 
-  @Column("int")
-  action_visible_order: number;
+  @Column("int", { nullable: true })
+  action_visible_order: number | null;
 
-  @Column("varchar")
-  action_icon: string;
+  @Column("varchar", { nullable: true })
+  action_icon: string | null;
 
-  @Column("varchar")
-  action_description: string;
+  @Column("varchar", { nullable: true })
+  action_description: string | null;
 
-  @Column("tinyint")
-  is_action_enabled: number;
+  @Column("tinyint", { nullable: true })
+  is_action_enabled: number | null;
 
-  @Column("varchar")
-  status: string;
+  @Column("varchar", { nullable: true })
+  status: string | null;
 
   @Column("int")
   user_id: number;
 
-  @Column("int")
-  admin_ref: number;
+  @Column("int", { nullable: true })
+  admin_ref: number | null;
 
-  @Column("int")
-  created_by: number;
+  @Column("int", { nullable: true })
+  created_by: number | null;
 
-  @Column("int")
-  updated_by: number;
+  @Column("int", { nullable: true })
+  updated_by: number | null;
 
   @ManyToOne(
     () => AdminUserModel,
