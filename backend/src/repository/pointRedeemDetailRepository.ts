@@ -41,13 +41,13 @@ export default class PointRedeemDetailRepository {
   ): Promise<UpdateResult> {
     const user_id = updatePointRedeemDetailRequestDTO.user_id;
     const point_redeem_id = updatePointRedeemDetailRequestDTO.point_redeem_id;
-    lodash.omit(updatePointRedeemDetailRequestDTO, [
+    const data = lodash.omit(updatePointRedeemDetailRequestDTO, [
       "user_id",
       "point_redeem_id",
     ]);
     return await this._pointRedeemDetailModel.update(
       { user_id, point_redeem_id },
-      updatePointRedeemDetailRequestDTO
+      data
     );
   }
 

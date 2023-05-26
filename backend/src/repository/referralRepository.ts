@@ -30,12 +30,9 @@ export default class ReferralRepository {
   public async updateReferralProgram(
     updateReferralProgramRequestDTO: UpdateReferralProgramRequestDTO
   ): Promise<UpdateResult> {
-    const referralId = updateReferralProgramRequestDTO.referralId;
-    lodash.omit(updateReferralProgramRequestDTO, ["referralId"]);
-    return await this._referralModel.update(
-      { id: referralId },
-      updateReferralProgramRequestDTO
-    );
+    const id = updateReferralProgramRequestDTO.referralId;
+    const data = lodash.omit(updateReferralProgramRequestDTO, ["referralId"]);
+    return await this._referralModel.update({ id }, data);
   }
 
   public async deleteReferralProgram(

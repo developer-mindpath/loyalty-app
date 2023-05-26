@@ -34,10 +34,9 @@ export default class PointDetailRepository {
     updatePointEarnDetailRequestDTO: UpdatePointEarnDetailRequestDTO
   ): Promise<UpdateResult> {
     const point_action_id = updatePointEarnDetailRequestDTO.point_action_id;
-    lodash.omit(updatePointEarnDetailRequestDTO, ["point_action_id"]);
-    return await this._pointActionDetailModel.update(
-      { point_action_id },
-      updatePointEarnDetailRequestDTO
-    );
+    const data = lodash.omit(updatePointEarnDetailRequestDTO, [
+      "point_action_id",
+    ]);
+    return await this._pointActionDetailModel.update({ point_action_id }, data);
   }
 }

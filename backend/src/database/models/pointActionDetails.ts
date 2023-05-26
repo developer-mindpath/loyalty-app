@@ -38,6 +38,9 @@ export class PointActionDetailsModel extends ModelTemplate {
   admin_ref: number;
 
   @Column("int")
+  user_id: number;
+
+  @Column("int")
   created_by: number;
 
   @Column("int", { nullable: true })

@@ -1,4 +1,5 @@
 export type GetReferralProgramResponse = {
+  id: number;
   referral_friend_title: string | null;
   referral_friend_discount: string | null;
   referral_friend_is_minimum_cart_requirement: number | null;

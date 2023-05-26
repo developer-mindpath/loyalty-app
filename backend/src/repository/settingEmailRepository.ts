@@ -24,11 +24,8 @@ export default class SettingEmailRepository {
     updateEmailSettingRequestDTO: UpdateEmailSettingRequestDTO
   ): Promise<UpdateResult> {
     const user_id = updateEmailSettingRequestDTO.user_id;
-    lodash.omit(updateEmailSettingRequestDTO, ["user_id"]);
-    return await this._settingEmailModel.update(
-      { user_id },
-      updateEmailSettingRequestDTO
-    );
+    const data = lodash.omit(updateEmailSettingRequestDTO, ["user_id"]);
+    return await this._settingEmailModel.update({ user_id }, data);
   }
 
   public async insertEmailSettingByUserId(

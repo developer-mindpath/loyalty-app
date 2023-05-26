@@ -8,6 +8,8 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
+import { doValidation } from "../helper/joi";
+import loginValidations from "../requestValidator/login";
 
 const loginController = new LoginController();
 const router = express.Router();
@@ -17,6 +19,8 @@ router.post<
   ResponseBody<TLoginResponse>,
   RequestBody<TLoginRequest>,
   QueryParams
->("/login", (...arg) => loginController.login(...arg));
+>("/login", doValidation(loginValidations[0]), (...arg) =>
+  loginController.login(...arg)
+);
 
 module.exports = { router, basePath: "/api" };

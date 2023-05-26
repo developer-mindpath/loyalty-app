@@ -15,6 +15,8 @@ import {
 } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
+import { doValidation } from "../helper/joi";
+import referralValidations from "../requestValidator/referral";
 
 const referralController = new ReferralController();
 const router = express.Router();
@@ -24,15 +26,19 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertReferralProgramRequest>,
   QueryParams
->("/program", (...arg) => referralController.insertReferralProgram(...arg));
+>("/referral", doValidation(referralValidations[0]), (...arg) =>
+  referralController.insertReferralProgram(...arg)
+);
 
 router.get<
   PathParams<GetReferralProgramParams>,
   ResponseBody<GetReferralProgramResponse>,
   RequestBody,
   QueryParams
->("/program/:referralId/:userId", (...arg) =>
-  referralController.getReferralProgram(...arg)
+>(
+  "/referral/:referralId/:userId",
+  doValidation(referralValidations[1]),
+  (...arg) => referralController.getReferralProgram(...arg)
 );
 
 router.patch<
@@ -40,7 +46,7 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateReferralProgramRequest>,
   QueryParams
->("/program/:referralId", (...arg) =>
+>("/referral/:referralId", doValidation(referralValidations[2]), (...arg) =>
   referralController.updateReferralProgram(...arg)
 );
 
@@ -49,8 +55,8 @@ router.delete<
   ResponseBody<IEmptyObject>,
   RequestBody<IEmptyObject>,
   QueryParams
->("/program/:referralId", (...arg) =>
+>("/referral/:referralId", doValidation(referralValidations[3]), (...arg) =>
   referralController.deleteReferralProgram(...arg)
 );
 
-module.exports = { router, basePath: "/api/referral" };
+module.exports = { router, basePath: "/api/program" };
