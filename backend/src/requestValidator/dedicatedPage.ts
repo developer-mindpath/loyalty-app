@@ -13,16 +13,24 @@ import {
   GetDedicatedPageExplainerParams,
   GetDedicatedPageParams,
   GetDedicatedPageReferralParams,
+  GetDedicatedPageVipTierParams,
   GetDedicatedPageWayToEarnParams,
+  GetDedicatedPageWayToRedeemParams,
   UpdateDedicatedPageBannerParams,
   UpdateDedicatedPageExplainerParams,
   UpdateDedicatedPageParams,
   UpdateDedicatedPageReferralParams,
+  UpdateDedicatedPageVipTierParams,
   UpdateDedicatedPageWayToEarnParams,
+  UpdateDedicatedPageWayToRedeemParams,
 } from "../types/request/params";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import { InsertDedicatedPageRequest } from "../types/request/dedicatedPage/insertDedicatedPageRequest";
+import { InsertDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/insertDedicatedPageWayToRedeemRequest";
+import { UpdateDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToRedeemRequest";
+import { InsertDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/insertDedicatedPageVipTierRequest";
+import { UpdateDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/updateDedicatedPageVipTierRequest";
 
 export = {
   0: joiValidationRequest<IEmptyObject, InsertDedicatedPageRequest>({
@@ -288,6 +296,88 @@ export = {
   14: joiValidationRequest<
     UpdateDedicatedPageWayToEarnParams,
     UpdateDedicatedPageWayToEarnRequest
+  >({
+    path: {
+      userId: Joi.number().required(),
+    },
+    body: {
+      general_background_color: Joi.string().optional(),
+      general_title_text: Joi.string().optional(),
+      general_subtitle_text: Joi.string().optional(),
+      general_title_font_size: Joi.number().optional(),
+      general_title_font_color: Joi.string().optional(),
+      general_subtitle_font_size: Joi.number().optional(),
+      general_subtitle_font_color: Joi.string().optional(),
+      status: Joi.string().optional(),
+      admin_ref: Joi.number().optional(),
+      updated_by: Joi.number().optional(),
+    },
+  }),
+  15: joiValidationRequest<IEmptyObject, InsertDedicatedPageWayToRedeemRequest>(
+    {
+      body: {
+        general_background_color: Joi.string().optional(),
+        general_title_text: Joi.string().optional(),
+        general_subtitle_text: Joi.string().optional(),
+        general_title_font_size: Joi.number().optional(),
+        general_title_font_color: Joi.string().optional(),
+        general_subtitle_font_size: Joi.number().optional(),
+        general_subtitle_font_color: Joi.string().optional(),
+        status: Joi.string().optional(),
+        user_id: Joi.number().required(),
+        admin_ref: Joi.number().optional(),
+        created_by: Joi.number().optional(),
+      },
+    }
+  ),
+  16: joiValidationRequest<GetDedicatedPageWayToRedeemParams, IEmptyObject>({
+    path: {
+      userId: Joi.number().required(),
+    },
+  }),
+  17: joiValidationRequest<
+    UpdateDedicatedPageWayToRedeemParams,
+    UpdateDedicatedPageWayToRedeemRequest
+  >({
+    path: {
+      userId: Joi.number().required(),
+    },
+    body: {
+      general_background_color: Joi.string().optional(),
+      general_title_text: Joi.string().optional(),
+      general_subtitle_text: Joi.string().optional(),
+      general_title_font_size: Joi.number().optional(),
+      general_title_font_color: Joi.string().optional(),
+      general_subtitle_font_size: Joi.number().optional(),
+      general_subtitle_font_color: Joi.string().optional(),
+      status: Joi.string().optional(),
+      admin_ref: Joi.number().optional(),
+      updated_by: Joi.number().optional(),
+    },
+  }),
+  18: joiValidationRequest<IEmptyObject, InsertDedicatedPageVipTierRequest>({
+    body: {
+      general_background_color: Joi.string().optional(),
+      general_title_text: Joi.string().optional(),
+      general_subtitle_text: Joi.string().optional(),
+      general_title_font_size: Joi.number().optional(),
+      general_title_font_color: Joi.string().optional(),
+      general_subtitle_font_size: Joi.number().optional(),
+      general_subtitle_font_color: Joi.string().optional(),
+      status: Joi.string().optional(),
+      user_id: Joi.number().required(),
+      admin_ref: Joi.number().optional(),
+      created_by: Joi.number().optional(),
+    },
+  }),
+  19: joiValidationRequest<GetDedicatedPageVipTierParams, IEmptyObject>({
+    path: {
+      userId: Joi.number().required(),
+    },
+  }),
+  20: joiValidationRequest<
+    UpdateDedicatedPageVipTierParams,
+    UpdateDedicatedPageVipTierRequest
   >({
     path: {
       userId: Joi.number().required(),

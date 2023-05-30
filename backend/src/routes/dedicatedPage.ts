@@ -10,12 +10,16 @@ import {
   GetDedicatedPageExplainerParams,
   GetDedicatedPageParams,
   GetDedicatedPageReferralParams,
+  GetDedicatedPageVipTierParams,
   GetDedicatedPageWayToEarnParams,
+  GetDedicatedPageWayToRedeemParams,
   UpdateDedicatedPageBannerParams,
   UpdateDedicatedPageExplainerParams,
   UpdateDedicatedPageParams,
   UpdateDedicatedPageReferralParams,
+  UpdateDedicatedPageVipTierParams,
   UpdateDedicatedPageWayToEarnParams,
+  UpdateDedicatedPageWayToRedeemParams,
 } from "../types/request/params";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { doValidation } from "../helper/joi";
@@ -36,6 +40,12 @@ import { UpdateDedicatedPageReferralRequest } from "../types/request/dedicatedPa
 import { InsertDedicatedPageWayToEarnRequest } from "../types/request/dedicatedPage/insertDedicatedPageWayToEarnRequest";
 import { UpdateDedicatedPageWayToEarnRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToEarnRequest";
 import { GetDedicatedPageWayToEarnResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToEarnResponse";
+import { InsertDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/insertDedicatedPageWayToRedeemRequest";
+import { GetDedicatedPageWayToRedeemResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToRedeemResponse";
+import { UpdateDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToRedeemRequest";
+import { InsertDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/insertDedicatedPageVipTierRequest";
+import { UpdateDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/updateDedicatedPageVipTierRequest";
+import { GetDedicatedPageVipTierResponse } from "../types/response/dedicatedPage/getDedicatedPageVipTierResponse";
 
 const dedicatedPageController = new DedicatedPageController();
 const router = express.Router();
@@ -181,6 +191,68 @@ router.patch<
   "/page/wayToEarn/:userId",
   doValidation(dedicatedPageValidations[14]),
   (...arg) => dedicatedPageController.updateDedicatedPageWayToEarn(...arg)
+);
+
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertDedicatedPageWayToRedeemRequest>,
+  QueryParams
+>("/page/wayToRedeem", doValidation(dedicatedPageValidations[15]), (...arg) =>
+  dedicatedPageController.insertDedicatedPageWayToRedeem(...arg)
+);
+
+router.get<
+  PathParams<GetDedicatedPageWayToRedeemParams>,
+  ResponseBody<GetDedicatedPageWayToRedeemResponse>,
+  RequestBody,
+  QueryParams
+>(
+  "/page/wayToRedeem/:userId",
+  doValidation(dedicatedPageValidations[16]),
+  (...arg) => dedicatedPageController.getDedicatedPageWayToRedeem(...arg)
+);
+
+router.patch<
+  PathParams<UpdateDedicatedPageWayToRedeemParams>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<UpdateDedicatedPageWayToRedeemRequest>,
+  QueryParams
+>(
+  "/page/wayToRedeem/:userId",
+  doValidation(dedicatedPageValidations[17]),
+  (...arg) => dedicatedPageController.updateDedicatedPageWayToRedeem(...arg)
+);
+
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertDedicatedPageVipTierRequest>,
+  QueryParams
+>("/page/vipTier", doValidation(dedicatedPageValidations[18]), (...arg) =>
+  dedicatedPageController.insertDedicatedPageVipTier(...arg)
+);
+
+router.get<
+  PathParams<GetDedicatedPageVipTierParams>,
+  ResponseBody<GetDedicatedPageVipTierResponse>,
+  RequestBody,
+  QueryParams
+>(
+  "/page/vipTier/:userId",
+  doValidation(dedicatedPageValidations[19]),
+  (...arg) => dedicatedPageController.getDedicatedPageVipTier(...arg)
+);
+
+router.patch<
+  PathParams<UpdateDedicatedPageVipTierParams>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<UpdateDedicatedPageVipTierRequest>,
+  QueryParams
+>(
+  "/page/vipTier/:userId",
+  doValidation(dedicatedPageValidations[20]),
+  (...arg) => dedicatedPageController.updateDedicatedPageVipTier(...arg)
 );
 
 module.exports = { router, basePath: "/api/dedicated" };

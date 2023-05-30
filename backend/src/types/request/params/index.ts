@@ -59,3 +59,8 @@ export type GetDedicatedPageReferralParams = UserId;
 export type UpdateDedicatedPageReferralParams = UserId;
 export type GetDedicatedPageWayToEarnParams = UserId;
 export type UpdateDedicatedPageWayToEarnParams = UserId;
+export type GetDedicatedPageWayToRedeemParams = UserId;
+export type UpdateDedicatedPageWayToRedeemParams = UserId;
+
+export type GetDedicatedPageVipTierParams = UserId;
+export type UpdateDedicatedPageVipTierParams = UserId;

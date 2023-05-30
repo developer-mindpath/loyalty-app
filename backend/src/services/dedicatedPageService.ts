@@ -24,6 +24,16 @@ import { GetDedicatedPageWayToEarnResponse } from "../types/response/dedicatedPa
 import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/updateDedicatedPageWayToEarnRequestDto";
 import DedicatedPageWayToEarnService from "./dedicatedPageWayToEarnService";
 import { OnsiteDedicatedPageWaysToEarnModel } from "../database/models/onsiteDedicatedPageWaysToEarn";
+import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/insertDedicatedPageWayToRedeemRequestDto";
+import { OnsiteDedicatedPageWaysToRedeemModel } from "../database/models/onsiteDedicatedPageWaysToRedeem";
+import DedicatedPageWayToRedeemService from "./dedicatedPageWayToRedeemService";
+import { GetDedicatedPageWayToRedeemResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToRedeemResponse";
+import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/updateDedicatedPageWayToRedeemRequestDto";
+import InsertDedicatedPageVipTierRequestDTO from "../dto/insertDedicatedPageVipTierRequestDto";
+import { OnsiteDedicatedPageVipTierModel } from "../database/models/onsiteDedicatedPageVipTier";
+import { GetDedicatedPageVipTierResponse } from "../types/response/dedicatedPage/getDedicatedPageVipTierResponse";
+import UpdateDedicatedPageVipTierRequestDTO from "../dto/updateDedicatedPageVipTierRequestDto";
+import DedicatedPageVipTierService from "./dedicatedPageVipTierService";
 
 export default class DedicatedPageService {
   private _dedicatedPageRepository: DedicatedPageRepository;
@@ -31,12 +41,17 @@ export default class DedicatedPageService {
   private _dedicatedPageExplainerService: DedicatedPageExplainerService;
   private _dedicatedPageReferralService: DedicatedPageReferralService;
   private _dedicatedPageWayToEarnService: DedicatedPageWayToEarnService;
+  private _dedicatedPageWayToRedeemService: DedicatedPageWayToRedeemService;
+  private _dedicatedPageVipTierService: DedicatedPageVipTierService;
   constructor() {
     this._dedicatedPageRepository = new DedicatedPageRepository();
     this._dedicatedPageBannerService = new DedicatedPageBannerService();
     this._dedicatedPageExplainerService = new DedicatedPageExplainerService();
     this._dedicatedPageReferralService = new DedicatedPageReferralService();
     this._dedicatedPageWayToEarnService = new DedicatedPageWayToEarnService();
+    this._dedicatedPageWayToRedeemService =
+      new DedicatedPageWayToRedeemService();
+    this._dedicatedPageVipTierService = new DedicatedPageVipTierService();
   }
 
   public async insertDedicatedPage(
@@ -170,6 +185,60 @@ export default class DedicatedPageService {
   ): Promise<UpdateResult> {
     return await this._dedicatedPageWayToEarnService.updateDedicatedPageWayToEarn(
       updateDedicatedPageWayToEarnRequestDTO
+    );
+  }
+
+  public async insertDedicatedPageWayToRedeem(
+    insertDedicatedPageWayToRedeemRequestDTO: InsertDedicatedPageWayToRedeemRequestDTO
+  ): Promise<OnsiteDedicatedPageWaysToRedeemModel> {
+    return await this._dedicatedPageWayToRedeemService.insertDedicatedPageWayToRedeem(
+      insertDedicatedPageWayToRedeemRequestDTO
+    );
+  }
+
+  public async getDedicatedPageWayToRedeem(
+    userId: number
+  ): Promise<GetDedicatedPageWayToRedeemResponse> {
+    const dedicatedPageResponse =
+      await this._dedicatedPageWayToRedeemService.getDedicatedPageWayToRedeem(
+        userId
+      );
+    return dedicatedPageResponse
+      ? dedicatedPageResponse
+      : ({} as GetDedicatedPageWayToRedeemResponse);
+  }
+
+  public async updateDedicatedPageWayToRedeem(
+    updateDedicatedPageWayToRedeemRequestDTO: UpdateDedicatedPageWayToRedeemRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._dedicatedPageWayToRedeemService.updateDedicatedPageWayToRedeem(
+      updateDedicatedPageWayToRedeemRequestDTO
+    );
+  }
+
+  public async insertDedicatedPageVipTier(
+    insertDedicatedPageVipTierRequestDTO: InsertDedicatedPageVipTierRequestDTO
+  ): Promise<OnsiteDedicatedPageVipTierModel> {
+    return await this._dedicatedPageVipTierService.insertDedicatedPageVipTier(
+      insertDedicatedPageVipTierRequestDTO
+    );
+  }
+
+  public async getDedicatedPageVipTier(
+    userId: number
+  ): Promise<GetDedicatedPageVipTierResponse> {
+    const dedicatedPageResponse =
+      await this._dedicatedPageVipTierService.getDedicatedPageVipTier(userId);
+    return dedicatedPageResponse
+      ? dedicatedPageResponse
+      : ({} as GetDedicatedPageVipTierResponse);
+  }
+
+  public async updateDedicatedPageVipTier(
+    updateDedicatedPageVipTierRequestDTO: UpdateDedicatedPageVipTierRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._dedicatedPageVipTierService.updateDedicatedPageVipTier(
+      updateDedicatedPageVipTierRequestDTO
     );
   }
 }
