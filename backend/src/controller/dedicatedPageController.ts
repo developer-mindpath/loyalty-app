@@ -9,12 +9,16 @@ import {
   GetDedicatedPageExplainerParams,
   GetDedicatedPageParams,
   GetDedicatedPageReferralParams,
+  GetDedicatedPageVipTierParams,
   GetDedicatedPageWayToEarnParams,
+  GetDedicatedPageWayToRedeemParams,
   UpdateDedicatedPageBannerParams,
   UpdateDedicatedPageExplainerParams,
   UpdateDedicatedPageParams,
   UpdateDedicatedPageReferralParams,
+  UpdateDedicatedPageVipTierParams,
   UpdateDedicatedPageWayToEarnParams,
+  UpdateDedicatedPageWayToRedeemParams,
 } from "../types/request/params";
 import { InsertDedicatedPageRequest } from "../types/request/dedicatedPage/insertDedicatedPageRequest";
 import InsertDedicatedPageRequestDTO from "../dto/insertDedicatedPageRequestDto";
@@ -42,6 +46,16 @@ import InsertDedicatedPageWayToEarnRequestDTO from "../dto/insertDedicatedPageWa
 import { GetDedicatedPageWayToEarnResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToEarnResponse";
 import { UpdateDedicatedPageWayToEarnRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToEarnRequest";
 import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/updateDedicatedPageWayToEarnRequestDto";
+import { InsertDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/insertDedicatedPageWayToRedeemRequest";
+import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/insertDedicatedPageWayToRedeemRequestDto";
+import { GetDedicatedPageWayToRedeemResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToRedeemResponse";
+import { UpdateDedicatedPageWayToRedeemRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToRedeemRequest";
+import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/updateDedicatedPageWayToRedeemRequestDto";
+import { InsertDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/insertDedicatedPageVipTierRequest";
+import InsertDedicatedPageVipTierRequestDTO from "../dto/insertDedicatedPageVipTierRequestDto";
+import { GetDedicatedPageVipTierResponse } from "../types/response/dedicatedPage/getDedicatedPageVipTierResponse";
+import { UpdateDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/updateDedicatedPageVipTierRequest";
+import UpdateDedicatedPageVipTierRequestDTO from "../dto/updateDedicatedPageVipTierRequestDto";
 
 export default class DedicatedPageController {
   private _dedicatedPageService: DedicatedPageService;
@@ -462,6 +476,181 @@ export default class DedicatedPageController {
         new UpdateDedicatedPageWayToEarnRequestDTO(req.body, req.params.userId);
       await this._dedicatedPageService.updateDedicatedPageWayToEarn(
         updateDedicatedPageWayToEarnRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertDedicatedPageWayToRedeem(
+    req: CustomRequest<
+      IEmptyObject,
+      IEmptyObject,
+      InsertDedicatedPageWayToRedeemRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertDedicatedPageWayToRedeemRequestDTO =
+        new InsertDedicatedPageWayToRedeemRequestDTO(req.body);
+      await this._dedicatedPageService.insertDedicatedPageWayToRedeem(
+        insertDedicatedPageWayToRedeemRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async getDedicatedPageWayToRedeem(
+    req: CustomRequest<
+      GetDedicatedPageWayToRedeemParams,
+      GetDedicatedPageWayToRedeemResponse,
+      IEmptyObject
+    >,
+    res: Response<APIResponse<GetDedicatedPageWayToRedeemResponse>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<GetDedicatedPageWayToRedeemResponse>();
+      const dedicatedPageResponse =
+        await this._dedicatedPageService.getDedicatedPageWayToRedeem(
+          req.params.userId
+        );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = dedicatedPageResponse;
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async updateDedicatedPageWayToRedeem(
+    req: CustomRequest<
+      UpdateDedicatedPageWayToRedeemParams,
+      IEmptyObject,
+      UpdateDedicatedPageWayToRedeemRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const updateDedicatedPageWayToRedeemRequestDTO =
+        new UpdateDedicatedPageWayToRedeemRequestDTO(
+          req.body,
+          req.params.userId
+        );
+      await this._dedicatedPageService.updateDedicatedPageWayToRedeem(
+        updateDedicatedPageWayToRedeemRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertDedicatedPageVipTier(
+    req: CustomRequest<
+      IEmptyObject,
+      IEmptyObject,
+      InsertDedicatedPageVipTierRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertDedicatedPageVipTierRequestDTO =
+        new InsertDedicatedPageVipTierRequestDTO(req.body);
+      await this._dedicatedPageService.insertDedicatedPageVipTier(
+        insertDedicatedPageVipTierRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async getDedicatedPageVipTier(
+    req: CustomRequest<
+      GetDedicatedPageVipTierParams,
+      GetDedicatedPageVipTierResponse,
+      IEmptyObject
+    >,
+    res: Response<APIResponse<GetDedicatedPageVipTierResponse>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<GetDedicatedPageVipTierResponse>();
+      const dedicatedPageResponse =
+        await this._dedicatedPageService.getDedicatedPageVipTier(
+          req.params.userId
+        );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = dedicatedPageResponse;
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async updateDedicatedPageVipTier(
+    req: CustomRequest<
+      UpdateDedicatedPageVipTierParams,
+      IEmptyObject,
+      UpdateDedicatedPageVipTierRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const updateDedicatedPageVipRequestDTO =
+        new UpdateDedicatedPageVipTierRequestDTO(req.body, req.params.userId);
+      await this._dedicatedPageService.updateDedicatedPageVipTier(
+        updateDedicatedPageVipRequestDTO
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;

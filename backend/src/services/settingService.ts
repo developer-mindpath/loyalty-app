@@ -1,7 +1,4 @@
-import { StatusCodes } from "http-status-codes";
 import { UpdateResult } from "typeorm";
-import { ExpressError } from "../helper/errorHandler";
-import constants from "../constants";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
 import SettingEmailService from "./settingEmailService";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
@@ -24,12 +21,6 @@ export default class SettingService {
   public async getEmailSettingByUserId(
     userId: number
   ): Promise<GetEmailSettingResponse> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     const emailSettingResponse =
       await this._settingEmailService.getEmailSettingByUserId(userId);
     return emailSettingResponse
@@ -40,12 +31,6 @@ export default class SettingService {
   public async getOrderSettingByUserId(
     userId: number
   ): Promise<GetOrderSettingResponse> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     const orderSettingResponse =
       await this._settingOrderService.getOrderSettingByUserId(userId);
     return orderSettingResponse
