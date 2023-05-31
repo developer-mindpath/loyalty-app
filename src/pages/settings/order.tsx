@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   AlphaCard,
   Box,
@@ -11,53 +11,88 @@ import {
   VerticalStack,
 } from "@shopify/polaris";
 import { styled } from "styled-components";
+import useContextualSave from "../../hooks/useContextualSave";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import {
+  getOrderSettings,
+  getOrderlLoading,
+  settingsActions,
+} from "../../redux/reducers/settings";
+import {
+  IGetOrderSettingsResponse,
+  IUpdateOrderSettingsRequest,
+} from "../../types";
+import SettingsAction from "../../redux/actions/settingsAction";
 
 const CheckBoxHelpText = styled.p`
   font-size: 12px;
   color: grey;
 `;
 
-interface IPoints {
-  refunded: boolean;
-  partially: boolean;
-  voided: boolean;
-}
-
 const OrdersSettings = () => {
-  const [rewardChannel, setRewardChannel] = useState<string>("online");
-  const [points, setPoints] = useState<IPoints>({
-    refunded: true,
-    partially: false,
-    voided: false,
-  });
+  const dispatch = useAppDispatch();
+  const data = useAppSelector(getOrderSettings);
+  const Loading = useAppSelector(getOrderlLoading);
+  const [initalState, setInital] = useState(data);
 
+  const rewardChannel = data.reward_channel;
+  const points = {
+    refunded: data.points_cancelation_refunde,
+    partially: data.orders_include_partialy_refunded,
+    voided: data.orders_include_voided,
+  };
   const include = {
-    subTotal: true,
-    couponDiscount: true,
-    taxes: true,
-    shipping: true,
+    subTotal: data.orders_subtotal,
+    couponDiscount: data.orders_exclude_subtoken_discount,
+    taxes: data.orders_include_tax,
+    shipping: data.orders_include_shipping,
   };
 
+  useEffect(() => {
+    // TODO - dummy user id to be replaced after login functionality
+    const userId = "dummy id";
+    dispatch(SettingsAction.getOrders(userId));
+  }, [dispatch]);
+
   const handleChangeRewardChannel = useCallback(
-    (key: string) => (_: boolean, newValue: string) => {
-      setRewardChannel(key);
+    (value: string) => (_: boolean, newValue: string) => {
+      dispatch(
+        settingsActions.updateOrderState({ key: "reward_channel", value })
+      );
     },
-    []
+    [dispatch]
   );
 
   const handleChangeRefund = useCallback(
     (key: string) => (_: boolean, newValue: string) => {
-      setPoints({ ...points, [key]: !points[key as keyof IPoints] });
+      const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
+      dispatch(settingsActions.updateOrderState({ key, value }));
     },
-    [points]
+    [data, dispatch]
   );
 
   const handleChangeInclude = useCallback(
     (key: string) => (_: boolean, newValue: string) => {
-      setPoints({ ...points, [key]: !points[key as keyof IPoints] });
+      const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
+      dispatch(settingsActions.updateOrderState({ key, value }));
     },
-    [points]
+    [data, dispatch]
   );
+
+  const handleDiscard = () => {
+    dispatch(settingsActions.setOrderState(initalState));
+    setInital(initalState);
+  };
+
+  const handleSave = () => {
+    //TODO the request type is incompatible with response type with different types for same value hence giving empty object fo now
+    dispatch(SettingsAction.updateOrder({} as IUpdateOrderSettingsRequest));
+  };
+
+  useContextualSave(initalState, data, {
+    handleSave,
+    handleDiscard,
+  });
 
   return (
     <Page
@@ -94,8 +129,8 @@ const OrdersSettings = () => {
                     but before shipping, duties, taxes and tips.
                   </CheckBoxHelpText>
                 }
-                checked={include.subTotal}
-                onChange={() => ({})}
+                checked={Boolean(include.subTotal)}
+                onChange={handleChangeInclude("orders_subtotal")}
               />
               <Checkbox
                 label="Exclude coupon discounts used"
@@ -105,8 +140,10 @@ const OrdersSettings = () => {
                     but before shipping, duties, taxes and tips.
                   </CheckBoxHelpText>
                 }
-                checked={include.couponDiscount}
-                onChange={() => ({})}
+                checked={Boolean(include.couponDiscount)}
+                onChange={handleChangeInclude(
+                  "orders_exclude_subtoken_discount"
+                )}
               />
               <Checkbox
                 label="Include taxes"
@@ -116,8 +153,8 @@ const OrdersSettings = () => {
                     currency
                   </CheckBoxHelpText>
                 }
-                checked={include.taxes}
-                onChange={() => ({})}
+                checked={Boolean(include.taxes)}
+                onChange={handleChangeInclude("orders_include_tax")}
               />
               <Checkbox
                 label="Include shipping"
@@ -127,8 +164,8 @@ const OrdersSettings = () => {
                     and returns, in shop and presentment currencies.
                   </CheckBoxHelpText>
                 }
-                checked={include.shipping}
-                onChange={() => ({})}
+                checked={Boolean(include.shipping)}
+                onChange={handleChangeInclude("orders_include_shipping")}
               />
             </AlphaCard>
           </Layout.Section>
@@ -160,20 +197,22 @@ const OrdersSettings = () => {
               <VerticalStack>
                 <Checkbox
                   label="Refunded"
-                  checked={points.refunded}
-                  onChange={handleChangeRefund("refunded")}
+                  checked={Boolean(points.refunded)}
+                  onChange={handleChangeRefund("points_cancelation_refunde")}
                 />
                 <Box paddingBlockEnd="4" />
                 <Checkbox
                   label="Partially Refunded"
-                  checked={points.partially}
-                  onChange={handleChangeRefund("partially")}
+                  checked={Boolean(points.partially)}
+                  onChange={handleChangeRefund(
+                    "orders_include_partialy_refunded"
+                  )}
                 />
                 <Box paddingBlockEnd="4" />
                 <Checkbox
                   label="Voided"
-                  checked={points.voided}
-                  onChange={handleChangeRefund("voided")}
+                  checked={Boolean(points.voided)}
+                  onChange={handleChangeRefund("orders_include_voided")}
                 />
               </VerticalStack>
             </AlphaCard>

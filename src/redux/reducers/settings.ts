@@ -17,6 +17,7 @@ interface ISettingsState {
     email: IGetEmailSettingsResponse;
     Loading: {
       emailLoading: boolean;
+      orderLoading: boolean;
     };
   };
 }
@@ -24,14 +25,14 @@ interface ISettingsState {
 const initialState: ISettingsState = {
   settingsPage: {
     order: {
-      orders_exclude_subtoken_discount: 0,
-      orders_include_partialy_refunded: 0,
-      orders_include_shipping: 0,
-      orders_include_tax: 0,
-      orders_include_voided: 0,
       orders_subtotal: 0,
+      orders_exclude_subtoken_discount: 0,
+      orders_include_tax: 0,
+      orders_include_shipping: 0,
       points_cancelation_refunde: 0,
-      reward_channel: "0",
+      orders_include_partialy_refunded: 0,
+      orders_include_voided: 0,
+      reward_channel: "online",
       who_can_participate: "any",
     } as IGetOrderSettingsResponse,
     email: {
@@ -43,6 +44,7 @@ const initialState: ISettingsState = {
     } as IGetEmailSettingsResponse,
     Loading: {
       emailLoading: false,
+      orderLoading : false,
     },
   },
 };
@@ -64,6 +66,22 @@ const settingsSlice = createSlice({
       const { key, value } = action.payload;
       state.settingsPage.email = {
         ...state.settingsPage.email,
+        [key]: value,
+      };
+    },
+    setOrderState: (
+      state: ISettingsState,
+      action: PayloadAction<IGetOrderSettingsResponse>
+    ) => {
+      state.settingsPage.order = action.payload;
+    },
+    updateOrderState: (
+      state: ISettingsState,
+      action: PayloadAction<{ key: string; value: string | number }>
+    ) => {
+      const { key, value } = action.payload;
+      state.settingsPage.order = {
+        ...state.settingsPage.order,
         [key]: value,
       };
     },
@@ -97,6 +115,34 @@ const settingsSlice = createSlice({
         state.settingsPage.Loading.emailLoading = false;
       }
     );
+    builder.addCase(
+      SettingsAction.getOrders.pending,
+      (state: ISettingsState) => {
+        state.settingsPage.Loading.orderLoading = true;
+      }
+    );
+    builder.addCase(
+      SettingsAction.getOrders.fulfilled,
+      (
+        state: ISettingsState,
+        action: PayloadAction<IResponseWithBody<IGetOrderSettingsResponse>>
+      ) => {
+        state.settingsPage.order = action.payload.body;
+        state.settingsPage.Loading.orderLoading = false;
+      }
+    );
+    builder.addCase(
+      SettingsAction.updateOrder.pending,
+      (state: ISettingsState) => {
+        state.settingsPage.Loading.orderLoading = true;
+      }
+    );
+    builder.addCase(
+      SettingsAction.updateOrder.fulfilled,
+      (state: ISettingsState) => {
+        state.settingsPage.Loading.orderLoading = false;
+      }
+    );
   },
 });
 
@@ -106,5 +152,9 @@ export const getEmailSettings = (state: IRootState) =>
   state.settings.settingsPage.email;
 export const getEmailLoading = (state: IRootState) =>
   state.settings.settingsPage.Loading.emailLoading;
+export const getOrderSettings = (state: IRootState) =>
+  state.settings.settingsPage.order;
+export const getOrderlLoading = (state: IRootState) =>
+  state.settings.settingsPage.Loading.orderLoading;
 
 export default settingsSlice.reducer;
