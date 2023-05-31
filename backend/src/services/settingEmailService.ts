@@ -1,7 +1,7 @@
 import { UpdateResult } from "typeorm";
 import { SettingEmailModel } from "../database/models/settingEmail";
-import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
-import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/setting/insertEmailSettingRequestDto";
+import UpdateEmailSettingRequestDTO from "../dto/setting/updateEmailSettingRequestDto";
 import SettingEmailRepository from "../repository/settingEmailRepository";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
 

@@ -3,8 +3,8 @@ import lodash from "lodash";
 import { SettingEmailModel } from "../database/models/settingEmail";
 import AppDataSource from "../database";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
-import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
-import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
+import UpdateEmailSettingRequestDTO from "../dto/setting/updateEmailSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/setting/insertEmailSettingRequestDto";
 
 export default class SettingEmailRepository {
   private _settingEmailModel: Repository<SettingEmailModel>;

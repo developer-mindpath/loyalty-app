@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import AppDataSource from "../database";
 import { PointActionModel } from "../database/models/pointAction";
-import PointInsertRequestDTO from "../dto/pointInsertRequestDto";
+import PointInsertRequestDTO from "../dto/point/pointInsertRequestDto";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 
 export default class PointRepository {

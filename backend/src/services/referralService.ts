@@ -1,10 +1,10 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import ReferralRepository from "../repository/referralRepository";
 import { ReferralModel } from "../database/models/referral";
-import InsertReferralProgramRequestDTO from "../dto/insertReferralProgramRequestDto";
+import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
 import { GetReferralProgramParams } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
-import UpdateReferralProgramRequestDTO from "src/dto/updateReferralProgramRequestDto";
+import UpdateReferralProgramRequestDTO from "src/dto/referral/updateReferralProgramRequestDto";
 
 export default class ReferralService {
   private _referralRepository: ReferralRepository;

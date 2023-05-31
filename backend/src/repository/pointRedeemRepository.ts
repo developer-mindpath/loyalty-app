@@ -1,8 +1,8 @@
 import { Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
 import { PointRedeemModel } from "../database/models/pointRedeem";
-import InsertPointRedeemRequestDTO from "../dto/insertPointRedeemRequestDto";
-import UpdatePointRedeemRequestDTO from "../dto/updatePointRedeemRequestDto";
+import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
+import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import AppDataSource from "../database";
 

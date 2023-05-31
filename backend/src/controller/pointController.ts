@@ -5,7 +5,7 @@ import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
 import { PointInsertRequest } from "../types/request/point/pointInsertRequest";
-import PointInsertRequestDTO from "../dto/pointInsertRequestDto";
+import PointInsertRequestDTO from "../dto/point/pointInsertRequestDto";
 import PointService from "../services/pointService";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
@@ -20,19 +20,19 @@ import {
   UpdateRedeemPointsParams,
 } from "../types/request/params";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
-import UpdatePointEarnDetailRequestDTO from "../dto/updatePointEarnDetailRequestDto";
+import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
-import InsertPointRedeemRequestDTO from "../dto/insertPointRedeemRequestDto";
+import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRedeemRequest";
-import UpdatePointRedeemRequestDTO from "../dto/updatePointRedeemRequestDto";
+import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
 import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
-import InsertPointRedeemDetailRequestDTO from "../dto/insertPointRedeemDetailRequestDto";
+import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
-import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailRequestDto";
+import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import { InsertPointEarnDetailRequest } from "../types/request/point/insertPointEarnDetailRequest";
-import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
+import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 
 export default class PointController {
   private _pointService: PointService;

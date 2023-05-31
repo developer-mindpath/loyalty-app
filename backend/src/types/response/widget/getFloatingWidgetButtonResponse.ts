@@ -1,0 +1,22 @@
+export type GetFloatingWidgetButtonResponse = {
+  id: number;
+  desktop_placement: string | null;
+  desktop_padding_side_padding: number | null;
+  desktop_padding_bottom_padding: number | null;
+  desktop_widget_button_type: string | null;
+  desktop_widget_button_shape: string | null;
+  desktop_widget_icon: string | null;
+  mobile_placement: string | null;
+  mobile_padding_side_padding: number | null;
+  mobile_padding_bottom_padding: number | null;
+  mobile_widget_button_type: string | null;
+  mobile_widget_button_shape: string | null;
+  mobile_widget_icon: string | null;
+  status: string | null;
+  created_by: number | null;
+  updated_by: number | null;
+  user_id: number;
+  admin_ref: number | null;
+  created_at: Date;
+  updated_at: Date | null;
+};

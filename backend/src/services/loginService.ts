@@ -5,7 +5,6 @@ import { ExpressError } from "../helper/errorHandler";
 import LoginRepository from "../repository/loginRepository";
 import { TLoginResponse } from "../types/response/loginResponse";
 import { generateAuthToken } from "../helper/jwt";
-import * as passwordHelper from "../helper/bcrypt";
 
 export default class LoginService {
   private _loginRepository: LoginRepository;
@@ -25,12 +24,12 @@ export default class LoginService {
       );
     }
 
-    const isValid = await passwordHelper.verifyPassword(
-      loginRequestDTO.password,
-      data.password
-    );
+    // const isValid = await passwordHelper.verifyPassword(
+    //   loginRequestDTO.password,
+    //   data.password
+    // );
 
-    if (!isValid) {
+    if (loginRequestDTO.password !== data.password) {
       throw new ExpressError(
         StatusCodes.NOT_FOUND,
         constants.VALIDATION_MESSAGE.INVALID_CREDENTIALS

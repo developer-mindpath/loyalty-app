@@ -14,13 +14,13 @@ import { GetEmailSettingResponse } from "../types/response/setting/getEmailSetti
 import SettingService from "../services/settingService";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
 import { UpdateEmailSettingRequest } from "../types/request/setting/updateEmailSettingRequest";
-import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
+import UpdateEmailSettingRequestDTO from "../dto/setting/updateEmailSettingRequestDto";
 import { UpdateOrderSettingRequest } from "../types/request/setting/updateOrderSettingRequest";
-import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
+import UpdateOrderSettingRequestDTO from "../dto/setting/updateOrderSettingRequestDto";
 import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailSettingRequest";
-import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/setting/insertEmailSettingRequestDto";
 import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
-import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
+import InsertOrderSettingRequestDTO from "../dto/setting/insertOrderSettingRequestDto";
 
 export default class SettingController {
   private _settingService: SettingService;

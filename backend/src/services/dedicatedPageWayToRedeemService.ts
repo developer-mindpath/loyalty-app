@@ -1,9 +1,9 @@
 import { UpdateResult } from "typeorm";
 import { OnsiteDedicatedPageWaysToRedeemModel } from "../database/models/onsiteDedicatedPageWaysToRedeem";
-import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/insertDedicatedPageWayToRedeemRequestDto";
+import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/dedicatedPage/insertDedicatedPageWayToRedeemRequestDto";
 import DedicatedPageWayToRedeemRepository from "../repository/dedicatedPageWayToRedeemRepository";
 import { GetDedicatedPageWayToRedeemResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToRedeemResponse";
-import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/updateDedicatedPageWayToRedeemRequestDto";
+import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/dedicatedPage/updateDedicatedPageWayToRedeemRequestDto";
 
 export default class DedicatedPageWayToRedeemService {
   private _dedicatedPageWayToRedeemRepository: DedicatedPageWayToRedeemRepository;

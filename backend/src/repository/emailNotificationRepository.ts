@@ -2,10 +2,10 @@ import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
 import AppDataSource from "../database";
 import { ProgramEmailModel } from "../database/models/programEmail";
-import InsertEmailNotificationRequestDTO from "../dto/insertEmailNotificationRequestDto";
+import InsertEmailNotificationRequestDTO from "../dto/emailNotification/insertEmailNotificationRequestDto";
 import { GetEmailNotificationResponse } from "../types/response/emailNotification/getEmailNotificationResponse";
 import { GetEmailNotificationsResponse } from "../types/response/emailNotification/getEmailNotificationsResponse";
-import UpdateEmailNotificationRequestDTO from "../dto/updateEmailNotificationRequestDto";
+import UpdateEmailNotificationRequestDTO from "../dto/emailNotification/updateEmailNotificationRequestDto";
 
 export default class EmailNotificationRepository {
   private _programEmailModel: Repository<ProgramEmailModel>;

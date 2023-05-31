@@ -3,8 +3,8 @@ import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
-import UpdatePointEarnDetailRequestDTO from "../dto/updatePointEarnDetailRequestDto";
-import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
+import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
+import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 
 export default class PointDetailRepository {
   private _pointActionDetailModel: Repository<PointActionDetailsModel>;

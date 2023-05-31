@@ -1,10 +1,10 @@
 import { DeleteResult, UpdateResult } from "typeorm";
-import InsertEmailNotificationRequestDTO from "../dto/insertEmailNotificationRequestDto";
+import InsertEmailNotificationRequestDTO from "../dto/emailNotification/insertEmailNotificationRequestDto";
 import EmailNotificationRepository from "../repository/emailNotificationRepository";
 import { ProgramEmailModel } from "../database/models/programEmail";
 import { GetEmailNotificationResponse } from "../types/response/emailNotification/getEmailNotificationResponse";
 import { GetEmailNotificationsResponse } from "../types/response/emailNotification/getEmailNotificationsResponse";
-import UpdateEmailNotificationRequestDTO from "../dto/updateEmailNotificationRequestDto";
+import UpdateEmailNotificationRequestDTO from "../dto/emailNotification/updateEmailNotificationRequestDto";
 
 export default class EmailNotificationService {
   private _emailNotificationRepository: EmailNotificationRepository;

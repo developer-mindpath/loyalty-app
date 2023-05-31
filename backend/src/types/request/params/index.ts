@@ -64,3 +64,13 @@ export type UpdateDedicatedPageWayToRedeemParams = UserId;
 
 export type GetDedicatedPageVipTierParams = UserId;
 export type UpdateDedicatedPageVipTierParams = UserId;
+export type GetFloatingWidgetParams = UserId;
+export type UpdateFloatingWidgetParams = UserId;
+export type GetFloatingWidgetButtonParams = UserId;
+export type UpdateFloatingWidgetButtonParams = UserId;
+export type GetFloatingWidgetTextParams = UserId;
+export type UpdateFloatingWidgetTextParams = UserId;
+export type GetPromptsParams = UserId;
+export type UpdatePromptsParams = UserId;
+export type GetAccountEmbedParams = UserId;
+export type UpdateAccountEmbedParams = UserId;
