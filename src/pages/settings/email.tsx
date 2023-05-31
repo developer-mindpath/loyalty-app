@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlphaCard,
   Box,
@@ -14,16 +14,42 @@ import SectionDivider from "../../components/layouts/sectionDivider";
 import useContextualSave from "../../hooks/useContextualSave";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
+  getEmailLoading,
   getEmailSettings,
   settingsActions,
 } from "../../redux/reducers/settings";
+import SettingsAction from "../../redux/actions/settingsAction";
+import _ from "lodash";
+import { IUpdateEmailSettingRequest } from "../../types";
 
 const EmailSettings = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(getEmailSettings);
+  const Loading = useAppSelector(getEmailLoading);
   const [initalState, setInital] = useState(data);
+  const [saveEmailDomain, setsaveEmailDomain] = useState<boolean>(false);
+  const [finalData, setFinalData] = useState(data);
+
+  useEffect(() => {
+    //TODO Giving a dummy id this will be replaced by user id later
+    const id = "dummy id";
+    dispatch(SettingsAction.getEmail(id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!saveEmailDomain) {
+      setFinalData({
+        ...data,
+        custom_email_domain: initalState.custom_email_domain,
+      });
+    } else {
+      setFinalData(data);
+    }
+  }, [data, initalState.custom_email_domain, saveEmailDomain]);
 
   const handleSave = () => {
+    //TODO the request type is incompatible with response type with different types for same value hence giving empty object fo now
+    dispatch(SettingsAction.updateEmail({} as IUpdateEmailSettingRequest));
     setInital(data);
   };
 
@@ -31,7 +57,7 @@ const EmailSettings = () => {
     dispatch(settingsActions.setEmailState(initalState));
   };
 
-  useContextualSave(initalState, data, {
+  useContextualSave(initalState, finalData, {
     handleSave,
     handleDiscard,
   });
@@ -128,7 +154,7 @@ const EmailSettings = () => {
                 label="Domain Name"
               />
             </Box>
-            <Button>Save</Button>
+            <Button onClick={() => setsaveEmailDomain(true)}>Save</Button>
           </AlphaCard>
         </SectionedLayout>
         <SectionDivider />

@@ -17,23 +17,46 @@ const CheckBoxHelpText = styled.p`
   color: grey;
 `;
 
+interface IPoints {
+  refunded: boolean;
+  partially: boolean;
+  voided: boolean;
+}
+
 const OrdersSettings = () => {
-  const [value, setSectionValue] = useState<string>("online");
+  const [rewardChannel, setRewardChannel] = useState<string>("online");
+  const [points, setPoints] = useState<IPoints>({
+    refunded: true,
+    partially: false,
+    voided: false,
+  });
+
   const include = {
     subTotal: true,
     couponDiscount: true,
     taxes: true,
     shipping: true,
   };
-  const points = {
-    refunded: true,
-    partially: true,
-    voided: true,
-  };
 
-  const handleChange = useCallback(
-    (_: boolean, newValue: string) => setSectionValue(newValue),
+  const handleChangeRewardChannel = useCallback(
+    (key: string) => (_: boolean, newValue: string) => {
+      setRewardChannel(key);
+    },
     []
+  );
+
+  const handleChangeRefund = useCallback(
+    (key: string) => (_: boolean, newValue: string) => {
+      setPoints({ ...points, [key]: !points[key as keyof IPoints] });
+    },
+    [points]
+  );
+
+  const handleChangeInclude = useCallback(
+    (key: string) => (_: boolean, newValue: string) => {
+      setPoints({ ...points, [key]: !points[key as keyof IPoints] });
+    },
+    [points]
   );
 
   return (
@@ -138,19 +161,19 @@ const OrdersSettings = () => {
                 <Checkbox
                   label="Refunded"
                   checked={points.refunded}
-                  onChange={() => ({})}
+                  onChange={handleChangeRefund("refunded")}
                 />
                 <Box paddingBlockEnd="4" />
                 <Checkbox
                   label="Partially Refunded"
                   checked={points.partially}
-                  onChange={() => ({})}
+                  onChange={handleChangeRefund("partially")}
                 />
                 <Box paddingBlockEnd="4" />
                 <Checkbox
                   label="Voided"
                   checked={points.voided}
-                  onChange={() => ({})}
+                  onChange={handleChangeRefund("voided")}
                 />
               </VerticalStack>
             </AlphaCard>
@@ -178,24 +201,24 @@ const OrdersSettings = () => {
                 <Box paddingBlockEnd="4">
                   <RadioButton
                     label="Online and POS (Default)"
-                    checked={value === "online-pos"}
+                    checked={rewardChannel === "online-pos"}
                     value="online-pos"
-                    onChange={handleChange}
+                    onChange={handleChangeRewardChannel("online-pos")}
                   />
                 </Box>
                 <Box paddingBlockEnd="4">
                   <RadioButton
                     label="Online"
-                    onChange={handleChange}
+                    onChange={handleChangeRewardChannel("online")}
                     value="online"
-                    checked={value === "online"}
+                    checked={rewardChannel === "online"}
                   />
                 </Box>
                 <Box paddingBlockEnd="4">
                   <RadioButton
                     label="POS"
-                    onChange={handleChange}
-                    checked={value === "POS"}
+                    onChange={handleChangeRewardChannel("POS")}
+                    checked={rewardChannel === "POS"}
                     value="POS"
                   />
                 </Box>
