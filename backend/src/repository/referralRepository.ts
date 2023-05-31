@@ -3,9 +3,9 @@ import lodash from "lodash";
 import { GetReferralProgramParams } from "../types/request/params";
 import AppDataSource from "../database";
 import { ReferralModel } from "../database/models/referral";
-import InsertReferralProgramRequestDTO from "../dto/insertReferralProgramRequestDto";
+import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
-import UpdateReferralProgramRequestDTO from "../dto/updateReferralProgramRequestDto";
+import UpdateReferralProgramRequestDTO from "../dto/referral/updateReferralProgramRequestDto";
 
 export default class ReferralRepository {
   private _referralModel: Repository<ReferralModel>;

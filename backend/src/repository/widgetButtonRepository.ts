@@ -2,9 +2,9 @@ import { Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
 import AppDataSource from "../database";
 import { OnsiteWidgetAdditionalSettingButtonModel } from "../database/models/onsiteWidgetAdditionalSettingButton";
-import InsertFloatingWidgetButtonRequestDTO from "../dto/insertFloatingWidgetButtonRequestDto";
+import InsertFloatingWidgetButtonRequestDTO from "../dto/widget/insertFloatingWidgetButtonRequestDto";
 import { GetFloatingWidgetButtonResponse } from "../types/response/widget/getFloatingWidgetButtonResponse";
-import UpdateFloatingWidgetButtonRequestDTO from "../dto/updateFloatingWidgetButtonRequestDto";
+import UpdateFloatingWidgetButtonRequestDTO from "../dto/widget/updateFloatingWidgetButtonRequestDto";
 
 export default class WidgetButtonRepository {
   private _widgetButtonModel: Repository<OnsiteWidgetAdditionalSettingButtonModel>;

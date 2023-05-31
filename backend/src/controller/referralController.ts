@@ -5,7 +5,7 @@ import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
-import InsertReferralProgramRequestDTO from "../dto/insertReferralProgramRequestDto";
+import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
 import ReferralService from "../services/referralService";
 import {
   DeleteReferralProgramParams,
@@ -14,7 +14,7 @@ import {
 } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
-import UpdateReferralProgramRequestDTO from "../dto/updateReferralProgramRequestDto";
+import UpdateReferralProgramRequestDTO from "../dto/referral/updateReferralProgramRequestDto";
 
 export default class ReferralController {
   private _referralService: ReferralService;

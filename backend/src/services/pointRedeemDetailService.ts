@@ -1,7 +1,7 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointRedeemDetailRequestDTO from "../dto/insertPointRedeemDetailRequestDto";
-import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailRequestDto";
+import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
+import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import PointRedeemDetailRepository from "../repository/pointRedeemDetailRepository";
 import {
   DeleteRedeemPointDetailParams,

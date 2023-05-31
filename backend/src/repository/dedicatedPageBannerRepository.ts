@@ -2,9 +2,9 @@ import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
 import { OnsiteDedicatedPageBannerModel } from "../database/models/onsiteDedicatedPageBanner";
-import InsertDedicatedPageBannerRequestDTO from "../dto/insertDedicatedPageBannerRequestDto";
+import InsertDedicatedPageBannerRequestDTO from "../dto/dedicatedPage/insertDedicatedPageBannerRequestDto";
 import { GetDedicatedPageBannerResponse } from "../types/response/dedicatedPage/getDedicatedPageBannerResponse";
-import UpdateDedicatedPageBannerRequestDTO from "../dto/updateDedicatedPageBannerRequestDto";
+import UpdateDedicatedPageBannerRequestDTO from "../dto/dedicatedPage/updateDedicatedPageBannerRequestDto";
 
 export default class DedicatedPageBannerRepository {
   private _dedicatedPageBannerModel: Repository<OnsiteDedicatedPageBannerModel>;

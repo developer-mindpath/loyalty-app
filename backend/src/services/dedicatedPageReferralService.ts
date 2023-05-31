@@ -1,9 +1,9 @@
 import { UpdateResult } from "typeorm";
 import { OnsiteDedicatedPageReferralModel } from "../database/models/onsiteDedicatedPageReferral";
-import InsertDedicatedPageReferralRequestDTO from "../dto/insertDedicatedPageReferralRequestDto";
+import InsertDedicatedPageReferralRequestDTO from "../dto/dedicatedPage/insertDedicatedPageReferralRequestDto";
 import DedicatedPageReferralRepository from "../repository/dedicatedPageReferralRepository";
 import { GetDedicatedPageReferralResponse } from "../types/response/dedicatedPage/getDedicatedPageReferralResponse";
-import UpdateDedicatedPageReferralRequestDTO from "../dto/updateDedicatedPageReferralRequestDto";
+import UpdateDedicatedPageReferralRequestDTO from "../dto/dedicatedPage/updateDedicatedPageReferralRequestDto";
 
 export default class DedicatedPageReferralService {
   private _dedicatedPageReferralRepository: DedicatedPageReferralRepository;

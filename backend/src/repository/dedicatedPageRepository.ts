@@ -1,8 +1,8 @@
 import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import { OnsiteDedicatedPageModel } from "../database/models/onsiteDedicatedPage";
-import InsertDedicatedPageRequestDTO from "../dto/insertDedicatedPageRequestDto";
-import UpdateDedicatedPageRequestDTO from "../dto/updateDedicatedPageRequestDto";
+import InsertDedicatedPageRequestDTO from "../dto/dedicatedPage/insertDedicatedPageRequestDto";
+import UpdateDedicatedPageRequestDTO from "../dto/dedicatedPage/updateDedicatedPageRequestDto";
 import { GetDedicatedPageResponse } from "../types/response/dedicatedPage/getDedicatedPageResponse";
 import AppDataSource from "../database";
 

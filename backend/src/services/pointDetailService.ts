@@ -1,9 +1,9 @@
 import { UpdateResult } from "typeorm";
-import UpdatePointEarnDetailRequestDTO from "../dto/updatePointEarnDetailRequestDto";
+import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 import PointDetailRepository from "../repository/pointDetailRepository";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
-import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
+import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 
 export default class PointDetailService {
   private _pointDetailRepository: PointDetailRepository;

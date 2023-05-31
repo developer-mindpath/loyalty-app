@@ -6,11 +6,15 @@ import { joiValidationRequest } from "../helper/joi";
 import {
   GetFloatingWidgetButtonParams,
   GetFloatingWidgetParams,
+  GetFloatingWidgetTextParams,
   UpdateFloatingWidgetButtonParams,
   UpdateFloatingWidgetParams,
+  UpdateFloatingWidgetTextParams,
 } from "../types/request/params";
 import { InsertFloatingWidgetButtonRequest } from "../types/request/widget/insertFloatingWidgetButtonRequest";
 import { UpdateFloatingWidgetButtonRequest } from "../types/request/widget/updateFloatingWidgetButtonRequest";
+import { InsertFloatingWidgetTextRequest } from "../types/request/widget/insertFloatingWidgetTextRequest";
+import { UpdateFloatingWidgetTextRequest } from "../types/request/widget/updateFloatingWidgetTextRequest";
 
 export = {
   0: joiValidationRequest<GetFloatingWidgetParams, IEmptyObject, IEmptyObject>({
@@ -147,6 +151,58 @@ export = {
       mobile_widget_button_type: Joi.string().optional(),
       mobile_widget_button_shape: Joi.string().optional(),
       mobile_widget_icon: Joi.string().optional(),
+      status: Joi.string().optional(),
+      updated_by: Joi.number().optional(),
+    },
+  }),
+  6: joiValidationRequest<
+    IEmptyObject,
+    InsertFloatingWidgetTextRequest,
+    IEmptyObject
+  >({
+    body: {
+      visitor_header_text_title: Joi.string().optional(),
+      visitor_header_text_caption: Joi.string().optional(),
+      visitor_account_creation_text_title: Joi.string().optional(),
+      visitor_account_creation_text_signin: Joi.string().optional(),
+      visitor_account_creation_button_create_account_text:
+        Joi.string().optional(),
+      visitor_points_text_title: Joi.string().optional(),
+      visitor_points_text_description: Joi.string().optional(),
+      member_header_text_caption: Joi.string().optional(),
+      status: Joi.string().optional(),
+      created_by: Joi.number().optional(),
+      user_id: Joi.number().required(),
+      admin_ref: Joi.number().optional(),
+    },
+  }),
+  7: joiValidationRequest<
+    GetFloatingWidgetTextParams,
+    IEmptyObject,
+    IEmptyObject
+  >({
+    path: {
+      userId: Joi.number().required(),
+    },
+  }),
+  8: joiValidationRequest<
+    UpdateFloatingWidgetTextParams,
+    UpdateFloatingWidgetTextRequest,
+    IEmptyObject
+  >({
+    path: {
+      userId: Joi.number().required(),
+    },
+    body: {
+      visitor_header_text_title: Joi.string().optional(),
+      visitor_header_text_caption: Joi.string().optional(),
+      visitor_account_creation_text_title: Joi.string().optional(),
+      visitor_account_creation_text_signin: Joi.string().optional(),
+      visitor_account_creation_button_create_account_text:
+        Joi.string().optional(),
+      visitor_points_text_title: Joi.string().optional(),
+      visitor_points_text_description: Joi.string().optional(),
+      member_header_text_caption: Joi.string().optional(),
       status: Joi.string().optional(),
       updated_by: Joi.number().optional(),
     },

@@ -1,9 +1,9 @@
 import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
-import InsertDedicatedPageWayToEarnRequestDTO from "../dto/insertDedicatedPageWayToEarnRequestDto";
+import InsertDedicatedPageWayToEarnRequestDTO from "../dto/dedicatedPage/insertDedicatedPageWayToEarnRequestDto";
 import { GetDedicatedPageWayToEarnResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToEarnResponse";
-import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/updateDedicatedPageWayToEarnRequestDto";
+import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/dedicatedPage/updateDedicatedPageWayToEarnRequestDto";
 import { OnsiteDedicatedPageWaysToEarnModel } from "../database/models/onsiteDedicatedPageWaysToEarn";
 
 export default class DedicatedPageWayToEarnRepository {

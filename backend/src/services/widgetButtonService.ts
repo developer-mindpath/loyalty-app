@@ -1,9 +1,9 @@
 import { UpdateResult } from "typeorm";
-import InsertFloatingWidgetButtonRequestDTO from "../dto/insertFloatingWidgetButtonRequestDto";
+import InsertFloatingWidgetButtonRequestDTO from "../dto/widget/insertFloatingWidgetButtonRequestDto";
 import WidgetButtonRepository from "../repository/widgetButtonRepository";
 import { OnsiteWidgetAdditionalSettingButtonModel } from "../database/models/onsiteWidgetAdditionalSettingButton";
 import { GetFloatingWidgetButtonResponse } from "../types/response/widget/getFloatingWidgetButtonResponse";
-import UpdateFloatingWidgetButtonRequestDTO from "../dto/updateFloatingWidgetButtonRequestDto";
+import UpdateFloatingWidgetButtonRequestDTO from "../dto/widget/updateFloatingWidgetButtonRequestDto";
 
 export default class WidgetButtonService {
   private _widgetButtonRepository: WidgetButtonRepository;

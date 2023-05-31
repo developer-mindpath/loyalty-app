@@ -3,11 +3,11 @@ import { GetEmailSettingResponse } from "../types/response/setting/getEmailSetti
 import SettingEmailService from "./settingEmailService";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
 import SettingOrderService from "./settingOrderService";
-import UpdateEmailSettingRequestDTO from "../dto/updateEmailSettingRequestDto";
-import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
-import InsertEmailSettingRequestDTO from "../dto/insertEmailSettingRequestDto";
+import UpdateEmailSettingRequestDTO from "../dto/setting/updateEmailSettingRequestDto";
+import UpdateOrderSettingRequestDTO from "../dto/setting/updateOrderSettingRequestDto";
+import InsertEmailSettingRequestDTO from "../dto/setting/insertEmailSettingRequestDto";
 import { SettingEmailModel } from "../database/models/settingEmail";
-import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
+import InsertOrderSettingRequestDTO from "../dto/setting/insertOrderSettingRequestDto";
 import { SettingOrderModel } from "../database/models/settingOrder";
 
 export default class SettingService {

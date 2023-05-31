@@ -3,8 +3,8 @@ import lodash from "lodash";
 import AppDataSource from "../database";
 import { OnsiteWidgetModel } from "../database/models/onsiteWidget";
 import { GetFloatingWidgetResponse } from "../types/response/widget/getFloatingWidgetResponse";
-import InsertFloatingWidgetRequestDTO from "../dto/insertFloatingWidgetRequestDto";
-import UpdateFloatingWidgetRequestDTO from "../dto/updateFloatingWidgetRequestDto";
+import InsertFloatingWidgetRequestDTO from "../dto/widget/insertFloatingWidgetRequestDto";
+import UpdateFloatingWidgetRequestDTO from "../dto/widget/updateFloatingWidgetRequestDto";
 
 export default class WidgetRepository {
   private _widgetModel: Repository<OnsiteWidgetModel>;

@@ -2,13 +2,13 @@ import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointRedeemDetailRequestDTO from "../dto/insertPointRedeemDetailRequestDto";
+import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import {
   DeleteRedeemPointDetailParams,
   GetRedeemPointDetailParams,
 } from "../types/request/params";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
-import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailRequestDto";
+import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 
 export default class PointRedeemDetailRepository {
   private _pointRedeemDetailModel: Repository<PointRedeemDetailModel>;

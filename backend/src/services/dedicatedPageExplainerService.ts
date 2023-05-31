@@ -1,8 +1,8 @@
 import { UpdateResult } from "typeorm";
-import InsertDedicatedPageExplainerRequestDTO from "../dto/insertDedicatedPageExplainerRequestDto";
+import InsertDedicatedPageExplainerRequestDTO from "../dto/dedicatedPage/insertDedicatedPageExplainerRequestDto";
 import { OnsiteDedicatedPageExplainerModel } from "../database/models/onsiteDedicatedPageExplainer";
 import { GetDedicatedPageExplainerResponse } from "../types/response/dedicatedPage/getDedicatedPageExplainerResponse";
-import UpdateDedicatedPageExplainerRequestDTO from "../dto/updateDedicatedPageExplainerRequestDto";
+import UpdateDedicatedPageExplainerRequestDTO from "../dto/dedicatedPage/updateDedicatedPageExplainerRequestDto";
 import DedicatedPageExplainerRepository from "../repository/dedicatedPageExplainerRepository";
 
 export default class DedicatedPageExplainerService {

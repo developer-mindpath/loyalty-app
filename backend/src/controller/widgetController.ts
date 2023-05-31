@@ -7,20 +7,27 @@ import constants from "../constants";
 import {
   GetFloatingWidgetButtonParams,
   GetFloatingWidgetParams,
+  GetFloatingWidgetTextParams,
   UpdateFloatingWidgetButtonParams,
   UpdateFloatingWidgetParams,
+  UpdateFloatingWidgetTextParams,
 } from "../types/request/params";
 import { GetFloatingWidgetResponse } from "../types/response/widget/getFloatingWidgetResponse";
 import WidgetService from "../services/widgetService";
 import { InsertFloatingWidgetRequest } from "../types/request/widget/insertFloatingWidgetRequest";
-import InsertFloatingWidgetRequestDTO from "../dto/insertFloatingWidgetRequestDto";
+import InsertFloatingWidgetRequestDTO from "../dto/widget/insertFloatingWidgetRequestDto";
 import { UpdateFloatingWidgetRequest } from "../types/request/widget/updateFloatingWidgetRequest";
-import UpdateFloatingWidgetRequestDTO from "../dto/updateFloatingWidgetRequestDto";
+import UpdateFloatingWidgetRequestDTO from "../dto/widget/updateFloatingWidgetRequestDto";
 import { InsertFloatingWidgetButtonRequest } from "../types/request/widget/insertFloatingWidgetButtonRequest";
-import InsertFloatingWidgetButtonRequestDTO from "../dto/insertFloatingWidgetButtonRequestDto";
+import InsertFloatingWidgetButtonRequestDTO from "../dto/widget/insertFloatingWidgetButtonRequestDto";
 import { GetFloatingWidgetButtonResponse } from "../types/response/widget/getFloatingWidgetButtonResponse";
 import { UpdateFloatingWidgetButtonRequest } from "../types/request/widget/updateFloatingWidgetButtonRequest";
-import UpdateFloatingWidgetButtonRequestDTO from "../dto/updateFloatingWidgetButtonRequestDto";
+import UpdateFloatingWidgetButtonRequestDTO from "../dto/widget/updateFloatingWidgetButtonRequestDto";
+import { InsertFloatingWidgetTextRequest } from "../types/request/widget/insertFloatingWidgetTextRequest";
+import InsertFloatingWidgetTextRequestDTO from "../dto/widget/insertFloatingWidgetTextRequestDto";
+import { GetFloatingWidgetTextResponse } from "../types/response/widget/getFloatingWidgetTextResponse";
+import { UpdateFloatingWidgetTextRequest } from "../types/request/widget/updateFloatingWidgetTextRequest";
+import UpdateFloatingWidgetTextRequestDTO from "../dto/widget/updateFloatingWidgetTextRequestDto";
 
 export default class WidgetController {
   private _widgetService: WidgetService;
@@ -183,6 +190,91 @@ export default class WidgetController {
         new UpdateFloatingWidgetButtonRequestDTO(req.body, req.params.userId);
       await this._widgetService.updateFloatingWidgetButton(
         updateFloatingWidgetButtonRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertFloatingWidgetText(
+    req: CustomRequest<
+      IEmptyObject,
+      IEmptyObject,
+      InsertFloatingWidgetTextRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertFloatingWidgetTextRequestDTO =
+        new InsertFloatingWidgetTextRequestDTO(req.body);
+      await this._widgetService.insertFloatingWidgetText(
+        insertFloatingWidgetTextRequestDTO
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async getFloatingWidgetText(
+    req: CustomRequest<
+      GetFloatingWidgetTextParams,
+      GetFloatingWidgetTextResponse,
+      IEmptyObject
+    >,
+    res: Response<APIResponse<GetFloatingWidgetTextResponse>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<GetFloatingWidgetTextResponse>();
+      const widgetResponse = await this._widgetService.getFloatingWidgetText(
+        req.params.userId
+      );
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = widgetResponse;
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async updateFloatingWidgetText(
+    req: CustomRequest<
+      UpdateFloatingWidgetTextParams,
+      IEmptyObject,
+      UpdateFloatingWidgetTextRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const updateFloatingWidgetTextRequestDTO =
+        new UpdateFloatingWidgetTextRequestDTO(req.body, req.params.userId);
+      await this._widgetService.updateFloatingWidgetText(
+        updateFloatingWidgetTextRequestDTO
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;

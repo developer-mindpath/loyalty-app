@@ -11,12 +11,12 @@ import {
   UpdateEmailNotificationProgramParams,
 } from "../types/request/params";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
-import InsertEmailNotificationRequestDTO from "../dto/insertEmailNotificationRequestDto";
+import InsertEmailNotificationRequestDTO from "../dto/emailNotification/insertEmailNotificationRequestDto";
 import EmailNotificationService from "../services/emailNotificationService";
 import { GetEmailNotificationResponse } from "../types/response/emailNotification/getEmailNotificationResponse";
 import { GetEmailNotificationsResponse } from "../types/response/emailNotification/getEmailNotificationsResponse";
 import { UpdateEmailNotificationRequest } from "../types/request/emailNotification/updateEmailNotificationRequest";
-import UpdateEmailNotificationRequestDTO from "../dto/updateEmailNotificationRequestDto";
+import UpdateEmailNotificationRequestDTO from "../dto/emailNotification/updateEmailNotificationRequestDto";
 
 export default class EmailNotificationController {
   private _emailNotificationService: EmailNotificationService;
