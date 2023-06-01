@@ -24,6 +24,7 @@ import ConfigPage from "../pages/branding/Config";
 import EmailProgram from "../pages/programs/emails/emails";
 import EditEmailProgram from "../pages/programs/emails/edit";
 import ReferralPage from "../pages/programs/referral";
+import VipPage from "../pages/programs/vip/vip";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
@@ -34,6 +35,7 @@ const DashboardRoutes = (): JSX.Element => (
     {/* Programs */}
     <Route path="/programs/referrals" element={<ReferralPage />} />
     <Route path="/programs/points" element={<Points />} />
+    <Route path="/programs/vip" element={<VipPage />} />
     <Route path="/programs/email" element={<EmailProgram />} />
     <Route path="/programs/email/:id" element={<EditEmailProgram />} />
     <Route
