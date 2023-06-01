@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import settings from "./reducers/settings";
+import programs from "./reducers/programs";
 
 const store = configureStore({
   reducer: {
     settings,
+    programs,
   },
 });
 
