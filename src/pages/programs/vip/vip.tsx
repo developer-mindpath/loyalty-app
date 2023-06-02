@@ -5,36 +5,42 @@ import {
   Button,
   ButtonGroup,
   Collapsible,
-  Divider,
   HorizontalStack,
-  Icon,
   Layout,
   Page,
   RadioButton,
   Text,
-  TextField,
   VerticalStack,
 } from "@shopify/polaris";
 import Toggle from "react-toggle";
-import { CashDollarMajor, EditMinor } from "@shopify/polaris-icons";
 import SectionDivider from "../../../components/layouts/sectionDivider";
-import PointsListItem from "../../../components/points/pointsListItem";
-import { useState } from "react";
+import VipListItem from "../../../components/vip/vipListItem";
+import { VipDatePicker } from "../../../components/vip/datePicker";
+import { VipController } from "./vip.controller";
 
 const VipPage = () => {
-  const [startDateEdit, setStartDateEdit] = useState<boolean>(false);
-  const [expirationEdit, setExpirationEdit] = useState<boolean>(false);
-  const [entryMethodEdit, seteEntryMethodEdit] = useState<boolean>(false);
-
-  const handlestartDateEdit = (show: boolean) => {
-    setStartDateEdit(show);
-  };
-  const handleexpirationEdit = (show: boolean) => {
-    setExpirationEdit(show);
-  };
-  const handleEntryMethodEit = (show: boolean) => {
-    seteEntryMethodEdit(show);
-  };
+  const { getters, handlers } = VipController();
+  const {
+    startDateEdit,
+    expirationEdit,
+    entryMethodEdit,
+    items,
+    entryMethod,
+    expiration,
+  } = getters;
+  const {
+    handlestartDateEdit,
+    handleExpirationEdit,
+    handleEntryMethodEit,
+    handleCancelstartDate,
+    handleCancelExpiration,
+    handleCancelEntryMethod,
+    handleUpdatestartDate,
+    handleUpdateExpiration,
+    handleUpdateEntryMethod,
+    handleChangeExpiration,
+    handleChangeEntryMethod,
+  } = handlers;
 
   return (
     <Page
@@ -76,31 +82,15 @@ const VipPage = () => {
         }
       >
         <AlphaCard padding="2">
-          <Box padding="4">
-            <HorizontalStack align="space-between" blockAlign="center">
-              <div style={{ width: "50%" }}>
-                <div style={{ width: "fit-content" }}>
-                  <HorizontalStack>
-                    <Icon source={CashDollarMajor} color="base" />
-                    <Box paddingInlineStart="4">
-                      <Text as="p" variant="headingSm">
-                        {"Bronze"}
-                      </Text>
-                      <Text as="p" variant="bodySm">
-                        {"Earn 0 Points "}
-                      </Text>
-                    </Box>
-                  </HorizontalStack>
-                </div>
-              </div>
-              <Box paddingInlineStart="4" paddingInlineEnd="4">
-                <Button icon={EditMinor} onClick={() => ({})}>
-                  Edit
-                </Button>
-              </Box>
-            </HorizontalStack>
-          </Box>
-          <Divider />
+          {items.map((listItem) => (
+            <VipListItem
+              key={listItem.id}
+              path={listItem.path}
+              tierName={listItem.Name}
+              icon={listItem.icon}
+              points={listItem.points}
+            />
+          ))}
         </AlphaCard>
       </Layout.AnnotatedSection>
 
@@ -153,19 +143,20 @@ const VipPage = () => {
                   <Text as="p">Program start date</Text>
                 </Box>
                 <Box paddingBlockEnd="4">
-                  <TextField
-                    value={""}
-                    onChange={() => ({})}
-                    autoComplete="off"
-                    label=" We can only account for activity from when you installed the
-                  app."
-                  />
+                  <VipDatePicker />
                 </Box>
                 <ButtonGroup>
-                  <Button onClick={() => handlestartDateEdit(false)}>
+                  <Button
+                    onClick={() => {
+                      handlestartDateEdit(false);
+                      handleCancelstartDate();
+                    }}
+                  >
                     Cancel
                   </Button>
-                  <Button primary>Update</Button>
+                  <Button primary onClick={handleUpdatestartDate}>
+                    Update
+                  </Button>
                 </ButtonGroup>
               </Collapsible>
             </Box>
@@ -212,37 +203,46 @@ const VipPage = () => {
                 <VerticalStack>
                   <div style={{ margin: "6px 0px" }}>
                     <RadioButton
-                      label="Points earned "
-                      checked={true}
-                      id="Points earned "
-                      name="Points earned "
-                      onChange={() => ({})}
+                      label="Points earned"
+                      checked={entryMethod === "Points earned"}
+                      id="Points earned"
+                      name="Points earned"
+                      onChange={() => handleChangeEntryMethod("Points earned")}
                     />
                   </div>
                   <div style={{ margin: "6px 0px" }}>
                     <RadioButton
-                      id="Amount spent "
-                      label="Amount spent "
-                      name="Amount spent "
-                      checked={true}
-                      onChange={() => ({})}
+                      id="Amount spent"
+                      label="Amount spent"
+                      name="Amount spent"
+                      checked={entryMethod === "Amount spent"}
+                      onChange={() => handleChangeEntryMethod("Amount spent")}
                     />
                   </div>
                   <div style={{ margin: "6px 0px" }}>
                     <RadioButton
-                      id="Number of orders placed "
-                      label="Number of orders placed "
-                      name="Number of orders placed "
-                      checked={true}
-                      onChange={() => ({})}
+                      id="Number of orders placed"
+                      label="Number of orders placed"
+                      name="Number of orders placed"
+                      checked={entryMethod === "Number of orders placed"}
+                      onChange={() =>
+                        handleChangeEntryMethod("Number of orders placed")
+                      }
                     />
                   </div>
                 </VerticalStack>
                 <ButtonGroup>
-                  <Button onClick={() => handleEntryMethodEit(false)}>
+                  <Button
+                    onClick={() => {
+                      handleEntryMethodEit(false);
+                      handleCancelEntryMethod();
+                    }}
+                  >
                     Cancel
                   </Button>
-                  <Button primary>Update</Button>
+                  <Button primary onClick={handleUpdateEntryMethod}>
+                    Update
+                  </Button>
                 </ButtonGroup>
               </Collapsible>
             </Box>
@@ -259,7 +259,7 @@ const VipPage = () => {
                 </Text>
 
                 {!expirationEdit && (
-                  <Button plain onClick={() => handleexpirationEdit(true)}>
+                  <Button plain onClick={() => handleExpirationEdit(true)}>
                     Edit
                   </Button>
                 )}
@@ -295,10 +295,10 @@ const VipPage = () => {
                     <RadioButton
                       label="A lifetime, once they are a loyalty program member.  "
                       helpText="This is the more generous option. There is no limit to how long they can take."
-                      checked={true}
+                      checked={expiration === "lifetime"}
                       id="lifetime"
                       name="lifetime"
-                      onChange={() => ({})}
+                      onChange={() => handleChangeExpiration("lifetime")}
                     />
                   </div>
                   <div style={{ margin: "6px 0px" }}>
@@ -307,16 +307,23 @@ const VipPage = () => {
                       label="A full calendar year "
                       helpText="The more aggressive option. Introduce a time limit to encourage activity."
                       name="calenderYear"
-                      checked={true}
-                      onChange={() => ({})}
+                      checked={expiration === "calenderYear"}
+                      onChange={() => handleChangeExpiration("calenderYear")}
                     />
                   </div>
                 </VerticalStack>
                 <ButtonGroup>
-                  <Button onClick={() => handleexpirationEdit(false)}>
+                  <Button
+                    onClick={() => {
+                      handleExpirationEdit(false);
+                      handleCancelExpiration();
+                    }}
+                  >
                     Cancel
                   </Button>
-                  <Button primary>Update</Button>
+                  <Button primary onClick={handleUpdateExpiration}>
+                    Update
+                  </Button>
                 </ButtonGroup>
               </Collapsible>
             </Box>
