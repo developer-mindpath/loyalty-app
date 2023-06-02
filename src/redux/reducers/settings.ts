@@ -1,8 +1,4 @@
-import {
-  ActionReducerMapBuilder,
-  PayloadAction,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "../store";
 import {
   IGetEmailSettingsResponse,
@@ -13,17 +9,15 @@ import SettingsAction from "../actions/settingsAction";
 
 interface ISettingsState {
   settingsPage: {
+    loading: boolean;
     order: IGetOrderSettingsResponse;
     email: IGetEmailSettingsResponse;
-    Loading: {
-      emailLoading: boolean;
-      orderLoading: boolean;
-    };
   };
 }
 
 const initialState: ISettingsState = {
   settingsPage: {
+    loading: true,
     order: {
       orders_subtotal: 0,
       orders_exclude_subtoken_discount: 0,
@@ -36,16 +30,12 @@ const initialState: ISettingsState = {
       who_can_participate: "any",
     } as IGetOrderSettingsResponse,
     email: {
-      custom_email_domain: "",
+      custom_email_domain: "test.com",
       custom_url_path_for_email: "",
       email_from_email: "",
       email_reply_email: "",
       email_from_name: "",
     } as IGetEmailSettingsResponse,
-    Loading: {
-      emailLoading: false,
-      orderLoading : false,
-    },
   },
 };
 
@@ -90,7 +80,7 @@ const settingsSlice = createSlice({
     builder.addCase(
       SettingsAction.getEmail.pending,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.emailLoading = true;
+        state.settingsPage.loading = true;
       }
     );
     builder.addCase(
@@ -100,25 +90,25 @@ const settingsSlice = createSlice({
         action: PayloadAction<IResponseWithBody<IGetEmailSettingsResponse>>
       ) => {
         state.settingsPage.email = action.payload.body;
-        state.settingsPage.Loading.emailLoading = false;
+        state.settingsPage.loading = false;
       }
     );
     builder.addCase(
       SettingsAction.updateEmail.pending,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.emailLoading = true;
+        state.settingsPage.loading = true;
       }
     );
     builder.addCase(
       SettingsAction.updateEmail.fulfilled,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.emailLoading = false;
+        state.settingsPage.loading = false;
       }
     );
     builder.addCase(
       SettingsAction.getOrders.pending,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.orderLoading = true;
+        state.settingsPage.loading = true;
       }
     );
     builder.addCase(
@@ -128,19 +118,19 @@ const settingsSlice = createSlice({
         action: PayloadAction<IResponseWithBody<IGetOrderSettingsResponse>>
       ) => {
         state.settingsPage.order = action.payload.body;
-        state.settingsPage.Loading.orderLoading = false;
+        state.settingsPage.loading = false;
       }
     );
     builder.addCase(
       SettingsAction.updateOrder.pending,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.orderLoading = true;
+        state.settingsPage.loading = true;
       }
     );
     builder.addCase(
       SettingsAction.updateOrder.fulfilled,
       (state: ISettingsState) => {
-        state.settingsPage.Loading.orderLoading = false;
+        state.settingsPage.loading = false;
       }
     );
   },
@@ -150,11 +140,9 @@ export const settingsActions = { ...settingsSlice.actions };
 
 export const getEmailSettings = (state: IRootState) =>
   state.settings.settingsPage.email;
-export const getEmailLoading = (state: IRootState) =>
-  state.settings.settingsPage.Loading.emailLoading;
+export const getIsLoading = (state: IRootState) =>
+  state.settings.settingsPage.loading;
 export const getOrderSettings = (state: IRootState) =>
   state.settings.settingsPage.order;
-export const getOrderlLoading = (state: IRootState) =>
-  state.settings.settingsPage.Loading.orderLoading;
 
 export default settingsSlice.reducer;

@@ -15,7 +15,7 @@ import useContextualSave from "../../hooks/useContextualSave";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
   getOrderSettings,
-  getOrderlLoading,
+  getIsLoading,
   settingsActions,
 } from "../../redux/reducers/settings";
 import {
@@ -32,7 +32,7 @@ const CheckBoxHelpText = styled.p`
 const OrdersSettings = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(getOrderSettings);
-  const Loading = useAppSelector(getOrderlLoading);
+  const Loading = useAppSelector(getIsLoading);
   const [initalState, setInital] = useState(data);
 
   const rewardChannel = data.reward_channel;

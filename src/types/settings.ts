@@ -34,7 +34,7 @@ export interface IUpdateOrderSettingsRequest {
 }
 
 export interface IGetEmailSettingsResponse {
-  id: number;
+  id: string;
   created_at: string;
   updated_at: string;
   email_from_name: string;
@@ -77,7 +77,6 @@ export interface IUpdateEmailSettingRequest {
   design_image?: string | null;
   design_image_type?: string | null;
   status?: string;
-  admin_ref: number;
-  user_id: number;
-  created_by: number;
+  admin_ref?: number;
+  user_id?: number;
 }
