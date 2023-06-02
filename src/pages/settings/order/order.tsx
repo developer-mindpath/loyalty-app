@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import {
   AlphaCard,
   Box,
@@ -11,18 +10,7 @@ import {
   VerticalStack,
 } from "@shopify/polaris";
 import { styled } from "styled-components";
-import useContextualSave from "../../hooks/useContextualSave";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import {
-  getOrderSettings,
-  getIsLoading,
-  settingsActions,
-} from "../../redux/reducers/settings";
-import {
-  IGetOrderSettingsResponse,
-  IUpdateOrderSettingsRequest,
-} from "../../types";
-import SettingsAction from "../../redux/actions/settingsAction";
+import { OrderController } from "./order.controller";
 
 const CheckBoxHelpText = styled.p`
   font-size: 12px;
@@ -30,69 +18,10 @@ const CheckBoxHelpText = styled.p`
 `;
 
 const OrdersSettings = () => {
-  const dispatch = useAppDispatch();
-  const data = useAppSelector(getOrderSettings);
-  const Loading = useAppSelector(getIsLoading);
-  const [initalState, setInital] = useState(data);
-
-  const rewardChannel = data.reward_channel;
-  const points = {
-    refunded: data.points_cancelation_refunde,
-    partially: data.orders_include_partialy_refunded,
-    voided: data.orders_include_voided,
-  };
-  const include = {
-    subTotal: data.orders_subtotal,
-    couponDiscount: data.orders_exclude_subtoken_discount,
-    taxes: data.orders_include_tax,
-    shipping: data.orders_include_shipping,
-  };
-
-  useEffect(() => {
-    // TODO - dummy user id to be replaced after login functionality
-    const userId = "dummy id";
-    dispatch(SettingsAction.getOrders(userId));
-  }, [dispatch]);
-
-  const handleChangeRewardChannel = useCallback(
-    (value: string) => (_: boolean, newValue: string) => {
-      dispatch(
-        settingsActions.updateOrderState({ key: "reward_channel", value })
-      );
-    },
-    [dispatch]
-  );
-
-  const handleChangeRefund = useCallback(
-    (key: string) => (_: boolean, newValue: string) => {
-      const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
-      dispatch(settingsActions.updateOrderState({ key, value }));
-    },
-    [data, dispatch]
-  );
-
-  const handleChangeInclude = useCallback(
-    (key: string) => (_: boolean, newValue: string) => {
-      const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
-      dispatch(settingsActions.updateOrderState({ key, value }));
-    },
-    [data, dispatch]
-  );
-
-  const handleDiscard = () => {
-    dispatch(settingsActions.setOrderState(initalState));
-    setInital(initalState);
-  };
-
-  const handleSave = () => {
-    //TODO the request type is incompatible with response type with different types for same value hence giving empty object fo now
-    dispatch(SettingsAction.updateOrder({} as IUpdateOrderSettingsRequest));
-  };
-
-  useContextualSave(initalState, data, {
-    handleSave,
-    handleDiscard,
-  });
+  const { getters, handlers } = OrderController();
+  const { rewardChannel, points, include } = getters;
+  const { handleChangeInclude, handleChangeRefund, handleChangeRewardChannel } =
+    handlers;
 
   return (
     <Page

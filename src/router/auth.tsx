@@ -8,8 +8,8 @@ import GeneralSettings from "../pages/settings/general";
 import BillingSettings from "../pages/settings/billing";
 import ImportSettings from "../pages/settings/import";
 import RewardSettings from "../pages/settings/rewards";
-import OrdersSettings from "../pages/settings/order";
-import EmailSettings from "../pages/settings/email";
+import OrdersSettings from "../pages/settings/order/order";
+import EmailSettings from "../pages/settings/email/email";
 // Programs
 import Points from "../pages/programs/points";
 import ReferalActivity from "../pages/programs/earn/referal";
