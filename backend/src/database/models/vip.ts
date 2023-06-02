@@ -23,8 +23,8 @@ export class VipModel extends ModelTemplate {
   @Column("int")
   admin_ref: number;
 
-  @Column("int", { nullable: true })
-  user_id: number | null;
+  @Column("int")
+  user_id: number;
 
   @Column("int")
   created_by: number;

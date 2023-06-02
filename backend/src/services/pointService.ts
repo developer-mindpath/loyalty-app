@@ -1,13 +1,10 @@
 import { DeleteResult, UpdateResult } from "typeorm";
-import { StatusCodes } from "http-status-codes";
 import PointInsertRequestDTO from "../dto/point/pointInsertRequestDto";
 import PointRepository from "../repository/pointRepository";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 import PointDetailService from "./pointDetailService";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
-import { ExpressError } from "../helper/errorHandler";
-import constants from "../constants";
 import { PointActionModel } from "../database/models/pointAction";
 import InsertPointRedeemRequestDTO from "src/dto/point/insertPointRedeemRequestDto";
 import PointRedeemService from "./pointRedeemService";
@@ -49,12 +46,6 @@ export default class PointService {
   public async getAllEarningPoints(
     userId: number
   ): Promise<GetPointEarnResponse[]> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     return await this._pointRepository.getAllEarningPoints(userId);
   }
 
@@ -95,12 +86,6 @@ export default class PointService {
   public async getPointRedeem(
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     return await this._pointRedeemService.getPointRedeem(userId);
   }
 

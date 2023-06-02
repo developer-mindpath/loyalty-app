@@ -27,6 +27,17 @@ export type Pagination = {
   limit: number;
 };
 
+export type VipTierId = {
+  vipTierId: number;
+};
+
+export type VipTierRewardId = {
+  vipTierRewardId: number;
+};
+
+export type VipTierBenefitId = {
+  vipTierBenefitId: number;
+};
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
@@ -74,3 +85,4 @@ export type GetPromptsParams = UserId;
 export type UpdatePromptsParams = UserId;
 export type GetAccountEmbedParams = UserId;
 export type UpdateAccountEmbedParams = UserId;
+export type GetCustomerParams = UserId;
