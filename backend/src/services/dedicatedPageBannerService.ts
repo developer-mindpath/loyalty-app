@@ -1,9 +1,9 @@
 import { UpdateResult } from "typeorm";
-import InsertDedicatedPageBannerRequestDTO from "../dto/insertDedicatedPageBannerRequestDto";
+import InsertDedicatedPageBannerRequestDTO from "../dto/dedicatedPage/insertDedicatedPageBannerRequestDto";
 import { OnsiteDedicatedPageBannerModel } from "../database/models/onsiteDedicatedPageBanner";
 import DedicatedPageBannerRepository from "../repository/dedicatedPageBannerRepository";
 import { GetDedicatedPageBannerResponse } from "../types/response/dedicatedPage/getDedicatedPageBannerResponse";
-import UpdateDedicatedPageBannerRequestDTO from "../dto/updateDedicatedPageBannerRequestDto";
+import UpdateDedicatedPageBannerRequestDTO from "../dto/dedicatedPage/updateDedicatedPageBannerRequestDto";
 
 export default class DedicatedPageBannerService {
   private _dedicatedPageBannerRepository: DedicatedPageBannerRepository;

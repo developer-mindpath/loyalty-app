@@ -2,9 +2,9 @@ import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
 import { OnsiteDedicatedPageExplainerModel } from "../database/models/onsiteDedicatedPageExplainer";
-import InsertDedicatedPageExplainerRequestDTO from "../dto/insertDedicatedPageExplainerRequestDto";
+import InsertDedicatedPageExplainerRequestDTO from "../dto/dedicatedPage/insertDedicatedPageExplainerRequestDto";
 import { GetDedicatedPageExplainerResponse } from "../types/response/dedicatedPage/getDedicatedPageExplainerResponse";
-import UpdateDedicatedPageExplainerRequestDTO from "../dto/updateDedicatedPageExplainerRequestDto";
+import UpdateDedicatedPageExplainerRequestDTO from "../dto/dedicatedPage/updateDedicatedPageExplainerRequestDto";
 
 export default class DedicatedPageExplainerRepository {
   private _dedicatedPageExplainerModel: Repository<OnsiteDedicatedPageExplainerModel>;

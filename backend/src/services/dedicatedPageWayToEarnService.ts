@@ -1,7 +1,7 @@
 import { UpdateResult } from "typeorm";
-import InsertDedicatedPageWayToEarnRequestDTO from "../dto/insertDedicatedPageWayToEarnRequestDto";
+import InsertDedicatedPageWayToEarnRequestDTO from "../dto/dedicatedPage/insertDedicatedPageWayToEarnRequestDto";
 import { GetDedicatedPageWayToEarnResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToEarnResponse";
-import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/updateDedicatedPageWayToEarnRequestDto";
+import UpdateDedicatedPageWayToEarnRequestDTO from "../dto/dedicatedPage/updateDedicatedPageWayToEarnRequestDto";
 import DedicatedPageWayToEarnRepository from "../repository/dedicatedPageWayToEarnRepository";
 import { OnsiteDedicatedPageWaysToEarnModel } from "../database/models/onsiteDedicatedPageWaysToEarn";
 

@@ -27,6 +27,25 @@ export type Pagination = {
   limit: number;
 };
 
+export type VipTierId = {
+  vipTierId: number;
+};
+
+export type VipTierRewardId = {
+  vipTierRewardId: number;
+};
+
+export type VipTierBenefitId = {
+  vipTierBenefitId: number;
+};
+
+export type ChecklistCategoryId = {
+  categoryId: number;
+};
+
+export type ChecklistId = {
+  checklistId: number;
+};
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
@@ -64,3 +83,14 @@ export type UpdateDedicatedPageWayToRedeemParams = UserId;
 
 export type GetDedicatedPageVipTierParams = UserId;
 export type UpdateDedicatedPageVipTierParams = UserId;
+export type GetFloatingWidgetParams = UserId;
+export type UpdateFloatingWidgetParams = UserId;
+export type GetFloatingWidgetButtonParams = UserId;
+export type UpdateFloatingWidgetButtonParams = UserId;
+export type GetFloatingWidgetTextParams = UserId;
+export type UpdateFloatingWidgetTextParams = UserId;
+export type GetPromptsParams = UserId;
+export type UpdatePromptsParams = UserId;
+export type GetAccountEmbedParams = UserId;
+export type UpdateAccountEmbedParams = UserId;
+export type GetCustomerParams = UserId;

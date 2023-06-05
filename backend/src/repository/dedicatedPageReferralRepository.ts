@@ -2,9 +2,9 @@ import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
 import { OnsiteDedicatedPageReferralModel } from "../database/models/onsiteDedicatedPageReferral";
-import InsertDedicatedPageReferralRequestDTO from "../dto/insertDedicatedPageReferralRequestDto";
+import InsertDedicatedPageReferralRequestDTO from "../dto/dedicatedPage/insertDedicatedPageReferralRequestDto";
 import { GetDedicatedPageReferralResponse } from "../types/response/dedicatedPage/getDedicatedPageReferralResponse";
-import UpdateDedicatedPageReferralRequestDTO from "../dto/updateDedicatedPageReferralRequestDto";
+import UpdateDedicatedPageReferralRequestDTO from "../dto/dedicatedPage/updateDedicatedPageReferralRequestDto";
 
 export default class DedicatedPageReferralRepository {
   private _dedicatedPageReferralModel: Repository<OnsiteDedicatedPageReferralModel>;

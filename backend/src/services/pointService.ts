@@ -1,29 +1,26 @@
 import { DeleteResult, UpdateResult } from "typeorm";
-import { StatusCodes } from "http-status-codes";
-import PointInsertRequestDTO from "../dto/pointInsertRequestDto";
+import PointInsertRequestDTO from "../dto/point/pointInsertRequestDto";
 import PointRepository from "../repository/pointRepository";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 import PointDetailService from "./pointDetailService";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
-import UpdatePointEarnDetailRequestDTO from "../dto/updatePointEarnDetailRequestDto";
-import { ExpressError } from "../helper/errorHandler";
-import constants from "../constants";
+import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 import { PointActionModel } from "../database/models/pointAction";
-import InsertPointRedeemRequestDTO from "src/dto/insertPointRedeemRequestDto";
+import InsertPointRedeemRequestDTO from "src/dto/point/insertPointRedeemRequestDto";
 import PointRedeemService from "./pointRedeemService";
 import { PointRedeemModel } from "../database/models/pointRedeem";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
-import UpdatePointRedeemRequestDTO from "../dto/updatePointRedeemRequestDto";
-import InsertPointRedeemDetailRequestDTO from "../dto/insertPointRedeemDetailRequestDto";
+import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
+import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import {
   DeleteRedeemPointDetailParams,
   GetRedeemPointDetailParams,
 } from "src/types/request/params";
-import UpdatePointRedeemDetailRequestDTO from "../dto/updatePointRedeemDetailRequestDto";
+import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointEarnDetailRequestDTO from "../dto/insertPointEarnDetailRequestDto";
+import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 
 export default class PointService {
@@ -49,12 +46,6 @@ export default class PointService {
   public async getAllEarningPoints(
     userId: number
   ): Promise<GetPointEarnResponse[]> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     return await this._pointRepository.getAllEarningPoints(userId);
   }
 
@@ -95,12 +86,6 @@ export default class PointService {
   public async getPointRedeem(
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
-    if (!userId) {
-      throw new ExpressError(
-        StatusCodes.BAD_REQUEST,
-        constants.VALIDATION_MESSAGE.USERID_NOT_FOUND
-      );
-    }
     return await this._pointRedeemService.getPointRedeem(userId);
   }
 

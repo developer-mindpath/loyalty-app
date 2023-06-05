@@ -1,10 +1,10 @@
 import { Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
-import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
+import UpdateOrderSettingRequestDTO from "../dto/setting/updateOrderSettingRequestDto";
 import AppDataSource from "../database";
 import { SettingOrderModel } from "../database/models/settingOrder";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
-import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
+import InsertOrderSettingRequestDTO from "../dto/setting/insertOrderSettingRequestDto";
 
 export default class SettingOrderRepository {
   private _settingOrderModel: Repository<SettingOrderModel>;

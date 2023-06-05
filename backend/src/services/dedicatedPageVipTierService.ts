@@ -1,8 +1,8 @@
 import { UpdateResult } from "typeorm";
-import InsertDedicatedPageVipTierRequestDTO from "../dto/insertDedicatedPageVipTierRequestDto";
+import InsertDedicatedPageVipTierRequestDTO from "../dto/dedicatedPage/insertDedicatedPageVipTierRequestDto";
 import { OnsiteDedicatedPageVipTierModel } from "../database/models/onsiteDedicatedPageVipTier";
 import { GetDedicatedPageVipTierResponse } from "../types/response/dedicatedPage/getDedicatedPageVipTierResponse";
-import UpdateDedicatedPageVipTierRequestDTO from "../dto/updateDedicatedPageVipTierRequestDto";
+import UpdateDedicatedPageVipTierRequestDTO from "../dto/dedicatedPage/updateDedicatedPageVipTierRequestDto";
 import DedicatedPageVipTierRepository from "../repository/dedicatedPageVipTierRepository";
 
 export default class DedicatedPageVipTierService {

@@ -30,12 +30,17 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "serve": "concurrently \"npm start\" \"cd ./backend && npm run build && npm start\"",
-    "setup": "cd ./backend && npm install",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "setup-frontend": "npm install",
+    "setup-backend": "cd ./backend && npm install",
+    "setup": "npm run setup-frontend && npm run setup-backend",
+    "prebuild": "rm -rf ./backend/build && rm -rf ./backend/dist",
+    "build": "npm run build-frontend && npm run build-backend",
+    "build-frontend": "react-scripts build",
+    "build-backend": "cd ./backend && npm run build",
+    "postbuild": "mv build ./backend/build",
+    "serve:prod": "cd ./backend && npm run start"
   },
   "eslintConfig": {
     "extends": [

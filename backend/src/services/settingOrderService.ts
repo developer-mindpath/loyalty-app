@@ -1,7 +1,7 @@
 import { UpdateResult } from "typeorm";
 import { SettingOrderModel } from "../database/models/settingOrder";
-import InsertOrderSettingRequestDTO from "../dto/insertOrderSettingRequestDto";
-import UpdateOrderSettingRequestDTO from "../dto/updateOrderSettingRequestDto";
+import InsertOrderSettingRequestDTO from "../dto/setting/insertOrderSettingRequestDto";
+import UpdateOrderSettingRequestDTO from "../dto/setting/updateOrderSettingRequestDto";
 import SettingOrderRepository from "../repository/settingOrderRepository";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
 

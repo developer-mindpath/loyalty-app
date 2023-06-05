@@ -2,9 +2,9 @@ import lodash from "lodash";
 import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
 import { OnsiteDedicatedPageWaysToRedeemModel } from "../database/models/onsiteDedicatedPageWaysToRedeem";
-import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/insertDedicatedPageWayToRedeemRequestDto";
+import InsertDedicatedPageWayToRedeemRequestDTO from "../dto/dedicatedPage/insertDedicatedPageWayToRedeemRequestDto";
 import { GetDedicatedPageWayToRedeemResponse } from "../types/response/dedicatedPage/getDedicatedPageWayToRedeemResponse";
-import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/updateDedicatedPageWayToRedeemRequestDto";
+import UpdateDedicatedPageWayToRedeemRequestDTO from "../dto/dedicatedPage/updateDedicatedPageWayToRedeemRequestDto";
 
 export default class DedicatedPageWayToRedeemRepository {
   private _dedicatedPageWayToRedeemModel: Repository<OnsiteDedicatedPageWaysToRedeemModel>;

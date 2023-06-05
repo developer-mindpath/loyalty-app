@@ -130,7 +130,7 @@ const AppDataSource = new DataSource({
   entities: MODELS,
   migrations: ["dist/database/migrations/*.js"],
   synchronize: false,
-  migrationsRun: true,
+  migrationsRun: false,
   logging: true,
   extra: {
     waitForConnections: true,
