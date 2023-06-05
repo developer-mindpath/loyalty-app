@@ -8,11 +8,13 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import SettingsAction from "../../../redux/actions/settingsAction";
 import useContextualSave from "../../../hooks/useContextualSave";
 import { IGetEmailSettingsResponse } from "../../../types";
+import ObjectUtil from "../../../utils/object";
 
 export interface IEmailControllerResponse {
   getters: {
+    loading: boolean;
     data: IGetEmailSettingsResponse;
-    customEmailDomain: string | undefined;
+    customEmailDomain?: string;
   };
   handlers: {
     handleChange: (key: string) => (value: string) => void;
@@ -28,7 +30,6 @@ export interface IEmailControllerResponse {
 export const EmailController = (): IEmailControllerResponse => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(getEmailSettings);
-  // TODO : Add Loading State ?
   const loading = useAppSelector(getIsLoading);
   const [initalState, setInital] = useState(data);
   const [customEmailDomain, setCustomEmailDomain] = useState<string>();
@@ -36,11 +37,14 @@ export const EmailController = (): IEmailControllerResponse => {
   /**
    * Get Page Data
    */
-  const getData = useCallback(() => {
+  const getData = useCallback(async () => {
     //TODO Giving a dummy id this will be replaced by user id later
-    const id = "dummy id";
+    const id = "1";
+    console.log("Working");
+
     try {
-      dispatch(SettingsAction.getEmail(id));
+      const data = await dispatch(SettingsAction.getEmail(id)).unwrap();
+      setInital(data.body);
     } catch (e) {
       console.error(e);
     }
@@ -53,9 +57,19 @@ export const EmailController = (): IEmailControllerResponse => {
   /**
    * Handle Contextual Save Bar Save
    */
-  const handleSave = () => {
-    dispatch(SettingsAction.updateEmail(data));
-    setInital(data);
+  const handleSave = async () => {
+    try {
+      const payload = ObjectUtil.getChanges(initalState, data);
+      await dispatch(
+        SettingsAction.updateEmail({
+          id: "1",
+          ...payload,
+        })
+      );
+      setInital(data);
+    } catch (e) {
+      console.error("Error Occured");
+    }
   };
 
   /**
@@ -95,6 +109,8 @@ export const EmailController = (): IEmailControllerResponse => {
    */
   const handleCustomEmailDomainUpdate = useCallback(async () => {
     if (!customEmailDomain) return;
+    if (!data) return;
+
     try {
       await dispatch(
         SettingsAction.updateEmail({
@@ -116,11 +132,12 @@ export const EmailController = (): IEmailControllerResponse => {
     } catch (e) {
       console.error(e);
     }
-  }, [data.id, dispatch, customEmailDomain]);
+  }, [customEmailDomain, data, dispatch]);
 
   return {
     getters: {
       data,
+      loading,
       customEmailDomain,
     },
     handlers: {

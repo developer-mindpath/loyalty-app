@@ -17,7 +17,7 @@ import {
   Badge,
   VerticalStack,
 } from "@shopify/polaris";
-import { compareObjects } from "./utils/object";
+import ObjectUtil from "./utils/object";
 import { FormService } from "./service/formService";
 
 export interface APIData {
@@ -59,7 +59,7 @@ function SetRule() {
   console.log(pointsAmounts, pointsLimit);
 
   useEffect(() => {
-    const isEqual = compareObjects(initialFormData, data);
+    const isEqual = ObjectUtil.compareObjects(initialFormData, data);
     console.log(initialFormData, data, "isEqual:", isEqual);
     setFormUpdated(!isEqual);
   }, [data, initialFormData]);

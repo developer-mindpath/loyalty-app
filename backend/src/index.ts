@@ -51,7 +51,7 @@ app.use(function (
 app.use(express.static(path.join(__dirname, "../build")));
 
 // Then if dosent match any file redirect to website
-app.get("*", (_req: Request, res: Response) => {
+app.get("/*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 

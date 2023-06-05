@@ -15,7 +15,8 @@ import { EmailController } from "./email.controller";
 
 const EmailSettings = () => {
   const { getters, handlers } = EmailController();
-  const { data, customEmailDomain } = getters;
+
+  const { data, loading, customEmailDomain } = getters;
   const {
     handleChange,
     handleCustomEmailDomain,
@@ -38,21 +39,21 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
-              value={data.email_from_name}
+              value={data?.email_from_name}
               onChange={handleChange("email_from_name")}
               label="From name"
               autoComplete="off"
               helpText="The name of visible to customer receiving your email."
             />
             <TextField
-              value={data.email_from_email}
+              value={data?.email_from_email}
               onChange={handleChange("email_from_email")}
               label="From email"
               autoComplete="email"
               helpText="The email address visible to customer receiving the email."
             />
             <TextField
-              value={data.email_reply_email}
+              value={data?.email_reply_email}
               onChange={handleChange("email_reply_email")}
               label="Reply email"
               autoComplete="email"
@@ -104,14 +105,14 @@ const EmailSettings = () => {
           <AlphaCard>
             <Box paddingBlockEnd="4">
               <TextField
-                value={customEmailDomain ?? data.custom_email_domain}
+                value={customEmailDomain ?? data?.custom_email_domain}
                 onChange={handleCustomEmailDomain}
                 autoComplete="off"
                 label="Domain Name"
               />
             </Box>
             <Button
-              disabled={_.isEqual(data.custom_email_domain, customEmailDomain)}
+              disabled={_.isEqual(data?.custom_email_domain, customEmailDomain)}
               onClick={handleCustomEmailDomainUpdate}
             >
               Save
@@ -125,7 +126,7 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
-              value={data.custom_url_path_for_email}
+              value={data?.custom_url_path_for_email}
               onChange={handleChange("custom_url_path_for_email")}
               autoComplete="off"
               label="Custom URL path for emails"

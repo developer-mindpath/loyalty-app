@@ -23,7 +23,7 @@ export class SettingService {
     const response = await APIUtils.send<
       IResponseWithBody<IGetEmailSettingsResponse>
     >({
-      url: `/api/settings/email/${id}`,
+      url: `/api/setting/email/${id}`,
       method: "GET",
     });
 
@@ -40,8 +40,8 @@ export class SettingService {
   ): Promise<IResponse> {
     const { id } = payload;
     const response = await APIUtils.send<IResponse>({
-      url: `/api/settings/email/${id}`,
-      method: "PUT",
+      url: `/api/setting/email/${id}`,
+      method: "PATCH",
       data: payload,
     });
 
@@ -59,7 +59,7 @@ export class SettingService {
     const response = await APIUtils.send<
       IResponseWithBody<IGetOrderSettingsResponse>
     >({
-      url: `/api/settings/order/${id}`,
+      url: `/api/setting/order/${id}`,
       method: "GET",
     });
 
@@ -76,7 +76,7 @@ export class SettingService {
   ): Promise<IResponse> {
     const { id } = payload;
     const response = await APIUtils.send<IResponse>({
-      url: `/api/settings/order/${id}`,
+      url: `/api/setting/order/${id}`,
       method: "PUT",
       data: payload,
     });
