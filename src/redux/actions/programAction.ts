@@ -16,7 +16,7 @@ class ProgramsAction {
   public static getRedeemingPoints = createAsyncThunk(
     "/programs/points/get/redeemingPoints",
     async (id: string) => {
-      return await ProgramsService.getRedeemingPoints(id);
+      return await ProgramsService.getRedeemingPointList(id);
     }
   );
 

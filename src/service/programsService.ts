@@ -22,7 +22,7 @@ export class ProgramsService {
    * @param {string} id User ID
    * @return {IResponseWithBody<IGetRedeemingPointsResponse>}
    */
-  public static async getRedeemingPoints(
+  public static async getRedeemingPointList(
     id: string
   ): Promise<IResponseWithBody<IGetRedeemingPointsResponse[]>> {
     const response = await APIUtils.send<
@@ -30,23 +30,6 @@ export class ProgramsService {
     >({
       url: `/api/point/redeem/${id}`,
       method: "GET",
-    });
-
-    return response.data;
-  }
-
-  /**
-   * add redeeming point
-   * @param {IAddRedeemingPointRequest} payload
-   * @return {IResponse}
-   */
-  public static async addRedeeemingPoints(
-    payload: IAddRedeemingPointRequest
-  ): Promise<IResponse> {
-    const response = await APIUtils.send<IResponse>({
-      url: `/api/point/redeem`,
-      method: "POST",
-      data: payload,
     });
 
     return response.data;
@@ -71,16 +54,34 @@ export class ProgramsService {
   }
 
   /**
-   * insert reedeming detail for a point
-   * @param {IInsertRedeemingPointRequest} payload
+   * get Earning points
+   * @param {string} id
+   * @return {IResponseWithBody<IGetPointEarningResponse[]>}
+   */
+  public static async getPointEarnings(
+    id: string
+  ): Promise<IResponseWithBody<IGetPointEarningResponse[]>> {
+    const response = await APIUtils.send<
+      IResponseWithBody<IGetPointEarningResponse[]>
+    >({
+      url: `/api/point/earn/${id}`,
+      method: "GET",
+    });
+
+    return response.data;
+  }
+
+  /**
+   * add redeeming point
+   * @param {IAddRedeemingPointRequest} payload
    * @return {IResponse}
    */
-  public static async insertRedeemingPointDetail(
-    payload: IInsertRedeemingPointRequest
+  public static async addRedeeemingPoints(
+    payload: IAddRedeemingPointRequest
   ): Promise<IResponse> {
     const response = await APIUtils.send<IResponse>({
-      url: `/api/point/redeem/details`,
-      method: "GET",
+      url: `/api/point/redeem`,
+      method: "POST",
       data: payload,
     });
 
@@ -105,18 +106,17 @@ export class ProgramsService {
   }
 
   /**
-   * get Earning points
-   * @param { string} id
-   * @return {IResponseWithBody<IGetPointEarningResponse[]>}
+   * insert reedeming detail for a point
+   * @param {IInsertRedeemingPointRequest} payload
+   * @return {IResponse}
    */
-  public static async getPointEarnings(
-    id: string
-  ): Promise<IResponseWithBody<IGetPointEarningResponse[]>> {
-    const response = await APIUtils.send<
-      IResponseWithBody<IGetPointEarningResponse[]>
-    >({
-      url: `/api/point/earn/${id}`,
+  public static async insertRedeemingPointDetail(
+    payload: IInsertRedeemingPointRequest
+  ): Promise<IResponse> {
+    const response = await APIUtils.send<IResponse>({
+      url: `/api/point/redeem/details`,
       method: "GET",
+      data: payload,
     });
 
     return response.data;
@@ -150,7 +150,7 @@ export class ProgramsService {
     const response = await APIUtils.send<IResponse>({
       url: `/api/point/earn/details`,
       method: "POST",
-      data : payload,
+      data: payload,
     });
 
     return response.data;

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import Toggle from "react-toggle";
 import { List, arrayMove } from "react-movable";
 import {
@@ -12,15 +12,18 @@ import {
   Box,
   Checkbox,
 } from "@shopify/polaris";
-import PointListItem from "../../components/points/pointsListItem";
-import SectionDivider from "../../components/layouts/sectionDivider";
 import {
   CircleTickOutlineMinor,
   StarOutlineMinor,
 } from "@shopify/polaris-icons";
+import { useAppDispatch } from "../../redux/store";
+import ProgramsAction from "../../redux/actions/programAction";
+import PointListItem from "../../components/points/pointsListItem";
+import SectionDivider from "../../components/layouts/sectionDivider";
 import DescriptionButton from "../../components/layouts/descriptionButton";
 
 function Points() {
+  const dispatch = useAppDispatch();
   const [active, setActive] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   // Modal
@@ -43,6 +46,33 @@ function Points() {
       path: "/product-review",
     },
   ]);
+
+  /**
+   * Get Page Points Data
+   */
+  const getPointsData = useCallback(() => {
+    dispatch(ProgramsAction.getPointEarnings("sad"));
+  }, [dispatch]);
+
+  /**
+   * Get Page Redeeming Data
+   */
+  const getRedeemingData = useCallback(() => {
+    dispatch(ProgramsAction.getRedeemingPoints("sad"));
+  }, [dispatch]);
+
+  /**
+   * Get Redeeming Points
+   */
+  const getRedeemingPoints = useCallback(() => {
+    dispatch(ProgramsAction.getRedeemingPoints("sad"));
+  }, [dispatch]);
+
+  useEffect(() => {
+    getPointsData();
+    getRedeemingData();
+    getRedeemingPoints();
+  }, [getPointsData, getRedeemingData, getRedeemingPoints]);
 
   const handleToggleChange = () => {
     setActive(!active);
@@ -233,9 +263,7 @@ function Points() {
         ]}
       >
         <Modal.Section>
-          <p>
-            Add the form or content for adding more ways to earn points here.
-          </p>
+          Add the form or content for adding more ways to earn points here.
         </Modal.Section>
       </Modal>
     </Page>
