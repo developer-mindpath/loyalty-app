@@ -34,7 +34,7 @@ readdirSync(path.resolve(__dirname, "routes")).forEach((file) => {
   }
 });
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/health", (_req: Request, res: Response) => {
   return res.status(200).send({ message: "Hello world" });
 });
 
@@ -45,6 +45,14 @@ app.use(function (
   _next: NextFunction
 ) {
   return ExpressError.errorHandler(err.status, err.statusText, err.errors, res);
+});
+
+// To Server all the Static Files
+app.use(express.static(path.join(__dirname, "../build")));
+
+// Then if dosent match any file redirect to website
+app.get("*", (_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.listen(port, () => {
