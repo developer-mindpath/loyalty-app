@@ -38,6 +38,14 @@ export type VipTierRewardId = {
 export type VipTierBenefitId = {
   vipTierBenefitId: number;
 };
+
+export type ChecklistCategoryId = {
+  categoryId: number;
+};
+
+export type ChecklistId = {
+  checklistId: number;
+};
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
