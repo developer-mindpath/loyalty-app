@@ -9,12 +9,16 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_API_KEY }}
+          password: ${{ secrets.DOCKER_API_KEY }}
 
       - name: Build, tag, and push image to Digital Ocean Docker Registry
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker login registry.digitalocean.com --username {{secrets.API_KEY}} --password {{secrets.API_KEY}}
           docker build -t registry.digitalocean.com/loyalityapp:$IMAGE_TAG .
           docker push registry.digitalocean.com/loyalityapp:$IMAGE_TAG
 
@@ -33,7 +37,7 @@ jobs:
           script: |
             cd  /home/pipeline-user/loyality-app;
             echo "===================Pull Image========================="
-            docker login registry.digitalocean.com --username {{secrets.API_KEY}} --password-stdin {{secrets.API_KEY}}
+            docker login registry.digitalocean.com --username {{secrets.DOCKER_API_KEY}} --password {{secrets.DOCKER_API_KEY}}
             docker pull registry.digitalocean.com/loyalityapp:${{ github.sha }}
             docker tag registry.digitalocean.com/loyalityapp:${{ github.sha }} registry.digitalocean.com/loyalityapp:latest
 
