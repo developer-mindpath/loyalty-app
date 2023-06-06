@@ -38,7 +38,7 @@
     "prebuild": "rm -rf ./backend/build && rm -rf ./backend/dist",
     "build": "npm run build-frontend && npm run build-backend",
     "build-frontend": "react-scripts build",
-    "build-backend": "cd ./backend && npm run build",
+    "build-backend": "cd ./backend && npm run build:prod",
     "postbuild": "mv build ./backend/build",
     "serve:prod": "cd ./backend && npm run start"
   },

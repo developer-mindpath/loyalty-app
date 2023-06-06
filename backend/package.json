@@ -8,6 +8,7 @@
     "nodemon": "nodemon --exec ts-node ./src/index.ts",
     "prebuild": "rm -rf ./dist",
     "build": "tsc --build ./tsconfig.json && cp ./.env ./dist/.env",
+    "build:prod": "tsc --build ./tsconfig.json",
     "migrate:generate": "NODE_ENV=development typeorm-ts-node-commonjs migration:generate src/database/migrations/Refactor -d src/database"
   },
   "author": "",
