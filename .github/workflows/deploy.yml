@@ -21,7 +21,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t registry.digitalocean.com/loyalityapp/loyalitywebapp:$IMAGE_TAG .
-          docker push registry.digitalocean.com/loyalityapp/loyalitywebapp:$IMAGE_TAG
+          docker tag registry.digitalocean.com/loyalityapp/loyalitywebapp:${{ github.sha }} registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
+          docker push registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
   deploy:
     name: Deploy
@@ -44,8 +45,7 @@ jobs:
           script: |
             cd  /home/pipeline-user/loyality-app;
             echo "===================Pull Image========================="
-            docker pull registry.digitalocean.com/loyalityapp/loyalitywebapp:${{ github.sha }}
-            docker tag registry.digitalocean.com/loyalityapp/loyalitywebapp:${{ github.sha }} registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
+            docker pull registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
             echo "=================Updating Container ==================="
             echo "NEXT_PUBLIC_DB_URL=${{ secrets.NEXT_PUBLIC_DB_URL }}"  > env
