@@ -45,7 +45,6 @@ jobs:
           script: |
             cd  /home/pipeline-user/loyality-app;
             echo "===================Pull Image========================="
-            docker login  registry.digitalocean.com --username {{ secrets.DOCKER_API_KEY }} --password {{ secrets.DOCKER_API_KEY }}
             docker pull registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
             echo "=================Updating Container ==================="
