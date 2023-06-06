@@ -9,8 +9,8 @@ export class ChecklistActionModel extends ModelTemplate {
   @Column("int", { nullable: true })
   checklist_detail_id: number | null;
 
-  @Column("int", { nullable: true })
-  user_id: number | null;
+  @Column("int")
+  user_id: number;
 
   @Column("varchar", { nullable: true })
   status: string | null;
