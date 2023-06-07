@@ -4,24 +4,45 @@ import {
   AlphaCard,
   Box,
   Button,
+  HorizontalStack,
   Layout,
   Page,
+  Spinner,
   Text,
-  TextField,
 } from "@shopify/polaris";
 import SectionedLayout from "../../../components/layouts/sectionedLayout";
 import SectionDivider from "../../../components/layouts/sectionDivider";
 import { EmailController } from "./email.controller";
+import TextField from "../../../components/textField";
+import ValidationUtil from "../../../utils/validation";
+import { RoutePathEnum } from "../../../enum/routePathEnum";
 
 const EmailSettings = () => {
   const { getters, handlers } = EmailController();
-
-  const { data, loading, customEmailDomain } = getters;
+  const { data, navigate, loading, customEmailDomain } = getters;
   const {
     handleChange,
+    handleToggleChange,
     handleCustomEmailDomain,
     handleCustomEmailDomainUpdate,
   } = handlers;
+
+  if (loading) {
+    return (
+      <Page
+        title="Email"
+        divider
+        backAction={{
+          id: "Settings",
+          url: "/settings",
+        }}
+      >
+        <HorizontalStack align="center">
+          <Spinner />
+        </HorizontalStack>
+      </Page>
+    );
+  }
 
   return (
     <Page
@@ -39,6 +60,8 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
+              requiredIndicator
+              validation={ValidationUtil.notEmpty}
               value={data?.email_from_name}
               onChange={handleChange("email_from_name")}
               label="From name"
@@ -46,6 +69,7 @@ const EmailSettings = () => {
               helpText="The name of visible to customer receiving your email."
             />
             <TextField
+              validation={ValidationUtil.email}
               value={data?.email_from_email}
               onChange={handleChange("email_from_email")}
               label="From email"
@@ -53,6 +77,7 @@ const EmailSettings = () => {
               helpText="The email address visible to customer receiving the email."
             />
             <TextField
+              validation={ValidationUtil.email}
               value={data?.email_reply_email}
               onChange={handleChange("email_reply_email")}
               label="Reply email"
@@ -72,7 +97,12 @@ const EmailSettings = () => {
                 Customize colors, fonts and images to match your brand.
               </Text>
             </Box>
-            <Button primary>Edit Email Design</Button>
+            <Button
+              primary
+              onClick={() => navigate(RoutePathEnum.BRANDING_EMAIL)}
+            >
+              Edit Email Design
+            </Button>
           </AlphaCard>
         </SectionedLayout>
         <SectionDivider />
@@ -81,7 +111,10 @@ const EmailSettings = () => {
           description="Advanced setting for special cases."
         >
           <AlphaCard>
-            <Toggle checked />
+            <Toggle
+              checked={data.status === "true"}
+              onChange={handleToggleChange}
+            />
             <Box paddingBlockEnd="2">
               <Text as="h6">
                 Only send loyalty program email to customers who have explicity
@@ -105,6 +138,7 @@ const EmailSettings = () => {
           <AlphaCard>
             <Box paddingBlockEnd="4">
               <TextField
+                validation={ValidationUtil.domain}
                 value={customEmailDomain ?? data?.custom_email_domain}
                 onChange={handleCustomEmailDomain}
                 autoComplete="off"
@@ -126,6 +160,7 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
+              validation={ValidationUtil.domainPath}
               value={data?.custom_url_path_for_email}
               onChange={handleChange("custom_url_path_for_email")}
               autoComplete="off"

@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getEmailSettings,
   getIsLoading,
@@ -7,32 +8,25 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import SettingsAction from "../../../redux/actions/settingsAction";
 import useContextualSave from "../../../hooks/useContextualSave";
-import { IGetEmailSettingsResponse } from "../../../types";
 import ObjectUtil from "../../../utils/object";
-
-export interface IEmailControllerResponse {
-  getters: {
-    loading: boolean;
-    data: IGetEmailSettingsResponse;
-    customEmailDomain?: string;
-  };
-  handlers: {
-    handleChange: (key: string) => (value: string) => void;
-    handleCustomEmailDomain: (value: string) => void;
-    handleCustomEmailDomainUpdate: () => Promise<void>;
-  };
-}
+import { ITextFieldRef } from "../../../components/textField";
 
 /**
  * Email controller
  * @returns {IEmailControllerResponse}
  */
-export const EmailController = (): IEmailControllerResponse => {
+export const EmailController = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(getEmailSettings);
+  const navigate = useNavigate();
   const loading = useAppSelector(getIsLoading);
   const [initalState, setInital] = useState(data);
   const [customEmailDomain, setCustomEmailDomain] = useState<string>();
+  const nameRef = useRef<ITextFieldRef>(null);
+  const emailRef = useRef<ITextFieldRef>(null);
+  const replyEmailRef = useRef<ITextFieldRef>(null);
+  const domainRef = useRef<ITextFieldRef>(null);
+  const pathRef = useRef<ITextFieldRef>(null);
 
   /**
    * Get Page Data
@@ -58,6 +52,14 @@ export const EmailController = (): IEmailControllerResponse => {
    * Handle Contextual Save Bar Save
    */
   const handleSave = async () => {
+    const name = nameRef.current?.validate();
+    const email = emailRef.current?.validate();
+    const replyEmail = replyEmailRef.current?.validate();
+    const domain = domainRef.current?.validate();
+    const path = pathRef.current?.validate();
+
+    if (!name || !email || !replyEmail || !domain || !path) return;
+
     try {
       const payload = ObjectUtil.getChanges(initalState, data);
       await dispatch(
@@ -95,10 +97,23 @@ export const EmailController = (): IEmailControllerResponse => {
   };
 
   /**
+   * Handle Toggle
+   * @param {ChangeEvent<HTMLInputElement>} event Is the Text Field Seperated from main data
+   */
+  const handleToggleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(
+      settingsActions.updateEmailState({
+        key: "status",
+        value: String(event.target.checked),
+      })
+    );
+  };
+
+  /**
    * Handle Custom Email Domain Value Change
    * @param {string} value
    */
-  const handleCustomEmailDomain = (value: string) => {
+  const handleCustomEmailDomain = (value: string): void => {
     // TODO: Maybe we have to Add Validation
     setCustomEmailDomain(value);
   };
@@ -137,13 +152,22 @@ export const EmailController = (): IEmailControllerResponse => {
   return {
     getters: {
       data,
+      navigate,
       loading,
       customEmailDomain,
     },
     handlers: {
       handleChange,
+      handleToggleChange,
       handleCustomEmailDomain,
       handleCustomEmailDomainUpdate,
+    },
+    ref: {
+      nameRef,
+      emailRef,
+      replyEmailRef,
+      domainRef,
+      pathRef,
     },
   };
 };
