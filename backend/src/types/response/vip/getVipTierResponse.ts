@@ -1,4 +1,5 @@
 export type GetVipTierResponse = {
+  id: number;
   tier_key: string | null;
   tier_key_display_text: string | null;
   tier_key_icon: string | null;

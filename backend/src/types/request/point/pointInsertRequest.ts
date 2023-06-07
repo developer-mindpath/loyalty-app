@@ -5,8 +5,12 @@ export type PointInsertRequest = {
   action_icon: string;
   action_description: string;
   is_action_enabled: number;
+  app_id: number;
+  points_amounts: string;
+  limit_count: number;
+  limit_count_type: string;
+  url_to_share: string;
+  earning_method: string;
   status: string;
-  user_id: number;
-  admin_ref: number;
-  created_by: number;
+  limit_count_enabled: number;
 };

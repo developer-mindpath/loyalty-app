@@ -15,7 +15,4 @@ export type InsertEmailSettingRequest = {
   design_image: string;
   design_image_type: string;
   status: string;
-  admin_ref: number;
-  user_id: number;
-  created_by: number;
 };

@@ -40,6 +40,7 @@ export default class LoginService {
       token: generateAuthToken({
         email: data.email,
         userId: data.id,
+        adminRef: data.admin_ref,
       }),
       user_id: data.id,
       admin_ref: data.admin_ref,

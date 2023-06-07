@@ -18,17 +18,25 @@ export default class VipTierRepository {
     return await this._vipTierModel.save(insertVipTierRequestDTO);
   }
 
-  public async getVipTier(userId: number): Promise<GetVipTierResponse | null> {
-    return await this._vipTierModel.findOne({
+  public async getVipTiers(userId: number): Promise<Array<GetVipTierResponse>> {
+    return await this._vipTierModel.find({
       where: { user_id: userId },
+    });
+  }
+
+  public async getVipTier(
+    vipTierId: number
+  ): Promise<GetVipTierResponse | null> {
+    return await this._vipTierModel.findOne({
+      where: { id: vipTierId },
     });
   }
 
   public async updateVipTier(
     updateVipTierRequestDTO: UpdateVipTierRequestDTO
   ): Promise<UpdateResult> {
-    const user_id = updateVipTierRequestDTO.user_id;
-    const data = lodash.omit(updateVipTierRequestDTO, ["user_id"]);
-    return await this._vipTierModel.update({ user_id }, data);
+    const id = updateVipTierRequestDTO.vipTierId;
+    const data = lodash.omit(updateVipTierRequestDTO, ["vipTierId"]);
+    return await this._vipTierModel.update({ id }, data);
   }
 }

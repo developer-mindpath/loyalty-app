@@ -3,10 +3,6 @@ import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
 import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
-import {
-  DeleteRedeemPointDetailParams,
-  GetRedeemPointDetailParams,
-} from "../types/request/params";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 
@@ -27,38 +23,30 @@ export default class PointRedeemDetailRepository {
   }
 
   public async getPointRedeemDetail(
-    params: GetRedeemPointDetailParams
+    pointRedeemId: number
   ): Promise<GetPointRedeemDetailResponse[]> {
-    const user_id = params.userId;
-    const point_redeem_id = params.pointRedeemId;
+    const point_redeem_id = pointRedeemId;
     return await this._pointRedeemDetailModel.find({
-      where: { user_id, point_redeem_id },
+      where: { point_redeem_id },
     });
   }
 
   public async updatePointRedeemDetail(
     updatePointRedeemDetailRequestDTO: UpdatePointRedeemDetailRequestDTO
   ): Promise<UpdateResult> {
-    const user_id = updatePointRedeemDetailRequestDTO.user_id;
-    const point_redeem_id = updatePointRedeemDetailRequestDTO.point_redeem_id;
+    const id = updatePointRedeemDetailRequestDTO.point_redeem_detail_id;
     const data = lodash.omit(updatePointRedeemDetailRequestDTO, [
-      "user_id",
-      "point_redeem_id",
+      "point_redeem_detail_id",
     ]);
-    return await this._pointRedeemDetailModel.update(
-      { user_id, point_redeem_id },
-      data
-    );
+    return await this._pointRedeemDetailModel.update({ id }, data);
   }
 
   public async deletePointRedeemDetail(
-    params: DeleteRedeemPointDetailParams
+    pointRedeemDetailId: number
   ): Promise<DeleteResult> {
-    const user_id = params.userId;
-    const point_redeem_id = params.pointRedeemId;
+    const id = pointRedeemDetailId;
     return await this._pointRedeemDetailModel.delete({
-      user_id,
-      point_redeem_id,
+      id,
     });
   }
 }

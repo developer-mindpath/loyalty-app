@@ -9,14 +9,9 @@ import {
 } from "../types/request/customRequest";
 import { PointInsertRequest } from "../types/request/point/pointInsertRequest";
 import {
-  DeleteRedeemPointDetailParams,
-  GetEarnDetailParams,
-  GetEarnPointsByUsingUserIdParams,
-  GetRedeemPointDetailParams,
-  GetRedeemPointsParams,
-  UpdateEarnDetailParams,
-  UpdateRedeemPointDetailParams,
-  UpdateRedeemPointsParams,
+  PointActionId,
+  PointRedeemDetailId,
+  PointRedeemId,
 } from "../types/request/params";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
@@ -27,9 +22,9 @@ import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRede
 import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
-import { InsertPointEarnDetailRequest } from "../types/request/point/insertPointEarnDetailRequest";
 import { doValidation } from "../helper/joi";
 import pointValidations from "../requestValidator/point";
+import { checkToken } from "../middleware/checkToken";
 
 const pointController = new PointController();
 const router = express.Router();
@@ -39,44 +34,39 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<PointInsertRequest>,
   QueryParams
->("/earn", doValidation(pointValidations[0]), (...arg) =>
+>("/earn", checkToken, doValidation(pointValidations[0]), (...arg) =>
   pointController.insertEarningPoint(...arg)
 );
 
 router.get<
-  PathParams<GetEarnPointsByUsingUserIdParams>,
+  PathParams,
   ResponseBody<Array<GetPointEarnResponse>>,
   RequestBody,
   QueryParams
->("/earn/:userId", doValidation(pointValidations[1]), (...arg) =>
-  pointController.getAllEarningPoints(...arg)
-);
+>("/earn", checkToken, (...arg) => pointController.getAllEarningPoints(...arg));
 
 router.get<
-  PathParams<GetEarnDetailParams>,
+  PathParams<PointActionId>,
   ResponseBody<GetPointEarnDetailResponse>,
   RequestBody,
   QueryParams
->("/earn/details/:pointId", doValidation(pointValidations[2]), (...arg) =>
-  pointController.getEarningDetailsByPointId(...arg)
-);
-
-router.post<
-  PathParams,
-  ResponseBody<IEmptyObject>,
-  RequestBody<InsertPointEarnDetailRequest>,
-  QueryParams
->("/earn/details", doValidation(pointValidations[3]), (...arg) =>
-  pointController.insertEarningDetailsByPointId(...arg)
+>(
+  "/earn/detail/:pointId",
+  checkToken,
+  doValidation(pointValidations[2]),
+  (...arg) => pointController.getEarningDetailsByPointId(...arg)
 );
 
 router.patch<
-  PathParams<UpdateEarnDetailParams>,
+  PathParams<PointActionId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePointEarnDetailRequest>,
   QueryParams
->("/earn/details/:pointId", doValidation(pointValidations[4]), (...arg) =>
-  pointController.updateEarningDetailsByPointId(...arg)
+>(
+  "/earn/detail/:pointId",
+  checkToken,
+  doValidation(pointValidations[4]),
+  (...arg) => pointController.updateEarningDetailsByPointId(...arg)
 );
 
 router.post<
@@ -84,26 +74,25 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertPointRedeemRequest>,
   QueryParams
->("/redeem", doValidation(pointValidations[5]), (...arg) =>
+>("/redeem", checkToken, doValidation(pointValidations[5]), (...arg) =>
   pointController.insertRedeemingPoint(...arg)
 );
 
 router.get<
-  PathParams<GetRedeemPointsParams>,
+  PathParams,
   ResponseBody<Array<GetPointRedeemResponse>>,
   RequestBody,
   QueryParams
->("/redeem/:userId", doValidation(pointValidations[6]), (...arg) =>
-  pointController.getPointRedeem(...arg)
-);
+>("/redeems", checkToken, (...arg) => pointController.getPointRedeem(...arg));
 
 router.patch<
-  PathParams<UpdateRedeemPointsParams>,
+  PathParams<PointRedeemId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePointRedeemRequest>,
   QueryParams
 >(
-  "/redeem/:pointRedeemId/:userId",
+  "/redeem/:pointRedeemId",
+  checkToken,
   doValidation(pointValidations[7]),
   (...arg) => pointController.updatePointRedeem(...arg)
 );
@@ -113,39 +102,42 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertPointRedeemDetailRequest>,
   QueryParams
->("/redeem/details", doValidation(pointValidations[8]), (...arg) =>
+>("/redeem/detail", checkToken, doValidation(pointValidations[8]), (...arg) =>
   pointController.insertRedeemPointDetail(...arg)
 );
 
 router.get<
-  PathParams<GetRedeemPointDetailParams>,
+  PathParams<PointRedeemId>,
   ResponseBody<Array<GetPointRedeemDetailResponse>>,
   RequestBody,
   QueryParams
 >(
-  "/redeem/details/:pointRedeemId/:userId",
+  "/redeem/detail/:pointRedeemId",
+  checkToken,
   doValidation(pointValidations[9]),
   (...arg) => pointController.getPointRedeemDetail(...arg)
 );
 
 router.patch<
-  PathParams<UpdateRedeemPointDetailParams>,
+  PathParams<PointRedeemDetailId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePointRedeemDetailRequest>,
   QueryParams
 >(
-  "/redeem/details/:pointRedeemId/:userId",
+  "/redeem/detail/:pointRedeemDetailId",
+  checkToken,
   doValidation(pointValidations[10]),
   (...arg) => pointController.updatePointRedeemDetail(...arg)
 );
 
 router.delete<
-  PathParams<DeleteRedeemPointDetailParams>,
+  PathParams<PointRedeemDetailId>,
   ResponseBody<IEmptyObject>,
   RequestBody<IEmptyObject>,
   QueryParams
 >(
-  "/redeem/details/:pointRedeemId/:userId",
+  "/redeem/detail/:pointRedeemDetailId",
+  checkToken,
   doValidation(pointValidations[11]),
   (...arg) => pointController.deletePointRedeemDetail(...arg)
 );

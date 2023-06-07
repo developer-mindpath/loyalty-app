@@ -60,10 +60,19 @@ router.patch<
 
 router.get<
   PathParams<UserId>,
+  ResponseBody<Array<GetVipTierResponse>>,
+  RequestBody,
+  QueryParams
+>("/vip/tiers/:userId", doValidation(vipValidations[3]), (...arg) =>
+  vipController.getVipTiers(...arg)
+);
+
+router.get<
+  PathParams<VipTierId>,
   ResponseBody<GetVipTierResponse>,
   RequestBody,
   QueryParams
->("/vip/tier/:userId", doValidation(vipValidations[3]), (...arg) =>
+>("/vip/tier/:vipTierId", doValidation(vipValidations[14]), (...arg) =>
   vipController.getVipTier(...arg)
 );
 
@@ -77,11 +86,11 @@ router.post<
 );
 
 router.patch<
-  PathParams<UserId>,
+  PathParams<VipTierId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateVipTierRequest>,
   QueryParams
->("/vip/tier/:userId", doValidation(vipValidations[5]), (...arg) =>
+>("/vip/tier/:vipTierId", doValidation(vipValidations[5]), (...arg) =>
   vipController.updateVipTier(...arg)
 );
 
@@ -90,7 +99,7 @@ router.get<
   ResponseBody<Array<GetVipTierRewardResponse>>,
   RequestBody,
   QueryParams
->("/vip/reward/all/:vipTierId", doValidation(vipValidations[6]), (...arg) =>
+>("/vip/rewards/:vipTierId", doValidation(vipValidations[6]), (...arg) =>
   vipController.getVipTierRewards(...arg)
 );
 

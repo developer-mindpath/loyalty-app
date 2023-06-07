@@ -17,8 +17,12 @@ export default class VipTierService {
     return await this._vipTierRepository.insertVipTier(insertVipTierRequestDTO);
   }
 
-  public async getVipTier(userId: number): Promise<GetVipTierResponse> {
-    const vipResponse = await this._vipTierRepository.getVipTier(userId);
+  public async getVipTiers(userId: number): Promise<Array<GetVipTierResponse>> {
+    return await this._vipTierRepository.getVipTiers(userId);
+  }
+
+  public async getVipTier(vipTierId: number): Promise<GetVipTierResponse> {
+    const vipResponse = await this._vipTierRepository.getVipTier(vipTierId);
     return vipResponse ? vipResponse : ({} as GetVipTierResponse);
   }
 

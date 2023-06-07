@@ -29,7 +29,6 @@ export default interface CustomRequest<
   ReqBody = IEmptyObject,
   Query = IEmptyObject
 > extends Request<Path, APIResponse<ResBody>, ReqBody, Query> {
-  domain?: string;
-  userName?: string;
-  branchId?: string;
+  userId?: number;
+  adminRef?: number;
 }

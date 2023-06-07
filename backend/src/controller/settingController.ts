@@ -4,12 +4,6 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  GetEmailSettingParams,
-  GetOrderSettingParams,
-  UpdateEmailSettingParams,
-  UpdateOrderSettingParams,
-} from "../types/request/params";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
 import SettingService from "../services/settingService";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
@@ -30,18 +24,14 @@ export default class SettingController {
   }
 
   public async getEmailSettingByUserId(
-    req: CustomRequest<
-      GetEmailSettingParams,
-      GetEmailSettingResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetEmailSettingResponse, IEmptyObject>,
     res: Response<APIResponse<GetEmailSettingResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetEmailSettingResponse>();
       const settingResponse =
-        await this._settingService.getEmailSettingByUserId(req.params.userId);
+        await this._settingService.getEmailSettingByUserId(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = settingResponse;
@@ -56,18 +46,14 @@ export default class SettingController {
   }
 
   public async getOrderSettingByUserId(
-    req: CustomRequest<
-      GetOrderSettingParams,
-      GetOrderSettingResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetOrderSettingResponse, IEmptyObject>,
     res: Response<APIResponse<GetOrderSettingResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetOrderSettingResponse>();
       const settingResponse =
-        await this._settingService.getOrderSettingByUserId(req.params.userId);
+        await this._settingService.getOrderSettingByUserId(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = settingResponse;
@@ -82,11 +68,7 @@ export default class SettingController {
   }
 
   public async updateEmailSettingByUserId(
-    req: CustomRequest<
-      UpdateEmailSettingParams,
-      IEmptyObject,
-      UpdateEmailSettingRequest
-    >,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateEmailSettingRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -94,7 +76,8 @@ export default class SettingController {
       const response = new APIResponse<IEmptyObject>();
       const updateEmailSettingRequestDTO = new UpdateEmailSettingRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!,
+        req.adminRef!
       );
       await this._settingService.updateEmailSettingByUserId(
         updateEmailSettingRequestDTO
@@ -113,11 +96,7 @@ export default class SettingController {
   }
 
   public async updateOrderSettingByUserId(
-    req: CustomRequest<
-      UpdateOrderSettingParams,
-      IEmptyObject,
-      UpdateOrderSettingRequest
-    >,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateOrderSettingRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -125,7 +104,8 @@ export default class SettingController {
       const response = new APIResponse<IEmptyObject>();
       const updateOrderSettingRequestDTO = new UpdateOrderSettingRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!,
+        req.adminRef!
       );
       await this._settingService.updateOrderSettingByUserId(
         updateOrderSettingRequestDTO
@@ -151,7 +131,9 @@ export default class SettingController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertEmailSettingRequestDTO = new InsertEmailSettingRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._settingService.insertEmailSettingByUserId(
         insertEmailSettingRequestDTO
@@ -177,7 +159,9 @@ export default class SettingController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertOrderSettingRequestDTO = new InsertOrderSettingRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._settingService.insertOrderSettingByUserId(
         insertOrderSettingRequestDTO

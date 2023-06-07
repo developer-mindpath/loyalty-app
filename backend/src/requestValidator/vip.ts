@@ -65,9 +65,9 @@ export = {
       admin_ref: Joi.number().optional(),
     },
   }),
-  5: joiValidationRequest<UserId, UpdateVipTierRequest, IEmptyObject>({
+  5: joiValidationRequest<VipTierId, UpdateVipTierRequest, IEmptyObject>({
     path: {
-      userId: Joi.number().required(),
+      vipTierId: Joi.number().required(),
     },
     body: {
       tier_key: Joi.string().optional(),
@@ -163,6 +163,11 @@ export = {
       text: Joi.string().optional(),
       status: Joi.string().optional(),
       updated_by: Joi.number().optional(),
+    },
+  }),
+  14: joiValidationRequest<VipTierId, IEmptyObject, IEmptyObject>({
+    path: {
+      vipTierId: Joi.number().required(),
     },
   }),
 };
