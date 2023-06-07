@@ -20,7 +20,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t registry.digitalocean.com/loyalityapp/loyalitywebapp:$IMAGE_TAG .
+          docker build  --build-arg REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }} -t registry.digitalocean.com/loyalityapp/loyalitywebapp:$IMAGE_TAG .
           docker tag registry.digitalocean.com/loyalityapp/loyalitywebapp:${{ github.sha }} registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
           docker push registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
