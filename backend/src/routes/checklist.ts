@@ -5,7 +5,12 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import { ChecklistCategoryId, ChecklistId } from "../types/request/params";
+import {
+  ChecklistActionId,
+  ChecklistCategoryId,
+  ChecklistDetailId,
+  ChecklistId,
+} from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import checklistValidations from "../requestValidator/checklist";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
@@ -16,6 +21,12 @@ import ChecklistController from "../controller/checklistController";
 import { GetChecklistResponse } from "../types/response/checklist/getChecklistResponse";
 import { InsertChecklistRequest } from "../types/request/checklist/insertChecklistRequest";
 import { UpdateChecklistRequest } from "../types/request/checklist/updateChecklistRequest";
+import { InsertChecklistDetailRequest } from "../types/request/checklist/insertChecklistDetailRequest";
+import { GetChecklistDetailResponse } from "../types/response/checklist/getChecklistDetailResponse";
+import { UpdateChecklistDetailRequest } from "../types/request/checklist/updateChecklistDetailRequest";
+import { InsertChecklistActionRequest } from "../types/request/checklist/insertChecklistActionRequest";
+import { GetChecklistActionResponse } from "../types/response/checklist/getChecklistActionResponse";
+import { UpdateChecklistActionRequest } from "../types/request/checklist/updateChecklistActionRequest";
 
 const checklistController = new ChecklistController();
 const router = express.Router();
@@ -70,6 +81,66 @@ router.patch<
   QueryParams
 >("/:checklistId", doValidation(checklistValidations[4]), (...arg) =>
   checklistController.updateChecklist(...arg)
+);
+
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertChecklistDetailRequest>,
+  QueryParams
+>("/detail", doValidation(checklistValidations[5]), (...arg) =>
+  checklistController.insertChecklistDetail(...arg)
+);
+
+router.get<
+  PathParams<ChecklistId>,
+  ResponseBody<Array<GetChecklistDetailResponse>>,
+  RequestBody,
+  QueryParams
+>("/detail/:checklistId", doValidation(checklistValidations[6]), (...arg) =>
+  checklistController.getChecklistDetail(...arg)
+);
+
+router.patch<
+  PathParams<ChecklistDetailId>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<UpdateChecklistDetailRequest>,
+  QueryParams
+>(
+  "/detail/:checklistDetailId",
+  doValidation(checklistValidations[7]),
+  (...arg) => checklistController.updateChecklistDetail(...arg)
+);
+
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertChecklistActionRequest>,
+  QueryParams
+>("/action", doValidation(checklistValidations[8]), (...arg) =>
+  checklistController.insertChecklistAction(...arg)
+);
+
+router.get<
+  PathParams<ChecklistDetailId>,
+  ResponseBody<Array<GetChecklistActionResponse>>,
+  RequestBody,
+  QueryParams
+>(
+  "/action/:checklistDetailId",
+  doValidation(checklistValidations[9]),
+  (...arg) => checklistController.getChecklistAction(...arg)
+);
+
+router.patch<
+  PathParams<ChecklistActionId>,
+  ResponseBody<IEmptyObject>,
+  RequestBody<UpdateChecklistActionRequest>,
+  QueryParams
+>(
+  "/detail/:checklistDetailId",
+  doValidation(checklistValidations[10]),
+  (...arg) => checklistController.updateChecklistAction(...arg)
 );
 
 module.exports = { router, basePath: "/api/checklist" };

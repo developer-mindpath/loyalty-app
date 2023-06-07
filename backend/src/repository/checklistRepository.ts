@@ -18,8 +18,12 @@ export default class ChecklistRepository {
     return await this._checklistModel.save(insertChecklistRequestDTO);
   }
 
-  public async getChecklist(): Promise<Array<GetChecklistResponse>> {
-    return await this._checklistModel.find();
+  public async getChecklist(
+    categoryId: number
+  ): Promise<Array<GetChecklistResponse>> {
+    return await this._checklistModel.find({
+      where: { checklist_category_id: categoryId },
+    });
   }
 
   public async updateChecklist(

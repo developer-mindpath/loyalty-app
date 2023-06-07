@@ -12,7 +12,7 @@ export class ChecklistDetailModel extends ModelTemplate {
   @Column("varchar", { nullable: true })
   checklist_detail_title: string | null;
 
-  @Column("varchar", { nullable: true })
+  @Column("text", { nullable: true })
   html_body: string | null;
 
   @Column("int", { nullable: true })
