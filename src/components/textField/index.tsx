@@ -43,7 +43,7 @@ function TextField(props: ITextFieldProps, ref: ForwardedRef<ITextFieldRef>) {
         if (!validation) return true;
         const error = validation?.(value);
         setError(error);
-        return !!error;
+        return error === undefined ? true : false;
       },
       reset: () => {
         setError(undefined);

@@ -18,7 +18,7 @@ import ValidationUtil from "../../../utils/validation";
 import { RoutePathEnum } from "../../../enum/routePathEnum";
 
 const EmailSettings = () => {
-  const { getters, handlers } = EmailController();
+  const { getters, handlers, ref } = EmailController();
   const { data, navigate, loading, customEmailDomain } = getters;
   const {
     handleChange,
@@ -26,6 +26,7 @@ const EmailSettings = () => {
     handleCustomEmailDomain,
     handleCustomEmailDomainUpdate,
   } = handlers;
+  const { domainRef, emailRef, nameRef, pathRef, replyEmailRef } = ref;
 
   if (loading) {
     return (
@@ -60,7 +61,7 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
-              requiredIndicator
+              ref={nameRef}
               validation={ValidationUtil.notEmpty}
               value={data?.email_from_name}
               onChange={handleChange("email_from_name")}
@@ -69,6 +70,7 @@ const EmailSettings = () => {
               helpText="The name of visible to customer receiving your email."
             />
             <TextField
+              ref={emailRef}
               validation={ValidationUtil.email}
               value={data?.email_from_email}
               onChange={handleChange("email_from_email")}
@@ -77,6 +79,7 @@ const EmailSettings = () => {
               helpText="The email address visible to customer receiving the email."
             />
             <TextField
+              ref={replyEmailRef}
               validation={ValidationUtil.email}
               value={data?.email_reply_email}
               onChange={handleChange("email_reply_email")}
@@ -138,6 +141,7 @@ const EmailSettings = () => {
           <AlphaCard>
             <Box paddingBlockEnd="4">
               <TextField
+                ref={domainRef}
                 validation={ValidationUtil.domain}
                 value={customEmailDomain ?? data?.custom_email_domain}
                 onChange={handleCustomEmailDomain}
@@ -160,6 +164,7 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <TextField
+              ref={pathRef}
               validation={ValidationUtil.domainPath}
               value={data?.custom_url_path_for_email}
               onChange={handleChange("custom_url_path_for_email")}
