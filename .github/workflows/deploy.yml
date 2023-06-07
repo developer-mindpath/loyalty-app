@@ -41,14 +41,21 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
             cd  /home/pipeline-user/loyality-app;
             echo "===================Pull Image========================="
             docker pull registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
             echo "=================Updating Container ==================="
-            echo "NEXT_PUBLIC_DB_URL=${{ secrets.NEXT_PUBLIC_DB_URL }}"  > env
+            echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}"  > env
+            echo "PORT=${{ secrets.PORT }}"  >> env
+            echo "DB_HOST=${{ secrets.DB_HOST }}"  >> env
+            echo "DB_PORT=${{ secrets.DB_PORT }}"  >> env
+            echo "DB_USER=${{ secrets.DB_USER }}"  >> env
+            echo "DB_DATABASE=${{ secrets.DB_DATABASE }}"  >> env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"  >> env
+            echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}"  >> env
             docker-compose config
             docker-compose -p loyality-app  down  > /dev/null 2>&1
             docker-compose -p loyality-app up -d  > /dev/null 2>&1
