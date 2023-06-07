@@ -9,13 +9,27 @@ import InsertChecklistRequestDTO from "../dto/checklist/insertChecklistRequestDt
 import { ChecklistModel } from "../database/models/checklist";
 import UpdateChecklistRequestDTO from "../dto/checklist/updateChecklistRequestDto";
 import ChecklistRepository from "../repository/checklistRepository";
+import InsertChecklistDetailRequestDTO from "../dto/checklist/insertChecklistDetailRequestDto";
+import { ChecklistDetailModel } from "../database/models/checklistDetail";
+import { GetChecklistDetailResponse } from "../types/response/checklist/getChecklistDetailResponse";
+import ChecklistDetailService from "./checklistDetailService";
+import UpdateChecklistDetailRequestDTO from "../dto/checklist/updateChecklistDetailRequestDto";
+import InsertChecklistActionRequestDTO from "../dto/checklist/insertChecklistActionRequestDto";
+import { ChecklistActionModel } from "../database/models/checklistAction";
+import { GetChecklistActionResponse } from "../types/response/checklist/getChecklistActionResponse";
+import UpdateChecklistActionRequestDTO from "../dto/checklist/updateChecklistActionRequestDto";
+import ChecklistActionService from "./checklistActionService";
 
 export default class ChecklistService {
   private _checklistRepository: ChecklistRepository;
   private _checklistCategoryService: ChecklistCategoryService;
+  private _checklistDetailService: ChecklistDetailService;
+  private _checklistActionService: ChecklistActionService;
   constructor() {
     this._checklistRepository = new ChecklistRepository();
     this._checklistCategoryService = new ChecklistCategoryService();
+    this._checklistDetailService = new ChecklistDetailService();
+    this._checklistActionService = new ChecklistActionService();
   }
 
   public async insertChecklistCategory(
@@ -40,8 +54,10 @@ export default class ChecklistService {
     );
   }
 
-  public async getChecklist(): Promise<Array<GetChecklistResponse>> {
-    return await this._checklistRepository.getChecklist();
+  public async getChecklist(
+    categoryId: number
+  ): Promise<Array<GetChecklistResponse>> {
+    return await this._checklistRepository.getChecklist(categoryId);
   }
 
   public async insertChecklist(
@@ -57,6 +73,52 @@ export default class ChecklistService {
   ): Promise<UpdateResult> {
     return await this._checklistRepository.updateChecklist(
       updateChecklistRequestDTO
+    );
+  }
+
+  public async insertChecklistDetail(
+    insertChecklistDetailRequestDTO: InsertChecklistDetailRequestDTO
+  ): Promise<ChecklistDetailModel> {
+    return await this._checklistDetailService.insertChecklistDetail(
+      insertChecklistDetailRequestDTO
+    );
+  }
+
+  public async getChecklistDetail(
+    checklistId: number
+  ): Promise<Array<GetChecklistDetailResponse>> {
+    return await this._checklistDetailService.getChecklistDetail(checklistId);
+  }
+
+  public async updateChecklistDetail(
+    updateChecklistDetailRequestDTO: UpdateChecklistDetailRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._checklistDetailService.updateChecklistDetail(
+      updateChecklistDetailRequestDTO
+    );
+  }
+
+  public async insertChecklistAction(
+    insertChecklistActionRequestDTO: InsertChecklistActionRequestDTO
+  ): Promise<ChecklistActionModel> {
+    return await this._checklistActionService.insertChecklistAction(
+      insertChecklistActionRequestDTO
+    );
+  }
+
+  public async getChecklistAction(
+    checklistDetailId: number
+  ): Promise<Array<GetChecklistActionResponse>> {
+    return await this._checklistActionService.getChecklistAction(
+      checklistDetailId
+    );
+  }
+
+  public async updateChecklistAction(
+    updateChecklistActionRequestDTO: UpdateChecklistActionRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._checklistActionService.updateChecklistAction(
+      updateChecklistActionRequestDTO
     );
   }
 }

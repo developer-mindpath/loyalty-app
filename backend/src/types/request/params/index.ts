@@ -46,6 +46,14 @@ export type ChecklistCategoryId = {
 export type ChecklistId = {
   checklistId: number;
 };
+
+export type ChecklistDetailId = {
+  checklistDetailId: number;
+};
+
+export type ChecklistActionId = {
+  checklistActionId: number;
+};
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;
