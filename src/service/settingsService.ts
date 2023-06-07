@@ -77,7 +77,7 @@ export class SettingService {
     const { id } = payload;
     const response = await APIUtils.send<IResponse>({
       url: `/api/setting/order/${id}`,
-      method: "PUT",
+      method: "PATCH",
       data: payload,
     });
 

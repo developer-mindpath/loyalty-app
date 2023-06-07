@@ -26,7 +26,7 @@ const initialState: ISettingsState = {
       points_cancelation_refunde: 0,
       orders_include_partialy_refunded: 0,
       orders_include_voided: 0,
-      reward_channel: "online",
+      reward_channel: "online-pos",
       who_can_participate: "any",
     } as IGetOrderSettingsResponse,
     email: {

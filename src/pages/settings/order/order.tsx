@@ -3,9 +3,11 @@ import {
   Box,
   Checkbox,
   Divider,
+  HorizontalStack,
   Layout,
   Page,
   RadioButton,
+  Spinner,
   Text,
   VerticalStack,
 } from "@shopify/polaris";
@@ -19,9 +21,26 @@ const CheckBoxHelpText = styled.p`
 
 const OrdersSettings = () => {
   const { getters, handlers } = OrderController();
-  const { rewardChannel, points, include } = getters;
+  const { rewardChannel, points, include, loading } = getters;
   const { handleChangeInclude, handleChangeRefund, handleChangeRewardChannel } =
     handlers;
+
+  if (loading) {
+    return (
+      <Page
+        title="Email"
+        divider
+        backAction={{
+          id: "Settings",
+          url: "/settings",
+        }}
+      >
+        <HorizontalStack align="center">
+          <Spinner />
+        </HorizontalStack>
+      </Page>
+    );
+  }
 
   return (
     <Page

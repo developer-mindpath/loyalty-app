@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  getEmailSettings,
   getIsLoading,
   getOrderSettings,
   settingsActions,
@@ -12,41 +11,15 @@ import {
   IGetOrderSettingsResponse,
   IUpdateOrderSettingsRequest,
 } from "../../../types";
-
-export interface IOrderControllerResponse {
-  getters: {
-    rewardChannel: string | null;
-    points: {
-      refunded: number | null;
-      partially: number | null;
-      voided: number | null;
-    };
-    include: {
-      subTotal: number;
-      couponDiscount: number;
-      taxes: number;
-      shipping: number | null;
-    };
-  };
-  handlers: {
-    handleChangeRefund: (key: string) => (_: boolean, newValue: string) => void;
-    handleChangeRewardChannel: (
-      value: string
-    ) => (_: boolean, newValue: string) => void;
-    handleChangeInclude: (
-      key: string
-    ) => (_: boolean, newValue: string) => void;
-  };
-}
+import ObjectUtil from "../../../utils/object";
 
 /**
  * Email controller
- * @returns {IOrderControllerResponse}
  */
-export const OrderController = (): IOrderControllerResponse => {
+export const OrderController = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector(getOrderSettings);
-  const Loading = useAppSelector(getIsLoading);
+  const loading = useAppSelector(getIsLoading);
   const [initalState, setInital] = useState(data);
 
   const rewardChannel = data.reward_channel;
@@ -64,12 +37,22 @@ export const OrderController = (): IOrderControllerResponse => {
 
   useEffect(() => {
     // TODO - dummy user id to be replaced after login functionality
-    const userId = "dummy id";
-    dispatch(SettingsAction.getOrders(userId));
+    const userId = "1";
+    const getData = async () => {
+      const response = await dispatch(
+        SettingsAction.getOrders(userId)
+      ).unwrap();
+      setInital(response.body);
+    };
+
+    getData();
   }, [dispatch]);
 
+  /**
+   * Handle Reward Change
+   */
   const handleChangeRewardChannel = useCallback(
-    (value: string) => (_: boolean, newValue: string) => {
+    (value: string) => () => {
       dispatch(
         settingsActions.updateOrderState({ key: "reward_channel", value })
       );
@@ -77,30 +60,50 @@ export const OrderController = (): IOrderControllerResponse => {
     [dispatch]
   );
 
+  /**
+   * Handle Refund Change
+   */
   const handleChangeRefund = useCallback(
-    (key: string) => (_: boolean, newValue: string) => {
+    (key: string) => () => {
       const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
       dispatch(settingsActions.updateOrderState({ key, value }));
     },
     [data, dispatch]
   );
 
+  /**
+   * Handle Include Change
+   */
   const handleChangeInclude = useCallback(
-    (key: string) => (_: boolean, newValue: string) => {
+    (key: string) => () => {
       const value = data[key as keyof IGetOrderSettingsResponse] !== 0 ? 0 : 1;
       dispatch(settingsActions.updateOrderState({ key, value }));
     },
     [data, dispatch]
   );
 
+  /**
+   * Handle Data discard
+   */
   const handleDiscard = () => {
     dispatch(settingsActions.setOrderState(initalState));
     setInital(initalState);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const payload = ObjectUtil.getChanges(initalState, data);
     //TODO the request type is incompatible with response type with different types for same value hence giving empty object fo now
-    dispatch(SettingsAction.updateOrder({} as IUpdateOrderSettingsRequest));
+    try {
+      await dispatch(
+        SettingsAction.updateOrder({
+          id: "1",
+          ...payload,
+        } as IUpdateOrderSettingsRequest)
+      );
+      setInital(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useContextualSave(initalState, data, {
@@ -110,9 +113,10 @@ export const OrderController = (): IOrderControllerResponse => {
 
   return {
     getters: {
-      rewardChannel,
       points,
       include,
+      loading,
+      rewardChannel,
     },
     handlers: {
       handleChangeRefund,
