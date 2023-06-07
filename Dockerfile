@@ -1,4 +1,5 @@
 FROM node:18-alpine
+ARG REACT_APP_BACKEND_URL
 WORKDIR /app
 COPY package*.json ./
 COPY . .
