@@ -1,6 +1,5 @@
 import { DeleteResult, UpdateResult } from "typeorm";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import PointRedeemDetailRepository from "../repository/pointRedeemDetailRepository";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
@@ -12,10 +11,10 @@ export default class PointRedeemDetailService {
   }
 
   public async insertRedeemPointDetail(
-    insertPointRedeemDetailRequestDTO: InsertPointRedeemDetailRequestDTO
+    insertPointRedeemDetailData: Record<string, string | number>
   ): Promise<PointRedeemDetailModel> {
     return await this._pointRedeemDetailRepository.insertRedeemPointDetail(
-      insertPointRedeemDetailRequestDTO
+      insertPointRedeemDetailData
     );
   }
 

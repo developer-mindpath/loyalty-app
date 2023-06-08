@@ -7,5 +7,4 @@ export type UpdateVipTierRewardRequest = {
   reward_description: string;
   is_reward_enabled: string;
   status: string;
-  updated_by: number;
 };

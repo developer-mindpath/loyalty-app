@@ -7,11 +7,15 @@ export default class InsertVipTierBenefitRequestDTO {
   created_by: number;
   admin_ref: number;
 
-  constructor(body: InsertVipTierBenefitRequest) {
+  constructor(
+    body: InsertVipTierBenefitRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.vip_tier_id = body.vip_tier_id;
     this.text = body.text;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

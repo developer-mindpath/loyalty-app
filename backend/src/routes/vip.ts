@@ -6,7 +6,6 @@ import {
   ResponseBody,
 } from "../types/request/customRequest";
 import {
-  UserId,
   VipTierBenefitId,
   VipTierId,
   VipTierRewardId,
@@ -27,17 +26,15 @@ import { UpdateVipTierRewardRequest } from "../types/request/vip/updateVipTierRe
 import { GetVipTierBenefitResponse } from "../types/response/vip/getVipTierBenefitResponse";
 import { InsertVipTierBenefitRequest } from "../types/request/vip/insertVipTierBenefitRequest";
 import { UpdateVipTierBenefitRequest } from "../types/request/vip/updateVipTierBenefitRequest";
+import { checkToken } from "../middleware/checkToken";
 
 const vipController = new VipController();
 const router = express.Router();
 
-router.get<
-  PathParams<UserId>,
-  ResponseBody<GetVipResponse>,
-  RequestBody,
-  QueryParams
->("/vip/:userId", doValidation(vipValidations[0]), (...arg) =>
-  vipController.getVip(...arg)
+router.get<PathParams, ResponseBody<GetVipResponse>, RequestBody, QueryParams>(
+  "/vip",
+  checkToken,
+  (...arg) => vipController.getVip(...arg)
 );
 
 router.post<
@@ -45,35 +42,36 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertVipRequest>,
   QueryParams
->("/vip", doValidation(vipValidations[1]), (...arg) =>
+>("/vip", checkToken, doValidation(vipValidations[1]), (...arg) =>
   vipController.insertVip(...arg)
 );
 
 router.patch<
-  PathParams<UserId>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateVipRequest>,
   QueryParams
->("/vip/:userId", doValidation(vipValidations[2]), (...arg) =>
+>("/vip", checkToken, doValidation(vipValidations[2]), (...arg) =>
   vipController.updateVip(...arg)
 );
 
 router.get<
-  PathParams<UserId>,
+  PathParams,
   ResponseBody<Array<GetVipTierResponse>>,
   RequestBody,
   QueryParams
->("/vip/tiers/:userId", doValidation(vipValidations[3]), (...arg) =>
-  vipController.getVipTiers(...arg)
-);
+>("/vip/tiers", checkToken, (...arg) => vipController.getVipTiers(...arg));
 
 router.get<
   PathParams<VipTierId>,
   ResponseBody<GetVipTierResponse>,
   RequestBody,
   QueryParams
->("/vip/tier/:vipTierId", doValidation(vipValidations[14]), (...arg) =>
-  vipController.getVipTier(...arg)
+>(
+  "/vip/tier/:vipTierId",
+  checkToken,
+  doValidation(vipValidations[14]),
+  (...arg) => vipController.getVipTier(...arg)
 );
 
 router.post<
@@ -81,7 +79,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertVipTierRequest>,
   QueryParams
->("/vip/tier", doValidation(vipValidations[4]), (...arg) =>
+>("/vip/tier", checkToken, doValidation(vipValidations[4]), (...arg) =>
   vipController.insertVipTier(...arg)
 );
 
@@ -90,8 +88,11 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateVipTierRequest>,
   QueryParams
->("/vip/tier/:vipTierId", doValidation(vipValidations[5]), (...arg) =>
-  vipController.updateVipTier(...arg)
+>(
+  "/vip/tier/:vipTierId",
+  checkToken,
+  doValidation(vipValidations[5]),
+  (...arg) => vipController.updateVipTier(...arg)
 );
 
 router.get<
@@ -99,8 +100,11 @@ router.get<
   ResponseBody<Array<GetVipTierRewardResponse>>,
   RequestBody,
   QueryParams
->("/vip/rewards/:vipTierId", doValidation(vipValidations[6]), (...arg) =>
-  vipController.getVipTierRewards(...arg)
+>(
+  "/vip/rewards/:vipTierId",
+  checkToken,
+  doValidation(vipValidations[6]),
+  (...arg) => vipController.getVipTierRewards(...arg)
 );
 
 router.get<
@@ -108,8 +112,11 @@ router.get<
   ResponseBody<GetVipTierRewardResponse>,
   RequestBody,
   QueryParams
->("/vip/reward/:vipTierRewardId", doValidation(vipValidations[7]), (...arg) =>
-  vipController.getVipTierReward(...arg)
+>(
+  "/vip/reward/:vipTierRewardId",
+  checkToken,
+  doValidation(vipValidations[7]),
+  (...arg) => vipController.getVipTierReward(...arg)
 );
 
 router.post<
@@ -117,7 +124,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertVipTierRewardRequest>,
   QueryParams
->("/vip/reward", doValidation(vipValidations[8]), (...arg) =>
+>("/vip/reward", checkToken, doValidation(vipValidations[8]), (...arg) =>
   vipController.insertVipTierReward(...arg)
 );
 
@@ -126,8 +133,11 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateVipTierRewardRequest>,
   QueryParams
->("/vip/reward/:vipTierRewardId", doValidation(vipValidations[9]), (...arg) =>
-  vipController.updateVipTierReward(...arg)
+>(
+  "/vip/reward/:vipTierRewardId",
+  checkToken,
+  doValidation(vipValidations[9]),
+  (...arg) => vipController.updateVipTierReward(...arg)
 );
 
 router.get<
@@ -135,8 +145,11 @@ router.get<
   ResponseBody<Array<GetVipTierBenefitResponse>>,
   RequestBody,
   QueryParams
->("/vip/benefit/all/:vipTierId", doValidation(vipValidations[10]), (...arg) =>
-  vipController.getVipTierBenefits(...arg)
+>(
+  "/vip/benefits/:vipTierId",
+  checkToken,
+  doValidation(vipValidations[10]),
+  (...arg) => vipController.getVipTierBenefits(...arg)
 );
 
 router.get<
@@ -146,6 +159,7 @@ router.get<
   QueryParams
 >(
   "/vip/benefit/:vipTierBenefitId",
+  checkToken,
   doValidation(vipValidations[11]),
   (...arg) => vipController.getVipTierBenefit(...arg)
 );
@@ -155,7 +169,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertVipTierBenefitRequest>,
   QueryParams
->("/vip/benefit", doValidation(vipValidations[12]), (...arg) =>
+>("/vip/benefit", checkToken, doValidation(vipValidations[12]), (...arg) =>
   vipController.insertVipTierBenefit(...arg)
 );
 
@@ -166,6 +180,7 @@ router.patch<
   QueryParams
 >(
   "/vip/benefit/:vipTierBenefitId",
+  checkToken,
   doValidation(vipValidations[13]),
   (...arg) => vipController.updateVipTierBenefit(...arg)
 );

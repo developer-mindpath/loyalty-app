@@ -4,5 +4,4 @@ export type UpdateVipRequest = {
   entry_method: string;
   expiry: number;
   status: string;
-  updated_by: number;
 };

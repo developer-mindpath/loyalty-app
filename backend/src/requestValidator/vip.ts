@@ -4,7 +4,6 @@ import { UpdateVipTierRequest } from "../types/request/vip/updateVipTierRequest"
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import {
-  UserId,
   VipTierBenefitId,
   VipTierId,
   VipTierRewardId,
@@ -17,11 +16,6 @@ import { InsertVipTierBenefitRequest } from "../types/request/vip/insertVipTierB
 import { UpdateVipTierBenefitRequest } from "../types/request/vip/updateVipTierBenefitRequest";
 
 export = {
-  0: joiValidationRequest<UserId, IEmptyObject, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
   1: joiValidationRequest<IEmptyObject, InsertVipRequest, IEmptyObject>({
     body: {
       is_enabled: Joi.number().optional(),
@@ -29,27 +23,15 @@ export = {
       entry_method: Joi.string().optional(),
       expiry: Joi.number().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  2: joiValidationRequest<UserId, UpdateVipRequest, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
+  2: joiValidationRequest<IEmptyObject, UpdateVipRequest, IEmptyObject>({
     body: {
       is_enabled: Joi.number().optional(),
       start_date: Joi.string().optional(),
       entry_method: Joi.string().optional(),
       expiry: Joi.number().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
-    },
-  }),
-  3: joiValidationRequest<UserId, IEmptyObject, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
     },
   }),
   4: joiValidationRequest<IEmptyObject, InsertVipTierRequest, IEmptyObject>({
@@ -60,9 +42,6 @@ export = {
       tier_key_description: Joi.string().optional(),
       goals_to_achieve_tier: Joi.number().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   5: joiValidationRequest<VipTierId, UpdateVipTierRequest, IEmptyObject>({
@@ -76,7 +55,6 @@ export = {
       tier_key_description: Joi.string().optional(),
       goals_to_achieve_tier: Joi.number().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   6: joiValidationRequest<VipTierId, IEmptyObject, IEmptyObject>({
@@ -103,8 +81,6 @@ export = {
       reward_description: Joi.string().optional(),
       is_reward_enabled: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   9: joiValidationRequest<
@@ -124,7 +100,6 @@ export = {
       reward_description: Joi.string().optional(),
       is_reward_enabled: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   10: joiValidationRequest<VipTierId, IEmptyObject, IEmptyObject>({
@@ -146,8 +121,6 @@ export = {
       vip_tier_id: Joi.number().optional(),
       text: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   13: joiValidationRequest<
@@ -159,10 +132,8 @@ export = {
       vipTierBenefitId: Joi.number().required(),
     },
     body: {
-      vip_tier_id: Joi.number().optional(),
       text: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   14: joiValidationRequest<VipTierId, IEmptyObject, IEmptyObject>({

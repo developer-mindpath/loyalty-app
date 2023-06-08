@@ -7,6 +7,4 @@ export type InsertVipTierRewardRequest = {
   reward_description: string;
   is_reward_enabled: string;
   status: string;
-  created_by: number;
-  admin_ref: number;
 };

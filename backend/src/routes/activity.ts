@@ -5,48 +5,45 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import {
-  GetLoyaltyProgramActivityParams,
-  GetReferralProgramActivityParams,
-  GetVipProgramActivityParams,
-  Pagination,
-} from "../types/request/params";
+import { Pagination } from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import activityValidations from "../requestValidator/activity";
 import ActivityController from "../controller/activityController";
 import { GetLoyaltyProgramActivityResponse } from "../types/response/activity/getLoyaltyProgramActivityResponse";
 import { GetReferralProgramActivityResponse } from "../types/response/activity/getReferralProgramActivityResponse";
 import { GetVipProgramActivityResponse } from "../types/response/activity/getVipProgramActivityResponse";
+import { checkToken } from "../middleware/checkToken";
 
 const activityController = new ActivityController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetLoyaltyProgramActivityParams>,
+  PathParams,
   ResponseBody<Array<GetLoyaltyProgramActivityResponse>>,
   RequestBody,
   QueryParams<Pagination>
->("/activity/loyalty/:userId", doValidation(activityValidations[0]), (...arg) =>
-  activityController.getLoyaltyProgramActivity(...arg)
+>(
+  "/activity/loyalty",
+  checkToken,
+  doValidation(activityValidations[0]),
+  (...arg) => activityController.getLoyaltyProgramActivity(...arg)
 );
 
 router.get<
-  PathParams<GetReferralProgramActivityParams>,
+  PathParams,
   ResponseBody<Array<GetReferralProgramActivityResponse>>,
   RequestBody,
   QueryParams<Pagination>
->(
-  "/activity/referral/:userId",
-  doValidation(activityValidations[1]),
-  (...arg) => activityController.getReferralProgramActivity(...arg)
+>("/activity/referral", doValidation(activityValidations[1]), (...arg) =>
+  activityController.getReferralProgramActivity(...arg)
 );
 
 router.get<
-  PathParams<GetVipProgramActivityParams>,
+  PathParams,
   ResponseBody<Array<GetVipProgramActivityResponse>>,
   RequestBody,
   QueryParams<Pagination>
->("/activity/vip/:userId", doValidation(activityValidations[2]), (...arg) =>
+>("/activity/vip", doValidation(activityValidations[2]), (...arg) =>
   activityController.getVipProgramActivity(...arg)
 );
 
