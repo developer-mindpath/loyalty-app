@@ -21,7 +21,6 @@ import { OnsiteWidgetAdditionalSettingTextModel } from "./onsiteWidgetAdditional
 import { OnsiteWidgetPanelOrderModel } from "./onsiteWidgetPanelOrder";
 import { PlanFeatureAssignedModel } from "./planFeatureAssigned";
 import { PointActionModel } from "./pointAction";
-import { PointActionDetailsModel } from "./pointActionDetails";
 import { PointRedeemModel } from "./pointRedeem";
 import { PointRedeemDetailModel } from "./pointRedeemDetail";
 import { PostModel } from "./post";
@@ -96,12 +95,6 @@ export class UserModel extends ModelTemplate {
 
   @OneToMany(() => PointActionModel, (pointAction) => pointAction.user)
   pointAction: PointActionModel[];
-
-  @OneToMany(
-    () => PointActionDetailsModel,
-    (pointActionDetail) => pointActionDetail.user
-  )
-  pointActionDetail: PointActionDetailsModel[];
 
   @OneToMany(() => AppModel, (appModel) => appModel.user)
   appModel: AppModel[];

@@ -12,6 +12,7 @@ export function generateAuthToken(
   });
 }
 
-export async function verifyToken(token: string) {
-  return await jwt.verify(token, serverConfig.JWT_SECRET_KEY);
+export async function verifyToken(token: string): Promise<AuthTokenRequest> {
+  const jwtResponse = await jwt.verify(token, serverConfig.JWT_SECRET_KEY);
+  return jwtResponse as AuthTokenRequest;
 }

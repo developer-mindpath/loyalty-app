@@ -13,7 +13,12 @@ export default class UpdatePointEarnDetailRequestDTO {
   updated_by: number;
   point_action_id: number;
 
-  constructor(body: UpdatePointEarnDetailRequest, pointId: number) {
+  constructor(
+    body: UpdatePointEarnDetailRequest,
+    pointId: number,
+    userId: number,
+    adminRef: number
+  ) {
     this.app_id = body.app_id;
     this.points_amounts = body.points_amounts;
     this.limit_count = body.limit_count;
@@ -22,8 +27,8 @@ export default class UpdatePointEarnDetailRequestDTO {
     this.earning_method = body.earning_method;
     this.status = body.status;
     this.limit_count_enabled = body.limit_count_enabled;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.admin_ref = adminRef;
+    this.updated_by = userId;
     this.point_action_id = pointId;
   }
 }

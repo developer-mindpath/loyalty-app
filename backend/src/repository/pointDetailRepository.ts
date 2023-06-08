@@ -4,7 +4,6 @@ import AppDataSource from "../database";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
-import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 
 export default class PointDetailRepository {
   private _pointActionDetailModel: Repository<PointActionDetailsModel>;
@@ -23,11 +22,9 @@ export default class PointDetailRepository {
   }
 
   public async insertEarningDetailsByPointId(
-    insertPointEarnDetailRequestDTO: InsertPointEarnDetailRequestDTO
+    insertPointActionDetailData: Record<string, string | number>
   ): Promise<PointActionDetailsModel> {
-    return await this._pointActionDetailModel.save(
-      insertPointEarnDetailRequestDTO
-    );
+    return await this._pointActionDetailModel.save(insertPointActionDetailData);
   }
 
   public async updateEarningDetailsByPointId(

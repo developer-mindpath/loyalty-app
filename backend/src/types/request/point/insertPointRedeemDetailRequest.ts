@@ -19,7 +19,4 @@ export type InsertPointRedeemDetailRequest = {
   reward_expiry: number;
   products: string;
   status: string;
-  user_id: number;
-  admin_ref: number;
-  created_by: number;
 };

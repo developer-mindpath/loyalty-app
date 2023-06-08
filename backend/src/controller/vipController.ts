@@ -128,14 +128,37 @@ export default class VipController {
     }
   }
 
+  public async getVipTiers(
+    req: CustomRequest<UserId, Array<GetVipTierResponse>, IEmptyObject>,
+    res: Response<APIResponse<Array<GetVipTierResponse>>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<Array<GetVipTierResponse>>();
+      const vipResponse = await this._vipService.getVipTiers(req.params.userId);
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = vipResponse;
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
   public async getVipTier(
-    req: CustomRequest<UserId, GetVipTierResponse, IEmptyObject>,
+    req: CustomRequest<VipTierId, GetVipTierResponse, IEmptyObject>,
     res: Response<APIResponse<GetVipTierResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetVipTierResponse>();
-      const vipResponse = await this._vipService.getVipTier(req.params.userId);
+      const vipResponse = await this._vipService.getVipTier(
+        req.params.vipTierId
+      );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = vipResponse;
@@ -150,7 +173,7 @@ export default class VipController {
   }
 
   public async updateVipTier(
-    req: CustomRequest<UserId, IEmptyObject, UpdateVipTierRequest>,
+    req: CustomRequest<VipTierId, IEmptyObject, UpdateVipTierRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -158,7 +181,7 @@ export default class VipController {
       const response = new APIResponse<IEmptyObject>();
       const updateVipTierRequestDTO = new UpdateVipTierRequestDTO(
         req.body,
-        req.params.userId
+        req.params.vipTierId
       );
       await this._vipService.updateVipTier(updateVipTierRequestDTO);
       response.status = StatusCodes.OK;

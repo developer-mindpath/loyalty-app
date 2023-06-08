@@ -3,7 +3,6 @@ import { AdminUserModel } from "./adminUser";
 import { AppModel } from "./app";
 import { ModelTemplate } from "./modelTemplate";
 import { PointActionModel } from "./pointAction";
-import { UserModel } from "./user";
 
 @Entity({ name: "point_action_details" })
 export class PointActionDetailsModel extends ModelTemplate {
@@ -28,20 +27,17 @@ export class PointActionDetailsModel extends ModelTemplate {
   @Column("varchar", { nullable: true })
   earning_method: string | null;
 
-  @Column("varchar")
-  status: string;
+  @Column("varchar", { nullable: true })
+  status: string | null;
 
   @Column("tinyint", { nullable: true })
   limit_count_enabled: number | null;
 
-  @Column("int")
-  admin_ref: number;
+  @Column("int", { nullable: true })
+  admin_ref: number | null;
 
-  @Column("int")
-  user_id: number;
-
-  @Column("int")
-  created_by: number;
+  @Column("int", { nullable: true })
+  created_by: number | null;
 
   @Column("int", { nullable: true })
   updated_by: number | null;
@@ -52,10 +48,6 @@ export class PointActionDetailsModel extends ModelTemplate {
   )
   @JoinColumn({ name: "admin_ref", referencedColumnName: "id" })
   adminUser: AdminUserModel;
-
-  @ManyToOne(() => UserModel, (userModel) => userModel.pointActionDetail)
-  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
-  user: UserModel;
 
   @ManyToOne(
     () => PointActionModel,

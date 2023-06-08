@@ -5,6 +5,4 @@ export type UpdatePointRedeemRequest = {
   reward_description: string;
   is_reward_enabled: number;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

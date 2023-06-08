@@ -16,7 +16,11 @@ export default class InsertOrderSettingRequestDTO {
   created_by: number;
   user_id: number;
 
-  constructor(body: InsertOrderSettingRequest) {
+  constructor(
+    body: InsertOrderSettingRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.store_id = body.store_id;
     this.who_can_participate = body.who_can_participate;
     this.orders_subtotal = body.orders_subtotal;
@@ -30,8 +34,8 @@ export default class InsertOrderSettingRequestDTO {
     this.orders_include_voided = body.orders_include_voided;
     this.reward_channel = body.reward_channel;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
-    this.user_id = body.user_id;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
+    this.user_id = userId;
   }
 }
