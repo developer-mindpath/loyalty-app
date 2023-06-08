@@ -30,7 +30,7 @@ const EmailProgram = () => {
             </Text>
             <SectionDivider />
             <ul>
-              <PointsListItem
+              {/* <PointsListItem
                 name="Points Earned"
                 icon={StoreStatusMajor}
                 path="/programs/email/1232"
@@ -89,7 +89,7 @@ const EmailProgram = () => {
                 icon={StoreStatusMajor}
                 path={""}
                 checked={false}
-              />
+              /> */}
             </ul>
           </AlphaCard>
         </Layout.AnnotatedSection>

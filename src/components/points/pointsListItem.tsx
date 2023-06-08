@@ -6,7 +6,6 @@ import {
   Button,
   HorizontalStack,
   Icon,
-  IconSource,
   Text,
 } from "@shopify/polaris";
 import { DragHandleMinor, EditMinor } from "@shopify/polaris-icons";
@@ -14,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IPointListItemProps {
   name?: string;
-  icon: IconSource;
+  icon: string;
   path: string;
   checked: boolean;
   points?: string | number;
@@ -29,13 +28,15 @@ const PointListItem = ({
 }: IPointListItemProps) => {
   const navigate = useNavigate();
 
+  console.log(path);
+
   return (
     <Box paddingBlockStart="4" paddingBlockEnd="4">
       <HorizontalStack align="space-between" blockAlign="center">
         <div style={{ width: "50%" }}>
           <div style={{ width: "fit-content" }}>
             <HorizontalStack>
-              <Icon source={icon} color="base" />
+              <img src={icon} alt={name} height={25} width={25} />
               <Box paddingInlineStart="4">
                 <Text as="p" variant="headingSm">
                   {name}

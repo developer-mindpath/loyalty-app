@@ -64,13 +64,13 @@ const ReferralPage = () => {
               </Box>
               <Divider />
               <Box padding="4" paddingInlineStart="8" paddingInlineEnd="8">
-                <PointsListItem
+                {/* <PointsListItem
                   icon={CashDollarMajor}
                   name="$10 off coupon"
                   points="0 Redeemed to date"
                   path="/referral/referred"
                   checked
-                />
+                /> */}
               </Box>
             </AlphaCard>
           </Box>
@@ -84,13 +84,13 @@ const ReferralPage = () => {
               </Box>
               <Divider />
               <Box padding="4" paddingInlineStart="8" paddingInlineEnd="8">
-                <PointsListItem
+                {/* <PointsListItem
                   icon={CashDollarMajor}
                   name="$10 off coupon"
                   points="0 Redeemed to date"
                   path="/referral/referred"
                   checked
-                />
+                /> */}
               </Box>
             </AlphaCard>
           </Box>
@@ -129,13 +129,13 @@ const ReferralPage = () => {
               </Box>
               <Divider />
               <Box padding="4" paddingInlineStart="8" paddingInlineEnd="8">
-                <PointsListItem
+                {/* <PointsListItem
                   icon={CashDollarMajor}
                   name="$10 off coupon"
                   points="0 Redeemed to date"
                   path="/referral/referred"
                   checked
-                />
+                /> */}
               </Box>
             </AlphaCard>
           </Box>
@@ -149,13 +149,13 @@ const ReferralPage = () => {
               </Box>
               <Divider />
               <Box padding="4" paddingInlineStart="8" paddingInlineEnd="8">
-                <PointsListItem
+                {/* <PointsListItem
                   icon={CashDollarMajor}
                   name="$10 off coupon"
                   points="0 Redeemed to date"
                   path="/referral/referred"
                   checked
-                />
+                /> */}
               </Box>
             </AlphaCard>
           </Box>

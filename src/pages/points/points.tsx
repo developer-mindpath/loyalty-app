@@ -1,6 +1,5 @@
-import { useState, useMemo } from "react";
 import Toggle from "react-toggle";
-import { List, arrayMove } from "react-movable";
+import { List } from "react-movable";
 import {
   Page,
   Layout,
@@ -11,67 +10,35 @@ import {
   Text,
   Box,
   Checkbox,
+  Spinner,
+  Divider,
 } from "@shopify/polaris";
-import PointListItem from "../../components/points/pointsListItem";
 import SectionDivider from "../../components/layouts/sectionDivider";
-import {
-  CircleTickOutlineMinor,
-  StarOutlineMinor,
-} from "@shopify/polaris-icons";
 import DescriptionButton from "../../components/layouts/descriptionButton";
+import PointsController from "./controller";
+import PointsListItem from "../../components/points/pointsListItem";
 
 function Points() {
-  const [active, setActive] = useState(false);
-  const [showBanner, setShowBanner] = useState(false);
-  // Modal
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const statusLabel = useMemo(() => (active ? "on" : "off"), [active]);
-  const [items, setItems] = useState([
-    {
-      name: "Post a Product Review",
-      icon: StarOutlineMinor,
-      checked: true,
-      points: 500,
-      path: "/product-review",
-    },
-    {
-      name: "Complete a Referal",
-      icon: CircleTickOutlineMinor,
-      checked: false,
-      points: 1500,
-      path: "/product-review",
-    },
-  ]);
-
-  const handleToggleChange = () => {
-    setActive(!active);
-    if (!active) {
-      setShowBanner(true);
-      setTimeout(() => {
-        setShowBanner(false);
-      }, 30000);
-    }
-  };
-
-  const handleModalOpen1 = () => {
-    setIsModalOpen1(true);
-  };
-
-  const handleModalClose1 = () => {
-    setIsModalOpen1(false);
-  };
-
-  const handleModalOpen2 = () => {
-    setIsModalOpen2(true);
-  };
-
-  const handleModalClose2 = () => {
-    setIsModalOpen2(false);
-  };
+  const { getters, handlers } = PointsController();
+  const {
+    active,
+    isModalOpen1,
+    isModalOpen2,
+    earnList,
+    earnLoading,
+    showBanner,
+    statusLabel,
+  } = getters;
+  const {
+    handleModalClose1,
+    handleModalClose2,
+    handleModalOpen1,
+    handleModalOpen2,
+    handleToggleChange,
+  } = handlers;
 
   return (
-    <Page title="Points Program" divider fullWidth>
+    <Page title="Points Program" divider>
       <Layout>
         <Layout.AnnotatedSection
           id="storeDetails"
@@ -86,8 +53,7 @@ function Points() {
             </Box>
             <FormLayout>
               <Toggle
-                icons={true}
-                name="enabled"
+                icons
                 checked={active}
                 className="widget-enabled-toggle"
                 onChange={handleToggleChange}
@@ -122,33 +88,51 @@ function Points() {
           }
         >
           <AlphaCard padding="0">
-            <Box
-              paddingBlockStart="4"
-              paddingInlineStart="4"
-              paddingInlineEnd="4"
-            >
+            <Box padding="4">
               <Text as="h6" variant="headingMd">
                 Customers will earn points through the actions active below
               </Text>
             </Box>
-            <SectionDivider dense />
-            <List
-              values={items}
-              onChange={({ oldIndex, newIndex }) => {
-                setItems(arrayMove(items, oldIndex, newIndex));
+            <Divider />
+            <div
+              style={{
+                display: earnLoading ? "block" : "none",
+                textAlign: "center",
               }}
-              lockVertically
-              renderList={({ children, props }) => (
-                <ul {...props}>{children}</ul>
-              )}
-              renderItem={({ value, props }) => {
-                return (
-                  <div {...props} style={{ ...props.style, margin: "8px 0px" }}>
-                    <PointListItem {...value} />
-                  </div>
-                );
-              }}
-            />
+            >
+              <Box padding="4">
+                <Spinner size="small" />
+              </Box>
+            </div>
+            <div style={{ display: earnLoading ? "none" : "block" }}>
+              <List
+                values={earnList}
+                onChange={({ oldIndex, newIndex }) => {}}
+                lockVertically
+                renderList={({ children, props }) => (
+                  <ul {...props}>{children}</ul>
+                )}
+                renderItem={({ value, props }) => {
+                  return (
+                    <div
+                      key={value.id}
+                      {...props}
+                      style={{ ...props.style, margin: "8px 0px" }}
+                    >
+                      <Box paddingInlineStart="1" paddingInlineEnd="6">
+                        <PointsListItem
+                          points={value.points_amounts}
+                          name={value.action_key_display_text}
+                          icon={value.action_icon}
+                          checked={Boolean(value.is_action_enabled)}
+                          path={`/programs/points/${value.action_key}/${value.id}`}
+                        />
+                      </Box>
+                    </div>
+                  );
+                }}
+              />
+            </div>
           </AlphaCard>
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection
@@ -162,21 +146,51 @@ function Points() {
           }
         >
           <AlphaCard padding="0">
-            <Box
-              paddingBlockStart="4"
-              paddingInlineStart="4"
-              paddingInlineEnd="4"
-            >
+            <Box padding="4" paddingInlineStart="4" paddingInlineEnd="4">
               <Text as="h6" variant="headingMd">
                 Customers can redeem these rewards using their points
               </Text>
             </Box>
-            <SectionDivider dense />
-            <Box padding="4">
-              {items.map((e) => (
-                <PointListItem {...e} />
-              ))}
-            </Box>
+            <Divider />
+            <div
+              style={{
+                display: earnLoading ? "block" : "none",
+                textAlign: "center",
+              }}
+            >
+              <Box padding="4">
+                <Spinner size="small" />
+              </Box>
+            </div>
+            <div style={{ display: earnLoading ? "none" : "block" }}>
+              <List
+                values={earnList}
+                onChange={({ oldIndex, newIndex }) => {}}
+                lockVertically
+                renderList={({ children, props }) => (
+                  <ul {...props}>{children}</ul>
+                )}
+                renderItem={({ value, props }) => {
+                  return (
+                    <div
+                      key={value.id}
+                      {...props}
+                      style={{ ...props.style, margin: "8px 0px" }}
+                    >
+                      <Box paddingInlineEnd="6">
+                        <PointsListItem
+                          points={value.points_amounts}
+                          name={value.action_key_display_text}
+                          icon={value.action_icon}
+                          checked={Boolean(value.is_action_enabled)}
+                          path={`/programs/points/${value.action_key}/${value.id}`}
+                        />
+                      </Box>
+                    </div>
+                  );
+                }}
+              />
+            </div>
           </AlphaCard>
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection

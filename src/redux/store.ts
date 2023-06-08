@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+
 import settings from "./reducers/settings";
+import pointProgram from "./reducers/pointsProgram";
 
 const store = configureStore({
   reducer: {
     settings,
+    pointProgram,
   },
 });
 

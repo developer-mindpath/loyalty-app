@@ -61,7 +61,7 @@ const BirthdayActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramStatus onChange={() => ({})} />
+            <ProgramStatus active onChange={() => ({})} />
           </Box>
 
           <Box paddingBlockEnd="5">

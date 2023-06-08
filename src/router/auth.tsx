@@ -11,8 +11,8 @@ import RewardSettings from "../pages/settings/rewards";
 import OrdersSettings from "../pages/settings/order/order";
 import EmailSettings from "../pages/settings/email/email";
 // Programs
-import Points from "../pages/programs/points";
-import ReferalActivity from "../pages/programs/earn/referal";
+import Points from "../pages/points/points";
+import ReferalActivity from "../pages/programs/earn/referral";
 import ProductReviewActivity from "../pages/programs/earn/productReview";
 import ShareActivity from "../pages/programs/earn/share";
 import SignUpActivity from "../pages/programs/earn/signUp";
@@ -40,7 +40,7 @@ const DashboardRoutes = (): JSX.Element => (
       path="/programs/points/product_review/:id"
       element={<ProductReviewActivity />}
     />
-    <Route path="/programs/points/referal/:id" element={<ReferalActivity />} />
+    <Route path="/programs/points/referral/:id" element={<ReferalActivity />} />
     <Route path="/programs/points/share/:id" element={<ShareActivity />} />
     <Route path="/programs/points/sign_up/:id" element={<SignUpActivity />} />
     <Route

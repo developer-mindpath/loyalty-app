@@ -1,15 +1,19 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Toggle from "react-toggle";
 import { AlphaCard, HorizontalStack, Badge, Box, Text } from "@shopify/polaris";
 
 export interface IProgramStatusProps {
-  active?: boolean;
+  active: boolean;
   onChange: (arg: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ProgramStatus = (props: IProgramStatusProps) => {
-  const { active = false, onChange } = props;
+  const { active, onChange } = props;
   const [state, setState] = useState<boolean>(active);
+
+  useEffect(() => {
+    setState(active);
+  }, [active]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
