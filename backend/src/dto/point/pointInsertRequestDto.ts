@@ -7,12 +7,19 @@ export default class PointInsertRequestDTO {
   action_icon: string;
   action_description: string;
   is_action_enabled: number;
+  app_id: number;
+  points_amounts: string;
+  limit_count: number;
+  limit_count_type: string;
+  url_to_share: string;
+  earning_method: string;
   status: string;
+  limit_count_enabled: number;
   user_id: number;
   admin_ref: number;
   created_by: number;
 
-  constructor(body: PointInsertRequest) {
+  constructor(body: PointInsertRequest, userId: number, adminRef: number) {
     this.action_key = body.action_key;
     this.action_key_display_text = body.action_key_display_text;
     this.action_visible_order = body.action_visible_order;
@@ -20,8 +27,15 @@ export default class PointInsertRequestDTO {
     this.action_description = body.action_description;
     this.is_action_enabled = body.is_action_enabled;
     this.status = body.status;
-    this.user_id = body.user_id;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.app_id = body.app_id;
+    this.points_amounts = body.points_amounts;
+    this.limit_count = body.limit_count;
+    this.limit_count_type = body.limit_count_type;
+    this.url_to_share = body.url_to_share;
+    this.earning_method = body.earning_method;
+    this.limit_count_enabled = body.limit_count_enabled;
+    this.user_id = userId;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

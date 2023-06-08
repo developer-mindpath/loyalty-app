@@ -1,10 +1,4 @@
 import Joi from "joi";
-import {
-  GetEmailSettingParams,
-  GetOrderSettingParams,
-  UpdateEmailSettingParams,
-  UpdateOrderSettingParams,
-} from "../types/request/params";
 import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailSettingRequest";
 import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
 import { UpdateEmailSettingRequest } from "../types/request/setting/updateEmailSettingRequest";
@@ -13,15 +7,7 @@ import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 
 export = {
-  0: joiValidationRequest<GetEmailSettingParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  1: joiValidationRequest<UpdateEmailSettingParams, UpdateEmailSettingRequest>({
-    path: {
-      userId: Joi.number().required(),
-    },
+  1: joiValidationRequest<IEmptyObject, UpdateEmailSettingRequest>({
     body: {
       email_from_name: Joi.string().optional(),
       email_from_email: Joi.string().optional(),
@@ -39,8 +25,6 @@ export = {
       design_image: Joi.string().optional(),
       design_image_type: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   2: joiValidationRequest<IEmptyObject, InsertEmailSettingRequest>({
@@ -61,20 +45,9 @@ export = {
       design_image: Joi.string().optional(),
       design_image_type: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      created_by: Joi.number().optional(),
     },
   }),
-  3: joiValidationRequest<GetOrderSettingParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  4: joiValidationRequest<UpdateOrderSettingParams, UpdateOrderSettingRequest>({
-    path: {
-      userId: Joi.number().required(),
-    },
+  4: joiValidationRequest<IEmptyObject, UpdateOrderSettingRequest>({
     body: {
       store_id: Joi.number().optional(),
       who_can_participate: Joi.string().optional(),
@@ -87,8 +60,6 @@ export = {
       orders_include_voided: Joi.number().optional(),
       reward_channel: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   5: joiValidationRequest<IEmptyObject, InsertOrderSettingRequest>({
@@ -104,9 +75,6 @@ export = {
       orders_include_voided: Joi.number().optional(),
       reward_channel: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      created_by: Joi.number().optional(),
     },
   }),
 };

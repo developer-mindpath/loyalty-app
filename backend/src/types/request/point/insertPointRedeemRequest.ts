@@ -5,7 +5,4 @@ export type InsertPointRedeemRequest = {
   reward_description: string;
   is_reward_enabled: number;
   status: string;
-  user_id: number;
-  admin_ref: number;
-  created_by: number;
 };

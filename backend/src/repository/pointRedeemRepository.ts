@@ -27,12 +27,11 @@ export default class PointRedeemRepository {
   public async updatePointRedeem(
     updatePointRedeemRequestDTO: UpdatePointRedeemRequestDTO
   ): Promise<UpdateResult> {
-    const user_id = updatePointRedeemRequestDTO.user_id;
     const id = updatePointRedeemRequestDTO.pointRedeemId;
     const data = lodash.omit(updatePointRedeemRequestDTO, [
       "user_id",
       "pointRedeemId",
     ]);
-    return await this._pointRedeemModel.update({ user_id, id }, data);
+    return await this._pointRedeemModel.update({ id }, data);
   }
 }

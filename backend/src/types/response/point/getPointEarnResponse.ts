@@ -4,6 +4,7 @@ export type GetPointEarnResponse = {
   action_key_display_text: string | null;
   action_visible_order: number | null;
   action_icon: string | null;
+  points_amounts: number | null;
   action_description: string | null;
   is_action_enabled: number | null;
   status: string | null;

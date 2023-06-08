@@ -10,6 +10,4 @@ export type UpdateOrderSettingRequest = {
   orders_include_voided: number;
   reward_channel: string;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

@@ -21,7 +21,11 @@ export default class InsertEmailSettingRequestDTO {
   created_by: number;
   user_id: number;
 
-  constructor(body: InsertEmailSettingRequest) {
+  constructor(
+    body: InsertEmailSettingRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.email_from_name = body.email_from_name;
     this.email_from_email = body.email_from_email;
     this.email_reply_email = body.email_reply_email;
@@ -35,8 +39,8 @@ export default class InsertEmailSettingRequestDTO {
     this.design_image = body.design_image;
     this.design_image_type = body.design_image_type;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
-    this.user_id = body.user_id;
+    this.created_by = userId;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
   }
 }

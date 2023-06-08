@@ -21,7 +21,11 @@ export default class UpdateEmailSettingRequestDTO {
   updated_by: number;
   user_id: number;
 
-  constructor(body: UpdateEmailSettingRequest, userId: number) {
+  constructor(
+    body: UpdateEmailSettingRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.email_from_name = body.email_from_name;
     this.email_from_email = body.email_from_email;
     this.email_reply_email = body.email_reply_email;
@@ -35,8 +39,8 @@ export default class UpdateEmailSettingRequestDTO {
     this.design_image = body.design_image;
     this.design_image_type = body.design_image_type;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.admin_ref = adminRef;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

@@ -5,12 +5,6 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import {
-  GetEmailSettingParams,
-  GetOrderSettingParams,
-  UpdateEmailSettingParams,
-  UpdateOrderSettingParams,
-} from "../types/request/params";
 import { GetEmailSettingResponse } from "../types/response/setting/getEmailSettingResponse";
 import SettingController from "../controller/settingController";
 import { GetOrderSettingResponse } from "../types/response/setting/getOrderSettingResponse";
@@ -21,25 +15,26 @@ import { InsertEmailSettingRequest } from "../types/request/setting/insertEmailS
 import { InsertOrderSettingRequest } from "../types/request/setting/insertOrderSettingRequest";
 import { doValidation } from "../helper/joi";
 import settingValidations from "../requestValidator/setting";
+import { checkToken } from "../middleware/checkToken";
 
 const settingController = new SettingController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetEmailSettingParams>,
+  PathParams<IEmptyObject>,
   ResponseBody<GetEmailSettingResponse>,
   RequestBody,
   QueryParams
->("/email/:userId", doValidation(settingValidations[0]), (...arg) =>
+>("/email", checkToken, (...arg) =>
   settingController.getEmailSettingByUserId(...arg)
 );
 
 router.patch<
-  PathParams<UpdateEmailSettingParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateEmailSettingRequest>,
   QueryParams
->("/email/:userId", doValidation(settingValidations[1]), (...arg) =>
+>("/email", checkToken, doValidation(settingValidations[1]), (...arg) =>
   settingController.updateEmailSettingByUserId(...arg)
 );
 
@@ -48,25 +43,25 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertEmailSettingRequest>,
   QueryParams
->("/email", doValidation(settingValidations[2]), (...arg) =>
+>("/email", checkToken, doValidation(settingValidations[2]), (...arg) =>
   settingController.insertEmailSettingByUserId(...arg)
 );
 
 router.get<
-  PathParams<GetOrderSettingParams>,
+  PathParams,
   ResponseBody<GetOrderSettingResponse>,
   RequestBody,
   QueryParams
->("/order/:userId", doValidation(settingValidations[3]), (...arg) =>
+>("/order", checkToken, (...arg) =>
   settingController.getOrderSettingByUserId(...arg)
 );
 
 router.patch<
-  PathParams<UpdateOrderSettingParams>,
+  PathParams<IEmptyObject>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateOrderSettingRequest>,
   QueryParams
->("/order/:userId", doValidation(settingValidations[4]), (...arg) =>
+>("/order", doValidation(settingValidations[4]), (...arg) =>
   settingController.updateOrderSettingByUserId(...arg)
 );
 

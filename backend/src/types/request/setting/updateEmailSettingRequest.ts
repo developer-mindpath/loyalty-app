@@ -15,6 +15,4 @@ export type UpdateEmailSettingRequest = {
   design_image: string;
   design_image_type: string;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

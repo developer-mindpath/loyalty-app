@@ -25,7 +25,11 @@ export default class InsertPointRedeemDetailRequestDTO {
   admin_ref: number;
   created_by: number;
 
-  constructor(body: InsertPointRedeemDetailRequest) {
+  constructor(
+    body: InsertPointRedeemDetailRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.point_redeem_id = body.point_redeem_id;
     this.points_type = body.points_type;
     this.fixed_points_amount = body.fixed_points_amount;
@@ -52,8 +56,8 @@ export default class InsertPointRedeemDetailRequestDTO {
     this.reward_expiry = body.reward_expiry;
     this.products = body.products;
     this.status = body.status;
-    this.user_id = body.user_id;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.user_id = userId;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

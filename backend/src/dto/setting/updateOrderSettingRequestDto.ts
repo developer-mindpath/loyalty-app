@@ -16,7 +16,11 @@ export default class UpdateOrderSettingRequestDTO {
   updated_by: number;
   user_id: number;
 
-  constructor(body: UpdateOrderSettingRequest, userId: number) {
+  constructor(
+    body: UpdateOrderSettingRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.store_id = body.store_id;
     this.who_can_participate = body.who_can_participate;
     this.orders_subtotal = body.orders_subtotal;
@@ -30,8 +34,8 @@ export default class UpdateOrderSettingRequestDTO {
     this.orders_include_voided = body.orders_include_voided;
     this.reward_channel = body.reward_channel;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.admin_ref = adminRef;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

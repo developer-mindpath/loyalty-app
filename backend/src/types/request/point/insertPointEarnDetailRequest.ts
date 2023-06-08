@@ -8,7 +8,4 @@ export type InsertPointEarnDetailRequest = {
   earning_method: string;
   status: string;
   limit_count_enabled: number;
-  admin_ref: number;
-  created_by: number;
-  user_id: number;
 };

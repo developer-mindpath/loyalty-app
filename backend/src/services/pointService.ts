@@ -5,23 +5,16 @@ import { GetPointEarnResponse } from "../types/response/point/getPointEarnRespon
 import PointDetailService from "./pointDetailService";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
-import { PointActionModel } from "../database/models/pointAction";
 import InsertPointRedeemRequestDTO from "src/dto/point/insertPointRedeemRequestDto";
 import PointRedeemService from "./pointRedeemService";
 import { PointRedeemModel } from "../database/models/pointRedeem";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
 import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
-import {
-  DeleteRedeemPointDetailParams,
-  GetRedeemPointDetailParams,
-} from "src/types/request/params";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
-import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 
 export default class PointService {
   private _pointRepository: PointRepository;
@@ -37,9 +30,37 @@ export default class PointService {
 
   public async insertEarningPoint(
     pointInsertRequestDTO: PointInsertRequestDTO
-  ): Promise<PointActionModel> {
-    return await this._pointRepository.insertEarningPoint(
-      pointInsertRequestDTO
+  ): Promise<void> {
+    const insertPointActionData: Record<string, string | number> = {
+      action_key: pointInsertRequestDTO.action_key,
+      action_key_display_text: pointInsertRequestDTO.action_key_display_text,
+      action_visible_order: pointInsertRequestDTO.action_visible_order,
+      action_icon: pointInsertRequestDTO.action_icon,
+      action_description: pointInsertRequestDTO.action_description,
+      is_action_enabled: pointInsertRequestDTO.is_action_enabled,
+      status: pointInsertRequestDTO.status,
+      user_id: pointInsertRequestDTO.user_id,
+      admin_ref: pointInsertRequestDTO.admin_ref,
+      created_by: pointInsertRequestDTO.created_by,
+    };
+    const pointActionModel = await this._pointRepository.insertEarningPoint(
+      insertPointActionData
+    );
+    const insertPointActionDetailData: Record<string, string | number> = {
+      point_action_id: pointActionModel.id,
+      app_id: pointInsertRequestDTO.app_id,
+      points_amounts: pointInsertRequestDTO.points_amounts,
+      limit_count: pointInsertRequestDTO.limit_count,
+      limit_count_type: pointInsertRequestDTO.limit_count_type,
+      url_to_share: pointInsertRequestDTO.url_to_share,
+      earning_method: pointInsertRequestDTO.earning_method,
+      limit_count_enabled: pointInsertRequestDTO.limit_count_enabled,
+      status: pointInsertRequestDTO.status,
+      admin_ref: pointInsertRequestDTO.admin_ref,
+      created_by: pointInsertRequestDTO.created_by,
+    };
+    await this._pointDetailService.insertEarningDetailsByPointId(
+      insertPointActionDetailData
     );
   }
 
@@ -57,14 +78,6 @@ export default class PointService {
     return pointDetailResponse
       ? pointDetailResponse
       : ({} as GetPointEarnDetailResponse);
-  }
-
-  public async insertEarningDetailsByPointId(
-    insertPointEarnDetailRequestDTO: InsertPointEarnDetailRequestDTO
-  ): Promise<PointActionDetailsModel> {
-    return await this._pointDetailService.insertEarningDetailsByPointId(
-      insertPointEarnDetailRequestDTO
-    );
   }
 
   public async updateEarningDetailsByPointId(
@@ -106,9 +119,11 @@ export default class PointService {
   }
 
   public async getPointRedeemDetail(
-    params: GetRedeemPointDetailParams
+    pointRedeemId: number
   ): Promise<GetPointRedeemDetailResponse[]> {
-    return await this._pointRedeemDetailService.getPointRedeemDetail(params);
+    return await this._pointRedeemDetailService.getPointRedeemDetail(
+      pointRedeemId
+    );
   }
 
   public async updatePointRedeemDetail(
@@ -120,8 +135,10 @@ export default class PointService {
   }
 
   public async deletePointRedeemDetail(
-    params: DeleteRedeemPointDetailParams
+    pointRedeemDetailId: number
   ): Promise<DeleteResult> {
-    return await this._pointRedeemDetailService.deletePointRedeemDetail(params);
+    return await this._pointRedeemDetailService.deletePointRedeemDetail(
+      pointRedeemDetailId
+    );
   }
 }

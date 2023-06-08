@@ -3,10 +3,6 @@ import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
 import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import PointRedeemDetailRepository from "../repository/pointRedeemDetailRepository";
-import {
-  DeleteRedeemPointDetailParams,
-  GetRedeemPointDetailParams,
-} from "../types/request/params";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 
 export default class PointRedeemDetailService {
@@ -24,9 +20,11 @@ export default class PointRedeemDetailService {
   }
 
   public async getPointRedeemDetail(
-    params: GetRedeemPointDetailParams
+    pointRedeemId: number
   ): Promise<GetPointRedeemDetailResponse[]> {
-    return await this._pointRedeemDetailRepository.getPointRedeemDetail(params);
+    return await this._pointRedeemDetailRepository.getPointRedeemDetail(
+      pointRedeemId
+    );
   }
 
   public async updatePointRedeemDetail(
@@ -38,10 +36,10 @@ export default class PointRedeemDetailService {
   }
 
   public async deletePointRedeemDetail(
-    params: DeleteRedeemPointDetailParams
+    pointRedeemDetailId: number
   ): Promise<DeleteResult> {
     return await this._pointRedeemDetailRepository.deletePointRedeemDetail(
-      params
+      pointRedeemDetailId
     );
   }
 }

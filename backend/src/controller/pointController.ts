@@ -10,14 +10,9 @@ import PointService from "../services/pointService";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import {
-  DeleteRedeemPointDetailParams,
-  GetEarnDetailParams,
-  GetEarnPointsByUsingUserIdParams,
-  GetRedeemPointDetailParams,
-  GetRedeemPointsParams,
-  UpdateEarnDetailParams,
-  UpdateRedeemPointDetailParams,
-  UpdateRedeemPointsParams,
+  PointActionId,
+  PointRedeemDetailId,
+  PointRedeemId,
 } from "../types/request/params";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
@@ -31,8 +26,6 @@ import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDet
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
-import { InsertPointEarnDetailRequest } from "../types/request/point/insertPointEarnDetailRequest";
-import InsertPointEarnDetailRequestDTO from "../dto/point/insertPointEarnDetailRequestDto";
 
 export default class PointController {
   private _pointService: PointService;
@@ -47,7 +40,11 @@ export default class PointController {
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      const pointInsertRequestDTO = new PointInsertRequestDTO(req.body);
+      const pointInsertRequestDTO = new PointInsertRequestDTO(
+        req.body,
+        req.userId!,
+        req.adminRef!
+      );
       await this._pointService.insertEarningPoint(pointInsertRequestDTO);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -63,18 +60,14 @@ export default class PointController {
   }
 
   public async getAllEarningPoints(
-    req: CustomRequest<
-      GetEarnPointsByUsingUserIdParams,
-      GetPointEarnResponse[],
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetPointEarnResponse[], IEmptyObject>,
     res: Response<APIResponse<GetPointEarnResponse[]>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetPointEarnResponse[]>();
       const pointResponse = await this._pointService.getAllEarningPoints(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -90,11 +83,7 @@ export default class PointController {
   }
 
   public async getEarningDetailsByPointId(
-    req: CustomRequest<
-      GetEarnDetailParams,
-      GetPointEarnDetailResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<PointActionId, GetPointEarnDetailResponse, IEmptyObject>,
     res: Response<APIResponse<GetPointEarnDetailResponse>>,
     next: NextFunction
   ): Promise<void> {
@@ -116,38 +105,9 @@ export default class PointController {
     }
   }
 
-  public async insertEarningDetailsByPointId(
-    req: CustomRequest<
-      IEmptyObject,
-      IEmptyObject,
-      InsertPointEarnDetailRequest
-    >,
-    res: Response<APIResponse<IEmptyObject>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const response = new APIResponse<IEmptyObject>();
-      const insertPointEarnDetailRequestDTO =
-        new InsertPointEarnDetailRequestDTO(req.body);
-      await this._pointService.insertEarningDetailsByPointId(
-        insertPointEarnDetailRequestDTO
-      );
-      response.status = StatusCodes.OK;
-      response.message = constants.API_RESPONSE.SUCCESS;
-      response.body = {};
-      res.status(StatusCodes.OK).send(response);
-    } catch (error) {
-      if (error instanceof Error) {
-        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
-      } else {
-        next(error);
-      }
-    }
-  }
-
   public async updateEarningDetailsByPointId(
     req: CustomRequest<
-      UpdateEarnDetailParams,
+      PointActionId,
       IEmptyObject,
       UpdatePointEarnDetailRequest
     >,
@@ -157,7 +117,12 @@ export default class PointController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updatePointEarnDetailRequestDTO =
-        new UpdatePointEarnDetailRequestDTO(req.body, req.params.pointId);
+        new UpdatePointEarnDetailRequestDTO(
+          req.body,
+          req.params.pointId,
+          req.userId!,
+          req.adminRef!
+        );
       await this._pointService.updateEarningDetailsByPointId(
         updatePointEarnDetailRequestDTO
       );
@@ -182,7 +147,9 @@ export default class PointController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertPointRedeemRequestDTO = new InsertPointRedeemRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._pointService.insertRedeemingPoint(
         insertPointRedeemRequestDTO
@@ -201,18 +168,14 @@ export default class PointController {
   }
 
   public async getPointRedeem(
-    req: CustomRequest<
-      GetRedeemPointsParams,
-      GetPointRedeemResponse[],
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetPointRedeemResponse[], IEmptyObject>,
     res: Response<APIResponse<GetPointRedeemResponse[]>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetPointRedeemResponse[]>();
       const pointResponse = await this._pointService.getPointRedeem(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -228,11 +191,7 @@ export default class PointController {
   }
 
   public async updatePointRedeem(
-    req: CustomRequest<
-      UpdateRedeemPointsParams,
-      IEmptyObject,
-      UpdatePointRedeemRequest
-    >,
+    req: CustomRequest<PointRedeemId, IEmptyObject, UpdatePointRedeemRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -240,7 +199,9 @@ export default class PointController {
       const response = new APIResponse<IEmptyObject>();
       const updatePointRedeemRequestDTO = new UpdatePointRedeemRequestDTO(
         req.body,
-        req.params
+        req.params.pointRedeemId,
+        req.userId!,
+        req.adminRef!
       );
       await this._pointService.updatePointRedeem(updatePointRedeemRequestDTO);
       response.status = StatusCodes.OK;
@@ -268,7 +229,11 @@ export default class PointController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertPointRedeemDetailRequestDTO =
-        new InsertPointRedeemDetailRequestDTO(req.body);
+        new InsertPointRedeemDetailRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._pointService.insertRedeemPointDetail(
         insertPointRedeemDetailRequestDTO
       );
@@ -287,7 +252,7 @@ export default class PointController {
 
   public async getPointRedeemDetail(
     req: CustomRequest<
-      GetRedeemPointDetailParams,
+      PointRedeemId,
       GetPointRedeemDetailResponse[],
       IEmptyObject
     >,
@@ -297,7 +262,7 @@ export default class PointController {
     try {
       const response = new APIResponse<GetPointRedeemDetailResponse[]>();
       const pointResponse = await this._pointService.getPointRedeemDetail(
-        req.params
+        req.params.pointRedeemId
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -314,7 +279,7 @@ export default class PointController {
 
   public async updatePointRedeemDetail(
     req: CustomRequest<
-      UpdateRedeemPointDetailParams,
+      PointRedeemDetailId,
       IEmptyObject,
       UpdatePointRedeemDetailRequest
     >,
@@ -324,7 +289,12 @@ export default class PointController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updatePointRedeemDetailRequestDTO =
-        new UpdatePointRedeemDetailRequestDTO(req.body, req.params);
+        new UpdatePointRedeemDetailRequestDTO(
+          req.body,
+          req.params.pointRedeemDetailId,
+          req.userId!,
+          req.adminRef!
+        );
       await this._pointService.updatePointRedeemDetail(
         updatePointRedeemDetailRequestDTO
       );
@@ -342,17 +312,15 @@ export default class PointController {
   }
 
   public async deletePointRedeemDetail(
-    req: CustomRequest<
-      DeleteRedeemPointDetailParams,
-      IEmptyObject,
-      IEmptyObject
-    >,
+    req: CustomRequest<PointRedeemDetailId, IEmptyObject, IEmptyObject>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      await this._pointService.deletePointRedeemDetail(req.params);
+      await this._pointService.deletePointRedeemDetail(
+        req.params.pointRedeemDetailId
+      );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = {};
