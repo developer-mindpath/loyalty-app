@@ -2,11 +2,7 @@ import Joi from "joi";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
-import {
-  DeleteReferralProgramParams,
-  GetReferralProgramParams,
-  UpdateReferralProgramParams,
-} from "../types/request/params";
+import { DeleteReferralProgramParams } from "../types/request/params";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
 
 export = {
@@ -37,25 +33,9 @@ export = {
       referral_offer_cookie_Day: Joi.number().optional(),
       referral_offer_nco: Joi.number().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      created_by: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  1: joiValidationRequest<GetReferralProgramParams, IEmptyObject>({
-    path: {
-      referralId: Joi.number().required(),
-      userId: Joi.number().required(),
-    },
-  }),
-  2: joiValidationRequest<
-    UpdateReferralProgramParams,
-    UpdateReferralProgramRequest
-  >({
-    path: {
-      referralId: Joi.number().required(),
-    },
+  2: joiValidationRequest<IEmptyObject, UpdateReferralProgramRequest>({
     body: {
       referral_friend_title: Joi.string().optional(),
       referral_friend_discount: Joi.string().optional(),
@@ -82,7 +62,6 @@ export = {
       referral_offer_cookie_Day: Joi.number().optional(),
       referral_offer_nco: Joi.number().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   3: joiValidationRequest<DeleteReferralProgramParams, IEmptyObject>({

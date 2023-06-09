@@ -16,7 +16,11 @@ export default class UpdateEmailNotificationRequestDTO {
   updated_by: number;
   emailProgramId: number;
 
-  constructor(body: UpdateEmailNotificationRequest, emailProgramId: number) {
+  constructor(
+    body: UpdateEmailNotificationRequest,
+    emailProgramId: number,
+    userId: number
+  ) {
     this.email_notification_key = body.email_notification_key;
     this.email_notification_enabled = body.email_notification_enabled;
     this.email_notification_subject = body.email_notification_subject;
@@ -32,7 +36,7 @@ export default class UpdateEmailNotificationRequestDTO {
     this.email_notfication_subscription_source =
       body.email_notfication_subscription_source;
     this.status = body.status;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.emailProgramId = emailProgramId;
   }
 }

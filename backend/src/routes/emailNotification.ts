@@ -8,9 +8,7 @@ import {
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import {
   DeleteEmailNotificationProgramParams,
-  GetEmailNotificationProgramParams,
-  GetEmailNotificationsProgramParams,
-  UpdateEmailNotificationProgramParams,
+  EmailProgramId,
 } from "../types/request/params";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
 import EmailNotificationController from "../controller/emailNotificationController";
@@ -19,6 +17,7 @@ import { GetEmailNotificationsResponse } from "../types/response/emailNotificati
 import { UpdateEmailNotificationRequest } from "../types/request/emailNotification/updateEmailNotificationRequest";
 import { doValidation } from "../helper/joi";
 import emailNotificationValidations from "../requestValidator/emailNotification";
+import { checkToken } from "../middleware/checkToken";
 
 const emailNotificationController = new EmailNotificationController();
 const router = express.Router();
@@ -28,39 +27,42 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertEmailNotificationRequest>,
   QueryParams
->("/email", doValidation(emailNotificationValidations[0]), (...arg) =>
-  emailNotificationController.insertEmailNotification(...arg)
+>(
+  "/email",
+  checkToken,
+  doValidation(emailNotificationValidations[0]),
+  (...arg) => emailNotificationController.insertEmailNotification(...arg)
 );
 
 router.get<
-  PathParams<GetEmailNotificationProgramParams>,
+  PathParams<EmailProgramId>,
   ResponseBody<GetEmailNotificationResponse>,
   RequestBody,
   QueryParams
 >(
   "/email/:emailProgramId",
+  checkToken,
   doValidation(emailNotificationValidations[1]),
   (...arg) => emailNotificationController.getEmailNotification(...arg)
 );
 
 router.get<
-  PathParams<GetEmailNotificationsProgramParams>,
+  PathParams,
   ResponseBody<Array<GetEmailNotificationsResponse>>,
   RequestBody,
   QueryParams
->(
-  "/email/all/:userId",
-  doValidation(emailNotificationValidations[2]),
-  (...arg) => emailNotificationController.getEmailNotifications(...arg)
+>("/emails", checkToken, (...arg) =>
+  emailNotificationController.getEmailNotifications(...arg)
 );
 
 router.patch<
-  PathParams<UpdateEmailNotificationProgramParams>,
+  PathParams<EmailProgramId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateEmailNotificationRequest>,
   QueryParams
 >(
   "/email/:emailProgramId",
+  checkToken,
   doValidation(emailNotificationValidations[3]),
   (...arg) => emailNotificationController.updateEmailNotification(...arg)
 );
@@ -72,6 +74,7 @@ router.delete<
   QueryParams
 >(
   "/email/:emailProgramId",
+  checkToken,
   doValidation(emailNotificationValidations[4]),
   (...arg) => emailNotificationController.deleteEmailNotification(...arg)
 );

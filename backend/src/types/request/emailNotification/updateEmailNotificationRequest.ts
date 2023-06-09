@@ -11,5 +11,4 @@ export type UpdateEmailNotificationRequest = {
   email_notfication_unsubscribe_text: string;
   email_notfication_subscription_source: string;
   status: string;
-  updated_by: number;
 };
