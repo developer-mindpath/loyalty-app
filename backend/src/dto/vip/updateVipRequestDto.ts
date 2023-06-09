@@ -1,8 +1,9 @@
 import { UpdateVipRequest } from "../../types/request/vip/updateVipRequest";
+import moment from "moment";
 
 export default class UpdateVipRequestDTO {
   is_enabled: number;
-  start_date: string;
+  start_date: Date;
   entry_method: string;
   expiry: number;
   status: string;
@@ -11,11 +12,11 @@ export default class UpdateVipRequestDTO {
 
   constructor(body: UpdateVipRequest, userId: number) {
     this.is_enabled = body.is_enabled;
-    this.start_date = body.start_date;
+    this.start_date = moment(body.start_date).utc().toDate();
     this.entry_method = body.entry_method;
     this.expiry = body.expiry;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

@@ -5,7 +5,6 @@ import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
 import {
-  UserId,
   VipTierBenefitId,
   VipTierId,
   VipTierRewardId,
@@ -45,7 +44,11 @@ export default class VipController {
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      const insertVipRequestDTO = new InsertVipRequestDTO(req.body);
+      const insertVipRequestDTO = new InsertVipRequestDTO(
+        req.body,
+        req.userId!,
+        req.adminRef!
+      );
       await this._vipService.insertVip(insertVipRequestDTO);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -61,13 +64,13 @@ export default class VipController {
   }
 
   public async getVip(
-    req: CustomRequest<UserId, GetVipResponse, IEmptyObject>,
+    req: CustomRequest<IEmptyObject, GetVipResponse, IEmptyObject>,
     res: Response<APIResponse<GetVipResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetVipResponse>();
-      const vipResponse = await this._vipService.getVip(req.params.userId);
+      const vipResponse = await this._vipService.getVip(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = vipResponse;
@@ -82,7 +85,7 @@ export default class VipController {
   }
 
   public async updateVip(
-    req: CustomRequest<UserId, IEmptyObject, UpdateVipRequest>,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateVipRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -90,7 +93,7 @@ export default class VipController {
       const response = new APIResponse<IEmptyObject>();
       const updateVipRequestDTO = new UpdateVipRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!
       );
       await this._vipService.updateVip(updateVipRequestDTO);
       response.status = StatusCodes.OK;
@@ -113,7 +116,11 @@ export default class VipController {
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      const insertVipTierRequestDTO = new InsertVipTierRequestDTO(req.body);
+      const insertVipTierRequestDTO = new InsertVipTierRequestDTO(
+        req.body,
+        req.userId!,
+        req.adminRef!
+      );
       await this._vipService.insertVipTier(insertVipTierRequestDTO);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -129,13 +136,13 @@ export default class VipController {
   }
 
   public async getVipTiers(
-    req: CustomRequest<UserId, Array<GetVipTierResponse>, IEmptyObject>,
+    req: CustomRequest<IEmptyObject, Array<GetVipTierResponse>, IEmptyObject>,
     res: Response<APIResponse<Array<GetVipTierResponse>>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<Array<GetVipTierResponse>>();
-      const vipResponse = await this._vipService.getVipTiers(req.params.userId);
+      const vipResponse = await this._vipService.getVipTiers(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = vipResponse;
@@ -181,7 +188,8 @@ export default class VipController {
       const response = new APIResponse<IEmptyObject>();
       const updateVipTierRequestDTO = new UpdateVipTierRequestDTO(
         req.body,
-        req.params.vipTierId
+        req.params.vipTierId,
+        req.userId!
       );
       await this._vipService.updateVipTier(updateVipTierRequestDTO);
       response.status = StatusCodes.OK;
@@ -251,7 +259,9 @@ export default class VipController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertVipTierRewardRequestDTO = new InsertVipTierRewardRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._vipService.insertVipTierReward(insertVipTierRewardRequestDTO);
       response.status = StatusCodes.OK;
@@ -280,7 +290,8 @@ export default class VipController {
       const response = new APIResponse<IEmptyObject>();
       const updateVipTierRewardRequestDTO = new UpdateVipTierRewardRequestDTO(
         req.body,
-        req.params.vipTierRewardId
+        req.params.vipTierRewardId,
+        req.userId!
       );
       await this._vipService.updateVipTierReward(updateVipTierRewardRequestDTO);
       response.status = StatusCodes.OK;
@@ -354,7 +365,9 @@ export default class VipController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertVipTierBenefitRequestDTO = new InsertVipTierBenefitRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._vipService.insertVipTierBenefit(
         insertVipTierBenefitRequestDTO
@@ -385,7 +398,8 @@ export default class VipController {
       const response = new APIResponse<IEmptyObject>();
       const updateVipTierBenefitRequestDTO = new UpdateVipTierBenefitRequestDTO(
         req.body,
-        req.params.vipTierBenefitId
+        req.params.vipTierBenefitId,
+        req.userId!
       );
       await this._vipService.updateVipTierBenefit(
         updateVipTierBenefitRequestDTO

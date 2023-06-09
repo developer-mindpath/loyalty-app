@@ -7,11 +7,7 @@ import constants from "../constants";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
 import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
 import ReferralService from "../services/referralService";
-import {
-  DeleteReferralProgramParams,
-  GetReferralProgramParams,
-  UpdateReferralProgramParams,
-} from "../types/request/params";
+import { DeleteReferralProgramParams } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
 import UpdateReferralProgramRequestDTO from "../dto/referral/updateReferralProgramRequestDto";
@@ -34,7 +30,11 @@ export default class ReferralController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertReferralProgramRequestDTO =
-        new InsertReferralProgramRequestDTO(req.body);
+        new InsertReferralProgramRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._referralService.insertReferralProgram(
         insertReferralProgramRequestDTO
       );
@@ -52,18 +52,14 @@ export default class ReferralController {
   }
 
   public async getReferralProgram(
-    req: CustomRequest<
-      GetReferralProgramParams,
-      GetReferralProgramResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetReferralProgramResponse, IEmptyObject>,
     res: Response<APIResponse<GetReferralProgramResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetReferralProgramResponse>();
       const referralResponse = await this._referralService.getReferralProgram(
-        req.params
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -80,7 +76,7 @@ export default class ReferralController {
 
   public async updateReferralProgram(
     req: CustomRequest<
-      UpdateReferralProgramParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateReferralProgramRequest
     >,
@@ -90,7 +86,7 @@ export default class ReferralController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateReferralProgramRequestDTO =
-        new UpdateReferralProgramRequestDTO(req.body, req.params.referralId);
+        new UpdateReferralProgramRequestDTO(req.body, req.userId!);
       await this._referralService.updateReferralProgram(
         updateReferralProgramRequestDTO
       );

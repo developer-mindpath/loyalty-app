@@ -4,12 +4,7 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  GetLoyaltyProgramActivityParams,
-  GetReferralProgramActivityParams,
-  GetVipProgramActivityParams,
-  Pagination,
-} from "../types/request/params";
+import { Pagination } from "../types/request/params";
 import ActivityService from "../services/activityService";
 import { GetLoyaltyProgramActivityResponse } from "../types/response/activity/getLoyaltyProgramActivityResponse";
 import PaginationDTO from "../dto/paginationDTO";
@@ -25,7 +20,7 @@ export default class ActivityController {
 
   public async getLoyaltyProgramActivity(
     req: CustomRequest<
-      GetLoyaltyProgramActivityParams,
+      IEmptyObject,
       GetLoyaltyProgramActivityResponse[],
       IEmptyObject,
       Pagination
@@ -38,7 +33,7 @@ export default class ActivityController {
       const paginationDTO = new PaginationDTO(req.query);
       const activityResponse =
         await this._activityService.getLoyaltyProgramActivity(
-          req.params.userId,
+          req.userId!,
           paginationDTO
         );
       response.status = StatusCodes.OK;
@@ -56,7 +51,7 @@ export default class ActivityController {
 
   public async getReferralProgramActivity(
     req: CustomRequest<
-      GetReferralProgramActivityParams,
+      IEmptyObject,
       GetReferralProgramActivityResponse[],
       IEmptyObject,
       Pagination
@@ -69,7 +64,7 @@ export default class ActivityController {
       const paginationDTO = new PaginationDTO(req.query);
       const activityResponse =
         await this._activityService.getReferralProgramActivity(
-          req.params.userId,
+          req.userId!,
           paginationDTO
         );
       response.status = StatusCodes.OK;
@@ -87,7 +82,7 @@ export default class ActivityController {
 
   public async getVipProgramActivity(
     req: CustomRequest<
-      GetVipProgramActivityParams,
+      IEmptyObject,
       GetVipProgramActivityResponse[],
       IEmptyObject,
       Pagination
@@ -100,7 +95,7 @@ export default class ActivityController {
       const paginationDTO = new PaginationDTO(req.query);
       const activityResponse =
         await this._activityService.getVipProgramActivity(
-          req.params.userId,
+          req.userId!,
           paginationDTO
         );
       response.status = StatusCodes.OK;

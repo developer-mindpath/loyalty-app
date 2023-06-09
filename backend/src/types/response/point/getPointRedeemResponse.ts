@@ -5,6 +5,7 @@ export type GetPointRedeemResponse = {
   reward_icon: string | null;
   reward_description: string | null;
   is_reward_enabled: number | null;
+  fixed_points_amount: string | null;
   status: string | null;
   user_id: number;
   admin_ref: number;

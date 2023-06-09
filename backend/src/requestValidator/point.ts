@@ -10,8 +10,6 @@ import {
 } from "../types/request/params";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
-import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRedeemRequest";
-import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 
 export = {
@@ -38,19 +36,6 @@ export = {
       pointId: Joi.number().required(),
     },
   }),
-  // 3: joiValidationRequest<IEmptyObject, InsertPointEarnDetailRequest>({
-  //   body: {
-  //     point_action_id: Joi.number().optional(),
-  //     app_id: Joi.number().optional(),
-  //     points_amounts: Joi.string().optional(),
-  //     limit_count: Joi.number().optional(),
-  //     limit_count_type: Joi.string().optional(),
-  //     url_to_share: Joi.string().optional(),
-  //     earning_method: Joi.string().optional(),
-  //     status: Joi.string().optional(),
-  //     limit_count_enabled: Joi.number().optional(),
-  //   },
-  // }),
   4: joiValidationRequest<UpdateEarnDetailParams, UpdatePointEarnDetailRequest>(
     {
       path: {
@@ -75,25 +60,6 @@ export = {
       reward_icon: Joi.string().optional(),
       reward_description: Joi.string().optional(),
       is_reward_enabled: Joi.number().optional(),
-      status: Joi.string().optional(),
-    },
-  }),
-  7: joiValidationRequest<PointRedeemId, UpdatePointRedeemRequest>({
-    path: {
-      pointRedeemId: Joi.number().required(),
-    },
-    body: {
-      reward_key: Joi.string().optional(),
-      reward_key_key_display_text: Joi.string().optional(),
-      reward_icon: Joi.string().optional(),
-      reward_description: Joi.string().optional(),
-      is_reward_enabled: Joi.number().optional(),
-      status: Joi.string().optional(),
-    },
-  }),
-  8: joiValidationRequest<IEmptyObject, InsertPointRedeemDetailRequest>({
-    body: {
-      point_redeem_id: Joi.number().optional(),
       points_type: Joi.string().optional(),
       fixed_points_amount: Joi.string().optional(),
       fixed_points_discount: Joi.string().optional(),

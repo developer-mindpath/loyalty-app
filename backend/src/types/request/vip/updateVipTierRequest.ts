@@ -5,5 +5,4 @@ export type UpdateVipTierRequest = {
   tier_key_description: string;
   goals_to_achieve_tier: number;
   status: string;
-  updated_by: number;
 };

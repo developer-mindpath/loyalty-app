@@ -11,8 +11,4 @@ export type InsertEmailNotificationRequest = {
   email_notfication_unsubscribe_text: string;
   email_notfication_subscription_source: string;
   status: string;
-  created_by: number;
-  updated_by: number;
-  user_id: number;
-  admin_ref: number;
 };

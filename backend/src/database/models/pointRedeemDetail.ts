@@ -19,7 +19,7 @@ export class PointRedeemDetailModel extends ModelTemplate {
   fixed_points_discount: string | null;
 
   @Column("varchar", { nullable: true })
-  fixed_points_discount_type: string | null;
+  "fixed_points_discount_ type": string | null;
 
   @Column("float", { nullable: true })
   apply_to_maximum_shipping_amount: string | null;

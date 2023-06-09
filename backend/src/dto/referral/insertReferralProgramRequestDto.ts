@@ -29,9 +29,12 @@ export default class InsertReferralProgramRequestDTO {
   admin_ref: number;
   user_id: number;
   created_by: number;
-  updated_by: number;
 
-  constructor(body: InsertReferralProgramRequest) {
+  constructor(
+    body: InsertReferralProgramRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.referral_friend_title = body.referral_friend_title;
     this.referral_friend_discount = body.referral_friend_discount;
     this.referral_friend_is_minimum_cart_requirement =
@@ -60,9 +63,8 @@ export default class InsertReferralProgramRequestDTO {
     this.referral_offer_cookie_Day = body.referral_offer_cookie_Day;
     this.referral_offer_nco = body.referral_offer_nco;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
-    this.updated_by = body.updated_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

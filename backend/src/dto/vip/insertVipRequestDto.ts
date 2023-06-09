@@ -10,14 +10,14 @@ export default class InsertVipRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertVipRequest) {
+  constructor(body: InsertVipRequest, userId: number, adminRef: number) {
     this.is_enabled = body.is_enabled;
     this.start_date = body.start_date;
     this.entry_method = body.entry_method;
     this.expiry = body.expiry;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

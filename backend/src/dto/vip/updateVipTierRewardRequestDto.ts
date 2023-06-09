@@ -12,7 +12,11 @@ export default class UpdateVipTierRewardRequestDTO {
   updated_by: number;
   vipTierRewardId: number;
 
-  constructor(body: UpdateVipTierRewardRequest, vipTierRewardId: number) {
+  constructor(
+    body: UpdateVipTierRewardRequest,
+    vipTierRewardId: number,
+    userId: number
+  ) {
     this.vip_tier_id = body.vip_tier_id;
     this.point_redeemed_id = body.point_redeemed_id;
     this.reward_key = body.reward_key;
@@ -21,7 +25,7 @@ export default class UpdateVipTierRewardRequestDTO {
     this.reward_description = body.reward_description;
     this.is_reward_enabled = body.is_reward_enabled;
     this.status = body.status;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.vipTierRewardId = vipTierRewardId;
   }
 }

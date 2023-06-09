@@ -14,11 +14,14 @@ export default class InsertEmailNotificationRequestDTO {
   email_notfication_subscription_source: string;
   status: string;
   created_by: number;
-  updated_by: number;
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertEmailNotificationRequest) {
+  constructor(
+    body: InsertEmailNotificationRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.email_notification_key = body.email_notification_key;
     this.email_notification_enabled = body.email_notification_enabled;
     this.email_notification_subject = body.email_notification_subject;
@@ -34,9 +37,8 @@ export default class InsertEmailNotificationRequestDTO {
     this.email_notfication_subscription_source =
       body.email_notfication_subscription_source;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
-    this.updated_by = body.updated_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

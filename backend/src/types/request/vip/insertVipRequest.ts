@@ -4,7 +4,4 @@ export type InsertVipRequest = {
   entry_method: string;
   expiry: number;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };
