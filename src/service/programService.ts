@@ -1,6 +1,10 @@
 import APIUtils from "../utils/api";
 import { IResponseWithBody } from "../types";
-import { IPointDetailResponse, IPointResponse } from "../types/program";
+import {
+  IAddPointDetailRequest,
+  IPointDetailResponse,
+  IPointResponse,
+} from "../types/program";
 
 export class ProgramService {
   /**
@@ -39,6 +43,21 @@ export class ProgramService {
     await APIUtils.send({
       url: `/api/point/earn/detail/${payload.id}`,
       method: "PATCH",
+      data: payload,
+    });
+  }
+
+  /**
+   * Add Point Detail
+   * @param {IAddPointDetailRequest} payload
+   * @return {Promise<void>}
+   */
+  public static async addPointDetail(
+    payload: IAddPointDetailRequest
+  ): Promise<void> {
+    await APIUtils.send({
+      url: "/api/point/earn",
+      method: "POST",
       data: payload,
     });
   }

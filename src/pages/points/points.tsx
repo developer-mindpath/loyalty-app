@@ -13,10 +13,11 @@ import {
   Spinner,
   Divider,
 } from "@shopify/polaris";
-import SectionDivider from "../../components/layouts/sectionDivider";
 import DescriptionButton from "../../components/layouts/descriptionButton";
 import PointsController from "./controller";
 import PointsListItem from "../../components/points/pointsListItem";
+import { rewardType } from "../../constants/reward";
+import EarningList from "../../components/earningList";
 
 function Points() {
   const { getters, handlers } = PointsController();
@@ -223,9 +224,10 @@ function Points() {
         ]}
       >
         <Modal.Section>
-          <p>
-            Add the form or content for adding more ways to earn points here.
-          </p>
+          <EarningList
+            rewards={rewardType}
+            remove={earnList.map((e) => e.action_key)}
+          />
         </Modal.Section>
       </Modal>
       <Modal

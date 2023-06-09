@@ -28,8 +28,6 @@ const PointListItem = ({
 }: IPointListItemProps) => {
   const navigate = useNavigate();
 
-  console.log(path);
-
   return (
     <Box paddingBlockStart="4" paddingBlockEnd="4">
       <HorizontalStack align="space-between" blockAlign="center">

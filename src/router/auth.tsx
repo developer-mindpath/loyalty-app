@@ -20,7 +20,6 @@ import BirthdayActivity from "../pages/programs/earn/birthday";
 import OrderActivity from "../pages/programs/earn/order";
 import FeedbackPage from "../pages/fedback";
 import CouponActivity from "../pages/programs/earn/coupon";
-import ConfigPage from "../pages/branding/Config";
 import EmailProgram from "../pages/programs/emails/emails";
 import EditEmailProgram from "../pages/programs/emails/edit";
 import ReferralPage from "../pages/programs/referral";

@@ -78,7 +78,10 @@ const pointProgramSlice = createSlice({
     );
     builder.addCase(
       ProgramAction.updatePointDetail.fulfilled,
-      (state: IPointProgramState, action) => {
+      (
+        state: IPointProgramState,
+        action: PayloadAction<Partial<IPointDetailResponse>>
+      ) => {
         state.earn.loading = false;
         state.earn.details = { ...state.earn.details, ...action.payload };
       }

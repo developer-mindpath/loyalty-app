@@ -33,3 +33,15 @@ export interface IPointDetailResponse {
   created_by: number;
   updated_by: number | null;
 }
+
+export interface IAddPointDetailRequest {
+  app_id: string;
+  status: string;
+  action_key: string;
+  action_icon: string;
+  points_amounts: string;
+  is_action_enabled: number;
+  action_description: string;
+  action_visible_order: number;
+  action_key_display_text: string;
+}
