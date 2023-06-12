@@ -8,7 +8,4 @@ export type InsertFloatingWidgetTextRequest = {
   visitor_points_text_description: string;
   member_header_text_caption: string;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };

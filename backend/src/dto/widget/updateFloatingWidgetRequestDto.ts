@@ -64,6 +64,6 @@ export default class UpdateFloatingWidgetRequestDTO {
     this.widget_font_secondary_font = body.widget_font_secondary_font;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

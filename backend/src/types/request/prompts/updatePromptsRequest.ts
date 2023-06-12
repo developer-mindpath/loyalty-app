@@ -4,5 +4,4 @@ export type UpdatePromptsRequest = {
   popups_click: number;
   popups_button: number;
   status: string;
-  updated_by: number;
 };

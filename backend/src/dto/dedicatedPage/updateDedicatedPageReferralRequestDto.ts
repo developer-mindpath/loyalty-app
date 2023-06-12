@@ -9,7 +9,6 @@ export default class UpdateDedicatedPageReferralRequestDTO {
   general_subtitle_font_size: number;
   general_subtitle_font_color: string;
   status: string;
-  admin_ref: number;
   updated_by: number;
   user_id: number;
 
@@ -22,8 +21,7 @@ export default class UpdateDedicatedPageReferralRequestDTO {
     this.general_subtitle_font_size = body.general_subtitle_font_size;
     this.general_subtitle_font_color = body.general_subtitle_font_color;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

@@ -25,5 +25,4 @@ export type UpdateFloatingWidgetRequest = {
   widget_font_primary_font: string;
   widget_font_secondary_font: string;
   status: string;
-  updated_by: number;
 };

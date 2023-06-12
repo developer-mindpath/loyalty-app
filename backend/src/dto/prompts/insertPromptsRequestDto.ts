@@ -10,14 +10,14 @@ export default class InsertPromptsRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertPromptsRequest) {
+  constructor(body: InsertPromptsRequest, userId: number, adminRef: number) {
     this.popups_title = body.popups_title;
     this.popups_view = body.popups_view;
     this.popups_click = body.popups_click;
     this.popups_button = body.popups_button;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

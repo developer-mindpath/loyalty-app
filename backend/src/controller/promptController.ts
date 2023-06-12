@@ -4,7 +4,6 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import { GetPromptsParams, UpdatePromptsParams } from "../types/request/params";
 import { InsertPromptsRequest } from "../types/request/prompts/insertPromptsRequest";
 import InsertPromptsRequestDTO from "../dto/prompts/insertPromptsRequestDto";
 import { GetPromptsResponse } from "../types/response/prompts/getPromptsResponse";
@@ -25,7 +24,11 @@ export default class PromptController {
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      const insertPromptsRequestDTO = new InsertPromptsRequestDTO(req.body);
+      const insertPromptsRequestDTO = new InsertPromptsRequestDTO(
+        req.body,
+        req.userId!,
+        req.adminRef!
+      );
       await this._promptService.insertPromptsSetting(insertPromptsRequestDTO);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -41,14 +44,14 @@ export default class PromptController {
   }
 
   public async getPromptsSetting(
-    req: CustomRequest<GetPromptsParams, GetPromptsResponse, IEmptyObject>,
+    req: CustomRequest<IEmptyObject, GetPromptsResponse, IEmptyObject>,
     res: Response<APIResponse<GetPromptsResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetPromptsResponse>();
       const widgetResponse = await this._promptService.getPromptsSetting(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -64,7 +67,7 @@ export default class PromptController {
   }
 
   public async updatePromptsSetting(
-    req: CustomRequest<UpdatePromptsParams, IEmptyObject, UpdatePromptsRequest>,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdatePromptsRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -72,7 +75,7 @@ export default class PromptController {
       const response = new APIResponse<IEmptyObject>();
       const updatePromptsRequestDTO = new UpdatePromptsRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!
       );
       await this._promptService.updatePromptsSetting(updatePromptsRequestDTO);
       response.status = StatusCodes.OK;

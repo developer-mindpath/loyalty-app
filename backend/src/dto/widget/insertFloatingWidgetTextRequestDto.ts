@@ -14,7 +14,11 @@ export default class InsertFloatingWidgetTextRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertFloatingWidgetTextRequest) {
+  constructor(
+    body: InsertFloatingWidgetTextRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.visitor_header_text_title = body.visitor_header_text_title;
     this.visitor_header_text_caption = body.visitor_header_text_caption;
     this.visitor_account_creation_text_title =
@@ -27,8 +31,8 @@ export default class InsertFloatingWidgetTextRequestDTO {
     this.visitor_points_text_description = body.visitor_points_text_description;
     this.member_header_text_caption = body.member_header_text_caption;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

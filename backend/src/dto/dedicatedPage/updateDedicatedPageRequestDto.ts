@@ -8,7 +8,6 @@ export default class UpdateDedicatedPageRequestDTO {
   general_settings_model_offset: string;
   general_settings_custome_css: string;
   status: string;
-  admin_ref: number;
   updated_by: number;
   user_id: number;
 
@@ -20,8 +19,7 @@ export default class UpdateDedicatedPageRequestDTO {
     this.general_settings_model_offset = body.general_settings_model_offset;
     this.general_settings_custome_css = body.general_settings_custome_css;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

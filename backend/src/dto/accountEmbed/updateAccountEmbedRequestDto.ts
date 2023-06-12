@@ -28,6 +28,6 @@ export default class UpdateAccountEmbedRequestDTO {
     this.widget_page_appear = body.widget_page_appear;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

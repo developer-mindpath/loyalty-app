@@ -12,7 +12,4 @@ export type InsertFloatingWidgetButtonRequest = {
   mobile_widget_button_shape: string;
   mobile_widget_icon: string;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };

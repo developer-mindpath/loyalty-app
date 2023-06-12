@@ -5,14 +5,6 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import {
-  GetFloatingWidgetButtonParams,
-  GetFloatingWidgetParams,
-  GetFloatingWidgetTextParams,
-  UpdateFloatingWidgetButtonParams,
-  UpdateFloatingWidgetParams,
-  UpdateFloatingWidgetTextParams,
-} from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import widgetValidations from "../requestValidator/widget";
 import { GetFloatingWidgetResponse } from "../types/response/widget/getFloatingWidgetResponse";
@@ -26,16 +18,17 @@ import { UpdateFloatingWidgetButtonRequest } from "../types/request/widget/updat
 import { InsertFloatingWidgetTextRequest } from "../types/request/widget/insertFloatingWidgetTextRequest";
 import { GetFloatingWidgetTextResponse } from "../types/response/widget/getFloatingWidgetTextResponse";
 import { UpdateFloatingWidgetTextRequest } from "../types/request/widget/updateFloatingWidgetTextRequest";
+import { checkToken } from "../middleware/checkToken";
 
 const widgetController = new WidgetController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetFloatingWidgetParams>,
+  PathParams,
   ResponseBody<GetFloatingWidgetResponse>,
   RequestBody,
   QueryParams
->("/floating/:userId", doValidation(widgetValidations[0]), (...arg) =>
+>("/floating", checkToken, (...arg) =>
   widgetController.getFloatingWidgetSetting(...arg)
 );
 
@@ -44,16 +37,16 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertFloatingWidgetRequest>,
   QueryParams
->("/floating", doValidation(widgetValidations[1]), (...arg) =>
+>("/floating", checkToken, doValidation(widgetValidations[0]), (...arg) =>
   widgetController.insertFloatingWidgetSetting(...arg)
 );
 
 router.patch<
-  PathParams<UpdateFloatingWidgetParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateFloatingWidgetRequest>,
   QueryParams
->("/floating/:userId", doValidation(widgetValidations[2]), (...arg) =>
+>("/floating", checkToken, doValidation(widgetValidations[1]), (...arg) =>
   widgetController.updateFloatingWidgetSetting(...arg)
 );
 
@@ -62,26 +55,32 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertFloatingWidgetButtonRequest>,
   QueryParams
->("/floating/button", doValidation(widgetValidations[3]), (...arg) =>
-  widgetController.insertFloatingWidgetButton(...arg)
+>(
+  "/floating/button",
+  checkToken,
+  doValidation(widgetValidations[2]),
+  (...arg) => widgetController.insertFloatingWidgetButton(...arg)
 );
 
 router.get<
-  PathParams<GetFloatingWidgetButtonParams>,
+  PathParams,
   ResponseBody<GetFloatingWidgetButtonResponse>,
   RequestBody,
   QueryParams
->("/floating/button/:userId", doValidation(widgetValidations[4]), (...arg) =>
+>("/floating/button", checkToken, (...arg) =>
   widgetController.getFloatingWidgetButton(...arg)
 );
 
 router.patch<
-  PathParams<UpdateFloatingWidgetButtonParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateFloatingWidgetButtonRequest>,
   QueryParams
->("/floating/button/:userId", doValidation(widgetValidations[5]), (...arg) =>
-  widgetController.updateFloatingWidgetButton(...arg)
+>(
+  "/floating/button",
+  checkToken,
+  doValidation(widgetValidations[3]),
+  (...arg) => widgetController.updateFloatingWidgetButton(...arg)
 );
 
 router.post<
@@ -89,25 +88,25 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertFloatingWidgetTextRequest>,
   QueryParams
->("/floating/text", doValidation(widgetValidations[6]), (...arg) =>
+>("/floating/text", checkToken, doValidation(widgetValidations[4]), (...arg) =>
   widgetController.insertFloatingWidgetText(...arg)
 );
 
 router.get<
-  PathParams<GetFloatingWidgetTextParams>,
+  PathParams,
   ResponseBody<GetFloatingWidgetTextResponse>,
   RequestBody,
   QueryParams
->("/floating/text/:userId", doValidation(widgetValidations[7]), (...arg) =>
+>("/floating/text", checkToken, (...arg) =>
   widgetController.getFloatingWidgetText(...arg)
 );
 
 router.patch<
-  PathParams<UpdateFloatingWidgetTextParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateFloatingWidgetTextRequest>,
   QueryParams
->("/floating/button/:userId", doValidation(widgetValidations[8]), (...arg) =>
+>("/floating/text", checkToken, doValidation(widgetValidations[5]), (...arg) =>
   widgetController.updateFloatingWidgetText(...arg)
 );
 

@@ -25,7 +25,4 @@ export type InsertDedicatedPageBannerRequest = {
   member_redeem_button_font_color: string;
   member_redeem_button_background_color: string;
   status: string;
-  user_id: number;
-  admin_ref: number;
-  created_by: number;
 };

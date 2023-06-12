@@ -36,7 +36,11 @@ export default class InsertDedicatedPageExplainerRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertDedicatedPageExplainerRequest) {
+  constructor(
+    body: InsertDedicatedPageExplainerRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.general_background_color = body.general_background_color;
     this.general_header_title_font_size = body.general_header_title_font_size;
     this.general_header_title_font_color = body.general_header_title_font_color;
@@ -72,8 +76,8 @@ export default class InsertDedicatedPageExplainerRequestDTO {
     this.member_reward_subtitle_font_color =
       body.member_reward_subtitle_font_color;
     this.status = body.status;
-    this.user_id = body.user_id;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.user_id = userId;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

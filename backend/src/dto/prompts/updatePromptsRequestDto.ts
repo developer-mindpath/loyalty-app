@@ -16,6 +16,6 @@ export default class UpdatePromptsRequestDTO {
     this.popups_button = body.popups_button;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

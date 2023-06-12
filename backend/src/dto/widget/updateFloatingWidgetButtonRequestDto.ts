@@ -32,6 +32,6 @@ export default class UpdateFloatingWidgetButtonRequestDTO {
     this.mobile_widget_icon = body.mobile_widget_icon;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }
