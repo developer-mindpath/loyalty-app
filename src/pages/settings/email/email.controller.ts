@@ -32,12 +32,8 @@ export const EmailController = () => {
    * Get Page Data
    */
   const getData = useCallback(async () => {
-    //TODO Giving a dummy id this will be replaced by user id later
-    const id = "1";
-    console.log("Working");
-
     try {
-      const data = await dispatch(SettingsAction.getEmail(id)).unwrap();
+      const data = await dispatch(SettingsAction.getEmail()).unwrap();
       setInital(data.body);
     } catch (e) {
       console.error(e);

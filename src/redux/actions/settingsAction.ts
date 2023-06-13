@@ -9,12 +9,9 @@ class SettingsAction {
   /**
    * Get Email Settings
    */
-  public static getEmail = createAsyncThunk(
-    "/settings/get/email",
-    async (id: string) => {
-      return await SettingService.getEmail(id);
-    }
-  );
+  public static getEmail = createAsyncThunk("/settings/get/email", async () => {
+    return await SettingService.getEmail();
+  });
 
   /**
    * Update Email Settings
@@ -29,12 +26,9 @@ class SettingsAction {
   /**
    * Get Order Settings
    */
-  public static getOrders = createAsyncThunk(
-    "/settings/get/orders",
-    (id: string) => {
-      return SettingService.getOrder(id);
-    }
-  );
+  public static getOrders = createAsyncThunk("/settings/get/orders", () => {
+    return SettingService.getOrder();
+  });
 
   /**
    * Update Order Settings

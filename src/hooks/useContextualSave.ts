@@ -19,8 +19,6 @@ const useContextualSave = <T>(
   );
 
   useEffect(() => {
-    console.log("isDataEqual", isEqual);
-
     if (!isEqual) {
       // Set Context State to True
       contextualSave.fire(fireOptions);

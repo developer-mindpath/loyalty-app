@@ -1,6 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ProgramService } from "../../service/programService";
-import { IPointDetailResponse } from "../../types/program";
+import {
+  IAddEarnResponse,
+  IAddEarnRequest,
+  IPointDetailResponse,
+} from "../../types/program";
 
 export class ProgramAction {
   /**
@@ -21,6 +25,16 @@ export class ProgramAction {
   );
 
   /**
+   * Add Program Redeem Point
+   */
+  public static addEarnPoint = createAsyncThunk(
+    "/add/program/earn",
+    async (payload: Partial<IAddEarnRequest>): Promise<IAddEarnResponse> => {
+      return await ProgramService.addEarnPoint(payload);
+    }
+  );
+
+  /**
    * Program Points Details
    */
   public static updatePointDetail = createAsyncThunk(
@@ -28,6 +42,16 @@ export class ProgramAction {
     async (payload: Partial<IPointDetailResponse>) => {
       await ProgramService.updatePointDetail(payload);
       return payload;
+    }
+  );
+
+  /**
+   * Get Program Redeem Point
+   */
+  public static getRedeemPoint = createAsyncThunk(
+    "/get/program/redeem",
+    async () => {
+      return await ProgramService.getRedeemPoint();
     }
   );
 }

@@ -29,6 +29,8 @@ function Points() {
     earnLoading,
     showBanner,
     statusLabel,
+    redeemList,
+    redeemLoading,
   } = getters;
   const {
     handleModalClose1,
@@ -155,7 +157,7 @@ function Points() {
             <Divider />
             <div
               style={{
-                display: earnLoading ? "block" : "none",
+                display: redeemLoading ? "block" : "none",
                 textAlign: "center",
               }}
             >
@@ -163,9 +165,9 @@ function Points() {
                 <Spinner size="small" />
               </Box>
             </div>
-            <div style={{ display: earnLoading ? "none" : "block" }}>
+            <div style={{ display: redeemLoading ? "none" : "block" }}>
               <List
-                values={earnList}
+                values={redeemList}
                 onChange={({ oldIndex, newIndex }) => {}}
                 lockVertically
                 renderList={({ children, props }) => (
@@ -180,11 +182,11 @@ function Points() {
                     >
                       <Box paddingInlineEnd="6">
                         <PointsListItem
-                          points={value.points_amounts}
-                          name={value.action_key_display_text}
-                          icon={value.action_icon}
-                          checked={Boolean(value.is_action_enabled)}
-                          path={`/programs/points/${value.action_key}/${value.id}`}
+                          points="500"
+                          name={value.reward_key_key_display_text}
+                          icon={value.reward_icon!}
+                          checked={value.is_reward_enabled === 1}
+                          path={`/programs/points/${value.reward_key}/${value.id}`}
                         />
                       </Box>
                     </div>
@@ -226,7 +228,8 @@ function Points() {
         <Modal.Section>
           <EarningList
             rewards={rewardType}
-            remove={earnList.map((e) => e.action_key)}
+            remove={[]}
+            // remove={earnList.map((e) => e.action_key)}
           />
         </Modal.Section>
       </Modal>

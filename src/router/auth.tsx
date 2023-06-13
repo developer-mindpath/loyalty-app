@@ -23,6 +23,7 @@ import CouponActivity from "../pages/programs/earn/coupon";
 import EmailProgram from "../pages/programs/emails/emails";
 import EditEmailProgram from "../pages/programs/emails/edit";
 import ReferralPage from "../pages/programs/referral";
+import CommingSoon from "../components/commingSoon";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
@@ -57,6 +58,9 @@ const DashboardRoutes = (): JSX.Element => (
     <Route path="settings/rewards" element={<RewardSettings />} />
     <Route path="settings/orders" element={<OrdersSettings />} />
     <Route path="settings/email" element={<EmailSettings />} />
+    <Route path="settings/integrations" element={<CommingSoon />} />
+    <Route path="settings/webhooks" element={<CommingSoon />} />
+    <Route path="settings/toolkit" element={<CommingSoon />} />
   </Routes>
 );
 

@@ -40,7 +40,11 @@ const EarningList = (props: IEarningList) => {
           verticalAlignment="center"
           accessibilityLabel={`View details for ${item.name}`}
           media={<img width={25} height={25} alt={item.name} src={item.img} />}
-          onClick={() => navigate(`/programs/points/${item.id}/new?type=new`)}
+          onClick={() =>
+            navigate(
+              `/programs/points/${item.id}/new?id=${item.id}&name=${item.name}&img=${item.img}`
+            )
+          }
         >
           <Box padding="2">
             <HorizontalStack align="space-between" blockAlign="center">

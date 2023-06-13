@@ -115,7 +115,7 @@ const EmailSettings = () => {
         >
           <AlphaCard>
             <Toggle
-              checked={data.status === "true"}
+              checked={data?.status === "true"}
               onChange={handleToggleChange}
             />
             <Box paddingBlockEnd="2">

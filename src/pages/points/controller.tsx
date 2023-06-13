@@ -4,6 +4,9 @@ import { ProgramAction } from "../../redux/actions/programActions";
 import {
   getEarnList,
   getEarnLoading,
+  getRedeemList,
+  getRedeemLoading,
+  programPointActions,
 } from "../../redux/reducers/pointsProgram";
 
 const PointsController = () => {
@@ -16,8 +19,10 @@ const PointsController = () => {
   const statusLabel = useMemo(() => (active ? "on" : "off"), [active]);
   const earnList = useAppSelector(getEarnList);
   const earnLoading = useAppSelector(getEarnLoading);
+  const redeemList = useAppSelector(getRedeemList);
+  const redeemLoading = useAppSelector(getRedeemLoading);
 
-  const getData = useCallback(async () => {
+  const getReferralData = useCallback(async () => {
     try {
       await dispatch(ProgramAction.getPoints());
     } catch (e) {
@@ -25,9 +30,21 @@ const PointsController = () => {
     }
   }, [dispatch]);
 
+  const getRedeemData = useCallback(async () => {
+    try {
+      await dispatch(ProgramAction.getRedeemPoint());
+    } catch (e) {
+      console.error(e);
+    }
+  }, [dispatch]);
+
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getReferralData();
+  }, [getReferralData]);
+
+  useEffect(() => {
+    getRedeemData();
+  }, [getRedeemData]);
 
   const handleToggleChange = () => {
     setActive(!active);
@@ -64,6 +81,8 @@ const PointsController = () => {
       statusLabel,
       earnList,
       earnLoading,
+      redeemList,
+      redeemLoading,
     },
     handlers: {
       handleToggleChange,

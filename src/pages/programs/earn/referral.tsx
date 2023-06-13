@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@shopify/polaris";
 import { FavoriteMajor } from "@shopify/polaris-icons";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
@@ -29,16 +29,43 @@ import ObjectUtil from "../../../utils/object";
 
 const ReferalActivity = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const dispatch = useAppDispatch();
   const details = useAppSelector(getEarnDetails);
   const loading = useAppSelector(getEarnLoading);
   const [initalState, setIntialState] = useState<IPointDetailResponse>();
 
+  const addNewReward = useCallback(async () => {
+    try {
+      const response = await dispatch(
+        ProgramAction.addEarnPoint({
+          action_key: searchParams.get("id") as string,
+          action_icon: searchParams.get("img") as string,
+          action_key_display_text: searchParams.get("name") as string,
+          action_description: "Testing Description",
+          ...(details as any),
+        })
+      ).unwrap();
+
+      setIntialState(details);
+      navigate(`/programs/points/referral/${response.id}`);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [details, dispatch, navigate, searchParams]);
+
   const handleSave = async () => {
+    if (id === "new") {
+      addNewReward();
+      return;
+    }
+
     try {
       const payload = ObjectUtil.getChanges(initalState!, details);
       await dispatch(
-        ProgramAction.updatePointDetail({ ...payload, id: details.id })
+        ProgramAction.updatePointDetail({ ...payload, id: details?.id })
       );
       setIntialState(details);
     } catch (e) {
@@ -99,7 +126,7 @@ const ReferalActivity = () => {
                   <TextField
                     label="Points Amount"
                     type="number"
-                    value={details.points_amounts?.toString()}
+                    value={details?.points_amounts?.toString()}
                     placeholder="100"
                     onChange={(value) => handleChange("points_amounts")(value)}
                     autoComplete="off"
@@ -114,7 +141,7 @@ const ReferalActivity = () => {
                 <Box paddingBlockStart="4" paddingBlockEnd="2">
                   <Checkbox
                     label="Limit how many times each customer can earn points for completing this action"
-                    checked={details.limit_count_enabled === 0 ? false : true}
+                    checked={details?.limit_count_enabled === 0 ? false : true}
                     onChange={(newChecked: boolean) =>
                       handleChange("limit_count_enabled")(newChecked ? 1 : 0)
                     }
@@ -123,7 +150,7 @@ const ReferalActivity = () => {
 
                 <div
                   style={{
-                    display: Boolean(details.limit_count_enabled)
+                    display: Boolean(details?.limit_count_enabled)
                       ? "block"
                       : "none",
                   }}
@@ -132,7 +159,7 @@ const ReferalActivity = () => {
                     <TextField
                       label=""
                       type="number"
-                      value={details.limit_count?.toString()}
+                      value={details?.limit_count?.toString()}
                       placeholder="10"
                       onChange={(value) => handleChange("limit_count")(value)}
                       autoComplete="off"
@@ -140,7 +167,7 @@ const ReferalActivity = () => {
                         <Select
                           label=""
                           options={["hour", "day", "week"]}
-                          value={details.limit_count_type?.toString()}
+                          value={details?.limit_count_type?.toString()}
                           onChange={(value) =>
                             handleChange("limit_count_type")(value)
                           }
@@ -162,7 +189,7 @@ const ReferalActivity = () => {
 
             <Box paddingBlockEnd="5">
               <ProgramStatus
-                active={details.status === "on"}
+                active={details?.status === "on"}
                 onChange={(e) =>
                   handleChange("status")(e.target.checked ? "on" : "off")
                 }

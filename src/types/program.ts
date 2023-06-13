@@ -45,3 +45,35 @@ export interface IAddPointDetailRequest {
   action_visible_order: number;
   action_key_display_text: string;
 }
+
+export interface IRedeemPointResponse {
+  id: number;
+  created_at: string | null;
+  updated_at: string | null;
+  reward_key: string;
+  reward_key_key_display_text: string;
+  reward_icon: string | null;
+  reward_description: string;
+  is_reward_enabled: number;
+  status: string;
+  created_by: number;
+  updated_by: number | null;
+  admin_ref: number;
+  user_id: number;
+}
+
+export interface IAddEarnRequest {
+  action_key: string;
+  action_key_display_text: string;
+  action_visible_order: number;
+  action_icon: string;
+  action_description: string;
+  is_action_enabled: number;
+  status: string;
+  app_id: string;
+  points_amounts: string;
+}
+
+export interface IAddEarnResponse {
+  id: string;
+}

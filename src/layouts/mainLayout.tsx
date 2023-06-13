@@ -290,7 +290,9 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
       showMobileNavigation={mobileNavigationActive}
       onNavigationDismiss={toggleMobileNavigationActive}
     >
-      <Box paddingBlockEnd="24">{children}</Box>
+      <div style={{ background: "var(--p-color-bg-app)", height: "100%" }}>
+        <Box paddingBlockEnd="24">{children}</Box>
+      </div>
     </Frame>
   );
 };

@@ -36,11 +36,9 @@ export const OrderController = () => {
   };
 
   useEffect(() => {
-    // TODO - dummy user id to be replaced after login functionality
-    const userId = "1";
     const getData = async () => {
       const response = await dispatch(
-        SettingsAction.getOrders(userId)
+        SettingsAction.getOrders()
       ).unwrap();
       setInital(response.body);
     };

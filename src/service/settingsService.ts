@@ -17,13 +17,13 @@ export class SettingService {
    * @param {string} id User ID
    * @return {IResponseWithBody<IGetEmailSettingsResponse>}
    */
-  public static async getEmail(
-    id: string
-  ): Promise<IResponseWithBody<IGetEmailSettingsResponse>> {
+  public static async getEmail(): Promise<
+    IResponseWithBody<IGetEmailSettingsResponse>
+  > {
     const response = await APIUtils.send<
       IResponseWithBody<IGetEmailSettingsResponse>
     >({
-      url: `/api/setting/email/${id}`,
+      url: `/api/setting/email`,
       method: "GET",
     });
 
@@ -38,9 +38,8 @@ export class SettingService {
   public static async updateEmail(
     payload: IUpdateEmailSettingRequest
   ): Promise<IResponse> {
-    const { id } = payload;
     const response = await APIUtils.send<IResponse>({
-      url: `/api/setting/email/${id}`,
+      url: `/api/setting/email`,
       method: "PATCH",
       data: payload,
     });
@@ -53,13 +52,13 @@ export class SettingService {
    * @param {string} id User ID
    * @return {IResponseWithBody<IGetEmailSettingsResponse>}
    */
-  public static async getOrder(
-    id: string
-  ): Promise<IResponseWithBody<IGetOrderSettingsResponse>> {
+  public static async getOrder(): Promise<
+    IResponseWithBody<IGetOrderSettingsResponse>
+  > {
     const response = await APIUtils.send<
       IResponseWithBody<IGetOrderSettingsResponse>
     >({
-      url: `/api/setting/order/${id}`,
+      url: `/api/setting/order`,
       method: "GET",
     });
 
@@ -74,9 +73,8 @@ export class SettingService {
   public static async updateOrder(
     payload: IUpdateOrderSettingsRequest
   ): Promise<IResponse> {
-    const { id } = payload;
     const response = await APIUtils.send<IResponse>({
-      url: `/api/setting/order/${id}`,
+      url: `/api/setting/order`,
       method: "PATCH",
       data: payload,
     });

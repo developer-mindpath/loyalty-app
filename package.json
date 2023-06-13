@@ -12,10 +12,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.27",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
     "axios": "^1.4.0",
     "concurrently": "^8.0.1",
     "lodash": "^4.17.21",
@@ -64,7 +60,11 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.194",
+    "@types/node": "^16.18.27",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "@types/react-toggle": "^4.0.3"
   }
 }

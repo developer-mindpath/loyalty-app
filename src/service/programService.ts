@@ -2,8 +2,11 @@ import APIUtils from "../utils/api";
 import { IResponseWithBody } from "../types";
 import {
   IAddPointDetailRequest,
+  IAddEarnResponse,
+  IAddEarnRequest,
   IPointDetailResponse,
   IPointResponse,
+  IRedeemPointResponse,
 } from "../types/program";
 
 export class ProgramService {
@@ -37,6 +40,11 @@ export class ProgramService {
     return repsonse.data.body;
   }
 
+  /**
+   * Update Point Detail
+   * @param {Partial<IPointDetailResponse>} payload
+   * @return {Promise<void>}
+   */
   public static async updatePointDetail(
     payload: Partial<IPointDetailResponse>
   ): Promise<void> {
@@ -60,5 +68,34 @@ export class ProgramService {
       method: "POST",
       data: payload,
     });
+  }
+
+  /**
+   * Get Redeem Points
+   * @returns {Promise<IRedeemPointResponse[]>}
+   */
+  public static async getRedeemPoint(): Promise<IRedeemPointResponse[]> {
+    const response = await APIUtils.send<
+      IResponseWithBody<IRedeemPointResponse[]>
+    >({
+      url: "/api/point/earn",
+      method: "GET",
+    });
+    return response.data.body;
+  }
+
+  /**
+   * Add Redeem Points
+   * @returns
+   */
+  public static async addEarnPoint(
+    payload: Partial<IAddEarnRequest>
+  ): Promise<IAddEarnResponse> {
+    const response = await APIUtils.send<IResponseWithBody<IAddEarnResponse>>({
+      url: "/api/point/earn",
+      method: "POST",
+      data: payload,
+    });
+    return response.data.body;
   }
 }

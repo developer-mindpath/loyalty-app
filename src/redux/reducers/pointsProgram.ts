@@ -1,13 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "../store";
 import { ProgramAction } from "../actions/programActions";
-import { IPointDetailResponse, IPointResponse } from "../../types/program";
+import {
+  IPointDetailResponse,
+  IPointResponse,
+  IRedeemPointResponse,
+} from "../../types/program";
 
 interface IPointProgramState {
   earn: {
     loading: boolean;
     list: IPointResponse[];
     details: IPointDetailResponse;
+  };
+  redeem: {
+    loading: boolean;
+    list: IRedeemPointResponse[];
+    details: IRedeemPointResponse;
   };
 }
 
@@ -16,6 +25,11 @@ const initialState: IPointProgramState = {
     loading: true,
     list: [],
     details: {} as IPointDetailResponse,
+  },
+  redeem: {
+    loading: true,
+    list: [],
+    details: {} as IRedeemPointResponse,
   },
 };
 
@@ -86,6 +100,22 @@ const pointProgramSlice = createSlice({
         state.earn.details = { ...state.earn.details, ...action.payload };
       }
     );
+    builder.addCase(
+      ProgramAction.getRedeemPoint.pending,
+      (state: IPointProgramState) => {
+        state.redeem.loading = true;
+      }
+    );
+    builder.addCase(
+      ProgramAction.getRedeemPoint.fulfilled,
+      (
+        state: IPointProgramState,
+        action: PayloadAction<IRedeemPointResponse[]>
+      ) => {
+        state.redeem.loading = false;
+        state.redeem.list = action.payload;
+      }
+    );
   },
 });
 
@@ -96,5 +126,12 @@ export const getEarnLoading = (state: IRootState) =>
 export const getEarnList = (state: IRootState) => state.pointProgram.earn.list;
 export const getEarnDetails = (state: IRootState) =>
   state.pointProgram.earn.details;
+
+export const getRedeemLoading = (state: IRootState) =>
+  state.pointProgram.redeem.loading;
+export const getRedeemList = (state: IRootState) =>
+  state.pointProgram.redeem.list;
+export const getRedeemDetails = (state: IRootState) =>
+  state.pointProgram.redeem.details;
 
 export default pointProgramSlice.reducer;
