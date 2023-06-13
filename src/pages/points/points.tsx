@@ -12,6 +12,7 @@ import {
   Checkbox,
   Spinner,
   Divider,
+  EmptyState,
 } from "@shopify/polaris";
 import DescriptionButton from "../../components/layouts/descriptionButton";
 import PointsController from "./controller";
@@ -107,6 +108,26 @@ function Points() {
                 <Spinner size="small" />
               </Box>
             </div>
+            <div
+              style={{
+                display:
+                  !earnLoading && earnList.length === 0 ? "block" : "none",
+              }}
+            >
+              <EmptyState
+                heading="Give Rewards through Customer Actions"
+                action={{
+                  content: "Add More Ways to Earn",
+                  onAction: handleModalOpen1,
+                }}
+                image="/assets/earn.png"
+              >
+                <p style={{ color: "var(--p-color-text-subdued)" }}>
+                  Engage and incentivize your customers to earn points by taking
+                  specific actions.
+                </p>
+              </EmptyState>
+            </div>
             <div style={{ display: earnLoading ? "none" : "block" }}>
               <List
                 values={earnList}
@@ -164,6 +185,23 @@ function Points() {
               <Box padding="4">
                 <Spinner size="small" />
               </Box>
+            </div>
+            <div
+              style={{
+                display:
+                  !redeemLoading && redeemList.length === 0 ? "block" : "none",
+              }}
+            >
+              <EmptyState
+                heading="Reward Your Users: Point-Based Redemption"
+                action={{ content: "Add Rewards", onAction: handleModalOpen2 }}
+                image="/assets/redeem.png"
+              >
+                <p style={{ color: "var(--p-color-text-subdued)" }}>
+                  Admins can effortlessly facilitate the process, enabling users
+                  to redeem their earned points for exciting rewards
+                </p>
+              </EmptyState>
             </div>
             <div style={{ display: redeemLoading ? "none" : "block" }}>
               <List

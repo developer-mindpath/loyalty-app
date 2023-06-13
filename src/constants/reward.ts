@@ -38,28 +38,28 @@ export const rewardType: IRewardsType[] = [
   {
     id: "birthday",
     name: "Celebrate a birthday",
-    img: "cake.png",
+    img: "/assets/cake.png",
   },
   {
     id: "like_facebook",
     name: "Like page on Facebook",
-    img: "facebook.png",
+    img: "/assets/facebook.png",
   },
   {
     id: "follow_twitter",
     name: "Follow on Twitter",
-    img: "twitter.png",
+    img: "/assets/twitter.png",
   },
 
   {
     id: "share_twitter",
     name: "Share link on Twitter",
-    img: "twitter.png",
+    img: "/assets/twitter.png",
   },
 
   {
     id: "follow_tiktok",
     name: "Follow on TikTok",
-    img: "tiktok.png",
+    img: "/assets/tiktok.png",
   },
 ];

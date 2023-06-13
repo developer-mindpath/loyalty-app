@@ -78,7 +78,7 @@ export class ProgramService {
     const response = await APIUtils.send<
       IResponseWithBody<IRedeemPointResponse[]>
     >({
-      url: "/api/point/earn",
+      url: "/api/point/redeems",
       method: "GET",
     });
     return response.data.body;

@@ -6,7 +6,6 @@ import {
   getEarnLoading,
   getRedeemList,
   getRedeemLoading,
-  programPointActions,
 } from "../../redux/reducers/pointsProgram";
 
 const PointsController = () => {
