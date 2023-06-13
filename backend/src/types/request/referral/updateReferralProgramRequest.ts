@@ -24,5 +24,4 @@ export type UpdateReferralProgramRequest = {
   referral_offer_cookie_Day: number;
   referral_offer_nco: number;
   status: string;
-  updated_by: number;
 };

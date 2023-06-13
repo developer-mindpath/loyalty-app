@@ -11,14 +11,14 @@ export default class InsertVipTierRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertVipTierRequest) {
+  constructor(body: InsertVipTierRequest, userId: number, adminRef: number) {
     this.tier_key = body.tier_key;
     this.tier_key_display_text = body.tier_key_display_text;
     this.tier_key_icon = body.tier_key_icon;
     this.tier_key_description = body.tier_key_description;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

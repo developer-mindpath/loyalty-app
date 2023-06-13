@@ -1,6 +1,5 @@
 import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
-import { GetReferralProgramParams } from "../types/request/params";
 import AppDataSource from "../database";
 import { ReferralModel } from "../database/models/referral";
 import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
@@ -20,19 +19,19 @@ export default class ReferralRepository {
   }
 
   public async getReferralProgram(
-    params: GetReferralProgramParams
+    userId: number
   ): Promise<GetReferralProgramResponse | null> {
     return await this._referralModel.findOne({
-      where: { user_id: params.userId, id: params.referralId },
+      where: { user_id: userId },
     });
   }
 
   public async updateReferralProgram(
     updateReferralProgramRequestDTO: UpdateReferralProgramRequestDTO
   ): Promise<UpdateResult> {
-    const id = updateReferralProgramRequestDTO.referralId;
-    const data = lodash.omit(updateReferralProgramRequestDTO, ["referralId"]);
-    return await this._referralModel.update({ id }, data);
+    const user_id = updateReferralProgramRequestDTO.user_id;
+    const data = lodash.omit(updateReferralProgramRequestDTO, ["user_id"]);
+    return await this._referralModel.update({ user_id }, data);
   }
 
   public async deleteReferralProgram(

@@ -1,8 +1,5 @@
-import { Repository, UpdateResult } from "typeorm";
-import lodash from "lodash";
+import { Repository } from "typeorm";
 import { PointRedeemModel } from "../database/models/pointRedeem";
-import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
-import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import AppDataSource from "../database";
 
@@ -13,25 +10,23 @@ export default class PointRedeemRepository {
   }
 
   public async insertRedeemingPoint(
-    insertPointRedeemRequestDTO: InsertPointRedeemRequestDTO
+    insertPointRedeemData: Record<string, string | number>
   ): Promise<PointRedeemModel> {
-    return await this._pointRedeemModel.save(insertPointRedeemRequestDTO);
+    return await this._pointRedeemModel.save(insertPointRedeemData);
   }
 
   public async getPointRedeem(
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
-    return await this._pointRedeemModel.find({ where: { user_id: userId } });
-  }
-
-  public async updatePointRedeem(
-    updatePointRedeemRequestDTO: UpdatePointRedeemRequestDTO
-  ): Promise<UpdateResult> {
-    const id = updatePointRedeemRequestDTO.pointRedeemId;
-    const data = lodash.omit(updatePointRedeemRequestDTO, [
-      "user_id",
-      "pointRedeemId",
-    ]);
-    return await this._pointRedeemModel.update({ id }, data);
+    const queryBuilder = this._pointRedeemModel
+      .createQueryBuilder("pointRedeem")
+      .innerJoinAndSelect(`pointRedeem.pointRedeemDetail`, "pointRedeemDetail")
+      .select([
+        "pointRedeem.*",
+        "pointRedeemDetail.fixed_points_amount as fixed_points_amount",
+      ]);
+    queryBuilder.where(`pointRedeem.user_id=${userId}`);
+    queryBuilder.orderBy("pointRedeem.created_at", "DESC");
+    return await queryBuilder.getRawMany();
   }
 }

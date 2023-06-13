@@ -4,7 +4,7 @@ export default class UpdatePointRedeemDetailRequestDTO {
   points_type: string;
   fixed_points_amount: string;
   fixed_points_discount: string;
-  fixed_points_discount_type: string;
+  "fixed_points_discount_ type": string;
   apply_to_maximum_shipping_amount: string;
   incremented_points_amount: string;
   incremented_points_money_customer_received: string;
@@ -34,7 +34,7 @@ export default class UpdatePointRedeemDetailRequestDTO {
     this.points_type = body.points_type;
     this.fixed_points_amount = body.fixed_points_amount;
     this.fixed_points_discount = body.fixed_points_discount;
-    this.fixed_points_discount_type = body.fixed_points_discount_type;
+    this["fixed_points_discount_ type"] = body.fixed_points_discount_type;
     this.apply_to_maximum_shipping_amount =
       body.apply_to_maximum_shipping_amount;
     this.incremented_points_amount = body.incremented_points_amount;

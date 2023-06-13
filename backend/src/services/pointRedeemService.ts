@@ -1,7 +1,4 @@
-import { UpdateResult } from "typeorm";
 import { PointRedeemModel } from "../database/models/pointRedeem";
-import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
-import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
 import PointRedeemRepository from "../repository/pointRedeemRepository";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 
@@ -12,10 +9,10 @@ export default class PointRedeemService {
   }
 
   public async insertRedeemingPoint(
-    insertPointRedeemRequestDTO: InsertPointRedeemRequestDTO
+    insertPointRedeemData: Record<string, string | number>
   ): Promise<PointRedeemModel> {
     return await this._pointRedeemRepository.insertRedeemingPoint(
-      insertPointRedeemRequestDTO
+      insertPointRedeemData
     );
   }
 
@@ -23,13 +20,5 @@ export default class PointRedeemService {
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
     return await this._pointRedeemRepository.getPointRedeem(userId);
-  }
-
-  public async updatePointRedeem(
-    updatePointRedeemRequestDTO: UpdatePointRedeemRequestDTO
-  ): Promise<UpdateResult> {
-    return await this._pointRedeemRepository.updatePointRedeem(
-      updatePointRedeemRequestDTO
-    );
   }
 }

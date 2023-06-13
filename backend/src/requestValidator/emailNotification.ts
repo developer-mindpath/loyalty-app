@@ -4,9 +4,7 @@ import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import {
   DeleteEmailNotificationProgramParams,
-  GetEmailNotificationProgramParams,
-  GetEmailNotificationsProgramParams,
-  UpdateEmailNotificationProgramParams,
+  EmailProgramId,
 } from "../types/request/params";
 import { UpdateEmailNotificationRequest } from "../types/request/emailNotification/updateEmailNotificationRequest";
 
@@ -25,26 +23,14 @@ export = {
       email_notfication_unsubscribe_text: Joi.string().optional(),
       email_notfication_subscription_source: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().required(),
     },
   }),
-  1: joiValidationRequest<GetEmailNotificationProgramParams, IEmptyObject>({
+  1: joiValidationRequest<EmailProgramId, IEmptyObject>({
     path: {
       emailProgramId: Joi.number().required(),
     },
   }),
-  2: joiValidationRequest<GetEmailNotificationsProgramParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  3: joiValidationRequest<
-    UpdateEmailNotificationProgramParams,
-    UpdateEmailNotificationRequest
-  >({
+  3: joiValidationRequest<EmailProgramId, UpdateEmailNotificationRequest>({
     path: {
       emailProgramId: Joi.number().required(),
     },
@@ -61,7 +47,6 @@ export = {
       email_notfication_unsubscribe_text: Joi.string().optional(),
       email_notfication_subscription_source: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   4: joiValidationRequest<DeleteEmailNotificationProgramParams, IEmptyObject>({

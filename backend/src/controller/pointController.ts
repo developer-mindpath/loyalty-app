@@ -19,10 +19,6 @@ import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailR
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
 import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
-import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRedeemRequest";
-import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
-import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
-import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
@@ -180,66 +176,6 @@ export default class PointController {
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = pointResponse;
-      res.status(StatusCodes.OK).send(response);
-    } catch (error) {
-      if (error instanceof Error) {
-        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
-      } else {
-        next(error);
-      }
-    }
-  }
-
-  public async updatePointRedeem(
-    req: CustomRequest<PointRedeemId, IEmptyObject, UpdatePointRedeemRequest>,
-    res: Response<APIResponse<IEmptyObject>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const response = new APIResponse<IEmptyObject>();
-      const updatePointRedeemRequestDTO = new UpdatePointRedeemRequestDTO(
-        req.body,
-        req.params.pointRedeemId,
-        req.userId!,
-        req.adminRef!
-      );
-      await this._pointService.updatePointRedeem(updatePointRedeemRequestDTO);
-      response.status = StatusCodes.OK;
-      response.message = constants.API_RESPONSE.SUCCESS;
-      response.body = {};
-      res.status(StatusCodes.OK).send(response);
-    } catch (error) {
-      if (error instanceof Error) {
-        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
-      } else {
-        next(error);
-      }
-    }
-  }
-
-  public async insertRedeemPointDetail(
-    req: CustomRequest<
-      IEmptyObject,
-      IEmptyObject,
-      InsertPointRedeemDetailRequest
-    >,
-    res: Response<APIResponse<IEmptyObject>>,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const response = new APIResponse<IEmptyObject>();
-      const insertPointRedeemDetailRequestDTO =
-        new InsertPointRedeemDetailRequestDTO(
-          req.body,
-          req.userId!,
-          req.adminRef!
-        );
-      await this._pointService.insertRedeemPointDetail(
-        insertPointRedeemDetailRequestDTO
-      );
-      response.status = StatusCodes.OK;
-      response.message = constants.API_RESPONSE.SUCCESS;
-      response.body = {};
       res.status(StatusCodes.OK).send(response);
     } catch (error) {
       if (error instanceof Error) {

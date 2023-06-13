@@ -18,8 +18,6 @@ import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePoint
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
-import { UpdatePointRedeemRequest } from "../types/request/point/updatePointRedeemRequest";
-import { InsertPointRedeemDetailRequest } from "../types/request/point/insertPointRedeemDetailRequest";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { doValidation } from "../helper/joi";
@@ -84,27 +82,6 @@ router.get<
   RequestBody,
   QueryParams
 >("/redeems", checkToken, (...arg) => pointController.getPointRedeem(...arg));
-
-router.patch<
-  PathParams<PointRedeemId>,
-  ResponseBody<IEmptyObject>,
-  RequestBody<UpdatePointRedeemRequest>,
-  QueryParams
->(
-  "/redeem/:pointRedeemId",
-  checkToken,
-  doValidation(pointValidations[7]),
-  (...arg) => pointController.updatePointRedeem(...arg)
-);
-
-router.post<
-  PathParams,
-  ResponseBody<IEmptyObject>,
-  RequestBody<InsertPointRedeemDetailRequest>,
-  QueryParams
->("/redeem/detail", checkToken, doValidation(pointValidations[8]), (...arg) =>
-  pointController.insertRedeemPointDetail(...arg)
-);
 
 router.get<
   PathParams<PointRedeemId>,

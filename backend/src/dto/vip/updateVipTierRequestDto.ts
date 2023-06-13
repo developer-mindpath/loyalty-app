@@ -10,7 +10,7 @@ export default class UpdateVipTierRequestDTO {
   updated_by: number;
   vipTierId: number;
 
-  constructor(body: UpdateVipTierRequest, vipTierId: number) {
+  constructor(body: UpdateVipTierRequest, vipTierId: number, userId: number) {
     this.tier_key = body.tier_key;
     this.tier_key_display_text = body.tier_key_display_text;
     this.tier_key_icon = body.tier_key_icon;
@@ -18,6 +18,6 @@ export default class UpdateVipTierRequestDTO {
     this.goals_to_achieve_tier = body.goals_to_achieve_tier;
     this.status = body.status;
     this.vipTierId = vipTierId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

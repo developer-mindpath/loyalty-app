@@ -24,8 +24,4 @@ export type InsertReferralProgramRequest = {
   referral_offer_cookie_Day: number;
   referral_offer_nco: number;
   status: string;
-  admin_ref: number;
-  user_id: number;
-  created_by: number;
-  updated_by: number;
 };

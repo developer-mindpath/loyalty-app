@@ -2,7 +2,6 @@ import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
-import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 
@@ -15,11 +14,9 @@ export default class PointRedeemDetailRepository {
   }
 
   public async insertRedeemPointDetail(
-    insertPointRedeemDetailRequestDTO: InsertPointRedeemDetailRequestDTO
+    insertPointRedeemDetailData: Record<string, string | number>
   ): Promise<PointRedeemDetailModel> {
-    return await this._pointRedeemDetailModel.save(
-      insertPointRedeemDetailRequestDTO
-    );
+    return await this._pointRedeemDetailModel.save(insertPointRedeemDetailData);
   }
 
   public async getPointRedeemDetail(

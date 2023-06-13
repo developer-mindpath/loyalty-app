@@ -12,7 +12,11 @@ export default class InsertVipTierRewardRequestDTO {
   created_by: number;
   admin_ref: number;
 
-  constructor(body: InsertVipTierRewardRequest) {
+  constructor(
+    body: InsertVipTierRewardRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.vip_tier_id = body.vip_tier_id;
     this.point_redeemed_id = body.point_redeemed_id;
     this.reward_key = body.reward_key;
@@ -21,7 +25,7 @@ export default class InsertVipTierRewardRequestDTO {
     this.reward_description = body.reward_description;
     this.is_reward_enabled = body.is_reward_enabled;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

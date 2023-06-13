@@ -6,9 +6,7 @@ import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
 import {
   DeleteEmailNotificationProgramParams,
-  GetEmailNotificationProgramParams,
-  GetEmailNotificationsProgramParams,
-  UpdateEmailNotificationProgramParams,
+  EmailProgramId,
 } from "../types/request/params";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
 import InsertEmailNotificationRequestDTO from "../dto/emailNotification/insertEmailNotificationRequestDto";
@@ -36,7 +34,11 @@ export default class EmailNotificationController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertEmailNotificationRequestDTO =
-        new InsertEmailNotificationRequestDTO(req.body);
+        new InsertEmailNotificationRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._emailNotificationService.insertEmailNotification(
         insertEmailNotificationRequestDTO
       );
@@ -55,7 +57,7 @@ export default class EmailNotificationController {
 
   public async getEmailNotification(
     req: CustomRequest<
-      GetEmailNotificationProgramParams,
+      EmailProgramId,
       GetEmailNotificationResponse,
       IEmptyObject
     >,
@@ -83,7 +85,7 @@ export default class EmailNotificationController {
 
   public async getEmailNotifications(
     req: CustomRequest<
-      GetEmailNotificationsProgramParams,
+      IEmptyObject,
       GetEmailNotificationsResponse[],
       IEmptyObject
     >,
@@ -93,9 +95,7 @@ export default class EmailNotificationController {
     try {
       const response = new APIResponse<GetEmailNotificationsResponse[]>();
       const pointResponse =
-        await this._emailNotificationService.getEmailNotifications(
-          req.params.userId
-        );
+        await this._emailNotificationService.getEmailNotifications(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = pointResponse;
@@ -111,7 +111,7 @@ export default class EmailNotificationController {
 
   public async updateEmailNotification(
     req: CustomRequest<
-      UpdateEmailNotificationProgramParams,
+      EmailProgramId,
       IEmptyObject,
       UpdateEmailNotificationRequest
     >,
@@ -123,7 +123,8 @@ export default class EmailNotificationController {
       const updateEmailNotificationRequestDTO =
         new UpdateEmailNotificationRequestDTO(
           req.body,
-          req.params.emailProgramId
+          req.params.emailProgramId,
+          req.userId!
         );
       await this._emailNotificationService.updateEmailNotification(
         updateEmailNotificationRequestDTO

@@ -7,14 +7,10 @@ import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarn
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 import InsertPointRedeemRequestDTO from "src/dto/point/insertPointRedeemRequestDto";
 import PointRedeemService from "./pointRedeemService";
-import { PointRedeemModel } from "../database/models/pointRedeem";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
-import UpdatePointRedeemRequestDTO from "../dto/point/updatePointRedeemRequestDto";
-import InsertPointRedeemDetailRequestDTO from "../dto/point/insertPointRedeemDetailRequestDto";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
-import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
 
 export default class PointService {
   private _pointRepository: PointRepository;
@@ -90,9 +86,59 @@ export default class PointService {
 
   public async insertRedeemingPoint(
     insertPointRedeemRequestDTO: InsertPointRedeemRequestDTO
-  ): Promise<PointRedeemModel> {
-    return await this._pointRedeemService.insertRedeemingPoint(
-      insertPointRedeemRequestDTO
+  ): Promise<void> {
+    const insertPointRedeemData: Record<string, string | number> = {
+      reward_key: insertPointRedeemRequestDTO.reward_key,
+      reward_key_key_display_text:
+        insertPointRedeemRequestDTO.reward_key_key_display_text,
+      reward_icon: insertPointRedeemRequestDTO.reward_icon,
+      reward_description: insertPointRedeemRequestDTO.reward_description,
+      is_reward_enabled: insertPointRedeemRequestDTO.is_reward_enabled,
+      status: insertPointRedeemRequestDTO.status,
+      user_id: insertPointRedeemRequestDTO.user_id,
+      admin_ref: insertPointRedeemRequestDTO.admin_ref,
+      created_by: insertPointRedeemRequestDTO.created_by,
+    };
+    const pointRedeemModel =
+      await this._pointRedeemService.insertRedeemingPoint(
+        insertPointRedeemData
+      );
+    const insertPointRedeemDetailData: Record<string, string | number> = {
+      point_redeem_id: pointRedeemModel.id,
+      points_type: insertPointRedeemRequestDTO.points_type,
+      fixed_points_amount: insertPointRedeemRequestDTO.fixed_points_amount,
+      fixed_points_discount: insertPointRedeemRequestDTO.fixed_points_discount,
+      "fixed_points_discount_ type":
+        insertPointRedeemRequestDTO.fixed_points_discount_type,
+      apply_to_maximum_shipping_amount:
+        insertPointRedeemRequestDTO.apply_to_maximum_shipping_amount,
+      incremented_points_amount:
+        insertPointRedeemRequestDTO.incremented_points_amount,
+      incremented_points_money_customer_received:
+        insertPointRedeemRequestDTO.incremented_points_money_customer_received,
+      incremented_points_is_set_minimum_points:
+        insertPointRedeemRequestDTO.incremented_points_is_set_minimum_points,
+      incremented_points_is_set_maximum_points:
+        insertPointRedeemRequestDTO.incremented_points_is_set_maximum_points,
+      incremented_points_minimum_points:
+        insertPointRedeemRequestDTO.incremented_points_minimum_points,
+      incremented_points_maximum_points:
+        insertPointRedeemRequestDTO.incremented_points_maximum_points,
+      is_minimum_cart_requirement:
+        insertPointRedeemRequestDTO.is_minimum_cart_requirement,
+      minimum_cart_value: insertPointRedeemRequestDTO.minimum_cart_value,
+      apply_to: insertPointRedeemRequestDTO.apply_to,
+      collection_id: insertPointRedeemRequestDTO.collection_id,
+      purchase_type: insertPointRedeemRequestDTO.purchase_type,
+      reward_expiry: insertPointRedeemRequestDTO.reward_expiry,
+      products: insertPointRedeemRequestDTO.products,
+      status: insertPointRedeemRequestDTO.status,
+      user_id: insertPointRedeemRequestDTO.user_id,
+      admin_ref: insertPointRedeemRequestDTO.admin_ref,
+      created_by: insertPointRedeemRequestDTO.created_by,
+    };
+    await this._pointRedeemDetailService.insertRedeemPointDetail(
+      insertPointRedeemDetailData
     );
   }
 
@@ -100,22 +146,6 @@ export default class PointService {
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
     return await this._pointRedeemService.getPointRedeem(userId);
-  }
-
-  public async updatePointRedeem(
-    updatePointRedeemRequestDTO: UpdatePointRedeemRequestDTO
-  ): Promise<UpdateResult> {
-    return await this._pointRedeemService.updatePointRedeem(
-      updatePointRedeemRequestDTO
-    );
-  }
-
-  public async insertRedeemPointDetail(
-    insertPointRedeemDetailRequestDTO: InsertPointRedeemDetailRequestDTO
-  ): Promise<PointRedeemDetailModel> {
-    return await this._pointRedeemDetailService.insertRedeemPointDetail(
-      insertPointRedeemDetailRequestDTO
-    );
   }
 
   public async getPointRedeemDetail(

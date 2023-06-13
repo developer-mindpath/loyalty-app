@@ -27,9 +27,9 @@ export default class UpdateReferralProgramRequestDTO {
   referral_offer_nco: number;
   status: string;
   updated_by: number;
-  referralId: number;
+  user_id: number;
 
-  constructor(body: UpdateReferralProgramRequest, referralId: number) {
+  constructor(body: UpdateReferralProgramRequest, userId: number) {
     this.referral_friend_title = body.referral_friend_title;
     this.referral_friend_discount = body.referral_friend_discount;
     this.referral_friend_is_minimum_cart_requirement =
@@ -58,7 +58,7 @@ export default class UpdateReferralProgramRequestDTO {
     this.referral_offer_cookie_Day = body.referral_offer_cookie_Day;
     this.referral_offer_nco = body.referral_offer_nco;
     this.status = body.status;
-    this.updated_by = body.updated_by;
-    this.referralId = referralId;
+    this.updated_by = userId;
+    this.user_id = userId;
   }
 }
