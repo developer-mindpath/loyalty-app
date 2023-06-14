@@ -17,7 +17,7 @@ import {
 import DescriptionButton from "../../components/layouts/descriptionButton";
 import PointsController from "./controller";
 import PointsListItem from "../../components/points/pointsListItem";
-import { rewardType } from "../../constants/reward";
+import { earnType, rewardType } from "../../constants/reward";
 import EarningList from "../../components/earningList";
 
 function Points() {
@@ -249,13 +249,6 @@ function Points() {
         open={isModalOpen1}
         onClose={handleModalClose1}
         title="Add More Ways to Earn"
-        primaryAction={{
-          content: "Add",
-          onAction: () => {
-            // Add your logic for adding a new earning method here
-            handleModalClose1();
-          },
-        }}
         secondaryActions={[
           {
             content: "Cancel",
@@ -266,22 +259,14 @@ function Points() {
         <Modal.Section>
           <EarningList
             rewards={rewardType}
-            remove={[]}
-            // remove={earnList.map((e) => e.action_key)}
+            remove={earnList.map((e) => e.action_key)}
           />
         </Modal.Section>
       </Modal>
       <Modal
         open={isModalOpen2}
         onClose={handleModalClose2}
-        title="Modal 2"
-        primaryAction={{
-          content: "Add",
-          onAction: () => {
-            // Add your logic for adding a new earning method here
-            handleModalClose2();
-          },
-        }}
+        title="Ways to Redeem"
         secondaryActions={[
           {
             content: "Cancel",
@@ -290,9 +275,10 @@ function Points() {
         ]}
       >
         <Modal.Section>
-          <p>
-            Add the form or content for adding more ways to earn points here.
-          </p>
+          <EarningList
+            rewards={earnType}
+            remove={earnList.map((e) => e.action_key)}
+          />
         </Modal.Section>
       </Modal>
     </Page>

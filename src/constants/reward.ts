@@ -1,14 +1,16 @@
-export interface IRewardsType {
+export interface IRewardsListingType {
   id: string;
   img: string;
   name: string;
+  type?: "Store" | "In-Store";
 }
 
-export const rewardType: IRewardsType[] = [
+export const rewardType: IRewardsListingType[] = [
   {
     id: "referral",
     name: "Complete a Referral",
     img: "/assets/check.png",
+    type: "In-Store",
   },
   {
     id: "share_facebook",
@@ -61,5 +63,44 @@ export const rewardType: IRewardsType[] = [
     id: "follow_tiktok",
     name: "Follow on TikTok",
     img: "/assets/tiktok.png",
+  },
+];
+
+export const earnType: IRewardsListingType[] = [
+  {
+    id: "discount",
+    name: "Amount Discount",
+    img: "/assets/amount-discount.png",
+    type: "Store",
+  },
+  {
+    id: "percentage-off",
+    name: "Percentage Off",
+    img: "/assets/percentage-off.png",
+    type: "Store",
+  },
+  {
+    id: "free-shipping",
+    name: "Free Shipping",
+    img: "/assets/free-shipping.png",
+    type: "Store",
+  },
+  {
+    id: "free-product",
+    name: "Free Porduct",
+    img: "/assets/free-product.png",
+    type: "Store",
+  },
+  {
+    id: "discount",
+    name: "Amount Discount",
+    img: "/assets/amount-discount.png",
+    type: "In-Store",
+  },
+  {
+    id: "percentage-off",
+    name: "Percentage Off",
+    img: "/assets/percentage-off.png",
+    type: "In-Store",
   },
 ];
