@@ -33,7 +33,6 @@ export default class UpdateDedicatedPageExplainerRequestDTO {
   member_reward_subtitle_font_color: string;
   status: string;
   updated_by: number;
-  admin_ref: number;
   user_id: number;
 
   constructor(body: UpdateDedicatedPageExplainerRequest, userId: number) {
@@ -72,8 +71,7 @@ export default class UpdateDedicatedPageExplainerRequestDTO {
     this.member_reward_subtitle_font_color =
       body.member_reward_subtitle_font_color;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

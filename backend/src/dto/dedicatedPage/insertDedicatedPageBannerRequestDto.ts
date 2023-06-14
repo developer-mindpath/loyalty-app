@@ -31,7 +31,11 @@ export default class InsertDedicatedPageBannerRequestDTO {
   admin_ref: number;
   created_by: number;
 
-  constructor(body: InsertDedicatedPageBannerRequest) {
+  constructor(
+    body: InsertDedicatedPageBannerRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.general_banner_image = body.general_banner_image;
     this.general_banner_fontsize = body.general_banner_fontsize;
     this.general_banner_font_color = body.general_banner_font_color;
@@ -66,8 +70,8 @@ export default class InsertDedicatedPageBannerRequestDTO {
     this.member_redeem_button_background_color =
       body.member_redeem_button_background_color;
     this.status = body.status;
-    this.user_id = body.user_id;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.user_id = userId;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

@@ -3,5 +3,4 @@ export type UpdateChecklistDetailRequest = {
   html_body: string;
   order_inde: number;
   status: string;
-  updated_by: number;
 };

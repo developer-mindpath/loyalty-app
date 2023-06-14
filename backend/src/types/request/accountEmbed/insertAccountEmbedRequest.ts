@@ -10,7 +10,4 @@ export type InsertAccountEmbedRequest = {
   widget_position: string;
   widget_page_appear: string;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };

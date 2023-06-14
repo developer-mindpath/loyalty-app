@@ -50,7 +50,11 @@ export default class ChecklistController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertChecklistCategoryRequestDTO =
-        new InsertChecklistCategoryRequestDTO(req.body);
+        new InsertChecklistCategoryRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._checklistService.insertChecklistCategory(
         insertChecklistCategoryRequestDTO
       );
@@ -105,7 +109,11 @@ export default class ChecklistController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateChecklistCategoryRequestDTO =
-        new UpdateChecklistCategoryRequestDTO(req.body, req.params.categoryId);
+        new UpdateChecklistCategoryRequestDTO(
+          req.body,
+          req.params.categoryId,
+          req.userId!
+        );
       await this._checklistService.updateChecklistCategory(
         updateChecklistCategoryRequestDTO
       );
@@ -156,7 +164,11 @@ export default class ChecklistController {
   ): Promise<void> {
     try {
       const response = new APIResponse<IEmptyObject>();
-      const insertChecklistRequestDTO = new InsertChecklistRequestDTO(req.body);
+      const insertChecklistRequestDTO = new InsertChecklistRequestDTO(
+        req.body,
+        req.userId!,
+        req.adminRef!
+      );
       await this._checklistService.insertChecklist(insertChecklistRequestDTO);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -180,7 +192,8 @@ export default class ChecklistController {
       const response = new APIResponse<IEmptyObject>();
       const updateChecklistRequestDTO = new UpdateChecklistRequestDTO(
         req.body,
-        req.params.checklistId
+        req.params.checklistId,
+        req.userId!
       );
       await this._checklistService.updateChecklist(updateChecklistRequestDTO);
       response.status = StatusCodes.OK;
@@ -208,7 +221,11 @@ export default class ChecklistController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertChecklistDetailRequestDTO =
-        new InsertChecklistDetailRequestDTO(req.body);
+        new InsertChecklistDetailRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._checklistService.insertChecklistDetail(
         insertChecklistDetailRequestDTO
       );
@@ -266,7 +283,8 @@ export default class ChecklistController {
       const updateChecklistDetailRequestDTO =
         new UpdateChecklistDetailRequestDTO(
           req.body,
-          req.params.checklistDetailId
+          req.params.checklistDetailId,
+          req.userId!
         );
       await this._checklistService.updateChecklistDetail(
         updateChecklistDetailRequestDTO
@@ -296,7 +314,11 @@ export default class ChecklistController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertChecklistActionRequestDTO =
-        new InsertChecklistActionRequestDTO(req.body);
+        new InsertChecklistActionRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._checklistService.insertChecklistAction(
         insertChecklistActionRequestDTO
       );
@@ -354,7 +376,8 @@ export default class ChecklistController {
       const updateChecklistActionRequestDTO =
         new UpdateChecklistActionRequestDTO(
           req.body,
-          req.params.checklistActionId
+          req.params.checklistActionId,
+          req.userId!
         );
       await this._checklistService.updateChecklistAction(
         updateChecklistActionRequestDTO

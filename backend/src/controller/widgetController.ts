@@ -4,14 +4,6 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  GetFloatingWidgetButtonParams,
-  GetFloatingWidgetParams,
-  GetFloatingWidgetTextParams,
-  UpdateFloatingWidgetButtonParams,
-  UpdateFloatingWidgetParams,
-  UpdateFloatingWidgetTextParams,
-} from "../types/request/params";
 import { GetFloatingWidgetResponse } from "../types/response/widget/getFloatingWidgetResponse";
 import WidgetService from "../services/widgetService";
 import { InsertFloatingWidgetRequest } from "../types/request/widget/insertFloatingWidgetRequest";
@@ -43,7 +35,9 @@ export default class WidgetController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertFloatingWidgetRequestDTO = new InsertFloatingWidgetRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._widgetService.insertFloatingWidgetSetting(
         insertFloatingWidgetRequestDTO
@@ -62,18 +56,14 @@ export default class WidgetController {
   }
 
   public async getFloatingWidgetSetting(
-    req: CustomRequest<
-      GetFloatingWidgetParams,
-      GetFloatingWidgetResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetFloatingWidgetResponse, IEmptyObject>,
     res: Response<APIResponse<GetFloatingWidgetResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetFloatingWidgetResponse>();
       const widgetResponse = await this._widgetService.getFloatingWidgetSetting(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -89,11 +79,7 @@ export default class WidgetController {
   }
 
   public async updateFloatingWidgetSetting(
-    req: CustomRequest<
-      UpdateFloatingWidgetParams,
-      IEmptyObject,
-      UpdateFloatingWidgetRequest
-    >,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateFloatingWidgetRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -101,7 +87,7 @@ export default class WidgetController {
       const response = new APIResponse<IEmptyObject>();
       const updateFloatingWidgetRequestDTO = new UpdateFloatingWidgetRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!
       );
       await this._widgetService.updateFloatingWidgetSetting(
         updateFloatingWidgetRequestDTO
@@ -131,7 +117,11 @@ export default class WidgetController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertFloatingWidgetButtonRequestDTO =
-        new InsertFloatingWidgetButtonRequestDTO(req.body);
+        new InsertFloatingWidgetButtonRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._widgetService.insertFloatingWidgetButton(
         insertFloatingWidgetButtonRequestDTO
       );
@@ -150,7 +140,7 @@ export default class WidgetController {
 
   public async getFloatingWidgetButton(
     req: CustomRequest<
-      GetFloatingWidgetButtonParams,
+      IEmptyObject,
       GetFloatingWidgetButtonResponse,
       IEmptyObject
     >,
@@ -160,7 +150,7 @@ export default class WidgetController {
     try {
       const response = new APIResponse<GetFloatingWidgetButtonResponse>();
       const widgetResponse = await this._widgetService.getFloatingWidgetButton(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -177,7 +167,7 @@ export default class WidgetController {
 
   public async updateFloatingWidgetButton(
     req: CustomRequest<
-      UpdateFloatingWidgetButtonParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateFloatingWidgetButtonRequest
     >,
@@ -187,7 +177,7 @@ export default class WidgetController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateFloatingWidgetButtonRequestDTO =
-        new UpdateFloatingWidgetButtonRequestDTO(req.body, req.params.userId);
+        new UpdateFloatingWidgetButtonRequestDTO(req.body, req.userId!);
       await this._widgetService.updateFloatingWidgetButton(
         updateFloatingWidgetButtonRequestDTO
       );
@@ -216,7 +206,11 @@ export default class WidgetController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertFloatingWidgetTextRequestDTO =
-        new InsertFloatingWidgetTextRequestDTO(req.body);
+        new InsertFloatingWidgetTextRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._widgetService.insertFloatingWidgetText(
         insertFloatingWidgetTextRequestDTO
       );
@@ -235,7 +229,7 @@ export default class WidgetController {
 
   public async getFloatingWidgetText(
     req: CustomRequest<
-      GetFloatingWidgetTextParams,
+      IEmptyObject,
       GetFloatingWidgetTextResponse,
       IEmptyObject
     >,
@@ -245,7 +239,7 @@ export default class WidgetController {
     try {
       const response = new APIResponse<GetFloatingWidgetTextResponse>();
       const widgetResponse = await this._widgetService.getFloatingWidgetText(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -262,7 +256,7 @@ export default class WidgetController {
 
   public async updateFloatingWidgetText(
     req: CustomRequest<
-      UpdateFloatingWidgetTextParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateFloatingWidgetTextRequest
     >,
@@ -272,7 +266,7 @@ export default class WidgetController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateFloatingWidgetTextRequestDTO =
-        new UpdateFloatingWidgetTextRequestDTO(req.body, req.params.userId);
+        new UpdateFloatingWidgetTextRequestDTO(req.body, req.userId!);
       await this._widgetService.updateFloatingWidgetText(
         updateFloatingWidgetTextRequestDTO
       );

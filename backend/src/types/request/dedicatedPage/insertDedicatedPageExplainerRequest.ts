@@ -30,7 +30,4 @@ export type InsertDedicatedPageExplainerRequest = {
   member_reward_subtitle_font_size: string;
   member_reward_subtitle_font_color: string;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };

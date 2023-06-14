@@ -3,26 +3,13 @@ import { InsertFloatingWidgetRequest } from "../types/request/widget/insertFloat
 import { UpdateFloatingWidgetRequest } from "../types/request/widget/updateFloatingWidgetRequest";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
-import {
-  GetFloatingWidgetButtonParams,
-  GetFloatingWidgetParams,
-  GetFloatingWidgetTextParams,
-  UpdateFloatingWidgetButtonParams,
-  UpdateFloatingWidgetParams,
-  UpdateFloatingWidgetTextParams,
-} from "../types/request/params";
 import { InsertFloatingWidgetButtonRequest } from "../types/request/widget/insertFloatingWidgetButtonRequest";
 import { UpdateFloatingWidgetButtonRequest } from "../types/request/widget/updateFloatingWidgetButtonRequest";
 import { InsertFloatingWidgetTextRequest } from "../types/request/widget/insertFloatingWidgetTextRequest";
 import { UpdateFloatingWidgetTextRequest } from "../types/request/widget/updateFloatingWidgetTextRequest";
 
 export = {
-  0: joiValidationRequest<GetFloatingWidgetParams, IEmptyObject, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  1: joiValidationRequest<
+  0: joiValidationRequest<
     IEmptyObject,
     InsertFloatingWidgetRequest,
     IEmptyObject
@@ -54,19 +41,13 @@ export = {
       widget_font_primary_font: Joi.string().optional(),
       widget_font_secondary_font: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  2: joiValidationRequest<
-    UpdateFloatingWidgetParams,
+  1: joiValidationRequest<
+    IEmptyObject,
     UpdateFloatingWidgetRequest,
     IEmptyObject
   >({
-    path: {
-      userId: Joi.number().required(),
-    },
     body: {
       widget_color_header_background: Joi.string().optional(),
       widget_color_header_text: Joi.string().optional(),
@@ -94,10 +75,9 @@ export = {
       widget_font_primary_font: Joi.string().optional(),
       widget_font_secondary_font: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  3: joiValidationRequest<
+  2: joiValidationRequest<
     IEmptyObject,
     InsertFloatingWidgetButtonRequest,
     IEmptyObject
@@ -116,28 +96,13 @@ export = {
       mobile_widget_button_shape: Joi.string().optional(),
       mobile_widget_icon: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  4: joiValidationRequest<
-    GetFloatingWidgetButtonParams,
+  3: joiValidationRequest<
     IEmptyObject,
-    IEmptyObject
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  5: joiValidationRequest<
-    UpdateFloatingWidgetButtonParams,
     UpdateFloatingWidgetButtonRequest,
     IEmptyObject
   >({
-    path: {
-      userId: Joi.number().required(),
-    },
     body: {
       desktop_placement: Joi.string().optional(),
       desktop_padding_side_padding: Joi.number().optional(),
@@ -152,10 +117,9 @@ export = {
       mobile_widget_button_shape: Joi.string().optional(),
       mobile_widget_icon: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  6: joiValidationRequest<
+  4: joiValidationRequest<
     IEmptyObject,
     InsertFloatingWidgetTextRequest,
     IEmptyObject
@@ -171,28 +135,13 @@ export = {
       visitor_points_text_description: Joi.string().optional(),
       member_header_text_caption: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  7: joiValidationRequest<
-    GetFloatingWidgetTextParams,
+  5: joiValidationRequest<
     IEmptyObject,
-    IEmptyObject
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  8: joiValidationRequest<
-    UpdateFloatingWidgetTextParams,
     UpdateFloatingWidgetTextRequest,
     IEmptyObject
   >({
-    path: {
-      userId: Joi.number().required(),
-    },
     body: {
       visitor_header_text_title: Joi.string().optional(),
       visitor_header_text_caption: Joi.string().optional(),
@@ -204,7 +153,6 @@ export = {
       visitor_points_text_description: Joi.string().optional(),
       member_header_text_caption: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
 };

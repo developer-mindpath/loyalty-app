@@ -12,5 +12,4 @@ export type UpdateFloatingWidgetButtonRequest = {
   mobile_widget_button_shape: string;
   mobile_widget_icon: string;
   status: string;
-  updated_by: number;
 };

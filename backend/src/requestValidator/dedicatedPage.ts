@@ -8,22 +8,6 @@ import { UpdateDedicatedPageExplainerRequest } from "../types/request/dedicatedP
 import { UpdateDedicatedPageReferralRequest } from "../types/request/dedicatedPage/updateDedicatedPageReferralRequest";
 import { UpdateDedicatedPageRequest } from "../types/request/dedicatedPage/updateDedicatedPageRequest";
 import { UpdateDedicatedPageWayToEarnRequest } from "../types/request/dedicatedPage/updateDedicatedPageWayToEarnRequest";
-import {
-  GetDedicatedPageBannerParams,
-  GetDedicatedPageExplainerParams,
-  GetDedicatedPageParams,
-  GetDedicatedPageReferralParams,
-  GetDedicatedPageVipTierParams,
-  GetDedicatedPageWayToEarnParams,
-  GetDedicatedPageWayToRedeemParams,
-  UpdateDedicatedPageBannerParams,
-  UpdateDedicatedPageExplainerParams,
-  UpdateDedicatedPageParams,
-  UpdateDedicatedPageReferralParams,
-  UpdateDedicatedPageVipTierParams,
-  UpdateDedicatedPageWayToEarnParams,
-  UpdateDedicatedPageWayToRedeemParams,
-} from "../types/request/params";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import { InsertDedicatedPageRequest } from "../types/request/dedicatedPage/insertDedicatedPageRequest";
@@ -42,23 +26,9 @@ export = {
       general_settings_model_offset: Joi.string().optional(),
       general_settings_custome_css: Joi.string().optional(),
       status: Joi.string().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
-      created_by: Joi.number().optional(),
     },
   }),
-  1: joiValidationRequest<GetDedicatedPageParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  2: joiValidationRequest<
-    UpdateDedicatedPageParams,
-    UpdateDedicatedPageRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  1: joiValidationRequest<IEmptyObject, UpdateDedicatedPageRequest>({
     body: {
       is_dedicated_page_on: Joi.string().optional(),
       general_settings_primary_font: Joi.string().optional(),
@@ -67,11 +37,9 @@ export = {
       general_settings_model_offset: Joi.string().optional(),
       general_settings_custome_css: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  3: joiValidationRequest<IEmptyObject, InsertDedicatedPageBannerRequest>({
+  2: joiValidationRequest<IEmptyObject, InsertDedicatedPageBannerRequest>({
     body: {
       general_banner_image: Joi.string().optional(),
       general_banner_fontsize: Joi.number().optional(),
@@ -99,23 +67,9 @@ export = {
       member_redeem_button_font_color: Joi.string().optional(),
       member_redeem_button_background_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
-      created_by: Joi.number().optional(),
     },
   }),
-  4: joiValidationRequest<GetDedicatedPageBannerParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  5: joiValidationRequest<
-    UpdateDedicatedPageBannerParams,
-    UpdateDedicatedPageBannerRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  3: joiValidationRequest<IEmptyObject, UpdateDedicatedPageBannerRequest>({
     body: {
       general_banner_image: Joi.string().optional(),
       general_banner_fontsize: Joi.number().optional(),
@@ -143,11 +97,9 @@ export = {
       member_redeem_button_font_color: Joi.string().optional(),
       member_redeem_button_background_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  6: joiValidationRequest<IEmptyObject, InsertDedicatedPageExplainerRequest>({
+  4: joiValidationRequest<IEmptyObject, InsertDedicatedPageExplainerRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_header_title_font_size: Joi.number().optional(),
@@ -180,23 +132,9 @@ export = {
       member_reward_subtitle_font_size: Joi.string().optional(),
       member_reward_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  7: joiValidationRequest<GetDedicatedPageExplainerParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  8: joiValidationRequest<
-    UpdateDedicatedPageExplainerParams,
-    UpdateDedicatedPageExplainerRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  5: joiValidationRequest<IEmptyObject, UpdateDedicatedPageExplainerRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_header_title_font_size: Joi.number().optional(),
@@ -229,11 +167,9 @@ export = {
       member_reward_subtitle_font_size: Joi.string().optional(),
       member_reward_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  9: joiValidationRequest<IEmptyObject, InsertDedicatedPageReferralRequest>({
+  6: joiValidationRequest<IEmptyObject, InsertDedicatedPageReferralRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -243,23 +179,9 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
-      created_by: Joi.number().optional(),
     },
   }),
-  10: joiValidationRequest<GetDedicatedPageReferralParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  11: joiValidationRequest<
-    UpdateDedicatedPageReferralParams,
-    UpdateDedicatedPageReferralRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  7: joiValidationRequest<IEmptyObject, UpdateDedicatedPageReferralRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -269,11 +191,9 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  12: joiValidationRequest<IEmptyObject, InsertDedicatedPageWayToEarnRequest>({
+  8: joiValidationRequest<IEmptyObject, InsertDedicatedPageWayToEarnRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -283,23 +203,9 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
-      created_by: Joi.number().optional(),
     },
   }),
-  13: joiValidationRequest<GetDedicatedPageWayToEarnParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  14: joiValidationRequest<
-    UpdateDedicatedPageWayToEarnParams,
-    UpdateDedicatedPageWayToEarnRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  9: joiValidationRequest<IEmptyObject, UpdateDedicatedPageWayToEarnRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -309,11 +215,9 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  15: joiValidationRequest<IEmptyObject, InsertDedicatedPageWayToRedeemRequest>(
+  10: joiValidationRequest<IEmptyObject, InsertDedicatedPageWayToRedeemRequest>(
     {
       body: {
         general_background_color: Joi.string().optional(),
@@ -324,24 +228,24 @@ export = {
         general_subtitle_font_size: Joi.number().optional(),
         general_subtitle_font_color: Joi.string().optional(),
         status: Joi.string().optional(),
-        user_id: Joi.number().required(),
-        admin_ref: Joi.number().optional(),
-        created_by: Joi.number().optional(),
       },
     }
   ),
-  16: joiValidationRequest<GetDedicatedPageWayToRedeemParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  17: joiValidationRequest<
-    UpdateDedicatedPageWayToRedeemParams,
-    UpdateDedicatedPageWayToRedeemRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
+  11: joiValidationRequest<IEmptyObject, UpdateDedicatedPageWayToRedeemRequest>(
+    {
+      body: {
+        general_background_color: Joi.string().optional(),
+        general_title_text: Joi.string().optional(),
+        general_subtitle_text: Joi.string().optional(),
+        general_title_font_size: Joi.number().optional(),
+        general_title_font_color: Joi.string().optional(),
+        general_subtitle_font_size: Joi.number().optional(),
+        general_subtitle_font_color: Joi.string().optional(),
+        status: Joi.string().optional(),
+      },
+    }
+  ),
+  12: joiValidationRequest<IEmptyObject, InsertDedicatedPageVipTierRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -351,11 +255,9 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
-  18: joiValidationRequest<IEmptyObject, InsertDedicatedPageVipTierRequest>({
+  13: joiValidationRequest<IEmptyObject, UpdateDedicatedPageVipTierRequest>({
     body: {
       general_background_color: Joi.string().optional(),
       general_title_text: Joi.string().optional(),
@@ -365,34 +267,6 @@ export = {
       general_subtitle_font_size: Joi.number().optional(),
       general_subtitle_font_color: Joi.string().optional(),
       status: Joi.string().optional(),
-      user_id: Joi.number().required(),
-      admin_ref: Joi.number().optional(),
-      created_by: Joi.number().optional(),
-    },
-  }),
-  19: joiValidationRequest<GetDedicatedPageVipTierParams, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  20: joiValidationRequest<
-    UpdateDedicatedPageVipTierParams,
-    UpdateDedicatedPageVipTierRequest
-  >({
-    path: {
-      userId: Joi.number().required(),
-    },
-    body: {
-      general_background_color: Joi.string().optional(),
-      general_title_text: Joi.string().optional(),
-      general_subtitle_text: Joi.string().optional(),
-      general_title_font_size: Joi.number().optional(),
-      general_title_font_color: Joi.string().optional(),
-      general_subtitle_font_size: Joi.number().optional(),
-      general_subtitle_font_color: Joi.string().optional(),
-      status: Joi.string().optional(),
-      admin_ref: Joi.number().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
 };

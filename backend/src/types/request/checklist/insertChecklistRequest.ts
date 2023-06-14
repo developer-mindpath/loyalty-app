@@ -4,6 +4,4 @@ export type InsertChecklistRequest = {
   checklist_icon: string;
   action_duration: number;
   status: string;
-  created_by: number;
-  admin_ref: number;
 };

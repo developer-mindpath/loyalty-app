@@ -4,10 +4,6 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  GetAccountEmbedParams,
-  UpdateAccountEmbedParams,
-} from "../types/request/params";
 import { InsertAccountEmbedRequest } from "../types/request/accountEmbed/insertAccountEmbedRequest";
 import InsertAccountEmbedRequestDTO from "../dto/accountEmbed/insertAccountEmbedRequestDto";
 import { GetAccountEmbedResponse } from "../types/response/accountEmbed/getAccountEmbedResponse";
@@ -29,7 +25,9 @@ export default class AccountEmbedController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertAccountEmbedRequestDTO = new InsertAccountEmbedRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._accountEmbedService.insertAccountEmbed(
         insertAccountEmbedRequestDTO
@@ -48,18 +46,14 @@ export default class AccountEmbedController {
   }
 
   public async getAccountEmbed(
-    req: CustomRequest<
-      GetAccountEmbedParams,
-      GetAccountEmbedResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetAccountEmbedResponse, IEmptyObject>,
     res: Response<APIResponse<GetAccountEmbedResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetAccountEmbedResponse>();
       const widgetResponse = await this._accountEmbedService.getAccountEmbed(
-        req.params.userId
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -75,11 +69,7 @@ export default class AccountEmbedController {
   }
 
   public async updateAccountEmbed(
-    req: CustomRequest<
-      UpdateAccountEmbedParams,
-      IEmptyObject,
-      UpdateAccountEmbedRequest
-    >,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateAccountEmbedRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -87,7 +77,7 @@ export default class AccountEmbedController {
       const response = new APIResponse<IEmptyObject>();
       const updateAccountEmbedRequestDTO = new UpdateAccountEmbedRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!
       );
       await this._accountEmbedService.updateAccountEmbed(
         updateAccountEmbedRequestDTO

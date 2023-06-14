@@ -58,6 +58,7 @@ import { VipProgramActivityModel } from "./models/vipProgramActivity";
 import { VipTierModel } from "./models/vipTier";
 import { VipTierAdditionalBenefitsModel } from "./models/vipTierAdditionalBenefits";
 import { VipTierRewardsModel } from "./models/vipTierRewards";
+import { TranslationModel } from "./models/translation";
 config();
 
 const MODELS = [
@@ -119,6 +120,7 @@ const MODELS = [
   VipTierModel,
   VipTierAdditionalBenefitsModel,
   VipTierRewardsModel,
+  TranslationModel,
 ];
 const AppDataSource = new DataSource({
   type: "mysql",

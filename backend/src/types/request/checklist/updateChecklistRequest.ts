@@ -3,5 +3,4 @@ export type UpdateChecklistRequest = {
   checklist_icon: string;
   action_duration: number;
   status: string;
-  updated_by: number;
 };
