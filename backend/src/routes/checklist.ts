@@ -27,6 +27,7 @@ import { UpdateChecklistDetailRequest } from "../types/request/checklist/updateC
 import { InsertChecklistActionRequest } from "../types/request/checklist/insertChecklistActionRequest";
 import { GetChecklistActionResponse } from "../types/response/checklist/getChecklistActionResponse";
 import { UpdateChecklistActionRequest } from "../types/request/checklist/updateChecklistActionRequest";
+import { checkToken } from "../middleware/checkToken";
 
 const checklistController = new ChecklistController();
 const router = express.Router();
@@ -36,14 +37,16 @@ router.get<
   ResponseBody<Array<GetChecklistCategoryResponse>>,
   RequestBody,
   QueryParams
->("/category", (...arg) => checklistController.getChecklistCategory(...arg));
+>("/category", checkToken, (...arg) =>
+  checklistController.getChecklistCategory(...arg)
+);
 
 router.post<
   PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<InsertChecklistCategoryRequest>,
   QueryParams
->("/category", doValidation(checklistValidations[0]), (...arg) =>
+>("/category", checkToken, doValidation(checklistValidations[0]), (...arg) =>
   checklistController.insertChecklistCategory(...arg)
 );
 
@@ -52,8 +55,11 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateChecklistCategoryRequest>,
   QueryParams
->("/category/:categoryId", doValidation(checklistValidations[1]), (...arg) =>
-  checklistController.updateChecklistCategory(...arg)
+>(
+  "/category/:categoryId",
+  checkToken,
+  doValidation(checklistValidations[1]),
+  (...arg) => checklistController.updateChecklistCategory(...arg)
 );
 
 router.get<
@@ -61,7 +67,7 @@ router.get<
   ResponseBody<Array<GetChecklistResponse>>,
   RequestBody,
   QueryParams
->("/:categoryId", doValidation(checklistValidations[2]), (...arg) =>
+>("/:categoryId", checkToken, doValidation(checklistValidations[2]), (...arg) =>
   checklistController.getChecklist(...arg)
 );
 
@@ -70,7 +76,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertChecklistRequest>,
   QueryParams
->("/", doValidation(checklistValidations[3]), (...arg) =>
+>("/", checkToken, doValidation(checklistValidations[3]), (...arg) =>
   checklistController.insertChecklist(...arg)
 );
 
@@ -79,8 +85,11 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateChecklistRequest>,
   QueryParams
->("/:checklistId", doValidation(checklistValidations[4]), (...arg) =>
-  checklistController.updateChecklist(...arg)
+>(
+  "/:checklistId",
+  checkToken,
+  doValidation(checklistValidations[4]),
+  (...arg) => checklistController.updateChecklist(...arg)
 );
 
 router.post<
@@ -88,7 +97,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertChecklistDetailRequest>,
   QueryParams
->("/detail", doValidation(checklistValidations[5]), (...arg) =>
+>("/detail", checkToken, doValidation(checklistValidations[5]), (...arg) =>
   checklistController.insertChecklistDetail(...arg)
 );
 
@@ -97,8 +106,11 @@ router.get<
   ResponseBody<Array<GetChecklistDetailResponse>>,
   RequestBody,
   QueryParams
->("/detail/:checklistId", doValidation(checklistValidations[6]), (...arg) =>
-  checklistController.getChecklistDetail(...arg)
+>(
+  "/detail/:checklistId",
+  checkToken,
+  doValidation(checklistValidations[6]),
+  (...arg) => checklistController.getChecklistDetail(...arg)
 );
 
 router.patch<
@@ -108,6 +120,7 @@ router.patch<
   QueryParams
 >(
   "/detail/:checklistDetailId",
+  checkToken,
   doValidation(checklistValidations[7]),
   (...arg) => checklistController.updateChecklistDetail(...arg)
 );
@@ -117,7 +130,7 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertChecklistActionRequest>,
   QueryParams
->("/action", doValidation(checklistValidations[8]), (...arg) =>
+>("/action", checkToken, doValidation(checklistValidations[8]), (...arg) =>
   checklistController.insertChecklistAction(...arg)
 );
 
@@ -128,6 +141,7 @@ router.get<
   QueryParams
 >(
   "/action/:checklistDetailId",
+  checkToken,
   doValidation(checklistValidations[9]),
   (...arg) => checklistController.getChecklistAction(...arg)
 );
@@ -138,7 +152,8 @@ router.patch<
   RequestBody<UpdateChecklistActionRequest>,
   QueryParams
 >(
-  "/detail/:checklistDetailId",
+  "/action/:checklistDetailId",
+  checkToken,
   doValidation(checklistValidations[10]),
   (...arg) => checklistController.updateChecklistAction(...arg)
 );

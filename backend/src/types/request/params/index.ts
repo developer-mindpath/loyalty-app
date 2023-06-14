@@ -58,6 +58,10 @@ export type ChecklistActionId = {
 export type PointRedeemDetailId = {
   pointRedeemDetailId: number;
 };
+
+export type PostId = {
+  postId: number;
+};
 export type GetEarnDetailParams = PointActionId;
 export type UpdateEarnDetailParams = PointActionId;
 export type GetEarnPointsByUsingUserIdParams = UserId;

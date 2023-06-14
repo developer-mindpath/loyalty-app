@@ -27,7 +27,6 @@ export default class UpdateDedicatedPageBannerRequestDTO {
   member_redeem_button_font_color: string;
   member_redeem_button_background_color: string;
   status: string;
-  admin_ref: number;
   updated_by: number;
   user_id: number;
 
@@ -66,8 +65,7 @@ export default class UpdateDedicatedPageBannerRequestDTO {
     this.member_redeem_button_background_color =
       body.member_redeem_button_background_color;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.user_id = userId;
   }
 }

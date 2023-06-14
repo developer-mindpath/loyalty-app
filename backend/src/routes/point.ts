@@ -23,13 +23,14 @@ import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRe
 import { doValidation } from "../helper/joi";
 import pointValidations from "../requestValidator/point";
 import { checkToken } from "../middleware/checkToken";
+import { PostResponse } from "../types/response/postResponse";
 
 const pointController = new PointController();
 const router = express.Router();
 
 router.post<
   PathParams,
-  ResponseBody<IEmptyObject>,
+  ResponseBody<PostResponse>,
   RequestBody<PointInsertRequest>,
   QueryParams
 >("/earn", checkToken, doValidation(pointValidations[0]), (...arg) =>

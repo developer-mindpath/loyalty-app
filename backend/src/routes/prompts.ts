@@ -5,7 +5,6 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import { GetPromptsParams, UpdatePromptsParams } from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import promptsValidations from "../requestValidator/prompts";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
@@ -13,34 +12,33 @@ import { GetPromptsResponse } from "../types/response/prompts/getPromptsResponse
 import { InsertPromptsRequest } from "../types/request/prompts/insertPromptsRequest";
 import { UpdatePromptsRequest } from "../types/request/prompts/updatePromptsRequest";
 import PromptController from "../controller/promptController";
+import { checkToken } from "../middleware/checkToken";
 
 const promptController = new PromptController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetPromptsParams>,
+  PathParams,
   ResponseBody<GetPromptsResponse>,
   RequestBody,
   QueryParams
->("/boost/:userId", doValidation(promptsValidations[0]), (...arg) =>
-  promptController.getPromptsSetting(...arg)
-);
+>("/boost", checkToken, (...arg) => promptController.getPromptsSetting(...arg));
 
 router.post<
   PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<InsertPromptsRequest>,
   QueryParams
->("/boost", doValidation(promptsValidations[1]), (...arg) =>
+>("/boost", checkToken, doValidation(promptsValidations[0]), (...arg) =>
   promptController.insertPromptsSetting(...arg)
 );
 
 router.patch<
-  PathParams<UpdatePromptsParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePromptsRequest>,
   QueryParams
->("/boost/:userId", doValidation(promptsValidations[2]), (...arg) =>
+>("/boost", checkToken, doValidation(promptsValidations[1]), (...arg) =>
   promptController.updatePromptsSetting(...arg)
 );
 

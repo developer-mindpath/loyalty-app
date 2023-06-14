@@ -4,22 +4,6 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  GetDedicatedPageBannerParams,
-  GetDedicatedPageExplainerParams,
-  GetDedicatedPageParams,
-  GetDedicatedPageReferralParams,
-  GetDedicatedPageVipTierParams,
-  GetDedicatedPageWayToEarnParams,
-  GetDedicatedPageWayToRedeemParams,
-  UpdateDedicatedPageBannerParams,
-  UpdateDedicatedPageExplainerParams,
-  UpdateDedicatedPageParams,
-  UpdateDedicatedPageReferralParams,
-  UpdateDedicatedPageVipTierParams,
-  UpdateDedicatedPageWayToEarnParams,
-  UpdateDedicatedPageWayToRedeemParams,
-} from "../types/request/params";
 import { InsertDedicatedPageRequest } from "../types/request/dedicatedPage/insertDedicatedPageRequest";
 import InsertDedicatedPageRequestDTO from "../dto/dedicatedPage/insertDedicatedPageRequestDto";
 import DedicatedPageService from "../services/dedicatedPageService";
@@ -71,7 +55,9 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageRequestDTO = new InsertDedicatedPageRequestDTO(
-        req.body
+        req.body,
+        req.userId!,
+        req.adminRef!
       );
       await this._dedicatedPageService.insertDedicatedPage(
         insertDedicatedPageRequestDTO
@@ -90,18 +76,14 @@ export default class DedicatedPageController {
   }
 
   public async getDedicatedPage(
-    req: CustomRequest<
-      GetDedicatedPageParams,
-      GetDedicatedPageResponse,
-      IEmptyObject
-    >,
+    req: CustomRequest<IEmptyObject, GetDedicatedPageResponse, IEmptyObject>,
     res: Response<APIResponse<GetDedicatedPageResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetDedicatedPageResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPage(req.params.userId);
+        await this._dedicatedPageService.getDedicatedPage(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -116,11 +98,7 @@ export default class DedicatedPageController {
   }
 
   public async updateDedicatedPage(
-    req: CustomRequest<
-      UpdateDedicatedPageParams,
-      IEmptyObject,
-      UpdateDedicatedPageRequest
-    >,
+    req: CustomRequest<IEmptyObject, IEmptyObject, UpdateDedicatedPageRequest>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {
@@ -128,7 +106,7 @@ export default class DedicatedPageController {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageRequestDTO = new UpdateDedicatedPageRequestDTO(
         req.body,
-        req.params.userId
+        req.userId!
       );
       await this._dedicatedPageService.updateDedicatedPage(
         updateDedicatedPageRequestDTO
@@ -158,7 +136,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageBannerRequestDTO =
-        new InsertDedicatedPageBannerRequestDTO(req.body);
+        new InsertDedicatedPageBannerRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageBanner(
         insertDedicatedPageBannerRequestDTO
       );
@@ -177,7 +159,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageBanner(
     req: CustomRequest<
-      GetDedicatedPageBannerParams,
+      IEmptyObject,
       GetDedicatedPageBannerResponse,
       IEmptyObject
     >,
@@ -187,9 +169,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<GetDedicatedPageBannerResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPageBanner(
-          req.params.userId
-        );
+        await this._dedicatedPageService.getDedicatedPageBanner(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -205,7 +185,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageBanner(
     req: CustomRequest<
-      UpdateDedicatedPageBannerParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageBannerRequest
     >,
@@ -215,7 +195,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageBannerRequestDTO =
-        new UpdateDedicatedPageBannerRequestDTO(req.body, req.params.userId);
+        new UpdateDedicatedPageBannerRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageBanner(
         updateDedicatedPageBannerRequestDTO
       );
@@ -244,7 +224,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageExplainerRequestDTO =
-        new InsertDedicatedPageExplainerRequestDTO(req.body);
+        new InsertDedicatedPageExplainerRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageExplainer(
         insertDedicatedPageExplainerRequestDTO
       );
@@ -263,7 +247,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageExplainer(
     req: CustomRequest<
-      GetDedicatedPageExplainerParams,
+      IEmptyObject,
       GetDedicatedPageExplainerResponse,
       IEmptyObject
     >,
@@ -273,9 +257,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<GetDedicatedPageExplainerResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPageExplainer(
-          req.params.userId
-        );
+        await this._dedicatedPageService.getDedicatedPageExplainer(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -291,7 +273,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageExplainer(
     req: CustomRequest<
-      UpdateDedicatedPageExplainerParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageExplainerRequest
     >,
@@ -301,7 +283,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageExplainerRequestDTO =
-        new UpdateDedicatedPageExplainerRequestDTO(req.body, req.params.userId);
+        new UpdateDedicatedPageExplainerRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageExplainer(
         updateDedicatedPageExplainerRequestDTO
       );
@@ -330,7 +312,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageReferralRequestDTO =
-        new InsertDedicatedPageReferralRequestDTO(req.body);
+        new InsertDedicatedPageReferralRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageReferral(
         insertDedicatedPageReferralRequestDTO
       );
@@ -349,7 +335,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageReferral(
     req: CustomRequest<
-      GetDedicatedPageReferralParams,
+      IEmptyObject,
       GetDedicatedPageReferralResponse,
       IEmptyObject
     >,
@@ -359,9 +345,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<GetDedicatedPageReferralResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPageReferral(
-          req.params.userId
-        );
+        await this._dedicatedPageService.getDedicatedPageReferral(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -377,7 +361,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageReferral(
     req: CustomRequest<
-      UpdateDedicatedPageReferralParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageReferralRequest
     >,
@@ -387,7 +371,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageReferralRequestDTO =
-        new UpdateDedicatedPageReferralRequestDTO(req.body, req.params.userId);
+        new UpdateDedicatedPageReferralRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageReferral(
         updateDedicatedPageReferralRequestDTO
       );
@@ -416,7 +400,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageWayToEarnRequestDTO =
-        new InsertDedicatedPageWayToEarnRequestDTO(req.body);
+        new InsertDedicatedPageWayToEarnRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageWayToEarn(
         insertDedicatedPageWayToEarnRequestDTO
       );
@@ -435,7 +423,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageWayToEarn(
     req: CustomRequest<
-      GetDedicatedPageWayToEarnParams,
+      IEmptyObject,
       GetDedicatedPageWayToEarnResponse,
       IEmptyObject
     >,
@@ -445,9 +433,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<GetDedicatedPageWayToEarnResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPageWayToEarn(
-          req.params.userId
-        );
+        await this._dedicatedPageService.getDedicatedPageWayToEarn(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -463,7 +449,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageWayToEarn(
     req: CustomRequest<
-      UpdateDedicatedPageWayToEarnParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageWayToEarnRequest
     >,
@@ -473,7 +459,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageWayToEarnRequestDTO =
-        new UpdateDedicatedPageWayToEarnRequestDTO(req.body, req.params.userId);
+        new UpdateDedicatedPageWayToEarnRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageWayToEarn(
         updateDedicatedPageWayToEarnRequestDTO
       );
@@ -502,7 +488,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageWayToRedeemRequestDTO =
-        new InsertDedicatedPageWayToRedeemRequestDTO(req.body);
+        new InsertDedicatedPageWayToRedeemRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageWayToRedeem(
         insertDedicatedPageWayToRedeemRequestDTO
       );
@@ -521,7 +511,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageWayToRedeem(
     req: CustomRequest<
-      GetDedicatedPageWayToRedeemParams,
+      IEmptyObject,
       GetDedicatedPageWayToRedeemResponse,
       IEmptyObject
     >,
@@ -532,7 +522,7 @@ export default class DedicatedPageController {
       const response = new APIResponse<GetDedicatedPageWayToRedeemResponse>();
       const dedicatedPageResponse =
         await this._dedicatedPageService.getDedicatedPageWayToRedeem(
-          req.params.userId
+          req.userId!
         );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
@@ -549,7 +539,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageWayToRedeem(
     req: CustomRequest<
-      UpdateDedicatedPageWayToRedeemParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageWayToRedeemRequest
     >,
@@ -559,10 +549,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageWayToRedeemRequestDTO =
-        new UpdateDedicatedPageWayToRedeemRequestDTO(
-          req.body,
-          req.params.userId
-        );
+        new UpdateDedicatedPageWayToRedeemRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageWayToRedeem(
         updateDedicatedPageWayToRedeemRequestDTO
       );
@@ -591,7 +578,11 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const insertDedicatedPageVipTierRequestDTO =
-        new InsertDedicatedPageVipTierRequestDTO(req.body);
+        new InsertDedicatedPageVipTierRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
       await this._dedicatedPageService.insertDedicatedPageVipTier(
         insertDedicatedPageVipTierRequestDTO
       );
@@ -610,7 +601,7 @@ export default class DedicatedPageController {
 
   public async getDedicatedPageVipTier(
     req: CustomRequest<
-      GetDedicatedPageVipTierParams,
+      IEmptyObject,
       GetDedicatedPageVipTierResponse,
       IEmptyObject
     >,
@@ -620,9 +611,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<GetDedicatedPageVipTierResponse>();
       const dedicatedPageResponse =
-        await this._dedicatedPageService.getDedicatedPageVipTier(
-          req.params.userId
-        );
+        await this._dedicatedPageService.getDedicatedPageVipTier(req.userId!);
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = dedicatedPageResponse;
@@ -638,7 +627,7 @@ export default class DedicatedPageController {
 
   public async updateDedicatedPageVipTier(
     req: CustomRequest<
-      UpdateDedicatedPageVipTierParams,
+      IEmptyObject,
       IEmptyObject,
       UpdateDedicatedPageVipTierRequest
     >,
@@ -648,7 +637,7 @@ export default class DedicatedPageController {
     try {
       const response = new APIResponse<IEmptyObject>();
       const updateDedicatedPageVipRequestDTO =
-        new UpdateDedicatedPageVipTierRequestDTO(req.body, req.params.userId);
+        new UpdateDedicatedPageVipTierRequestDTO(req.body, req.userId!);
       await this._dedicatedPageService.updateDedicatedPageVipTier(
         updateDedicatedPageVipRequestDTO
       );

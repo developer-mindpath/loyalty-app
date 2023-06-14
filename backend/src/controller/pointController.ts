@@ -22,6 +22,7 @@ import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemRe
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
+import { PostResponse } from "src/types/response/postResponse";
 
 export default class PointController {
   private _pointService: PointService;
@@ -31,20 +32,22 @@ export default class PointController {
   }
   public async insertEarningPoint(
     req: CustomRequest<IEmptyObject, IEmptyObject, PointInsertRequest>,
-    res: Response<APIResponse<IEmptyObject>>,
+    res: Response<APIResponse<PostResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
-      const response = new APIResponse<IEmptyObject>();
+      const response = new APIResponse<PostResponse>();
       const pointInsertRequestDTO = new PointInsertRequestDTO(
         req.body,
         req.userId!,
         req.adminRef!
       );
-      await this._pointService.insertEarningPoint(pointInsertRequestDTO);
+      const pointResponse = await this._pointService.insertEarningPoint(
+        pointInsertRequestDTO
+      );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
-      response.body = {};
+      response.body = pointResponse;
       res.status(StatusCodes.OK).send(response);
     } catch (error) {
       if (error instanceof Error) {

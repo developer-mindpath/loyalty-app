@@ -6,10 +6,14 @@ export default class UpdateChecklistCategoryRequestDTO {
   updated_by: number;
   categoryId: number;
 
-  constructor(body: UpdateChecklistCategoryRequest, categoryId: number) {
+  constructor(
+    body: UpdateChecklistCategoryRequest,
+    categoryId: number,
+    userId: number
+  ) {
     this.title = body.title;
     this.status = body.status;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.categoryId = categoryId;
   }
 }

@@ -27,6 +27,6 @@ export default class UpdateFloatingWidgetTextRequestDTO {
     this.member_header_text_caption = body.member_header_text_caption;
     this.status = body.status;
     this.user_id = userId;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
   }
 }

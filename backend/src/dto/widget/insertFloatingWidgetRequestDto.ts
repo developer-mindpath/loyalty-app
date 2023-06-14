@@ -31,7 +31,11 @@ export default class InsertFloatingWidgetRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertFloatingWidgetRequest) {
+  constructor(
+    body: InsertFloatingWidgetRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.widget_color_header_background = body.widget_color_header_background;
     this.widget_color_header_text = body.widget_color_header_text;
     this.widget_color_text_title = body.widget_color_text_title;
@@ -64,8 +68,8 @@ export default class InsertFloatingWidgetRequestDTO {
     this.widget_font_primary_font = body.widget_font_primary_font;
     this.widget_font_secondary_font = body.widget_font_secondary_font;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

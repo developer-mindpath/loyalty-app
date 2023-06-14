@@ -30,6 +30,4 @@ export type UpdateDedicatedPageExplainerRequest = {
   member_reward_subtitle_font_size: string;
   member_reward_subtitle_font_color: string;
   status: string;
-  updated_by: number;
-  admin_ref: number;
 };

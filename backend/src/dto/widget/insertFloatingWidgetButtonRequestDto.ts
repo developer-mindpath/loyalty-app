@@ -15,10 +15,14 @@ export default class InsertFloatingWidgetButtonRequestDTO {
   mobile_widget_icon: string;
   status: string;
   created_by: number;
-  user_id: number;
   admin_ref: number;
+  user_id: number;
 
-  constructor(body: InsertFloatingWidgetButtonRequest) {
+  constructor(
+    body: InsertFloatingWidgetButtonRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.desktop_placement = body.desktop_placement;
     this.desktop_padding_side_padding = body.desktop_padding_side_padding;
     this.desktop_padding_bottom_padding = body.desktop_padding_bottom_padding;
@@ -32,8 +36,8 @@ export default class InsertFloatingWidgetButtonRequestDTO {
     this.mobile_widget_button_shape = body.mobile_widget_button_shape;
     this.mobile_widget_icon = body.mobile_widget_icon;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.user_id = userId;
+    this.created_by = userId;
+    this.admin_ref = adminRef;
   }
 }

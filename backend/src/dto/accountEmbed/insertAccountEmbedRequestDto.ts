@@ -16,7 +16,11 @@ export default class InsertAccountEmbedRequestDTO {
   user_id: number;
   admin_ref: number;
 
-  constructor(body: InsertAccountEmbedRequest) {
+  constructor(
+    body: InsertAccountEmbedRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.is_show_lpr_page = body.is_show_lpr_page;
     this.lpr_page_title = body.lpr_page_title;
     this.available_points = body.available_points;
@@ -28,8 +32,8 @@ export default class InsertAccountEmbedRequestDTO {
     this.widget_position = body.widget_position;
     this.widget_page_appear = body.widget_page_appear;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.user_id = body.user_id;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.user_id = userId;
+    this.created_by = userId;
   }
 }

@@ -8,5 +8,4 @@ export type UpdateFloatingWidgetTextRequest = {
   visitor_points_text_description: string;
   member_header_text_caption: string;
   status: string;
-  updated_by: number;
 };

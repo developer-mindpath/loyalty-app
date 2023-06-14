@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
 import { AdminUserModel } from "./adminUser";
 import { AppModel } from "./app";
 import { ChecklistActionModel } from "./checklistAction";
@@ -33,6 +40,7 @@ import { ReferralModel } from "./referral";
 import { ReferralProgramActivityModel } from "./referralProgramActivity";
 import { SettingEmailModel } from "./settingEmail";
 import { SettingOrderModel } from "./settingOrder";
+import { TranslationModel } from "./translation";
 import { UserCurrentPlanModel } from "./userCurrentPlan";
 import { UserPaymentModel } from "./userPayment";
 import { VipModel } from "./vip";
@@ -256,4 +264,7 @@ export class UserModel extends ModelTemplate {
 
   @OneToMany(() => VipModel, (vip) => vip.user)
   vip: VipModel[];
+
+  @OneToOne(() => TranslationModel, (translation) => translation.user)
+  translation: TranslationModel;
 }

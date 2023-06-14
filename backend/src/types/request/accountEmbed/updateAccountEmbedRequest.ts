@@ -10,5 +10,4 @@ export type UpdateAccountEmbedRequest = {
   widget_position: string;
   widget_page_appear: string;
   status: string;
-  updated_by: number;
 };

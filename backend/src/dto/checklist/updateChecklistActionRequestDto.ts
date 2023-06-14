@@ -5,9 +5,13 @@ export default class UpdateChecklistActionRequestDTO {
   updated_by: number;
   checklistActionId: number;
 
-  constructor(body: UpdateChecklistActionRequest, checklistActionId: number) {
+  constructor(
+    body: UpdateChecklistActionRequest,
+    checklistActionId: number,
+    userId: number
+  ) {
     this.status = body.status;
-    this.updated_by = body.updated_by;
+    this.updated_by = userId;
     this.checklistActionId = checklistActionId;
   }
 }

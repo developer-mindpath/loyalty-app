@@ -25,8 +25,6 @@ export = {
     body: {
       title: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   1: joiValidationRequest<
@@ -40,7 +38,6 @@ export = {
     body: {
       title: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   2: joiValidationRequest<ChecklistCategoryId, IEmptyObject, IEmptyObject>({
@@ -55,8 +52,6 @@ export = {
       checklist_icon: Joi.string().optional(),
       action_duration: Joi.number().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   4: joiValidationRequest<ChecklistId, UpdateChecklistRequest, IEmptyObject>({
@@ -68,7 +63,6 @@ export = {
       checklist_icon: Joi.string().optional(),
       action_duration: Joi.number().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   5: joiValidationRequest<
@@ -82,8 +76,6 @@ export = {
       html_body: Joi.string().optional(),
       order_inde: Joi.number().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
   6: joiValidationRequest<ChecklistId, IEmptyObject, IEmptyObject>({
@@ -104,7 +96,6 @@ export = {
       html_body: Joi.string().optional(),
       order_inde: Joi.number().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
   8: joiValidationRequest<
@@ -115,9 +106,6 @@ export = {
     body: {
       checklist_detail_id: Joi.number().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
-      user_id: Joi.number().optional(),
     },
   }),
   9: joiValidationRequest<ChecklistDetailId, IEmptyObject, IEmptyObject>({
@@ -135,7 +123,6 @@ export = {
     },
     body: {
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
 };

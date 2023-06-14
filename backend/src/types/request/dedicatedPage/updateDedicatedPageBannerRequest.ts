@@ -25,6 +25,4 @@ export type UpdateDedicatedPageBannerRequest = {
   member_redeem_button_font_color: string;
   member_redeem_button_background_color: string;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

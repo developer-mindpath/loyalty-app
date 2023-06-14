@@ -7,6 +7,4 @@ export type UpdateDedicatedPageWayToRedeemRequest = {
   general_subtitle_font_size: number;
   general_subtitle_font_color: string;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

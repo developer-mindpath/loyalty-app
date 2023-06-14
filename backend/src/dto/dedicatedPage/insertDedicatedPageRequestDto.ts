@@ -12,7 +12,11 @@ export default class InsertDedicatedPageRequestDTO {
   admin_ref: number;
   created_by: number;
 
-  constructor(body: InsertDedicatedPageRequest) {
+  constructor(
+    body: InsertDedicatedPageRequest,
+    userId: number,
+    adminRef: number
+  ) {
     this.is_dedicated_page_on = body.is_dedicated_page_on;
     this.general_settings_primary_font = body.general_settings_primary_font;
     this.general_settings_secondry_font = body.general_settings_secondry_font;
@@ -20,8 +24,8 @@ export default class InsertDedicatedPageRequestDTO {
     this.general_settings_model_offset = body.general_settings_model_offset;
     this.general_settings_custome_css = body.general_settings_custome_css;
     this.status = body.status;
-    this.user_id = body.user_id;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.user_id = userId;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }

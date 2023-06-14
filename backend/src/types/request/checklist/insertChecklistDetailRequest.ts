@@ -4,6 +4,4 @@ export type InsertChecklistDetailRequest = {
   html_body: string;
   order_inde: number;
   status: string;
-  created_by: number;
-  admin_ref: number;
 };

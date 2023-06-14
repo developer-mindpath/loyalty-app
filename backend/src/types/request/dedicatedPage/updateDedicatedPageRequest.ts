@@ -6,6 +6,4 @@ export type UpdateDedicatedPageRequest = {
   general_settings_model_offset: string;
   general_settings_custome_css: string;
   status: string;
-  admin_ref: number;
-  updated_by: number;
 };

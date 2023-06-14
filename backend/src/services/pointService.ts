@@ -11,6 +11,7 @@ import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemRe
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
+import { PostResponse } from "../types/response/postResponse";
 
 export default class PointService {
   private _pointRepository: PointRepository;
@@ -26,7 +27,7 @@ export default class PointService {
 
   public async insertEarningPoint(
     pointInsertRequestDTO: PointInsertRequestDTO
-  ): Promise<void> {
+  ): Promise<PostResponse> {
     const insertPointActionData: Record<string, string | number> = {
       action_key: pointInsertRequestDTO.action_key,
       action_key_display_text: pointInsertRequestDTO.action_key_display_text,
@@ -55,9 +56,11 @@ export default class PointService {
       admin_ref: pointInsertRequestDTO.admin_ref,
       created_by: pointInsertRequestDTO.created_by,
     };
-    await this._pointDetailService.insertEarningDetailsByPointId(
-      insertPointActionDetailData
-    );
+    const pointActionDetailsModel =
+      await this._pointDetailService.insertEarningDetailsByPointId(
+        insertPointActionDetailData
+      );
+    return { id: pointActionDetailsModel.point_action_id };
   }
 
   public async getAllEarningPoints(
@@ -86,7 +89,7 @@ export default class PointService {
 
   public async insertRedeemingPoint(
     insertPointRedeemRequestDTO: InsertPointRedeemRequestDTO
-  ): Promise<void> {
+  ): Promise<PostResponse> {
     const insertPointRedeemData: Record<string, string | number> = {
       reward_key: insertPointRedeemRequestDTO.reward_key,
       reward_key_key_display_text:
@@ -137,9 +140,11 @@ export default class PointService {
       admin_ref: insertPointRedeemRequestDTO.admin_ref,
       created_by: insertPointRedeemRequestDTO.created_by,
     };
-    await this._pointRedeemDetailService.insertRedeemPointDetail(
-      insertPointRedeemDetailData
-    );
+    const PointRedeemDetailModel =
+      await this._pointRedeemDetailService.insertRedeemPointDetail(
+        insertPointRedeemDetailData
+      );
+    return { id: PointRedeemDetailModel.point_redeem_id! };
   }
 
   public async getPointRedeem(

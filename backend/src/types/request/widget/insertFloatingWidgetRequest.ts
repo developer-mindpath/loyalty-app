@@ -25,7 +25,4 @@ export type InsertFloatingWidgetRequest = {
   widget_font_primary_font: string;
   widget_font_secondary_font: string;
   status: string;
-  created_by: number;
-  user_id: number;
-  admin_ref: number;
 };

@@ -3,18 +3,9 @@ import { InsertAccountEmbedRequest } from "../types/request/accountEmbed/insertA
 import { UpdateAccountEmbedRequest } from "../types/request/accountEmbed/updateAccountEmbedRequest";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
-import {
-  GetAccountEmbedParams,
-  UpdateAccountEmbedParams,
-} from "../types/request/params";
 
 export = {
-  0: joiValidationRequest<GetAccountEmbedParams, IEmptyObject, IEmptyObject>({
-    path: {
-      userId: Joi.number().required(),
-    },
-  }),
-  1: joiValidationRequest<
+  0: joiValidationRequest<
     IEmptyObject,
     InsertAccountEmbedRequest,
     IEmptyObject
@@ -31,19 +22,13 @@ export = {
       widget_position: Joi.string().optional(),
       widget_page_appear: Joi.string().optional(),
       status: Joi.string().optional(),
-      created_by: Joi.number().optional(),
-      user_id: Joi.number().optional(),
-      admin_ref: Joi.number().optional(),
     },
   }),
-  2: joiValidationRequest<
-    UpdateAccountEmbedParams,
+  1: joiValidationRequest<
+    IEmptyObject,
     UpdateAccountEmbedRequest,
     IEmptyObject
   >({
-    path: {
-      userId: Joi.number().required(),
-    },
     body: {
       is_show_lpr_page: Joi.string().optional(),
       lpr_page_title: Joi.string().optional(),
@@ -56,7 +41,6 @@ export = {
       widget_position: Joi.string().optional(),
       widget_page_appear: Joi.string().optional(),
       status: Joi.string().optional(),
-      updated_by: Joi.number().optional(),
     },
   }),
 };

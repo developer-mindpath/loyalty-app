@@ -5,22 +5,6 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import {
-  GetDedicatedPageBannerParams,
-  GetDedicatedPageExplainerParams,
-  GetDedicatedPageParams,
-  GetDedicatedPageReferralParams,
-  GetDedicatedPageVipTierParams,
-  GetDedicatedPageWayToEarnParams,
-  GetDedicatedPageWayToRedeemParams,
-  UpdateDedicatedPageBannerParams,
-  UpdateDedicatedPageExplainerParams,
-  UpdateDedicatedPageParams,
-  UpdateDedicatedPageReferralParams,
-  UpdateDedicatedPageVipTierParams,
-  UpdateDedicatedPageWayToEarnParams,
-  UpdateDedicatedPageWayToRedeemParams,
-} from "../types/request/params";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { doValidation } from "../helper/joi";
 import dedicatedPageValidations from "../requestValidator/dedicatedPage";
@@ -46,6 +30,7 @@ import { UpdateDedicatedPageWayToRedeemRequest } from "../types/request/dedicate
 import { InsertDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/insertDedicatedPageVipTierRequest";
 import { UpdateDedicatedPageVipTierRequest } from "../types/request/dedicatedPage/updateDedicatedPageVipTierRequest";
 import { GetDedicatedPageVipTierResponse } from "../types/response/dedicatedPage/getDedicatedPageVipTierResponse";
+import { checkToken } from "../middleware/checkToken";
 
 const dedicatedPageController = new DedicatedPageController();
 const router = express.Router();
@@ -55,25 +40,25 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageRequest>,
   QueryParams
->("/page", doValidation(dedicatedPageValidations[0]), (...arg) =>
+>("/page", checkToken, doValidation(dedicatedPageValidations[0]), (...arg) =>
   dedicatedPageController.insertDedicatedPage(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageResponse>,
   RequestBody,
   QueryParams
->("/page/:userId", doValidation(dedicatedPageValidations[1]), (...arg) =>
+>("/page", checkToken, (...arg) =>
   dedicatedPageController.getDedicatedPage(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageRequest>,
   QueryParams
->("/page/:userId", doValidation(dedicatedPageValidations[2]), (...arg) =>
+>("/page", checkToken, doValidation(dedicatedPageValidations[1]), (...arg) =>
   dedicatedPageController.updateDedicatedPage(...arg)
 );
 
@@ -82,26 +67,32 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageBannerRequest>,
   QueryParams
->("/page/banner", doValidation(dedicatedPageValidations[3]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageBanner(...arg)
+>(
+  "/page/banner",
+  checkToken,
+  doValidation(dedicatedPageValidations[2]),
+  (...arg) => dedicatedPageController.insertDedicatedPageBanner(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageBannerParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageBannerResponse>,
   RequestBody,
   QueryParams
->("/page/banner/:userId", doValidation(dedicatedPageValidations[4]), (...arg) =>
+>("/page/banner", checkToken, (...arg) =>
   dedicatedPageController.getDedicatedPageBanner(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageBannerParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageBannerRequest>,
   QueryParams
->("/page/banner/:userId", doValidation(dedicatedPageValidations[5]), (...arg) =>
-  dedicatedPageController.updateDedicatedPageBanner(...arg)
+>(
+  "/page/banner",
+  checkToken,
+  doValidation(dedicatedPageValidations[3]),
+  (...arg) => dedicatedPageController.updateDedicatedPageBanner(...arg)
 );
 
 router.post<
@@ -109,25 +100,28 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageExplainerRequest>,
   QueryParams
->("/page/explainer", doValidation(dedicatedPageValidations[6]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageExplainer(...arg)
+>(
+  "/page/explainer",
+  checkToken,
+  doValidation(dedicatedPageValidations[4]),
+  (...arg) => dedicatedPageController.insertDedicatedPageExplainer(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageExplainerParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageExplainerResponse>,
   RequestBody,
   QueryParams
->("/page/banner/:userId", doValidation(dedicatedPageValidations[7]), (...arg) =>
+>("/page/banner", checkToken, (...arg) =>
   dedicatedPageController.getDedicatedPageExplainer(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageExplainerParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageExplainerRequest>,
   QueryParams
->("/page/banner/:userId", doValidation(dedicatedPageValidations[8]), (...arg) =>
+>("/page/banner", doValidation(dedicatedPageValidations[5]), (...arg) =>
   dedicatedPageController.updateDedicatedPageExplainer(...arg)
 );
 
@@ -136,29 +130,31 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageReferralRequest>,
   QueryParams
->("/page/referral", doValidation(dedicatedPageValidations[9]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageReferral(...arg)
+>(
+  "/page/referral",
+  checkToken,
+  doValidation(dedicatedPageValidations[6]),
+  (...arg) => dedicatedPageController.insertDedicatedPageReferral(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageReferralParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageReferralResponse>,
   RequestBody,
   QueryParams
->(
-  "/page/referral/:userId",
-  doValidation(dedicatedPageValidations[10]),
-  (...arg) => dedicatedPageController.getDedicatedPageReferral(...arg)
+>("/page/referral", checkToken, (...arg) =>
+  dedicatedPageController.getDedicatedPageReferral(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageReferralParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageReferralRequest>,
   QueryParams
 >(
-  "/page/referral/:userId",
-  doValidation(dedicatedPageValidations[11]),
+  "/page/referral",
+  checkToken,
+  doValidation(dedicatedPageValidations[7]),
   (...arg) => dedicatedPageController.updateDedicatedPageReferral(...arg)
 );
 
@@ -167,29 +163,31 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageWayToEarnRequest>,
   QueryParams
->("/page/wayToEarn", doValidation(dedicatedPageValidations[12]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageWayToEarn(...arg)
+>(
+  "/page/wayToEarn",
+  checkToken,
+  doValidation(dedicatedPageValidations[8]),
+  (...arg) => dedicatedPageController.insertDedicatedPageWayToEarn(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageWayToEarnParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageWayToEarnResponse>,
   RequestBody,
   QueryParams
->(
-  "/page/wayToEarn/:userId",
-  doValidation(dedicatedPageValidations[13]),
-  (...arg) => dedicatedPageController.getDedicatedPageWayToEarn(...arg)
+>("/page/wayToEarn", checkToken, (...arg) =>
+  dedicatedPageController.getDedicatedPageWayToEarn(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageWayToEarnParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageWayToEarnRequest>,
   QueryParams
 >(
-  "/page/wayToEarn/:userId",
-  doValidation(dedicatedPageValidations[14]),
+  "/page/wayToEarn",
+  checkToken,
+  doValidation(dedicatedPageValidations[9]),
   (...arg) => dedicatedPageController.updateDedicatedPageWayToEarn(...arg)
 );
 
@@ -198,29 +196,31 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageWayToRedeemRequest>,
   QueryParams
->("/page/wayToRedeem", doValidation(dedicatedPageValidations[15]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageWayToRedeem(...arg)
+>(
+  "/page/wayToRedeem",
+  checkToken,
+  doValidation(dedicatedPageValidations[10]),
+  (...arg) => dedicatedPageController.insertDedicatedPageWayToRedeem(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageWayToRedeemParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageWayToRedeemResponse>,
   RequestBody,
   QueryParams
->(
-  "/page/wayToRedeem/:userId",
-  doValidation(dedicatedPageValidations[16]),
-  (...arg) => dedicatedPageController.getDedicatedPageWayToRedeem(...arg)
+>("/page/wayToRedeem", checkToken, (...arg) =>
+  dedicatedPageController.getDedicatedPageWayToRedeem(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageWayToRedeemParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageWayToRedeemRequest>,
   QueryParams
 >(
-  "/page/wayToRedeem/:userId",
-  doValidation(dedicatedPageValidations[17]),
+  "/page/wayToRedeem",
+  checkToken,
+  doValidation(dedicatedPageValidations[11]),
   (...arg) => dedicatedPageController.updateDedicatedPageWayToRedeem(...arg)
 );
 
@@ -229,29 +229,31 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertDedicatedPageVipTierRequest>,
   QueryParams
->("/page/vipTier", doValidation(dedicatedPageValidations[18]), (...arg) =>
-  dedicatedPageController.insertDedicatedPageVipTier(...arg)
+>(
+  "/page/vipTier",
+  checkToken,
+  doValidation(dedicatedPageValidations[12]),
+  (...arg) => dedicatedPageController.insertDedicatedPageVipTier(...arg)
 );
 
 router.get<
-  PathParams<GetDedicatedPageVipTierParams>,
+  PathParams,
   ResponseBody<GetDedicatedPageVipTierResponse>,
   RequestBody,
   QueryParams
->(
-  "/page/vipTier/:userId",
-  doValidation(dedicatedPageValidations[19]),
-  (...arg) => dedicatedPageController.getDedicatedPageVipTier(...arg)
+>("/page/vipTier", checkToken, (...arg) =>
+  dedicatedPageController.getDedicatedPageVipTier(...arg)
 );
 
 router.patch<
-  PathParams<UpdateDedicatedPageVipTierParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateDedicatedPageVipTierRequest>,
   QueryParams
 >(
   "/page/vipTier/:userId",
-  doValidation(dedicatedPageValidations[20]),
+  checkToken,
+  doValidation(dedicatedPageValidations[13]),
   (...arg) => dedicatedPageController.updateDedicatedPageVipTier(...arg)
 );
 

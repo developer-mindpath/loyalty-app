@@ -5,10 +5,6 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import {
-  GetAccountEmbedParams,
-  UpdateAccountEmbedParams,
-} from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import embedValidations from "../requestValidator/accountEmbed";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
@@ -16,16 +12,17 @@ import { GetAccountEmbedResponse } from "../types/response/accountEmbed/getAccou
 import { InsertAccountEmbedRequest } from "../types/request/accountEmbed/insertAccountEmbedRequest";
 import { UpdateAccountEmbedRequest } from "../types/request/accountEmbed/updateAccountEmbedRequest";
 import AccountEmbedController from "../controller/accountEmbedController";
+import { checkToken } from "../middleware/checkToken";
 
 const accountEmbedController = new AccountEmbedController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetAccountEmbedParams>,
+  PathParams,
   ResponseBody<GetAccountEmbedResponse>,
   RequestBody,
   QueryParams
->("/account/:userId", doValidation(embedValidations[0]), (...arg) =>
+>("/account", checkToken, (...arg) =>
   accountEmbedController.getAccountEmbed(...arg)
 );
 
@@ -34,16 +31,16 @@ router.post<
   ResponseBody<IEmptyObject>,
   RequestBody<InsertAccountEmbedRequest>,
   QueryParams
->("/account", doValidation(embedValidations[1]), (...arg) =>
+>("/account", checkToken, doValidation(embedValidations[0]), (...arg) =>
   accountEmbedController.insertAccountEmbed(...arg)
 );
 
 router.patch<
-  PathParams<UpdateAccountEmbedParams>,
+  PathParams,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateAccountEmbedRequest>,
   QueryParams
->("/account/:userId", doValidation(embedValidations[2]), (...arg) =>
+>("/account", checkToken, doValidation(embedValidations[1]), (...arg) =>
   accountEmbedController.updateAccountEmbed(...arg)
 );
 
