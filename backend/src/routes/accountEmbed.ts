@@ -40,7 +40,7 @@ router.patch<
   ResponseBody<IEmptyObject>,
   RequestBody<UpdateAccountEmbedRequest>,
   QueryParams
->("/account/:userId", checkToken, doValidation(embedValidations[1]), (...arg) =>
+>("/account", checkToken, doValidation(embedValidations[1]), (...arg) =>
   accountEmbedController.updateAccountEmbed(...arg)
 );
 

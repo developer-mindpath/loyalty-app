@@ -9,13 +9,13 @@ export default class InsertChecklistRequestDTO {
   created_by: number;
   admin_ref: number;
 
-  constructor(body: InsertChecklistRequest) {
+  constructor(body: InsertChecklistRequest, userId: number, adminRef: number) {
     this.checklist_category_id = body.checklist_category_id;
     this.checklist_title = body.checklist_title;
     this.checklist_icon = body.checklist_icon;
     this.action_duration = body.action_duration;
     this.status = body.status;
-    this.admin_ref = body.admin_ref;
-    this.created_by = body.created_by;
+    this.admin_ref = adminRef;
+    this.created_by = userId;
   }
 }
