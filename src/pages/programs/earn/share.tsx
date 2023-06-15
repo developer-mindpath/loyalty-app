@@ -15,6 +15,7 @@ import ProgramIcon from "./activities/programIcon";
 import PointDetailProvider, {
   usePointDetail,
 } from "../../../contexts/pointsDetail";
+import ProgramPointAmount from "./activities/programPointAmount";
 
 const ShareActivity = () => {
   const { details, handleChange } = usePointDetail();
@@ -23,7 +24,7 @@ const ShareActivity = () => {
 
   return (
     <Page
-      title={`Share our link on ${platform}`}
+      title={`Share link on ${platform}`}
       divider
       backAction={{
         url: "/programs/points",
@@ -48,6 +49,19 @@ const ShareActivity = () => {
                   autoComplete="off"
                 />
               </Box>
+
+              {platform?.toLowerCase() === "twitter" && (
+                <Box paddingBlockStart="4" paddingBlockEnd="1">
+                  <TextField
+                    multiline={4}
+                    label="Message"
+                    type="text"
+                    value={details?.url_to_share ?? ""}
+                    onChange={handleChange("url_to_share")}
+                    autoComplete="off"
+                  />
+                </Box>
+              )}
             </AlphaCard>
           </Box>
 
@@ -58,19 +72,7 @@ const ShareActivity = () => {
               </Text>
 
               <Box paddingBlockStart="4" paddingBlockEnd="1">
-                <TextField
-                  label="Points Amount"
-                  type="number"
-                  value={details?.points_amounts?.toString()}
-                  placeholder="100"
-                  onChange={handleChange("points_amounts")}
-                  autoComplete="off"
-                  connectedRight={
-                    <Text variant="bodyMd" alignment="center" as={"h1"}>
-                      Points
-                    </Text>
-                  }
-                />
+                <ProgramPointAmount />
               </Box>
             </AlphaCard>
           </Box>

@@ -19,6 +19,7 @@ import PointsController from "./controller";
 import PointsListItem from "../../components/points/pointsListItem";
 import { earnType, rewardType } from "../../utils/constants/reward";
 import EarningList from "../../components/earningList";
+import { getSocialPlatformNameFromString } from "../../utils/string";
 
 function Points() {
   const { getters, handlers } = PointsController();
@@ -137,6 +138,10 @@ function Points() {
                   <ul {...props}>{children}</ul>
                 )}
                 renderItem={({ value, props }) => {
+                  const platform = getSocialPlatformNameFromString(
+                    value.action_key_display_text
+                  );
+
                   return (
                     <div
                       key={value.id}
@@ -149,7 +154,9 @@ function Points() {
                           name={value.action_key_display_text}
                           icon={value.action_icon}
                           checked={Boolean(value.is_action_enabled)}
-                          path={`/programs/points/${value.action_key}/${value.id}`}
+                          path={`/programs/points/${value.action_key}/${
+                            value.id
+                          }${platform ? `?platform=${platform}` : ""} `}
                         />
                       </Box>
                     </div>
@@ -259,8 +266,7 @@ function Points() {
         <Modal.Section>
           <EarningList
             rewards={rewardType}
-            remove={[]}
-            // remove={earnList.map((e) => e.action_key)}
+            remove={earnList.map((e) => e.action_key)}
           />
         </Modal.Section>
       </Modal>

@@ -11,7 +11,6 @@ export const rewardType: IRewardsListingType[] = [
     id: "referral",
     name: "Complete a Referral",
     img: "/assets/check.png",
-    type: "In-Store",
   },
   {
     id: "review",

@@ -77,3 +77,8 @@ export interface IAddEarnRequest {
 export interface IAddEarnResponse {
   id: string;
 }
+
+export interface IAppListItem {
+  id: number;
+  app_title: string;
+}

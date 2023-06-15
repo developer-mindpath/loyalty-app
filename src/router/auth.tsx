@@ -12,6 +12,7 @@ import EmailSettings from "../pages/settings/email/email";
 // Programs
 import Points from "../pages/points/points";
 import ReferalActivity from "../pages/programs/earn/referral";
+import FollowActivity from "../pages/programs/earn/follow";
 import ProductReviewActivity from "../pages/programs/earn/productReview";
 import ShareActivity from "../pages/programs/earn/share";
 import SignUpActivity from "../pages/programs/earn/signUp";
@@ -23,6 +24,7 @@ import EmailProgram from "../pages/programs/emails/emails";
 import EditEmailProgram from "../pages/programs/emails/edit";
 import ReferralPage from "../pages/programs/referral";
 import CommingSoon from "../components/commingSoon";
+import LikeActivity from "../pages/programs/earn/like";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
@@ -35,7 +37,7 @@ const DashboardRoutes = (): JSX.Element => (
     <Route path="/programs/email" element={<EmailProgram />} />
     <Route path="/programs/email/:id" element={<EditEmailProgram />} />
     <Route
-      path="/programs/points/product_review/:id"
+      path="/programs/points/review/:id"
       element={<ProductReviewActivity />}
     />
     <Route path="/programs/points/referral/:id" element={<ReferalActivity />} />
@@ -45,7 +47,12 @@ const DashboardRoutes = (): JSX.Element => (
       path="/programs/points/birthday/:id"
       element={<BirthdayActivity />}
     />
-    <Route path="/programs/points/order/:id" element={<OrderActivity />} />
+    <Route path="/programs/points/like/:id" element={<LikeActivity />} />
+    <Route
+      path="/programs/points/place_order/:id"
+      element={<OrderActivity />}
+    />
+    <Route path="/programs/points/follow/:id" element={<FollowActivity />} />
     <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
     {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
     {/* Settings */}

@@ -1,25 +1,23 @@
-import {
-  AlphaCard,
-  Box,
-  Checkbox,
-  Layout,
-  Page,
-  Select,
-  Text,
-  TextField,
-} from "@shopify/polaris";
+import { memo } from "react";
+import { AlphaCard, Box, Layout, Page, Text } from "@shopify/polaris";
 import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
+import PointDetailProvider from "../../../contexts/pointsDetail";
+import ProgramPointAmount from "./activities/programPointAmount";
+import LimitPointEarning from "./activities/limitPointEarning";
+import SelectReviewApp from "./activities/selectReviewApp";
+
+const title = "Post a Product Review - Photo";
+const parentURL = "/programs/points";
 
 const ProductReviewActivity = () => (
   <Page
-    title="Post a Product Review - Photo"
+    title={title}
     divider
     backAction={{
-      url: "/programs/points",
-      content: "Program",
+      url: parentURL,
     }}
   >
     <Layout>
@@ -31,12 +29,7 @@ const ProductReviewActivity = () => (
             </Text>
 
             <Box paddingBlockStart="4" paddingBlockEnd="1">
-              <Select
-                label="Select your Review app"
-                options={["Loox"]}
-                onChange={(selected: string) => ({})}
-                value="Loox"
-              />
+              <SelectReviewApp />
             </Box>
           </AlphaCard>
         </Box>
@@ -47,45 +40,12 @@ const ProductReviewActivity = () => (
               Earning Points
             </Text>
 
-            <TextField
-              label="Points Amount"
-              type="number"
-              value="250"
-              placeholder="100"
-              onChange={() => ({})}
-              autoComplete="off"
-              connectedRight={
-                <Text variant="bodyMd" alignment="center" as={"h1"}>
-                  {"Points"}
-                </Text>
-              }
-            />
-
-            <Box paddingBlockStart="4" paddingBlockEnd="2">
-              <Checkbox
-                label="Limit how many times each customer can earn points for completing this action"
-                checked
-                onChange={() => ({})}
-              />
+            <Box paddingBlockStart="4">
+              <ProgramPointAmount />
             </Box>
 
-            <Box paddingBlockEnd="1">
-              <TextField
-                label=""
-                type="number"
-                value="5"
-                placeholder="10"
-                onChange={() => ({})}
-                autoComplete="off"
-                connectedRight={
-                  <Select
-                    label=""
-                    options={["week"]}
-                    value="week"
-                    onChange={() => ({})}
-                  />
-                }
-              />
+            <Box paddingBlockStart="4" paddingBlockEnd="2">
+              <LimitPointEarning />
             </Box>
           </AlphaCard>
         </Box>
@@ -110,4 +70,10 @@ const ProductReviewActivity = () => (
   </Page>
 );
 
-export default ProductReviewActivity;
+const component = () => (
+  <PointDetailProvider>
+    <ProductReviewActivity />
+  </PointDetailProvider>
+);
+
+export default memo(component);

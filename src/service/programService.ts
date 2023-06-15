@@ -7,6 +7,7 @@ import {
   IPointDetailResponse,
   IPointResponse,
   IRedeemPointResponse,
+  IAppListItem,
 } from "../types/program";
 
 export class ProgramService {
@@ -97,5 +98,25 @@ export class ProgramService {
       data: payload,
     });
     return response.data.body;
+  }
+
+  /**
+   * Get App List
+   * @returns {string[]}
+   */
+  public static async getAppsList(): Promise<IAppListItem[]> {
+    // TODO: Implement After API side is done with it
+    // const response = await APIUtils.send<IResponseWithBody<IAddEarnResponse>>({
+    //   url: "/api/point/earn",
+    //   method: "POST",
+    //   data: payload,
+    // });
+    // return response.data.body;
+
+    return Promise.resolve([
+      { id: 1, app_title: "Loox" },
+      { id: 2, app_title: "Handy" },
+      { id: 3, app_title: "Mandy" },
+    ]);
   }
 }

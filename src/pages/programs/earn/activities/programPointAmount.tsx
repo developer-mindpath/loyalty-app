@@ -14,7 +14,7 @@ const ProgramPointAmount = () => {
       placeholder="100"
       onChange={(value) => handleChange("points_amounts")(value)}
       autoComplete="off"
-      connectedRight={
+      suffix={
         <Text variant="bodyMd" alignment="center" as={"h1"}>
           Points
         </Text>

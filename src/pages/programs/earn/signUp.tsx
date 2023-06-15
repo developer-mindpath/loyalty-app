@@ -1,15 +1,11 @@
-import {
-  AlphaCard,
-  Box,
-  Layout,
-  Page,
-  Text,
-  TextField,
-} from "@shopify/polaris";
+import { memo } from "react";
+import { AlphaCard, Box, Layout, Page, Text } from "@shopify/polaris";
 import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
+import ProgramPointAmount from "./activities/programPointAmount";
+import PointDetailProvider from "../../../contexts/pointsDetail";
 
 const SignUpActivity = () => {
   return (
@@ -30,19 +26,7 @@ const SignUpActivity = () => {
               </Text>
 
               <Box paddingBlockStart="4" paddingBlockEnd="1">
-                <TextField
-                  label="Points amount"
-                  type="text"
-                  value="250"
-                  placeholder="100"
-                  onChange={() => ({})}
-                  autoComplete="off"
-                  connectedRight={
-                    <Text variant="bodyMd" alignment="center" as={"h1"}>
-                      Points
-                    </Text>
-                  }
-                />
+                <ProgramPointAmount />
               </Box>
             </AlphaCard>
           </Box>
@@ -68,4 +52,10 @@ const SignUpActivity = () => {
   );
 };
 
-export default SignUpActivity;
+const component = () => (
+  <PointDetailProvider>
+    <SignUpActivity />
+  </PointDetailProvider>
+);
+
+export default memo(component);

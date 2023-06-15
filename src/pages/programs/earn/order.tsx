@@ -1,20 +1,20 @@
+import { memo, useState } from "react";
 import {
   AlphaCard,
   Box,
-  Checkbox,
   Layout,
   Page,
   RadioButton,
-  Select,
   Text,
-  TextField,
   VerticalStack,
 } from "@shopify/polaris";
 import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
-import { useState } from "react";
+import ProgramPointAmount from "./activities/programPointAmount";
+import LimitPointEarning from "./activities/limitPointEarning";
+import PointDetailProvider from "../../../contexts/pointsDetail";
 
 const OrderActivity = () => {
   const [selected, setSelected] = useState<string>("incemental");
@@ -64,46 +64,11 @@ const OrderActivity = () => {
               </Text>
 
               <Box paddingBlockStart="4">
-                <TextField
-                  label="Points Amount"
-                  type="number"
-                  value="250"
-                  placeholder="100"
-                  onChange={() => ({})}
-                  autoComplete="off"
-                  connectedRight={
-                    <Text variant="bodyMd" alignment="center" as={"h1"}>
-                      Points
-                    </Text>
-                  }
-                />
+                <ProgramPointAmount />
               </Box>
 
               <Box paddingBlockStart="4" paddingBlockEnd="2">
-                <Checkbox
-                  label="Limit how many times each customer can earn points for completing this action"
-                  checked
-                  onChange={() => ({})}
-                />
-              </Box>
-
-              <Box paddingBlockEnd="1">
-                <TextField
-                  label=""
-                  type="number"
-                  value="5"
-                  placeholder="10"
-                  onChange={() => ({})}
-                  autoComplete="off"
-                  connectedRight={
-                    <Select
-                      label=""
-                      options={["week"]}
-                      value="week"
-                      onChange={() => ({})}
-                    />
-                  }
-                />
+                <LimitPointEarning />
               </Box>
             </AlphaCard>
           </Box>
@@ -129,4 +94,10 @@ const OrderActivity = () => {
   );
 };
 
-export default OrderActivity;
+const component = () => (
+  <PointDetailProvider>
+    <OrderActivity />
+  </PointDetailProvider>
+);
+
+export default memo(component);

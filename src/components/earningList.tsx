@@ -20,9 +20,10 @@ interface IEarningList {
 
 const EarningListItem = ({ item }: { item: IRewardsListingType }) => {
   const navigate = useNavigate();
+  const platformLink = item.platform ? `?platform=${item.platform}&` : "?";
 
   const handleNavigate = () => {
-    const link = `/programs/points/${item.id}/new?id=${item.id}&name=${item.name}&img=${item.img}`;
+    const link = `/programs/points/${item.id}/new${platformLink}id=${item.id}&name=${item.name}&img=${item.img}`;
     navigate(link);
   };
 
