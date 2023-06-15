@@ -1,24 +1,20 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useMemo } from "react";
 import Toggle from "react-toggle";
 import { AlphaCard, HorizontalStack, Badge, Box, Text } from "@shopify/polaris";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
 
 export interface IProgramStatusProps {
   active: boolean;
   onChange: (arg: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ProgramStatus = (props: IProgramStatusProps) => {
-  const { active, onChange } = props;
-  const [state, setState] = useState<boolean>(active);
+const ProgramStatus = () => {
+  const { details, handleChange } = usePointDetail();
+  const status = useMemo(() => details?.status === "on", [details]);
 
-  useEffect(() => {
-    setState(active);
-  }, [active]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
-    setState(checked);
-    onChange(e);
+    handleChange("status")(checked ? "on" : "off");
   };
 
   return (
@@ -28,12 +24,12 @@ const ProgramStatus = (props: IProgramStatusProps) => {
           Status
         </Text>
 
-        <Badge status={state ? "success" : "critical"}>
-          {state ? "Active" : "Inactive"}
+        <Badge status={status ? "success" : "critical"}>
+          {status ? "Active" : "Inactive"}
         </Badge>
       </HorizontalStack>
       <Box paddingBlockStart="4">
-        <Toggle checked={state} onChange={handleChange} />
+        <Toggle checked={status} onChange={handleClick} />
       </Box>
     </AlphaCard>
   );

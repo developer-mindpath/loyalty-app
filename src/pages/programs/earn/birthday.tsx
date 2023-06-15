@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   AlphaCard,
   Box,
@@ -10,8 +11,13 @@ import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
+import PointDetailProvider, {
+  usePointDetail,
+} from "../../../contexts/pointsDetail";
 
 const BirthdayActivity = () => {
+  const { details, handleChange } = usePointDetail();
+
   return (
     <Page
       title="Celebrate a Birthday"
@@ -32,10 +38,10 @@ const BirthdayActivity = () => {
               <Box paddingBlockStart="4" paddingBlockEnd="1">
                 <TextField
                   label="Points Granted"
-                  type="text"
-                  value="2"
+                  type="number"
+                  value={details?.points_amounts?.toString()}
                   placeholder="100"
-                  onChange={() => ({})}
+                  onChange={handleChange("points_amounts")}
                   autoComplete="off"
                   connectedRight={
                     <Text variant="bodyMd" alignment="center" as={"h1"}>
@@ -61,7 +67,7 @@ const BirthdayActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramStatus active onChange={() => ({})} />
+            <ProgramStatus />
           </Box>
 
           <Box paddingBlockEnd="5">
@@ -73,4 +79,10 @@ const BirthdayActivity = () => {
   );
 };
 
-export default BirthdayActivity;
+const component = () => (
+  <PointDetailProvider>
+    <BirthdayActivity />
+  </PointDetailProvider>
+);
+
+export default memo(component);

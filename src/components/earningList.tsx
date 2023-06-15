@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 import _ from "lodash";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,17 +11,45 @@ import {
   Text,
   Divider,
 } from "@shopify/polaris";
-import { IRewardsListingType, rewardType } from "../constants/reward";
-import { useNavigate } from "react-router";
+import { IRewardsListingType, rewardType } from "../utils/constants/reward";
 
 interface IEarningList {
   rewards: IRewardsListingType[];
   remove: any[];
 }
 
+const EarningListItem = ({ item }: { item: IRewardsListingType }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    const link = `/programs/points/${item.id}/new?id=${item.id}&name=${item.name}&img=${item.img}`;
+    navigate(link);
+  };
+
+  return (
+    <ResourceItem
+      id={item.id}
+      name={item.name}
+      verticalAlignment="center"
+      accessibilityLabel={`View details for ${item.name}`}
+      media={<img width={35} height={35} alt={item.name} src={item.img} />}
+      onClick={handleNavigate}
+    >
+      <Box padding="2">
+        <HorizontalStack align="space-between" blockAlign="center">
+          <Text as="h6" variant="bodyLg">
+            {item.name}
+          </Text>
+
+          <FontAwesomeIcon icon={faChevronRight} size="lg" />
+        </HorizontalStack>
+      </Box>
+    </ResourceItem>
+  );
+};
+
 const EarningList = (props: IEarningList) => {
   const { remove, rewards } = props;
-  const navigate = useNavigate();
 
   const list = useMemo(() => {
     if (remove.length < 0) return rewardType;
@@ -53,38 +82,7 @@ const EarningList = (props: IEarningList) => {
               <ResourceList
                 items={e}
                 renderItem={(item: IRewardsListingType) => (
-                  <ResourceItem
-                    id={item.id}
-                    name={item.name}
-                    verticalAlignment="center"
-                    accessibilityLabel={`View details for ${item.name}`}
-                    media={
-                      <img
-                        width={35}
-                        height={35}
-                        alt={item.name}
-                        src={item.img}
-                      />
-                    }
-                    onClick={() =>
-                      navigate(
-                        `/programs/points/${item.id}/new?id=${item.id}&name=${item.name}&img=${item.img}`
-                      )
-                    }
-                  >
-                    <Box padding="2">
-                      <HorizontalStack
-                        align="space-between"
-                        blockAlign="center"
-                      >
-                        <Text as="h6" variant="bodyLg">
-                          {item.name}
-                        </Text>
-
-                        <FontAwesomeIcon icon={faChevronRight} size="lg" />
-                      </HorizontalStack>
-                    </Box>
-                  </ResourceItem>
+                  <EarningListItem item={item} />
                 )}
               />
             </div>
@@ -98,28 +96,7 @@ const EarningList = (props: IEarningList) => {
     <ResourceList
       items={list}
       renderItem={(item: IRewardsListingType) => (
-        <ResourceItem
-          id={item.id}
-          name={item.name}
-          verticalAlignment="center"
-          accessibilityLabel={`View details for ${item.name}`}
-          media={<img width={35} height={35} alt={item.name} src={item.img} />}
-          onClick={() =>
-            navigate(
-              `/programs/points/${item.id}/new?id=${item.id}&name=${item.name}&img=${item.img}`
-            )
-          }
-        >
-          <Box padding="2">
-            <HorizontalStack align="space-between" blockAlign="center">
-              <Text as="h6" variant="bodyLg">
-                {item.name}
-              </Text>
-
-              <FontAwesomeIcon icon={faChevronRight} size="lg" />
-            </HorizontalStack>
-          </Box>
-        </ResourceItem>
+        <EarningListItem item={item} />
       )}
     />
   );

@@ -53,6 +53,14 @@ class ValidationUtil {
     if (value!.length > max) return `Cannot be More than ${max}`;
     if (value!.length > min) return `Cannot be less than ${min}`;
   }
+
+  public static number(
+    value: StringOrUndefined,
+    required = false
+  ): StringOrUndefined {
+    if (!ValidationUtil.notEmpty(value, required)) return;
+    if (isNaN(Number(value))) return "Please enter a valid number";
+  }
 }
 
 export default ValidationUtil;

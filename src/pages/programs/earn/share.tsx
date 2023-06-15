@@ -1,3 +1,5 @@
+import { memo } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   AlphaCard,
   Box,
@@ -10,11 +12,18 @@ import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
+import PointDetailProvider, {
+  usePointDetail,
+} from "../../../contexts/pointsDetail";
 
 const ShareActivity = () => {
+  const { details, handleChange } = usePointDetail();
+  const [searchParams] = useSearchParams();
+  const platform = searchParams.get("platform");
+
   return (
     <Page
-      title="Share our link on Facebook"
+      title={`Share our link on ${platform}`}
       divider
       backAction={{
         url: "/programs/points",
@@ -33,9 +42,9 @@ const ShareActivity = () => {
                 <TextField
                   label="URL to share"
                   type="text"
-                  value="250"
+                  value={details?.url_to_share ?? ""}
                   placeholder="100"
-                  onChange={() => ({})}
+                  onChange={handleChange("url_to_share")}
                   autoComplete="off"
                 />
               </Box>
@@ -52,9 +61,9 @@ const ShareActivity = () => {
                 <TextField
                   label="Points Amount"
                   type="number"
-                  value="250"
+                  value={details?.points_amounts?.toString()}
                   placeholder="100"
-                  onChange={() => ({})}
+                  onChange={handleChange("points_amounts")}
                   autoComplete="off"
                   connectedRight={
                     <Text variant="bodyMd" alignment="center" as={"h1"}>
@@ -70,12 +79,12 @@ const ShareActivity = () => {
           <Box paddingBlockEnd="5">
             <ProgramSummary
               title="Summary"
-              description="Points granted to member who shares link on facebook"
+              description={`Points granted to member who shares link on ${platform}`}
             />
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramStatus active onChange={() => ({})} />
+            <ProgramStatus />
           </Box>
 
           <Box paddingBlockEnd="5">
@@ -87,4 +96,10 @@ const ShareActivity = () => {
   );
 };
 
-export default ShareActivity;
+const component = () => (
+  <PointDetailProvider>
+    <ShareActivity />
+  </PointDetailProvider>
+);
+
+export default memo(component);

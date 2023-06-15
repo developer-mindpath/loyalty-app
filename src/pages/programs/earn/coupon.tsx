@@ -199,7 +199,7 @@ const CouponActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramStatus active onChange={() => ({})} />
+            <ProgramStatus />
           </Box>
 
           <Box paddingBlockEnd="5">

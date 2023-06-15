@@ -13,9 +13,7 @@ import {
   VerticalStack,
 } from "@shopify/polaris";
 import Toggle from "react-toggle";
-import { CashDollarMajor } from "@shopify/polaris-icons";
 import SectionDivider from "../../../components/layouts/sectionDivider";
-import PointsListItem from "../../../components/points/pointsListItem";
 
 const ReferralPage = () => {
   return (

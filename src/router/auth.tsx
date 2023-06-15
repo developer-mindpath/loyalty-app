@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
-import SetRule from "../referal";
 import Customers from "../pages/customer";
 // Settings
 import Settings from "../pages/settings/settings";
@@ -28,7 +27,6 @@ import CommingSoon from "../components/commingSoon";
 const DashboardRoutes = (): JSX.Element => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/points/earning_rules" element={<SetRule />} />
     <Route path="/customers" element={<Customers />} />
     <Route path="/feedback" element={<FeedbackPage />} />
     {/* Programs */}

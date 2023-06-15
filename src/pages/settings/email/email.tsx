@@ -15,7 +15,7 @@ import SectionDivider from "../../../components/layouts/sectionDivider";
 import { EmailController } from "./email.controller";
 import TextField from "../../../components/textField";
 import ValidationUtil from "../../../utils/validation";
-import { RoutePathEnum } from "../../../enum/routePathEnum";
+import { RoutePathEnum } from "../../../utils/enum/routePathEnum";
 
 const EmailSettings = () => {
   const { getters, handlers, ref } = EmailController();

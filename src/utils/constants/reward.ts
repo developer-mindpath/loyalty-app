@@ -2,6 +2,7 @@ export interface IRewardsListingType {
   id: string;
   img: string;
   name: string;
+  platform?: "facebook" | "twitter" | "tiktok" | "instagram";
   type?: "Store" | "In-Store";
 }
 
@@ -11,16 +12,6 @@ export const rewardType: IRewardsListingType[] = [
     name: "Complete a Referral",
     img: "/assets/check.png",
     type: "In-Store",
-  },
-  {
-    id: "share_facebook",
-    name: "Share link on Facebook",
-    img: "/assets/facebook.png",
-  },
-  {
-    id: "follow_instagram",
-    name: "Follow on Instagram",
-    img: "/assets/instagram.png",
   },
   {
     id: "review",
@@ -43,26 +34,40 @@ export const rewardType: IRewardsListingType[] = [
     img: "/assets/cake.png",
   },
   {
-    id: "like_facebook",
+    id: "share",
+    name: "Share link on Facebook",
+    img: "/assets/facebook.png",
+    platform: "facebook",
+  },
+  {
+    id: "like",
     name: "Like page on Facebook",
     img: "/assets/facebook.png",
+    platform: "facebook",
   },
   {
-    id: "follow_twitter",
+    id: "follow",
+    name: "Follow on Instagram",
+    img: "/assets/instagram.png",
+    platform: "instagram",
+  },
+  {
+    id: "follow",
     name: "Follow on Twitter",
     img: "/assets/twitter.png",
+    platform: "twitter",
   },
-
   {
-    id: "share_twitter",
+    id: "share",
     name: "Share link on Twitter",
     img: "/assets/twitter.png",
+    platform: "twitter",
   },
-
   {
-    id: "follow_tiktok",
+    id: "follow",
     name: "Follow on TikTok",
     img: "/assets/tiktok.png",
+    platform: "tiktok",
   },
 ];
 

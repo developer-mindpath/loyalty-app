@@ -17,7 +17,7 @@ import {
 import DescriptionButton from "../../components/layouts/descriptionButton";
 import PointsController from "./controller";
 import PointsListItem from "../../components/points/pointsListItem";
-import { earnType, rewardType } from "../../constants/reward";
+import { earnType, rewardType } from "../../utils/constants/reward";
 import EarningList from "../../components/earningList";
 
 function Points() {
@@ -259,7 +259,8 @@ function Points() {
         <Modal.Section>
           <EarningList
             rewards={rewardType}
-            remove={earnList.map((e) => e.action_key)}
+            remove={[]}
+            // remove={earnList.map((e) => e.action_key)}
           />
         </Modal.Section>
       </Modal>

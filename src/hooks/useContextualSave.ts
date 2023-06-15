@@ -4,12 +4,15 @@ import {
   IFireContextualSaveContext,
   useContextualSaveContext,
 } from "../contexts/contextualSave";
+import useFirstRender from "./useFirstRender";
 
 const useContextualSave = <T>(
   inital: T,
   current: T,
-  fireOptions: IFireContextualSaveContext
+  fireOptions: IFireContextualSaveContext,
+  isLoading = false
 ): void => {
+  const isFirstRender = useFirstRender();
   const contextualSave = useContextualSaveContext();
   // We only need to save the inital state on initalization
   const initalState = useMemo(() => inital, [inital]);
@@ -19,6 +22,8 @@ const useContextualSave = <T>(
   );
 
   useEffect(() => {
+    if (isFirstRender || isLoading) return;
+
     if (!isEqual) {
       // Set Context State to True
       contextualSave.fire(fireOptions);
@@ -27,7 +32,7 @@ const useContextualSave = <T>(
 
     // Set Context State to False
     contextualSave.setVisiblity(false);
-  }, [contextualSave, fireOptions, isEqual]);
+  }, [contextualSave, fireOptions, isEqual, isFirstRender, isLoading]);
 };
 
 export default useContextualSave;

@@ -44,7 +44,6 @@ const ContextualSaveProvider = ({ children }: IContextualSaveProvider) => {
   };
 
   const fire = useCallback((payload: IFireContextualSaveContext) => {
-    console.log("Fire Event Called");
     setData(payload);
     setVisiblity(true);
   }, []);

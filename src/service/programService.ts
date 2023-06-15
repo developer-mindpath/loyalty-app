@@ -49,7 +49,7 @@ export class ProgramService {
     payload: Partial<IPointDetailResponse>
   ): Promise<void> {
     await APIUtils.send({
-      url: `/api/point/earn/detail/${payload.id}`,
+      url: `/api/point/earn/detail/${payload.point_action_id}`,
       method: "PATCH",
       data: payload,
     });
