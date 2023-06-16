@@ -7,7 +7,7 @@ import constants from "../constants";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
 import InsertReferralProgramRequestDTO from "../dto/referral/insertReferralProgramRequestDto";
 import ReferralService from "../services/referralService";
-import { DeleteReferralProgramParams } from "../types/request/params";
+import { ReferralId } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
 import UpdateReferralProgramRequestDTO from "../dto/referral/updateReferralProgramRequestDto";
@@ -104,7 +104,7 @@ export default class ReferralController {
   }
 
   public async deleteReferralProgram(
-    req: CustomRequest<DeleteReferralProgramParams, IEmptyObject, IEmptyObject>,
+    req: CustomRequest<ReferralId, IEmptyObject, IEmptyObject>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {

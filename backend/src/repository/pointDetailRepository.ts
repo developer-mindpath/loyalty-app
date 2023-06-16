@@ -18,6 +18,7 @@ export default class PointDetailRepository {
   ): Promise<GetPointEarnDetailResponse | null> {
     return await this._pointActionDetailModel.findOne({
       where: { point_action_id: pointId },
+      relations: ["pointAction"],
     });
   }
 

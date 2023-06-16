@@ -6,7 +6,6 @@ import {
   PointActionId,
   PointRedeemDetailId,
   PointRedeemId,
-  UpdateEarnDetailParams,
 } from "../types/request/params";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
@@ -36,23 +35,21 @@ export = {
       pointId: Joi.number().required(),
     },
   }),
-  4: joiValidationRequest<UpdateEarnDetailParams, UpdatePointEarnDetailRequest>(
-    {
-      path: {
-        pointId: Joi.number().required(),
-      },
-      body: {
-        app_id: Joi.number().optional(),
-        points_amounts: Joi.string().optional(),
-        limit_count: Joi.number().optional(),
-        limit_count_type: Joi.string().optional(),
-        url_to_share: Joi.string().optional(),
-        earning_method: Joi.string().optional(),
-        status: Joi.string().optional(),
-        limit_count_enabled: Joi.number().optional(),
-      },
-    }
-  ),
+  4: joiValidationRequest<PointActionId, UpdatePointEarnDetailRequest>({
+    path: {
+      pointId: Joi.number().required(),
+    },
+    body: {
+      app_id: Joi.number().optional(),
+      points_amounts: Joi.string().optional(),
+      limit_count: Joi.number().optional(),
+      limit_count_type: Joi.string().optional(),
+      url_to_share: Joi.string().optional(),
+      earning_method: Joi.string().optional(),
+      status: Joi.string().optional(),
+      limit_count_enabled: Joi.number().optional(),
+    },
+  }),
   5: joiValidationRequest<IEmptyObject, InsertPointRedeemRequest>({
     body: {
       reward_key: Joi.string().optional(),

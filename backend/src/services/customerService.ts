@@ -1,6 +1,7 @@
 import PaginationDTO from "../dto/paginationDTO";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import CustomerRepository from "../repository/customerRepository";
+import { GetCustomerDetailsResponse } from "../types/response/customer/getCustomerDetailsResponse";
 
 export default class CustomerService {
   private _customerRepository: CustomerRepository;
@@ -13,5 +14,11 @@ export default class CustomerService {
     paginationDTO: PaginationDTO
   ): Promise<Array<GetCustomerResponse>> {
     return await this._customerRepository.getCustomers(userId, paginationDTO);
+  }
+
+  public async getCustomerDetail(
+    customerId: number
+  ): Promise<GetCustomerDetailsResponse> {
+    return await this._customerRepository.getCustomerDetail(customerId);
   }
 }
