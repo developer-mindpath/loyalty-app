@@ -2,7 +2,7 @@ import Joi from "joi";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
-import { DeleteReferralProgramParams } from "../types/request/params";
+import { ReferralId } from "../types/request/params";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
 
 export = {
@@ -64,7 +64,7 @@ export = {
       status: Joi.string().optional(),
     },
   }),
-  3: joiValidationRequest<DeleteReferralProgramParams, IEmptyObject>({
+  3: joiValidationRequest<ReferralId, IEmptyObject>({
     path: {
       referralId: Joi.number().required(),
     },

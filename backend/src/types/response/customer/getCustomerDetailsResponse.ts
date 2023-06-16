@@ -1,0 +1,25 @@
+export type GetCustomerDetailsResponse = {
+  customerId: number;
+  customerName: string;
+  customerEmail: string;
+  customerType: string;
+  customerBirthday: Date;
+  pointAction: string;
+  points: number;
+  pointDate: Date;
+  rewards: string;
+  rewardCode: string;
+  rewardStatus: string;
+  rewardDate: Date;
+  referredFriend: string;
+  referralStatus: string;
+  referralOrderTotal: string;
+  referredAt: Date;
+  referralUserLink: string;
+  vipAchievedTier: string;
+  vipInternalNote: string;
+  vipStartedAt: Date;
+  vipEndedAt: Date;
+  status: string;
+  createdAt: Date;
+};

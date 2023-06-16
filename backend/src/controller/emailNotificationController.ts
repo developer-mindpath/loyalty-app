@@ -4,10 +4,7 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import {
-  DeleteEmailNotificationProgramParams,
-  EmailProgramId,
-} from "../types/request/params";
+import { EmailProgramId } from "../types/request/params";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
 import InsertEmailNotificationRequestDTO from "../dto/emailNotification/insertEmailNotificationRequestDto";
 import EmailNotificationService from "../services/emailNotificationService";
@@ -143,11 +140,7 @@ export default class EmailNotificationController {
   }
 
   public async deleteEmailNotification(
-    req: CustomRequest<
-      DeleteEmailNotificationProgramParams,
-      IEmptyObject,
-      IEmptyObject
-    >,
+    req: CustomRequest<EmailProgramId, IEmptyObject, IEmptyObject>,
     res: Response<APIResponse<IEmptyObject>>,
     next: NextFunction
   ): Promise<void> {

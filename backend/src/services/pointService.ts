@@ -154,11 +154,17 @@ export default class PointService {
   }
 
   public async getPointRedeemDetail(
-    pointRedeemId: number
-  ): Promise<GetPointRedeemDetailResponse[]> {
-    return await this._pointRedeemDetailService.getPointRedeemDetail(
-      pointRedeemId
-    );
+    pointRedeemId: number,
+    userId: number
+  ): Promise<GetPointRedeemDetailResponse> {
+    const pointRedeemResponse =
+      await this._pointRedeemDetailService.getPointRedeemDetail(
+        pointRedeemId,
+        userId
+      );
+    return pointRedeemResponse
+      ? pointRedeemResponse
+      : ({} as GetPointRedeemDetailResponse);
   }
 
   public async updatePointRedeemDetail(

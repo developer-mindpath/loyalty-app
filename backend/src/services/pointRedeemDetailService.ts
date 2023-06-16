@@ -19,10 +19,12 @@ export default class PointRedeemDetailService {
   }
 
   public async getPointRedeemDetail(
-    pointRedeemId: number
-  ): Promise<GetPointRedeemDetailResponse[]> {
+    pointRedeemId: number,
+    userId: number
+  ): Promise<GetPointRedeemDetailResponse | null> {
     return await this._pointRedeemDetailRepository.getPointRedeemDetail(
-      pointRedeemId
+      pointRedeemId,
+      userId
     );
   }
 
