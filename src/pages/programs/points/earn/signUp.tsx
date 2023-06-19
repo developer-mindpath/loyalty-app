@@ -5,7 +5,7 @@ import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
 import ProgramPointAmount from "./activities/programPointAmount";
-import PointDetailProvider from "../../../contexts/pointsDetail";
+import PointDetailProvider from "../../../../contexts/pointsDetail";
 
 const SignUpActivity = () => {
   return (
@@ -44,7 +44,7 @@ const SignUpActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+            <ProgramIcon />
           </Box>
         </Layout.Section>
       </Layout>

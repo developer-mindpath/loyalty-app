@@ -3,27 +3,21 @@ import {
   AlphaCard,
   Box,
   Button,
-  Divider,
   HorizontalStack,
   Icon,
   Layout,
   Page,
   Popover,
-  ResourceItem,
-  ResourceList,
-  Select,
   Text,
   TextField,
   VerticalStack,
 } from "@shopify/polaris";
 import {
-  ArrowUpMinor,
   CaretUpMinor,
   ChatMajor,
   NotificationMajor,
   SearchMinor,
 } from "@shopify/polaris-icons";
-import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 const list = [

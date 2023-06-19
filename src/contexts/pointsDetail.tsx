@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { IPointDetailResponse } from "../types/program";
+import { IPointDetailResponse, IReferralAction } from "../types/program";
 import {
   getEarnDetails,
   programPointActions,
@@ -49,6 +49,7 @@ const PointDetailContext = createContext<IPointDetailContext>({
     admin_ref: 0,
     created_by: 0,
     updated_by: null,
+    pointAction: {} as IReferralAction,
   },
   handleChange: () => () => ({}),
 });

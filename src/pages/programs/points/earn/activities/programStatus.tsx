@@ -1,7 +1,7 @@
 import { ChangeEvent, useMemo } from "react";
 import Toggle from "react-toggle";
 import { AlphaCard, HorizontalStack, Badge, Box, Text } from "@shopify/polaris";
-import { usePointDetail } from "../../../../contexts/pointsDetail";
+import { usePointDetail } from "../../../../../contexts/pointsDetail";
 
 export interface IProgramStatusProps {
   active: boolean;

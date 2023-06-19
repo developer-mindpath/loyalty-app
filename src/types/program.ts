@@ -16,6 +16,23 @@ export interface IPointResponse {
   updated_by: number | null;
 }
 
+export interface IReferralAction {
+  id: number;
+  created_at: string | null;
+  updated_at: string | null;
+  action_key: string;
+  action_key_display_text: string;
+  action_visible_order: number | null;
+  action_icon: string;
+  action_description: string;
+  is_action_enabled: number | null;
+  status: string;
+  user_id: number;
+  admin_ref: number;
+  created_by: number;
+  updated_by: number | null;
+}
+
 export interface IPointDetailResponse {
   id: number;
   created_at: string | null;
@@ -32,6 +49,7 @@ export interface IPointDetailResponse {
   admin_ref: number;
   created_by: number;
   updated_by: number | null;
+  pointAction: IReferralAction;
 }
 
 export interface IAddPointDetailRequest {

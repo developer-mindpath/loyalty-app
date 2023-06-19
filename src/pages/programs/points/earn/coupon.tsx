@@ -11,7 +11,6 @@ import {
   TextField,
   VerticalStack,
 } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
@@ -203,7 +202,7 @@ const CouponActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+            <ProgramIcon />
           </Box>
         </Layout.Section>
       </Layout>

@@ -14,12 +14,12 @@ import {
   Divider,
   EmptyState,
 } from "@shopify/polaris";
-import DescriptionButton from "../../components/layouts/descriptionButton";
+import EarningList from "../../../components/earningList";
+import DescriptionButton from "../../../components/layouts/descriptionButton";
 import PointsController from "./controller";
-import PointsListItem from "../../components/points/pointsListItem";
-import { earnType, rewardType } from "../../utils/constants/reward";
-import EarningList from "../../components/earningList";
-import { getSocialPlatformNameFromString } from "../../utils/string";
+import PointsListItem from "../../../components/points/pointsListItem";
+import { earnType, rewardType } from "../../../utils/constants/reward";
+import { getSocialPlatformNameFromString } from "../../../utils/string";
 
 function Points() {
   const { getters, handlers } = PointsController();
@@ -153,7 +153,7 @@ function Points() {
                           points={value.points_amounts}
                           name={value.action_key_display_text}
                           icon={value.action_icon}
-                          checked={Boolean(value.is_action_enabled)}
+                          checked={value.status === "on"}
                           path={`/programs/points/${value.action_key}/${
                             value.id
                           }${platform ? `?platform=${platform}` : ""} `}

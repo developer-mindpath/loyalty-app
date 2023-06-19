@@ -8,13 +8,12 @@ import {
   Text,
   VerticalStack,
 } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramSummary from "./activities/programSummary";
 import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
 import ProgramPointAmount from "./activities/programPointAmount";
 import LimitPointEarning from "./activities/limitPointEarning";
-import PointDetailProvider from "../../../contexts/pointsDetail";
+import PointDetailProvider from "../../../../contexts/pointsDetail";
 
 const OrderActivity = () => {
   const [selected, setSelected] = useState<string>("incemental");
@@ -86,7 +85,7 @@ const OrderActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+            <ProgramIcon />
           </Box>
         </Layout.Section>
       </Layout>

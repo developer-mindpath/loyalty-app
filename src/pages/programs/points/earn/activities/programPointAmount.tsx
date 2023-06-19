@@ -1,7 +1,7 @@
 import { Text } from "@shopify/polaris";
-import TextField from "../../../../components/textField";
-import ValidationUtil from "../../../../utils/validation";
-import { usePointDetail } from "../../../../contexts/pointsDetail";
+import TextField from "../../../../../components/textField";
+import ValidationUtil from "../../../../../utils/validation";
+import { usePointDetail } from "../../../../../contexts/pointsDetail";
 
 const ProgramPointAmount = () => {
   const { details, handleChange } = usePointDetail();

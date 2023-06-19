@@ -14,7 +14,7 @@ import ProgramIcon from "./activities/programIcon";
 import { memo } from "react";
 import PointDetailProvider, {
   usePointDetail,
-} from "../../../contexts/pointsDetail";
+} from "../../../../contexts/pointsDetail";
 import ProgramPointAmount from "./activities/programPointAmount";
 import LimitPointEarning from "./activities/limitPointEarning";
 
@@ -72,7 +72,7 @@ const ReferalActivity = () => {
             </Box>
 
             <Box paddingBlockEnd="5">
-              <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+              <ProgramIcon />
             </Box>
           </Layout.Section>
         </Layout>

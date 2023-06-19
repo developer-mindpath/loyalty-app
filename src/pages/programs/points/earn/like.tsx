@@ -12,11 +12,11 @@ import { FavoriteMajor } from "@shopify/polaris-icons";
 import ProgramIcon from "./activities/programIcon";
 import ProgramStatus from "./activities/programStatus";
 import ProgramPointAmount from "./activities/programPointAmount";
-import PointDetailProvider from "../../../contexts/pointsDetail";
+import PointDetailProvider from "../../../../contexts/pointsDetail";
 
-const title = "Follow on ";
+const title = "Like page on ";
 const parentURL = "/programs/points";
-const FollowActivity = () => {
+const LikeActivity = () => {
   const [searchParam] = useSearchParams();
 
   return (
@@ -40,7 +40,7 @@ const FollowActivity = () => {
                   value="kodiakcoolers"
                   autoComplete="off"
                   label=""
-                  prefix="@"
+                  prefix="facebook.com/"
                 />
               </Box>
             </AlphaCard>
@@ -64,7 +64,7 @@ const FollowActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+            <ProgramIcon />
           </Box>
         </Layout.Section>
       </Layout>
@@ -74,7 +74,7 @@ const FollowActivity = () => {
 
 const component = () => (
   <PointDetailProvider>
-    <FollowActivity />
+    <LikeActivity />
   </PointDetailProvider>
 );
 

@@ -1,6 +1,29 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home";
 import Customers from "../pages/customer";
+
+// Programs
+import Points from "../pages/programs/points/points";
+// Points
+import ShareActivity from "../pages/programs/points/earn/share";
+import OrderActivity from "../pages/programs/points/earn/order";
+import SignUpActivity from "../pages/programs/points/earn/signUp";
+import FollowActivity from "../pages/programs/points/earn/follow";
+import CouponActivity from "../pages/programs/points/earn/coupon";
+import ReferalActivity from "../pages/programs/points/earn/referral";
+import BirthdayActivity from "../pages/programs/points/earn/birthday";
+import ProductReviewActivity from "../pages/programs/points/earn/productReview";
+// Redeeming
+
+// Referral
+import ReferralPage from "../pages/programs/referral";
+
+// Pages
+import FeedbackPage from "../pages/feedback";
+import EmailProgram from "../pages/programs/emails/emails";
+import LikeActivity from "../pages/programs/points/earn/like";
+import EditEmailProgram from "../pages/programs/emails/edit";
+
 // Settings
 import Settings from "../pages/settings/settings";
 import GeneralSettings from "../pages/settings/general";
@@ -9,22 +32,9 @@ import ImportSettings from "../pages/settings/import";
 import RewardSettings from "../pages/settings/rewards";
 import OrdersSettings from "../pages/settings/order/order";
 import EmailSettings from "../pages/settings/email/email";
-// Programs
-import Points from "../pages/points/points";
-import ReferalActivity from "../pages/programs/earn/referral";
-import FollowActivity from "../pages/programs/earn/follow";
-import ProductReviewActivity from "../pages/programs/earn/productReview";
-import ShareActivity from "../pages/programs/earn/share";
-import SignUpActivity from "../pages/programs/earn/signUp";
-import BirthdayActivity from "../pages/programs/earn/birthday";
-import OrderActivity from "../pages/programs/earn/order";
-import FeedbackPage from "../pages/fedback";
-import CouponActivity from "../pages/programs/earn/coupon";
-import EmailProgram from "../pages/programs/emails/emails";
-import EditEmailProgram from "../pages/programs/emails/edit";
-import ReferralPage from "../pages/programs/referral";
+
+// Others
 import CommingSoon from "../components/commingSoon";
-import LikeActivity from "../pages/programs/earn/like";
 
 const DashboardRoutes = (): JSX.Element => (
   <Routes>

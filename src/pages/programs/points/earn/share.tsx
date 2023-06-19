@@ -14,7 +14,7 @@ import ProgramStatus from "./activities/programStatus";
 import ProgramIcon from "./activities/programIcon";
 import PointDetailProvider, {
   usePointDetail,
-} from "../../../contexts/pointsDetail";
+} from "../../../../contexts/pointsDetail";
 import ProgramPointAmount from "./activities/programPointAmount";
 
 const ShareActivity = () => {
@@ -90,7 +90,7 @@ const ShareActivity = () => {
           </Box>
 
           <Box paddingBlockEnd="5">
-            <ProgramIcon onChange={() => {}} defaultIcon={FavoriteMajor} />
+            <ProgramIcon />
           </Box>
         </Layout.Section>
       </Layout>

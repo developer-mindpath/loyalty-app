@@ -1,12 +1,12 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { ProgramAction } from "../../redux/actions/programActions";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { ProgramAction } from "../../../redux/actions/programActions";
 import {
   getEarnList,
   getEarnLoading,
   getRedeemList,
   getRedeemLoading,
-} from "../../redux/reducers/pointsProgram";
+} from "../../../redux/reducers/pointsProgram";
 
 const PointsController = () => {
   const dispatch = useAppDispatch();
