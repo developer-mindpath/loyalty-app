@@ -2,10 +2,7 @@ import Joi from "joi";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
-import {
-  DeleteEmailNotificationProgramParams,
-  EmailProgramId,
-} from "../types/request/params";
+import { EmailProgramId } from "../types/request/params";
 import { UpdateEmailNotificationRequest } from "../types/request/emailNotification/updateEmailNotificationRequest";
 
 export = {
@@ -49,7 +46,7 @@ export = {
       status: Joi.string().optional(),
     },
   }),
-  4: joiValidationRequest<DeleteEmailNotificationProgramParams, IEmptyObject>({
+  4: joiValidationRequest<EmailProgramId, IEmptyObject>({
     path: {
       emailProgramId: Joi.number().required(),
     },

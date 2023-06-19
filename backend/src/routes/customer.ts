@@ -5,22 +5,33 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import { GetCustomerParams, Pagination } from "../types/request/params";
+import { CustomerId, Pagination } from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import customerValidations from "../requestValidator/customer";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import CustomerController from "../controller/customerController";
+import { checkToken } from "../middleware/checkToken";
+import { GetCustomerDetailsResponse } from "../types/response/customer/getCustomerDetailsResponse";
 
 const customerController = new CustomerController();
 const router = express.Router();
 
 router.get<
-  PathParams<GetCustomerParams>,
+  PathParams,
   ResponseBody<Array<GetCustomerResponse>>,
   RequestBody,
   QueryParams<Pagination>
->("/list/:userId", doValidation(customerValidations[0]), (...arg) =>
+>("/list", checkToken, doValidation(customerValidations[0]), (...arg) =>
   customerController.getCustomers(...arg)
+);
+
+router.get<
+  PathParams<CustomerId>,
+  ResponseBody<GetCustomerDetailsResponse>,
+  RequestBody,
+  QueryParams
+>("/detail", checkToken, (...arg) =>
+  customerController.getCustomerDetail(...arg)
 );
 
 module.exports = { router, basePath: "/api/customer" };

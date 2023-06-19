@@ -8,7 +8,7 @@ import {
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { InsertReferralProgramRequest } from "../types/request/referral/insertReferralProgramRequest";
 import ReferralController from "../controller/referralController";
-import { DeleteReferralProgramParams } from "../types/request/params";
+import { ReferralId } from "../types/request/params";
 import { GetReferralProgramResponse } from "../types/response/referral/getReferralProgramResponse";
 import { UpdateReferralProgramRequest } from "../types/request/referral/updateReferralProgramRequest";
 import { doValidation } from "../helper/joi";
@@ -46,7 +46,7 @@ router.patch<
 );
 
 router.delete<
-  PathParams<DeleteReferralProgramParams>,
+  PathParams<ReferralId>,
   ResponseBody<IEmptyObject>,
   RequestBody<IEmptyObject>,
   QueryParams

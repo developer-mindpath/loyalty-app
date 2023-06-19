@@ -20,11 +20,13 @@ export default class PointRedeemDetailRepository {
   }
 
   public async getPointRedeemDetail(
-    pointRedeemId: number
-  ): Promise<GetPointRedeemDetailResponse[]> {
+    pointRedeemId: number,
+    userId: number
+  ): Promise<GetPointRedeemDetailResponse | null> {
     const point_redeem_id = pointRedeemId;
-    return await this._pointRedeemDetailModel.find({
-      where: { point_redeem_id },
+    return await this._pointRedeemDetailModel.findOne({
+      where: { point_redeem_id, user_id: userId },
+      relations: ["pointRedeem"],
     });
   }
 

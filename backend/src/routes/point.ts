@@ -86,7 +86,7 @@ router.get<
 
 router.get<
   PathParams<PointRedeemId>,
-  ResponseBody<Array<GetPointRedeemDetailResponse>>,
+  ResponseBody<GetPointRedeemDetailResponse>,
   RequestBody,
   QueryParams
 >(

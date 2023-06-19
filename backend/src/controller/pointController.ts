@@ -192,16 +192,17 @@ export default class PointController {
   public async getPointRedeemDetail(
     req: CustomRequest<
       PointRedeemId,
-      GetPointRedeemDetailResponse[],
+      GetPointRedeemDetailResponse,
       IEmptyObject
     >,
-    res: Response<APIResponse<GetPointRedeemDetailResponse[]>>,
+    res: Response<APIResponse<GetPointRedeemDetailResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
-      const response = new APIResponse<GetPointRedeemDetailResponse[]>();
+      const response = new APIResponse<GetPointRedeemDetailResponse>();
       const pointResponse = await this._pointService.getPointRedeemDetail(
-        req.params.pointRedeemId
+        req.params.pointRedeemId,
+        req.userId!
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;

@@ -6,10 +6,7 @@ import {
   ResponseBody,
 } from "../types/request/customRequest";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
-import {
-  DeleteEmailNotificationProgramParams,
-  EmailProgramId,
-} from "../types/request/params";
+import { EmailProgramId } from "../types/request/params";
 import { InsertEmailNotificationRequest } from "../types/request/emailNotification/insertEmailNotificationRequest";
 import EmailNotificationController from "../controller/emailNotificationController";
 import { GetEmailNotificationResponse } from "../types/response/emailNotification/getEmailNotificationResponse";
@@ -68,7 +65,7 @@ router.patch<
 );
 
 router.delete<
-  PathParams<DeleteEmailNotificationProgramParams>,
+  PathParams<EmailProgramId>,
   ResponseBody<IEmptyObject>,
   RequestBody<IEmptyObject>,
   QueryParams
