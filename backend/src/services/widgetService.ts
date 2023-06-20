@@ -4,7 +4,7 @@ import WidgetRepository from "../repository/widgetRepository";
 import InsertFloatingWidgetRequestDTO from "../dto/widget/insertFloatingWidgetRequestDto";
 import { OnsiteWidgetModel } from "../database/models/onsiteWidget";
 import UpdateFloatingWidgetRequestDTO from "../dto/widget/updateFloatingWidgetRequestDto";
-import InsertFloatingWidgetButtonRequestDTO from "src/dto/widget/insertFloatingWidgetButtonRequestDto";
+import InsertFloatingWidgetButtonRequestDTO from "../dto/widget/insertFloatingWidgetButtonRequestDto";
 import WidgetButtonService from "./widgetButtonService";
 import { OnsiteWidgetAdditionalSettingButtonModel } from "../database/models/onsiteWidgetAdditionalSettingButton";
 import { GetFloatingWidgetButtonResponse } from "../types/response/widget/getFloatingWidgetButtonResponse";

@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { PointRedeemModel } from "../database/models/pointRedeem";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import AppDataSource from "../database";
@@ -28,5 +28,15 @@ export default class PointRedeemRepository {
     queryBuilder.where(`pointRedeem.user_id=${userId}`);
     queryBuilder.orderBy("pointRedeem.created_at", "DESC");
     return await queryBuilder.getRawMany();
+  }
+
+  public async updateRedeemPoint(
+    updatePointRedeemData: Record<string, string | number>,
+    pointRedeemId: number
+  ): Promise<UpdateResult> {
+    return await this._pointRedeemModel.update(
+      { id: pointRedeemId },
+      updatePointRedeemData
+    );
   }
 }

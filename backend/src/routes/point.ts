@@ -97,12 +97,12 @@ router.get<
 );
 
 router.patch<
-  PathParams<PointRedeemDetailId>,
+  PathParams<PointRedeemId>,
   ResponseBody<IEmptyObject>,
   RequestBody<UpdatePointRedeemDetailRequest>,
   QueryParams
 >(
-  "/redeem/detail/:pointRedeemDetailId",
+  "/redeem/detail/:pointRedeemId",
   checkToken,
   doValidation(pointValidations[10]),
   (...arg) => pointController.updatePointRedeemDetail(...arg)

@@ -70,3 +70,11 @@ export type CustomerId = {
 export type AppId = {
   appId: number;
 };
+
+export type PlanId = {
+  planId: number;
+};
+
+export type PlanFeatureId = {
+  planFeatureId: number;
+};

@@ -1,9 +1,7 @@
 import { Repository, UpdateResult } from "typeorm";
-import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
-import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 
 export default class PointDetailRepository {
   private _pointActionDetailModel: Repository<PointActionDetailsModel>;
@@ -29,12 +27,12 @@ export default class PointDetailRepository {
   }
 
   public async updateEarningDetailsByPointId(
-    updatePointEarnDetailRequestDTO: UpdatePointEarnDetailRequestDTO
+    updatePointActionDetailData: Record<string, string | number>,
+    point_action_id: number
   ): Promise<UpdateResult> {
-    const point_action_id = updatePointEarnDetailRequestDTO.point_action_id;
-    const data = lodash.omit(updatePointEarnDetailRequestDTO, [
-      "point_action_id",
-    ]);
-    return await this._pointActionDetailModel.update({ point_action_id }, data);
+    return await this._pointActionDetailModel.update(
+      { point_action_id },
+      updatePointActionDetailData
+    );
   }
 }

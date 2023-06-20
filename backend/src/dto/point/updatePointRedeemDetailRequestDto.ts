@@ -22,11 +22,13 @@ export default class UpdatePointRedeemDetailRequestDTO {
   status: string;
   admin_ref: number;
   updated_by: number;
-  point_redeem_detail_id: number;
+  point_redeem_id: number;
+  reward_icon: string;
+  is_reward_enabled: number;
 
   constructor(
     body: UpdatePointRedeemDetailRequest,
-    pointRedeemDetailId: number,
+    pointRedeemId: number,
     userId: number,
     adminRef: number
   ) {
@@ -58,6 +60,8 @@ export default class UpdatePointRedeemDetailRequestDTO {
     this.status = body.status;
     this.admin_ref = adminRef;
     this.updated_by = userId;
-    this.point_redeem_detail_id = pointRedeemDetailId;
+    this.point_redeem_id = pointRedeemId;
+    this.reward_icon = body.reward_icon;
+    this.is_reward_enabled = body.is_reward_enabled;
   }
 }

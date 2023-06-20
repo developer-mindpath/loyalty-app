@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../database";
 import { PointActionModel } from "../database/models/pointAction";
 import { GetPointEarnResponse } from "../types/response/point/getPointEarnResponse";
@@ -28,5 +28,15 @@ export default class PointRepository {
     queryBuilder.where(`pointAction.user_id=${userId}`);
     queryBuilder.orderBy("pointAction.created_at", "DESC");
     return await queryBuilder.getRawMany();
+  }
+
+  public async updateEarningPoint(
+    updatePointActionData: Record<string, string | number>,
+    point_action_id: number
+  ): Promise<UpdateResult> {
+    return await this._pointActionModel.update(
+      { id: point_action_id },
+      updatePointActionData
+    );
   }
 }

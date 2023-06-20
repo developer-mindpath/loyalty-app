@@ -5,7 +5,7 @@ import { GetPointEarnResponse } from "../types/response/point/getPointEarnRespon
 import PointDetailService from "./pointDetailService";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
-import InsertPointRedeemRequestDTO from "src/dto/point/insertPointRedeemRequestDto";
+import InsertPointRedeemRequestDTO from "../dto/point/insertPointRedeemRequestDto";
 import PointRedeemService from "./pointRedeemService";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
@@ -82,8 +82,31 @@ export default class PointService {
   public async updateEarningDetailsByPointId(
     updatePointEarnDetailRequestDTO: UpdatePointEarnDetailRequestDTO
   ): Promise<UpdateResult> {
+    const updatePointActionData: Record<string, string | number> = {
+      action_icon: updatePointEarnDetailRequestDTO.action_icon,
+      is_action_enabled: updatePointEarnDetailRequestDTO.is_action_enabled,
+      action_visible_order:
+        updatePointEarnDetailRequestDTO.action_visible_order,
+      updated_by: updatePointEarnDetailRequestDTO.updated_by,
+    };
+    await this._pointRepository.updateEarningPoint(
+      updatePointActionData,
+      updatePointEarnDetailRequestDTO.point_action_id
+    );
+    const updatePointActionDetailData: Record<string, string | number> = {
+      app_id: updatePointEarnDetailRequestDTO.app_id,
+      points_amounts: updatePointEarnDetailRequestDTO.points_amounts,
+      limit_count: updatePointEarnDetailRequestDTO.limit_count,
+      limit_count_type: updatePointEarnDetailRequestDTO.limit_count_type,
+      url_to_share: updatePointEarnDetailRequestDTO.url_to_share,
+      earning_method: updatePointEarnDetailRequestDTO.earning_method,
+      status: updatePointEarnDetailRequestDTO.status,
+      limit_count_enabled: updatePointEarnDetailRequestDTO.limit_count_enabled,
+      updated_by: updatePointEarnDetailRequestDTO.updated_by,
+    };
     return await this._pointDetailService.updateEarningDetailsByPointId(
-      updatePointEarnDetailRequestDTO
+      updatePointActionDetailData,
+      updatePointEarnDetailRequestDTO.point_action_id
     );
   }
 
@@ -170,8 +193,52 @@ export default class PointService {
   public async updatePointRedeemDetail(
     updatePointRedeemDetailRequestDTO: UpdatePointRedeemDetailRequestDTO
   ): Promise<UpdateResult> {
+    const updatePointRedeemData: Record<string, string | number> = {
+      reward_icon: updatePointRedeemDetailRequestDTO.reward_icon,
+      is_reward_enabled: updatePointRedeemDetailRequestDTO.is_reward_enabled,
+      updated_by: updatePointRedeemDetailRequestDTO.updated_by,
+    };
+    await this._pointRedeemService.updateRedeemPoint(
+      updatePointRedeemData,
+      updatePointRedeemDetailRequestDTO.point_redeem_id
+    );
+    const updatePointRedeemDetailData: Record<string, string | number> = {
+      points_type: updatePointRedeemDetailRequestDTO.points_type,
+      fixed_points_amount:
+        updatePointRedeemDetailRequestDTO.fixed_points_amount,
+      fixed_points_discount:
+        updatePointRedeemDetailRequestDTO.fixed_points_discount,
+      "fixed_points_discount_ type":
+        updatePointRedeemDetailRequestDTO["fixed_points_discount_ type"],
+      apply_to_maximum_shipping_amount:
+        updatePointRedeemDetailRequestDTO.apply_to_maximum_shipping_amount,
+      incremented_points_amount:
+        updatePointRedeemDetailRequestDTO.incremented_points_amount,
+      incremented_points_money_customer_received:
+        updatePointRedeemDetailRequestDTO.incremented_points_money_customer_received,
+      incremented_points_is_set_minimum_points:
+        updatePointRedeemDetailRequestDTO.incremented_points_is_set_minimum_points,
+      incremented_points_is_set_maximum_points:
+        updatePointRedeemDetailRequestDTO.incremented_points_is_set_maximum_points,
+      incremented_points_minimum_points:
+        updatePointRedeemDetailRequestDTO.incremented_points_minimum_points,
+      incremented_points_maximum_points:
+        updatePointRedeemDetailRequestDTO.incremented_points_maximum_points,
+      is_minimum_cart_requirement:
+        updatePointRedeemDetailRequestDTO.is_minimum_cart_requirement,
+      minimum_cart_value: updatePointRedeemDetailRequestDTO.minimum_cart_value,
+      apply_to: updatePointRedeemDetailRequestDTO.apply_to,
+      collection_id: updatePointRedeemDetailRequestDTO.collection_id,
+      purchase_type: updatePointRedeemDetailRequestDTO.purchase_type,
+      reward_expiry: updatePointRedeemDetailRequestDTO.reward_expiry,
+      products: updatePointRedeemDetailRequestDTO.products,
+      status: updatePointRedeemDetailRequestDTO.status,
+      updated_by: updatePointRedeemDetailRequestDTO.updated_by,
+    };
+
     return await this._pointRedeemDetailService.updatePointRedeemDetail(
-      updatePointRedeemDetailRequestDTO
+      updatePointRedeemDetailData,
+      updatePointRedeemDetailRequestDTO.point_redeem_id
     );
   }
 
