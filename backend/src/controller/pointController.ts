@@ -22,7 +22,7 @@ import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemRe
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import { UpdatePointRedeemDetailRequest } from "../types/request/point/updatePointRedeemDetailRequest";
 import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
-import { PostResponse } from "src/types/response/postResponse";
+import { PostResponse } from "../types/response/postResponse";
 
 export default class PointController {
   private _pointService: PointService;
@@ -219,7 +219,7 @@ export default class PointController {
 
   public async updatePointRedeemDetail(
     req: CustomRequest<
-      PointRedeemDetailId,
+      PointRedeemId,
       IEmptyObject,
       UpdatePointRedeemDetailRequest
     >,
@@ -231,7 +231,7 @@ export default class PointController {
       const updatePointRedeemDetailRequestDTO =
         new UpdatePointRedeemDetailRequestDTO(
           req.body,
-          req.params.pointRedeemDetailId,
+          req.params.pointRedeemId,
           req.userId!,
           req.adminRef!
         );

@@ -7,4 +7,7 @@ export type UpdatePointEarnDetailRequest = {
   earning_method: string;
   status: string;
   limit_count_enabled: number;
+  action_icon: string;
+  is_action_enabled: number;
+  action_visible_order: number;
 };

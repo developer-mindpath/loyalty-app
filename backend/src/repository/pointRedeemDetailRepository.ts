@@ -1,9 +1,7 @@
 import { DeleteResult, Repository, UpdateResult } from "typeorm";
-import lodash from "lodash";
 import AppDataSource from "../database";
 import { PointRedeemDetailModel } from "../database/models/pointRedeemDetail";
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
-import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDetailRequestDto";
 
 export default class PointRedeemDetailRepository {
   private _pointRedeemDetailModel: Repository<PointRedeemDetailModel>;
@@ -31,13 +29,13 @@ export default class PointRedeemDetailRepository {
   }
 
   public async updatePointRedeemDetail(
-    updatePointRedeemDetailRequestDTO: UpdatePointRedeemDetailRequestDTO
+    updatePointRedeemDetailData: Record<string, string | number>,
+    pointRedeemId: number
   ): Promise<UpdateResult> {
-    const id = updatePointRedeemDetailRequestDTO.point_redeem_detail_id;
-    const data = lodash.omit(updatePointRedeemDetailRequestDTO, [
-      "point_redeem_detail_id",
-    ]);
-    return await this._pointRedeemDetailModel.update({ id }, data);
+    return await this._pointRedeemDetailModel.update(
+      { id: pointRedeemId },
+      updatePointRedeemDetailData
+    );
   }
 
   public async deletePointRedeemDetail(

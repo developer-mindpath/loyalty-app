@@ -1,10 +1,8 @@
 import Joi from "joi";
-import { InsertAccountEmbedRequest } from "../types/request/accountEmbed/insertAccountEmbedRequest";
-import { UpdateAccountEmbedRequest } from "../types/request/accountEmbed/updateAccountEmbedRequest";
 import { IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { joiValidationRequest } from "../helper/joi";
-import { InsertAppRequest } from "src/types/request/app/insertAppRequest";
-import { UpdateAppRequest } from "src/types/request/app/updateAppRequest";
+import { InsertAppRequest } from "../types/request/app/insertAppRequest";
+import { UpdateAppRequest } from "../types/request/app/updateAppRequest";
 
 export = {
   0: joiValidationRequest<IEmptyObject, InsertAppRequest, IEmptyObject>({

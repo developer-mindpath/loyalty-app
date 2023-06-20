@@ -18,4 +18,6 @@ export type UpdatePointRedeemDetailRequest = {
   reward_expiry: number;
   products: string;
   status: string;
+  reward_icon: string;
+  is_reward_enabled: number;
 };

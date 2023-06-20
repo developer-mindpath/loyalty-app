@@ -1,3 +1,4 @@
+import { UpdateResult } from "typeorm";
 import { PointRedeemModel } from "../database/models/pointRedeem";
 import PointRedeemRepository from "../repository/pointRedeemRepository";
 import { GetPointRedeemResponse } from "../types/response/point/getPointRedeemResponse";
@@ -20,5 +21,15 @@ export default class PointRedeemService {
     userId: number
   ): Promise<GetPointRedeemResponse[]> {
     return await this._pointRedeemRepository.getPointRedeem(userId);
+  }
+
+  public async updateRedeemPoint(
+    updatePointRedeemData: Record<string, string | number>,
+    pointRedeemId: number
+  ): Promise<UpdateResult> {
+    return await this._pointRedeemRepository.updateRedeemPoint(
+      updatePointRedeemData,
+      pointRedeemId
+    );
   }
 }

@@ -1,5 +1,4 @@
 import { UpdateResult } from "typeorm";
-import UpdatePointEarnDetailRequestDTO from "../dto/point/updatePointEarnDetailRequestDto";
 import PointDetailRepository from "../repository/pointDetailRepository";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import { PointActionDetailsModel } from "../database/models/pointActionDetails";
@@ -27,10 +26,12 @@ export default class PointDetailService {
   }
 
   public async updateEarningDetailsByPointId(
-    updatePointEarnDetailRequestDTO: UpdatePointEarnDetailRequestDTO
+    updatePointActionDetailData: Record<string, string | number>,
+    point_action_id: number
   ): Promise<UpdateResult> {
     return await this._pointDetailRepository.updateEarningDetailsByPointId(
-      updatePointEarnDetailRequestDTO
+      updatePointActionDetailData,
+      point_action_id
     );
   }
 }
