@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-axios.defaults.baseURL =
-  process.env.REACT_APP_BACKEND_URL ?? "http://localhost:3001";
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 class APIUtils {
   /**
