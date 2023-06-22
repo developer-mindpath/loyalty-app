@@ -1,22 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "../store";
-import { ProgramAction } from "../actions/programActions";
+import { EarnPoint, RedeemRewards } from "../actions/programActions";
 import {
-  IPointDetailResponse,
-  IPointResponse,
-  IRedeemPointResponse,
-} from "../../types/program";
+  IEarnPoint,
+  IEarnPointWithAction,
+  IGetEarnPointResponse,
+} from "../../types/program/points/earnPoint";
+import {
+  IGetRedeemRewardResponse,
+  IRewardRedeem,
+  IRewardRedeemWithAction,
+} from "../../types/program/points/redeemRewards";
 
 interface IPointProgramState {
   earn: {
     loading: boolean;
-    list: IPointResponse[];
-    details: IPointDetailResponse;
+    list: IGetEarnPointResponse[];
+    details: IEarnPointWithAction;
   };
   redeem: {
     loading: boolean;
-    list: IRedeemPointResponse[];
-    details: IRedeemPointResponse;
+    list: IGetRedeemRewardResponse[];
+    details: IRewardRedeemWithAction;
   };
 }
 
@@ -24,12 +29,12 @@ const initialState: IPointProgramState = {
   earn: {
     loading: true,
     list: [],
-    details: {} as IPointDetailResponse,
+    details: {} as IEarnPointWithAction,
   },
   redeem: {
     loading: true,
     list: [],
-    details: {} as IRedeemPointResponse,
+    details: {} as IRewardRedeemWithAction,
   },
 };
 
@@ -39,7 +44,7 @@ const pointProgramSlice = createSlice({
   reducers: {
     setEarnDetails: (
       state: IPointProgramState,
-      action: PayloadAction<IPointDetailResponse>
+      action: PayloadAction<IEarnPointWithAction>
     ) => {
       state.earn.details = action.payload;
     },
@@ -53,67 +58,114 @@ const pointProgramSlice = createSlice({
         [key]: value,
       };
     },
+    setRedeemDetails: (
+      state: IPointProgramState,
+      action: PayloadAction<IRewardRedeemWithAction>
+    ) => {
+      state.redeem.details = action.payload;
+    },
+    updateRedeemState: (
+      state: IPointProgramState,
+      action: PayloadAction<{ key: string; value: string | boolean | number }>
+    ) => {
+      const { key, value } = action.payload;
+      state.redeem.details = {
+        ...state.redeem.details,
+        [key]: value,
+      };
+    },
   },
   extraReducers: (builder) => {
+    // Earn Rewards
+    builder.addCase(EarnPoint.getList.pending, (state: IPointProgramState) => {
+      state.earn.loading = true;
+    });
     builder.addCase(
-      ProgramAction.getPoints.pending,
-      (state: IPointProgramState) => {
-        state.earn.loading = true;
-      }
-    );
-    builder.addCase(
-      ProgramAction.getPoints.fulfilled,
-      (state: IPointProgramState, action: PayloadAction<IPointResponse[]>) => {
+      EarnPoint.getList.fulfilled,
+      (
+        state: IPointProgramState,
+        action: PayloadAction<IGetEarnPointResponse[]>
+      ) => {
         state.earn.loading = false;
         state.earn.list = action.payload;
       }
     );
     builder.addCase(
-      ProgramAction.getPointDetail.pending,
+      EarnPoint.getDetails.pending,
       (state: IPointProgramState) => {
         state.earn.loading = true;
       }
     );
     builder.addCase(
-      ProgramAction.getPointDetail.fulfilled,
+      EarnPoint.getDetails.fulfilled,
       (
         state: IPointProgramState,
-        action: PayloadAction<IPointDetailResponse>
+        action: PayloadAction<IEarnPointWithAction>
       ) => {
         state.earn.loading = false;
         state.earn.details = action.payload;
       }
     );
+    builder.addCase(EarnPoint.update.pending, (state: IPointProgramState) => {
+      state.earn.loading = true;
+    });
     builder.addCase(
-      ProgramAction.updatePointDetail.pending,
-      (state: IPointProgramState) => {
-        state.earn.loading = true;
-      }
-    );
-    builder.addCase(
-      ProgramAction.updatePointDetail.fulfilled,
+      EarnPoint.update.fulfilled,
       (
         state: IPointProgramState,
-        action: PayloadAction<Partial<IPointDetailResponse>>
+        action: PayloadAction<Partial<IEarnPoint>>
       ) => {
         state.earn.loading = false;
         state.earn.details = { ...state.earn.details, ...action.payload };
       }
     );
+    // Redeem Rewards
     builder.addCase(
-      ProgramAction.getRedeemPoint.pending,
+      RedeemRewards.getList.pending,
       (state: IPointProgramState) => {
         state.redeem.loading = true;
       }
     );
     builder.addCase(
-      ProgramAction.getRedeemPoint.fulfilled,
+      RedeemRewards.getList.fulfilled,
       (
         state: IPointProgramState,
-        action: PayloadAction<IRedeemPointResponse[]>
+        action: PayloadAction<IGetRedeemRewardResponse[]>
       ) => {
         state.redeem.loading = false;
         state.redeem.list = action.payload;
+      }
+    );
+    builder.addCase(
+      RedeemRewards.getDetail.pending,
+      (state: IPointProgramState) => {
+        state.redeem.loading = true;
+      }
+    );
+    builder.addCase(
+      RedeemRewards.getDetail.fulfilled,
+      (
+        state: IPointProgramState,
+        action: PayloadAction<IRewardRedeemWithAction>
+      ) => {
+        state.redeem.loading = false;
+        state.redeem.details = action.payload;
+      }
+    );
+    builder.addCase(
+      RedeemRewards.update.pending,
+      (state: IPointProgramState) => {
+        state.redeem.loading = true;
+      }
+    );
+    builder.addCase(
+      RedeemRewards.update.fulfilled,
+      (
+        state: IPointProgramState,
+        action: PayloadAction<Partial<IRewardRedeem>>
+      ) => {
+        state.redeem.loading = false;
+        state.redeem.details = { ...state.redeem.details, ...action.payload };
       }
     );
   },

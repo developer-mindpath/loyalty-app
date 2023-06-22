@@ -10,8 +10,8 @@ import {
   Thumbnail,
   Text,
 } from "@shopify/polaris";
-import { usePointDetail } from "../../../../../contexts/pointsDetail";
-import { rewardType } from "../../../../../utils/constants/reward";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
+import { rewardType } from "../../../../utils/constants/reward";
 import { useLocation } from "react-router-dom";
 
 const validImageTypes = ["image/gif", "image/jpeg", "image/png"];

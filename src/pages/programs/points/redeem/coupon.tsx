@@ -1,19 +1,17 @@
-import {
-  AlphaCard,
-  Box,
-  Checkbox,
-  HorizontalStack,
-  Layout,
-  Page,
-  RadioButton,
-  Select,
-  Text,
-  TextField,
-  VerticalStack,
-} from "@shopify/polaris";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
+import { memo } from "react";
+import { AlphaCard, Layout, Page, Text } from "@shopify/polaris";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import ReawrdProvider from "../activities/rewardProvider";
+import RewardTitleActivity from "../activities/rewardTitle";
+import RewardPointActivity from "../activities/pointType";
+import RewardActivity from "../activities/reward";
+import MinimumRequirement from "../activities/mininmumRequirement";
+import ApplyTo from "../activities/applyTo";
+import Expiration from "../activities/expiration";
+import PurchaseType from "../activities/purchaseType";
+import { useRewardDetail } from "../../../../contexts/reawardDetail";
 
 const CouponActivity = () => {
   const couponAmount = 20;
@@ -30,60 +28,37 @@ const CouponActivity = () => {
       <Layout>
         <Layout.Section>
           {/* Reawrds Title */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Rewards Title
               </Text>
-
-              <TextField
-                autoComplete="off"
-                label="Points earned for every $1 Spent"
-                value="$10 off coupon"
-              />
+              <RewardTitleActivity />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
           {/* Point Type */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Points Type
               </Text>
-
-              <VerticalStack>
-                <RadioButton
-                  checked
-                  label="Fixed amount of points"
-                  value="fixed"
-                />
-                <RadioButton label="Incremented points" value="incremented" />
-              </VerticalStack>
+              <RewardPointActivity />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
           {/* Reward */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Reward
               </Text>
-
-              <HorizontalStack>
-                <TextField
-                  autoComplete="off"
-                  label="Points Amount"
-                  suffix="points"
-                />
-                <Box paddingInlineStart="4">
-                  <TextField autoComplete="off" label="Discount" prefix="$" />
-                </Box>
-              </HorizontalStack>
+              <RewardActivity />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
           {/* Reward */}
-          <Box paddingBlockEnd="5">
+          {/* <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Reward
@@ -120,94 +95,73 @@ const CouponActivity = () => {
                 <TextField labelHidden autoComplete="off" label="" />
               </Box>
             </AlphaCard>
-          </Box>
+          </Layout.Section> */}
 
           {/* Minimum Cart Requirement */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Minimum Cart Requirement
               </Text>
-
-              <VerticalStack>
-                <RadioButton label="None" />
-                <RadioButton label="Minimum Cart Value" checked />
-              </VerticalStack>
-
-              <TextField
-                label="Minimal Cart Value"
-                value="2"
-                prefix="$"
-                type="number"
-                autoComplete="off"
-              />
+              <MinimumRequirement />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
           {/* Apply To */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Apply To:
               </Text>
-
-              <VerticalStack>
-                <RadioButton label="Entire Order" />
-                <RadioButton label="Choose Collection" checked />
-              </VerticalStack>
-              {/* TODO: Load options from API */}
-              <Select label="Minimal Cart Value" options={[]} />
+              <ApplyTo />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
           {/* Purchase Type */}
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Purchase Type (Optional)
               </Text>
-
-              <VerticalStack>
-                <RadioButton label="One-time Purchase" checked />
-                <RadioButton label="Subscription" />
-                <RadioButton label="Both" />
-              </VerticalStack>
+              <PurchaseType />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
 
-          {/* Purchase Type */}
-          <Box paddingBlockEnd="5">
+          {/* Expiration */}
+          <Layout.Section>
             <AlphaCard>
               <Text as="h6" variant="headingMd">
                 Rewards Expiration
               </Text>
-
-              <Checkbox
-                checked
-                label="Set issued rewards to expire after a certain amount of time"
-              />
+              <Expiration />
             </AlphaCard>
-          </Box>
+          </Layout.Section>
         </Layout.Section>
         <Layout.Section secondary>
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <ProgramSummary
               title="Summary"
               description="Points granted to member who generates a completed referral."
             />
-          </Box>
+          </Layout.Section>
 
-          <Box paddingBlockEnd="5">
-            <ProgramStatus />
-          </Box>
+          <Layout.Section>
+            <ProgramStatus handler={useRewardDetail} />
+          </Layout.Section>
 
-          <Box paddingBlockEnd="5">
+          <Layout.Section>
             <ProgramIcon />
-          </Box>
+          </Layout.Section>
         </Layout.Section>
       </Layout>
     </Page>
   );
 };
 
-export default CouponActivity;
+const component = () => (
+  <ReawrdProvider>
+    <CouponActivity />
+  </ReawrdProvider>
+);
+
+export default memo(component);

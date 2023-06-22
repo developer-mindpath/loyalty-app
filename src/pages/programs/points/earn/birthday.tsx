@@ -7,12 +7,11 @@ import {
   Text,
   TextField,
 } from "@shopify/polaris";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
-import PointDetailProvider, {
-  usePointDetail,
-} from "../../../../contexts/pointsDetail";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
+import EarnProvider from "../activities/earnProvider";
 
 const BirthdayActivity = () => {
   const { details, handleChange } = usePointDetail();
@@ -79,9 +78,9 @@ const BirthdayActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <BirthdayActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

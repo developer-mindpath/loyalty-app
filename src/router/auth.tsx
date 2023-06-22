@@ -9,12 +9,12 @@ import ShareActivity from "../pages/programs/points/earn/share";
 import OrderActivity from "../pages/programs/points/earn/order";
 import SignUpActivity from "../pages/programs/points/earn/signUp";
 import FollowActivity from "../pages/programs/points/earn/follow";
-import CouponActivity from "../pages/programs/points/earn/coupon";
 import ReferalActivity from "../pages/programs/points/earn/referral";
 import BirthdayActivity from "../pages/programs/points/earn/birthday";
 import ProductReviewActivity from "../pages/programs/points/earn/productReview";
 // Redeeming
-
+import PrecentageRedeem from "../pages/programs/points/redeem/percentage";
+import CouponActivity from "../pages/programs/points/redeem/coupon";
 // Referral
 import ReferralPage from "../pages/programs/referral";
 
@@ -64,6 +64,10 @@ const DashboardRoutes = (): JSX.Element => (
     />
     <Route path="/programs/points/follow/:id" element={<FollowActivity />} />
     <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
+    <Route
+      path="/programs/points/redeem/precentage/:id"
+      element={<PrecentageRedeem />}
+    />
     {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
     {/* Settings */}
     <Route path="/settings" element={<Settings />} />

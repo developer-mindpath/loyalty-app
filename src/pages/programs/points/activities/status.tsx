@@ -1,15 +1,18 @@
 import { ChangeEvent, useMemo } from "react";
 import Toggle from "react-toggle";
 import { AlphaCard, HorizontalStack, Badge, Box, Text } from "@shopify/polaris";
-import { usePointDetail } from "../../../../../contexts/pointsDetail";
+import {
+  usePointDetail,
+  IPointDetailContext,
+} from "../../../../contexts/pointsDetail";
+import { IRewardDetailContext } from "../../../../contexts/reawardDetail";
 
 export interface IProgramStatusProps {
-  active: boolean;
-  onChange: (arg: ChangeEvent<HTMLInputElement>) => void;
+  handler?: () => IRewardDetailContext | IPointDetailContext;
 }
 
-const ProgramStatus = () => {
-  const { details, handleChange } = usePointDetail();
+function ProgramStatus({ handler = usePointDetail }: IProgramStatusProps) {
+  const { details, handleChange } = handler();
   const status = useMemo(() => details?.status === "on", [details]);
 
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +36,6 @@ const ProgramStatus = () => {
       </Box>
     </AlphaCard>
   );
-};
+}
 
 export default ProgramStatus;

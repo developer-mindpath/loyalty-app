@@ -8,11 +8,10 @@ import {
   TextField,
 } from "@shopify/polaris";
 import { useSearchParams } from "react-router-dom";
-import { FavoriteMajor } from "@shopify/polaris-icons";
-import ProgramIcon from "./activities/programIcon";
-import ProgramStatus from "./activities/programStatus";
-import ProgramPointAmount from "./activities/programPointAmount";
-import PointDetailProvider from "../../../../contexts/pointsDetail";
+import ProgramIcon from "../activities/programIcon";
+import ProgramStatus from "../activities/status";
+import ProgramPointAmount from "../activities/programPointAmount";
+import EarnProvider from "../activities/earnProvider";
 
 const title = "Like page on ";
 const parentURL = "/programs/points";
@@ -73,9 +72,9 @@ const LikeActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <LikeActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

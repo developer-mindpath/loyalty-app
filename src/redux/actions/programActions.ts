@@ -1,35 +1,42 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ProgramService } from "../../service/programService";
 import {
-  IAddEarnResponse,
-  IAddEarnRequest,
-  IPointDetailResponse,
-} from "../../types/program";
+  IEarnPoint,
+  IAddEarnPointRequest,
+  IAddEarnPointResponse,
+} from "../../types/program/points/earnPoint";
+import {
+  IAddRedeemRewardResponse,
+  IAddRewardRequest,
+  IUpdateRewardRequest,
+} from "../../types/program/points/redeemRewards";
 
-export class ProgramAction {
+export class EarnPoint {
   /**
    * Program Points
    */
-  public static getPoints = createAsyncThunk("/get/program/points", () => {
-    return ProgramService.getPoints();
+  public static getList = createAsyncThunk("/program/points/earn/get", () => {
+    return ProgramService.getEarnPointList();
   });
 
   /**
    * Program Points Details
    */
-  public static getPointDetail = createAsyncThunk(
-    "/get/program/points/details",
+  public static getDetails = createAsyncThunk(
+    "/program/points/earn/get/details",
     (id: string) => {
-      return ProgramService.getPointDetail(id);
+      return ProgramService.getEarnPointDetail(id);
     }
   );
 
   /**
    * Add Program Redeem Point
    */
-  public static addEarnPoint = createAsyncThunk(
-    "/add/program/earn",
-    async (payload: Partial<IAddEarnRequest>): Promise<IAddEarnResponse> => {
+  public static add = createAsyncThunk(
+    "/program/points/earn/add",
+    async (
+      payload: Partial<IAddEarnPointRequest>
+    ): Promise<IAddEarnPointResponse> => {
       return await ProgramService.addEarnPoint(payload);
     }
   );
@@ -37,21 +44,54 @@ export class ProgramAction {
   /**
    * Program Points Details
    */
-  public static updatePointDetail = createAsyncThunk(
-    "/update/program/points/details",
-    async (payload: Partial<IPointDetailResponse>) => {
-      await ProgramService.updatePointDetail(payload);
+  public static update = createAsyncThunk(
+    "/program/points/earn/update",
+    async (payload: Partial<IEarnPoint>) => {
+      await ProgramService.updateEarnPointDetail(payload);
       return payload;
+    }
+  );
+}
+
+export class RedeemRewards {
+  /**
+   * Get Program Redeem Point
+   */
+  public static getList = createAsyncThunk(
+    "/program/points/redeem/get",
+    async () => {
+      return await ProgramService.getRewardRedeemList();
     }
   );
 
   /**
-   * Get Program Redeem Point
+   * Program Points Details
    */
-  public static getRedeemPoint = createAsyncThunk(
-    "/get/program/redeem",
-    async () => {
-      return await ProgramService.getRedeemPoint();
+  public static getDetail = createAsyncThunk(
+    "/program/points/redeem/get/details",
+    (id: string) => {
+      return ProgramService.getRewardRedeemDetails(id);
+    }
+  );
+
+  /**
+   * Add Program Redeem Point
+   */
+  public static add = createAsyncThunk(
+    "/program/points/redeem/add",
+    async (payload: IAddRewardRequest): Promise<IAddRedeemRewardResponse> => {
+      return await ProgramService.addReward(payload);
+    }
+  );
+
+  /**
+   * Program Points Details
+   */
+  public static update = createAsyncThunk(
+    "/program/points/redeem/update",
+    async (payload: IUpdateRewardRequest) => {
+      await ProgramService.updateRewardRedeemDetail(payload);
+      return payload;
     }
   );
 }

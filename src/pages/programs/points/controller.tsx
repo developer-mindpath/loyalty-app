@@ -1,6 +1,9 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { ProgramAction } from "../../../redux/actions/programActions";
+import {
+  EarnPoint,
+  RedeemRewards,
+} from "../../../redux/actions/programActions";
 import {
   getEarnList,
   getEarnLoading,
@@ -23,7 +26,7 @@ const PointsController = () => {
 
   const getReferralData = useCallback(async () => {
     try {
-      await dispatch(ProgramAction.getPoints());
+      await dispatch(EarnPoint.getList());
     } catch (e) {
       console.error(e);
     }
@@ -31,7 +34,7 @@ const PointsController = () => {
 
   const getRedeemData = useCallback(async () => {
     try {
-      await dispatch(ProgramAction.getRedeemPoint());
+      await dispatch(RedeemRewards.getList());
     } catch (e) {
       console.error(e);
     }

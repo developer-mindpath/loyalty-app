@@ -8,14 +8,12 @@ import {
   Text,
   TextField,
 } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
-import PointDetailProvider, {
-  usePointDetail,
-} from "../../../../contexts/pointsDetail";
-import ProgramPointAmount from "./activities/programPointAmount";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
+import ProgramPointAmount from "../activities/programPointAmount";
+import EarnProvider from "../activities/earnProvider";
 
 const ShareActivity = () => {
   const { details, handleChange } = usePointDetail();
@@ -99,9 +97,9 @@ const ShareActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <ShareActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

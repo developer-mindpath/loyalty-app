@@ -8,73 +8,88 @@ import {
   useState,
 } from "react";
 import { parseInt } from "lodash";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
-  IEarnPointAction,
-  IEarnPointWithAction,
-} from "../types/program/points/earnPoint";
-import {
-  getEarnDetails,
+  getRedeemDetails,
   programPointActions,
 } from "../redux/reducers/pointsProgram";
-import { EarnPoint } from "../redux/actions/programActions";
+import { RedeemRewards } from "../redux/actions/programActions";
 import ObjectUtil from "../utils/object";
 import useContextualSave from "../hooks/useContextualSave";
+import {
+  IRewardRedeemAction,
+  IRewardRedeemWithAction,
+} from "../types/program/points/redeemRewards";
 import { IValidValue } from "../types/program";
+import { parseStringToObject } from "../utils/string";
 
 export type ChangeHandlerType = (key: string) => (value: IValidValue) => void;
 
-export interface IPointDetailContext {
+export interface IRewardDetailContext {
   error: boolean;
   loading: boolean;
-  details: IEarnPointWithAction;
+  details: IRewardRedeemWithAction;
   handleChange: ChangeHandlerType;
 }
 
-const PointDetailContext = createContext<IPointDetailContext>({
+const RewardDetailContext = createContext<IRewardDetailContext>({
   error: false,
   loading: true,
   details: {
-    pointAction: {} as IEarnPointAction,
     id: 0,
-    point_action_id: 0,
-    app_id: 0,
-    points_amounts: 0,
-    limit_count: null,
-    limit_count_type: null,
-    url_to_share: null,
-    earning_method: null,
+    point_redeem_id: 0,
+    points_type: "",
+    fixed_points_amount: 0,
+    fixed_points_discount: 0,
+    fixed_points_discount_type: "",
+    apply_to_maximum_shipping_amount: 0,
+    incremented_points_amount: 0,
+    incremented_points_money_customer_received: 0,
+    incremented_points_is_set_minimum_points: 0,
+    incremented_points_is_set_maximum_points: 0,
+    incremented_points_minimum_points: 0,
+    incremented_points_maximum_points: 0,
+    is_minimum_cart_requirement: 0,
+    minimum_cart_value: 0,
+    apply_to: "",
+    collection_id: "",
+    purchase_type: "",
+    reward_expiry: "",
+    products: "",
     status: "",
-    limit_count_enabled: null,
+    user_id: 0,
     admin_ref: 0,
     created_by: 0,
     updated_by: 0,
     created_at: "",
     updated_at: "",
+    pointRedeem: {} as IRewardRedeemAction,
   },
   handleChange: () => () => ({}),
 });
 
-const PointDetailProvider = ({ children }: PropsWithChildren) => {
+const RewardDetailProvider = ({ children }: PropsWithChildren) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const details = useAppSelector(getEarnDetails);
+  const details = useAppSelector(getRedeemDetails);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [initalState, setIntialState] = useState<IEarnPointWithAction>();
+  const [initalState, setIntialState] = useState<IRewardRedeemWithAction>();
 
   const addNew = useCallback(async () => {
     try {
       const response = await dispatch(
-        EarnPoint.add({
-          action_key: searchParams.get("id") as string,
-          action_icon: searchParams.get("img") as string,
-          action_key_display_text: searchParams.get("name") as string,
-          action_description: "Testing Description",
-          ...(details as any),
+        RedeemRewards.add({
+          reward_key: searchParams.get("id") as string,
+          reward_icon: searchParams.get("img") as string,
+          reward_key_key_display_text:
+            (searchParams.get("name") as string) ??
+            details.pointRedeem.reward_key_key_display_text,
+          reward_description: "Testing Description",
+          ...details,
         })
       ).unwrap();
 
@@ -97,9 +112,9 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
     try {
       const payload = ObjectUtil.getChanges(initalState!, details);
       await dispatch(
-        EarnPoint.update({
+        RedeemRewards.update({
           ...payload,
-          point_action_id: parseInt(id),
+          point_redeem_id: parseInt(id),
         })
       );
       setIntialState(details);
@@ -109,7 +124,7 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
   }, [addNew, details, dispatch, id, initalState]);
 
   const handleDiscard = useCallback(async () => {
-    await dispatch(programPointActions.setEarnDetails(initalState!));
+    await dispatch(programPointActions.setRedeemDetails(initalState!));
   }, [dispatch, initalState]);
 
   useContextualSave(
@@ -126,7 +141,7 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
     setLoading(true);
     setError(false);
     try {
-      const data = await dispatch(EarnPoint.getDetails(id!)).unwrap();
+      const data = await dispatch(RedeemRewards.getDetail(id!)).unwrap();
       setIntialState(data);
       setLoading(false);
     } catch (e) {
@@ -141,12 +156,19 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
 
   const handleChange = useCallback(
     (key: string) => (value: string | boolean | number) => {
-      dispatch(programPointActions.updateEarnState({ key, value }));
+      const object = parseStringToObject<IRewardRedeemWithAction>(key, value);
+      dispatch(
+        programPointActions.setRedeemDetails({
+          ...details,
+          ...object,
+          pointRedeem: { ...details.pointRedeem, ...object.pointRedeem },
+        })
+      );
     },
-    [dispatch]
+    [details, dispatch]
   );
 
-  const value: IPointDetailContext = useMemo(
+  const value: IRewardDetailContext = useMemo(
     () => ({
       loading,
       error,
@@ -157,12 +179,12 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
   );
 
   return (
-    <PointDetailContext.Provider value={value}>
+    <RewardDetailContext.Provider value={value}>
       {children}
-    </PointDetailContext.Provider>
+    </RewardDetailContext.Provider>
   );
 };
 
-export const usePointDetail = () => useContext(PointDetailContext);
+export const useRewardDetail = () => useContext(RewardDetailContext);
 
-export default PointDetailProvider;
+export default RewardDetailProvider;

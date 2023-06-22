@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import { Box, Checkbox, Select } from "@shopify/polaris";
-import TextField from "../../../../../components/textField";
-import { usePointDetail } from "../../../../../contexts/pointsDetail";
+import TextField from "../../../../components/textField";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
 
 const LimitPointEarning = () => {
   const { details, handleChange } = usePointDetail();

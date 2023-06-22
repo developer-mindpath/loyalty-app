@@ -1,11 +1,10 @@
 import { memo } from "react";
 import { AlphaCard, Box, Layout, Page, Text } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
-import ProgramPointAmount from "./activities/programPointAmount";
-import PointDetailProvider from "../../../../contexts/pointsDetail";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import ProgramPointAmount from "../activities/programPointAmount";
+import EarnProvider from "../activities/earnProvider";
 
 const SignUpActivity = () => {
   return (
@@ -53,9 +52,9 @@ const SignUpActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <SignUpActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

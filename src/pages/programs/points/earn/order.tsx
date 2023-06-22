@@ -8,12 +8,12 @@ import {
   Text,
   VerticalStack,
 } from "@shopify/polaris";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
-import ProgramPointAmount from "./activities/programPointAmount";
-import LimitPointEarning from "./activities/limitPointEarning";
-import PointDetailProvider from "../../../../contexts/pointsDetail";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import ProgramPointAmount from "../activities/programPointAmount";
+import LimitPointEarning from "../activities/limitPointEarning";
+import EarnProvider from "../activities/earnProvider";
 
 const OrderActivity = () => {
   const [selected, setSelected] = useState<string>("incemental");
@@ -94,9 +94,9 @@ const OrderActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <OrderActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

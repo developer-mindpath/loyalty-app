@@ -1,13 +1,12 @@
 import { memo } from "react";
 import { AlphaCard, Box, Layout, Page, Text } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
-import PointDetailProvider from "../../../../contexts/pointsDetail";
-import ProgramPointAmount from "./activities/programPointAmount";
-import LimitPointEarning from "./activities/limitPointEarning";
-import SelectReviewApp from "./activities/selectReviewApp";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
+import ProgramPointAmount from "../activities/programPointAmount";
+import LimitPointEarning from "../activities/limitPointEarning";
+import SelectReviewApp from "../activities/selectReviewApp";
+import EarnProvider from "../activities/earnProvider";
 
 const title = "Post a Product Review - Photo";
 const parentURL = "/programs/points";
@@ -71,9 +70,9 @@ const ProductReviewActivity = () => (
 );
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <ProductReviewActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);

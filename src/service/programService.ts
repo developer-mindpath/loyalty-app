@@ -1,22 +1,30 @@
 import APIUtils from "../utils/api";
 import { IResponseWithBody } from "../types";
 import {
-  IAddPointDetailRequest,
-  IAddEarnResponse,
-  IAddEarnRequest,
-  IPointDetailResponse,
-  IPointResponse,
-  IRedeemPointResponse,
-  IAppListItem,
-} from "../types/program";
+  IAddEarnPointRequest,
+  IGetEarnPointResponse,
+  IAddEarnPointResponse,
+  IUpdateEarnPoint,
+  IEarnPointWithAction,
+} from "../types/program/points/earnPoint";
+import {
+  IAddRedeemRewardResponse,
+  IAddRewardRequest,
+  IGetRedeemRewardResponse,
+  IRewardRedeemWithAction,
+  IUpdateRewardRequest,
+} from "../types/program/points/redeemRewards";
+import { IAppListItem } from "../types/program";
 
 export class ProgramService {
   /**
    * Get Points
    * @returns {Promise<IPointResponse>}
    */
-  public static async getPoints(): Promise<IPointResponse[]> {
-    const repsonse = await APIUtils.send<IResponseWithBody<IPointResponse[]>>({
+  public static async getEarnPointList(): Promise<IGetEarnPointResponse[]> {
+    const repsonse = await APIUtils.send<
+      IResponseWithBody<IGetEarnPointResponse[]>
+    >({
       url: "/api/point/earn",
       method: "GET",
     });
@@ -26,13 +34,13 @@ export class ProgramService {
 
   /**
    * Get Points Detail
-   * @returns {Promise<IPointDetailResponse>}
+   * @returns {Promise<IEarnPoint>}
    */
-  public static async getPointDetail(
+  public static async getEarnPointDetail(
     id: string
-  ): Promise<IPointDetailResponse> {
+  ): Promise<IEarnPointWithAction> {
     const repsonse = await APIUtils.send<
-      IResponseWithBody<IPointDetailResponse>
+      IResponseWithBody<IEarnPointWithAction>
     >({
       url: `/api/point/earn/detail/${id}`,
       method: "GET",
@@ -42,12 +50,30 @@ export class ProgramService {
   }
 
   /**
+   * Add Redeem Points
+   * @param {Partial<IAddEarnPointRequest>} payload
+   * @return {Promise<IAddEarnPointResponse>}
+   */
+  public static async addEarnPoint(
+    payload: Partial<IAddEarnPointRequest>
+  ): Promise<IAddEarnPointResponse> {
+    const response = await APIUtils.send<
+      IResponseWithBody<IAddEarnPointResponse>
+    >({
+      url: "/api/point/earn",
+      method: "POST",
+      data: payload,
+    });
+    return response.data.body;
+  }
+
+  /**
    * Update Point Detail
-   * @param {Partial<IPointDetailResponse>} payload
+   * @param {Partial<IEarnPoint>} payload
    * @return {Promise<void>}
    */
-  public static async updatePointDetail(
-    payload: Partial<IPointDetailResponse>
+  public static async updateEarnPointDetail(
+    payload: IUpdateEarnPoint
   ): Promise<void> {
     await APIUtils.send({
       url: `/api/point/earn/detail/${payload.point_action_id}`,
@@ -57,27 +83,14 @@ export class ProgramService {
   }
 
   /**
-   * Add Point Detail
-   * @param {IAddPointDetailRequest} payload
-   * @return {Promise<void>}
-   */
-  public static async addPointDetail(
-    payload: IAddPointDetailRequest
-  ): Promise<void> {
-    await APIUtils.send({
-      url: "/api/point/earn",
-      method: "POST",
-      data: payload,
-    });
-  }
-
-  /**
    * Get Redeem Points
    * @returns {Promise<IRedeemPointResponse[]>}
    */
-  public static async getRedeemPoint(): Promise<IRedeemPointResponse[]> {
+  public static async getRewardRedeemList(): Promise<
+    IGetRedeemRewardResponse[]
+  > {
     const response = await APIUtils.send<
-      IResponseWithBody<IRedeemPointResponse[]>
+      IResponseWithBody<IGetRedeemRewardResponse[]>
     >({
       url: "/api/point/redeems",
       method: "GET",
@@ -86,18 +99,52 @@ export class ProgramService {
   }
 
   /**
-   * Add Redeem Points
-   * @returns
+   * Get Redeem Points
+   * @returns {Promise<IRedeemPointResponse[]>}
    */
-  public static async addEarnPoint(
-    payload: Partial<IAddEarnRequest>
-  ): Promise<IAddEarnResponse> {
-    const response = await APIUtils.send<IResponseWithBody<IAddEarnResponse>>({
-      url: "/api/point/earn",
+  public static async getRewardRedeemDetails(
+    id: string
+  ): Promise<IRewardRedeemWithAction> {
+    const response = await APIUtils.send<
+      IResponseWithBody<IRewardRedeemWithAction>
+    >({
+      url: `/api/point/redeem/detail/${id}`,
+      method: "GET",
+    });
+    return response.data.body;
+  }
+
+  /**
+   * Add Redeem Points
+   * @param {Partial<IAddEarnPointRequest>} payload
+   * @return {Promise<IAddEarnPointResponse>}
+   */
+  public static async addReward(
+    payload: Partial<IAddRewardRequest>
+  ): Promise<IAddRedeemRewardResponse> {
+    const response = await APIUtils.send<
+      IResponseWithBody<IAddEarnPointResponse>
+    >({
+      url: "/api/point/redeem",
       method: "POST",
       data: payload,
     });
     return response.data.body;
+  }
+
+  /**
+   * Update Point Detail
+   * @param {Partial<IEarnPoint>} payload
+   * @return {Promise<void>}
+   */
+  public static async updateRewardRedeemDetail(
+    payload: IUpdateRewardRequest
+  ): Promise<void> {
+    await APIUtils.send({
+      url: `/api/point/redeem/detail/${payload.point_redeem_id}`,
+      method: "PATCH",
+      data: payload,
+    });
   }
 
   /**

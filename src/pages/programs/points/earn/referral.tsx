@@ -7,16 +7,14 @@ import {
   Spinner,
   Text,
 } from "@shopify/polaris";
-import { FavoriteMajor } from "@shopify/polaris-icons";
-import ProgramSummary from "./activities/programSummary";
-import ProgramStatus from "./activities/programStatus";
-import ProgramIcon from "./activities/programIcon";
+import ProgramSummary from "../activities/programSummary";
+import ProgramStatus from "../activities/status";
+import ProgramIcon from "../activities/programIcon";
 import { memo } from "react";
-import PointDetailProvider, {
-  usePointDetail,
-} from "../../../../contexts/pointsDetail";
-import ProgramPointAmount from "./activities/programPointAmount";
-import LimitPointEarning from "./activities/limitPointEarning";
+import { usePointDetail } from "../../../../contexts/pointsDetail";
+import ProgramPointAmount from "../activities/programPointAmount";
+import LimitPointEarning from "../activities/limitPointEarning";
+import EarnProvider from "../activities/earnProvider";
 
 const title = "Complete a Referral";
 const parentURL = "/programs/points";
@@ -82,9 +80,9 @@ const ReferalActivity = () => {
 };
 
 const component = () => (
-  <PointDetailProvider>
+  <EarnProvider>
     <ReferalActivity />
-  </PointDetailProvider>
+  </EarnProvider>
 );
 
 export default memo(component);
