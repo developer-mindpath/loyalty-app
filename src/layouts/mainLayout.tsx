@@ -14,7 +14,7 @@ import {
 } from "@shopify/polaris-icons";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { MainLogo } from "../assets";
+import { MainLogo } from "@/assets";
 import "./MainLayout.module.css";
 
 const StyledSubNav = styled.div`

@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import ContextualSaveBar from "../components/ContextualSaveBar";
+import ContextualSaveBar from "@/components/ContextualSaveBar";
 import { useLocation } from "react-router-dom";
 
 export interface IFireContextualSaveContext {

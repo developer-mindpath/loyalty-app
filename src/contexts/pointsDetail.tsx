@@ -9,19 +9,19 @@ import {
 } from "react";
 import { parseInt } from "lodash";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import {
   IEarnPointAction,
   IEarnPointWithAction,
-} from "../types/program/points/earnPoint";
+} from "@/types/program/points/earnPoint";
 import {
   getEarnDetails,
   programPointActions,
-} from "../redux/reducers/pointsProgram";
-import { EarnPoint } from "../redux/actions/programActions";
-import ObjectUtil from "../utils/object";
-import useContextualSave from "../hooks/useContextualSave";
-import { IValidValue } from "../types/program";
+} from "@/redux/reducers/pointsProgram";
+import { EarnPoint } from "@/redux/actions/programActions";
+import ObjectUtil from "@/utils/object";
+import useContextualSave from "@/hooks/useContextualSave";
+import { IValidValue } from "@/types/program";
 
 export type ChangeHandlerType = (key: string) => (value: IValidValue) => void;
 

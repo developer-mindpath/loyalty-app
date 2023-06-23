@@ -1,5 +1,5 @@
 import { Box, ChoiceList, Select } from "@shopify/polaris";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 
 const ApplyTo = () => {
   const { details, handleChange } = useRewardDetail();

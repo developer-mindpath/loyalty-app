@@ -14,12 +14,12 @@ import {
   Divider,
   EmptyState,
 } from "@shopify/polaris";
-import EarningList from "../../../components/earningList";
-import DescriptionButton from "../../../components/layouts/descriptionButton";
+import EarningList from "@/components/earningList";
+import DescriptionButton from "@/components/layouts/descriptionButton";
 import PointsController from "./controller";
-import PointsListItem from "../../../components/points/pointsListItem";
-import { earnType, rewardType } from "../../../utils/constants/reward";
-import { getSocialPlatformNameFromString } from "../../../utils/string";
+import PointsListItem from "@/components/points/pointsListItem";
+import { earnType, rewardType } from "@/utils/constants/reward";
+import { getSocialPlatformNameFromString } from "@/utils/string";
 
 function Points() {
   const { getters, handlers } = PointsController();

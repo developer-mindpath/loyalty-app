@@ -1,4 +1,4 @@
-import APIUtils from "../utils/api";
+import APIUtils from "@/utils/api";
 import {
   IResponse,
   IResponseWithBody,
@@ -6,7 +6,7 @@ import {
   IGetOrderSettingsResponse,
   IUpdateEmailSettingRequest,
   IUpdateOrderSettingsRequest,
-} from "../types";
+} from "@/types";
 
 /**
  * Settings Services

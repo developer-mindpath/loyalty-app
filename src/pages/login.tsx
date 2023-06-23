@@ -10,7 +10,7 @@ import {
   Text,
 } from "@shopify/polaris";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../service/authService";
+import AuthService from "@/service/authService";
 
 const Login = () => {
   const navigate = useNavigate();

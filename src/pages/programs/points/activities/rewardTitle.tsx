@@ -1,6 +1,6 @@
-import TextField from "../../../../components/textField";
-import ValidationUtil from "../../../../utils/validation";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import TextField from "@/components/textField";
+import ValidationUtil from "@/utils/validation";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 import { Box } from "@shopify/polaris";
 
 const RewardTitleActivity = () => {

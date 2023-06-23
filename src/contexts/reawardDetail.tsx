@@ -8,21 +8,21 @@ import {
   useState,
 } from "react";
 import { parseInt } from "lodash";
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   getRedeemDetails,
   programPointActions,
-} from "../redux/reducers/pointsProgram";
-import { RedeemRewards } from "../redux/actions/programActions";
-import ObjectUtil from "../utils/object";
-import useContextualSave from "../hooks/useContextualSave";
+} from "@/redux/reducers/pointsProgram";
+import { RedeemRewards } from "@/redux/actions/programActions";
+import ObjectUtil from "@/utils/object";
+import useContextualSave from "@/hooks/useContextualSave";
 import {
   IRewardRedeemAction,
   IRewardRedeemWithAction,
-} from "../types/program/points/redeemRewards";
-import { IValidValue } from "../types/program";
-import { parseStringToObject } from "../utils/string";
+} from "@/types/program/points/redeemRewards";
+import { IValidValue } from "@/types/program";
+import { parseStringToObject } from "@/utils/string";
 
 export type ChangeHandlerType = (key: string) => (value: IValidValue) => void;
 

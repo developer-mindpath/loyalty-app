@@ -1,8 +1,8 @@
-// import { IResponseWithBody } from "../types";
-// import APIUtils from "../utils/api";
+// import { IResponseWithBody } from "@/types";
+// import APIUtils from "@/utils/api";
 
-import { IResponseWithBody } from "../types";
-import APIUtils from "../utils/api";
+import { IResponseWithBody } from "@/types";
+import APIUtils from "@/utils/api";
 
 interface ILoginRequest {
   email: string;

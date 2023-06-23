@@ -1,4 +1,4 @@
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 import { Box, ChoiceList } from "@shopify/polaris";
 
 const RewardPointTypeActivity = () => {

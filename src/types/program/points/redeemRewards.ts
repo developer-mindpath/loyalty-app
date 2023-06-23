@@ -1,5 +1,5 @@
-import { IAudit, ITimestamp } from "../../api";
-import { IWithRedeem } from "../../program";
+import type { IWithRedeem } from "@/types/program";
+import type { IAudit, ITimestamp } from "@/types/api";
 
 export interface IRewardRedeemAction extends IAudit, ITimestamp {
   id: number;

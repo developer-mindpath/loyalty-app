@@ -11,7 +11,7 @@ import {
   Text,
   Divider,
 } from "@shopify/polaris";
-import { IRewardsListingType, rewardType } from "../utils/constants/reward";
+import { IRewardsListingType, rewardType } from "@/utils/constants/reward";
 
 interface IEarningList {
   rewards: IRewardsListingType[];

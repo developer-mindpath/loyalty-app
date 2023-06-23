@@ -8,12 +8,12 @@ import {
   Text,
   VerticalStack,
 } from "@shopify/polaris";
-import ProgramSummary from "../activities/programSummary";
-import ProgramStatus from "../activities/status";
-import ProgramIcon from "../activities/programIcon";
-import ProgramPointAmount from "../activities/programPointAmount";
-import LimitPointEarning from "../activities/limitPointEarning";
-import EarnProvider from "../activities/earnProvider";
+import ProgramSummary from "@/pages/programs/points/activities/programSummary";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import ProgramPointAmount from "@/pages/programs/points/activities/programPointAmount";
+import LimitPointEarning from "@/pages/programs/points/activities/limitPointEarning";
+import EarnProvider from "@/pages/programs/points/activities/earnProvider";
 
 const OrderActivity = () => {
   const [selected, setSelected] = useState<string>("incemental");

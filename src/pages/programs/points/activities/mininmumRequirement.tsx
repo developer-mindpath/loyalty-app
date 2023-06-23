@@ -1,6 +1,6 @@
 import { TextField, ChoiceList, Box } from "@shopify/polaris";
 import { parseInt } from "lodash";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 
 const MinimumRequirement = () => {
   const { details, handleChange } = useRewardDetail();

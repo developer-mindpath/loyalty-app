@@ -10,12 +10,11 @@ import {
   Spinner,
   Text,
 } from "@shopify/polaris";
-import SectionedLayout from "../../../components/layouts/sectionedLayout";
-import SectionDivider from "../../../components/layouts/sectionDivider";
+import SectionDivider from "@/components/layouts/sectionDivider";
 import { EmailController } from "./email.controller";
-import TextField from "../../../components/textField";
-import ValidationUtil from "../../../utils/validation";
-import { RoutePathEnum } from "../../../utils/enum/routePathEnum";
+import TextField from "@/components/textField";
+import ValidationUtil from "@/utils/validation";
+import { RoutePathEnum } from "@/utils/enum/routePathEnum";
 
 const EmailSettings = () => {
   const { getters, handlers, ref } = EmailController();
@@ -55,7 +54,7 @@ const EmailSettings = () => {
       }}
     >
       <Layout sectioned>
-        <SectionedLayout
+        <Layout.AnnotatedSection
           title="Email Settings"
           description="Customize your email settings to match your brand."
         >
@@ -88,9 +87,9 @@ const EmailSettings = () => {
               helpText="Specify an email for customers to reply to your emails."
             />
           </AlphaCard>
-        </SectionedLayout>
+        </Layout.AnnotatedSection>
         <SectionDivider />
-        <SectionedLayout
+        <Layout.AnnotatedSection
           title="Design and Brand"
           description="Customize your emails to match your brand."
         >
@@ -107,34 +106,36 @@ const EmailSettings = () => {
               Edit Email Design
             </Button>
           </AlphaCard>
-        </SectionedLayout>
+        </Layout.AnnotatedSection>
         <SectionDivider />
-        <SectionedLayout
+        <Layout.AnnotatedSection
           title="Email Opt-In Level"
           description="Advanced setting for special cases."
         >
           <AlphaCard>
-            <Toggle
-              checked={data?.status === "true"}
-              onChange={handleToggleChange}
-            />
             <Box paddingBlockEnd="2">
-              <Text as="h6">
+              <p>
                 Only send loyalty program email to customers who have explicity
                 opted-in to your marketing emails
-              </Text>
+              </p>
             </Box>
-            <Text as="h6">
+            <Box paddingBlockStart="2" paddingBlockEnd="3">
+              <Toggle
+                checked={data?.status === "true"}
+                onChange={handleToggleChange}
+              />
+            </Box>
+            <p style={{ color: "var(--p-color-text-subdued)" }}>
               Note: This is not a requirement, all loyalty program emails sent
               by Rivo are on a transactional basis and not mass marketing
               campaigns. Your buisness may have a requirement for your
               jurisdiction (EG: Germany) to ensure the customer is subscribed to
               marketing campaigns to recieve a transactional email.
-            </Text>
+            </p>
           </AlphaCard>
-        </SectionedLayout>
+        </Layout.AnnotatedSection>
         <SectionDivider />
-        <SectionedLayout
+        <Layout.AnnotatedSection
           title="Custom Email Domain"
           description="Stay on brand by sending email through your own domain"
         >
@@ -156,9 +157,9 @@ const EmailSettings = () => {
               Save
             </Button>
           </AlphaCard>
-        </SectionedLayout>
+        </Layout.AnnotatedSection>
         <SectionDivider />
-        <SectionedLayout
+        <Layout.AnnotatedSection
           title="Custom URL Path"
           description="Advanced setting to customize the URL path for emails."
         >
@@ -173,7 +174,7 @@ const EmailSettings = () => {
               helpText="Default is /. Change the URL path of the email CTA. Must begin with /"
             />
           </AlphaCard>
-        </SectionedLayout>
+        </Layout.AnnotatedSection>
       </Layout>
       <Box paddingBlockEnd="10" />
     </Page>

@@ -11,13 +11,7 @@ import {
   Text,
   VerticalStack,
 } from "@shopify/polaris";
-import { styled } from "styled-components";
 import { OrderController } from "./order.controller";
-
-const CheckBoxHelpText = styled.p`
-  font-size: 12px;
-  color: grey;
-`;
 
 const OrdersSettings = () => {
   const { getters, handlers } = OrderController();
@@ -72,10 +66,10 @@ const OrdersSettings = () => {
               <Checkbox
                 label="Subtotal"
                 helpText={
-                  <CheckBoxHelpText>
+                  <p style={{ color: "var(--p-color-text-subdued)" }}>
                     The price of the order in the shop currency after discounts
                     but before shipping, duties, taxes and tips.
-                  </CheckBoxHelpText>
+                  </p>
                 }
                 checked={Boolean(include.subTotal)}
                 onChange={handleChangeInclude("orders_subtotal")}
@@ -83,10 +77,10 @@ const OrdersSettings = () => {
               <Checkbox
                 label="Exclude coupon discounts used"
                 helpText={
-                  <CheckBoxHelpText>
+                  <p style={{ color: "var(--p-color-text-subdued)" }}>
                     The price of the order in the shop currency after discounts
                     but before shipping, duties, taxes and tips.
-                  </CheckBoxHelpText>
+                  </p>
                 }
                 checked={Boolean(include.couponDiscount)}
                 onChange={handleChangeInclude(
@@ -96,10 +90,10 @@ const OrdersSettings = () => {
               <Checkbox
                 label="Include taxes"
                 helpText={
-                  <CheckBoxHelpText>
+                  <p style={{ color: "var(--p-color-text-subdued)" }}>
                     The sum of all the taxes applied to the order in the shop
                     currency
-                  </CheckBoxHelpText>
+                  </p>
                 }
                 checked={Boolean(include.taxes)}
                 onChange={handleChangeInclude("orders_include_tax")}
@@ -107,10 +101,10 @@ const OrdersSettings = () => {
               <Checkbox
                 label="Include shipping"
                 helpText={
-                  <CheckBoxHelpText>
+                  <p style={{ color: "var(--p-color-text-subdued)" }}>
                     The total shipping price of the order, excluding discounts
                     and returns, in shop and presentment currencies.
-                  </CheckBoxHelpText>
+                  </p>
                 }
                 checked={Boolean(include.shipping)}
                 onChange={handleChangeInclude("orders_include_shipping")}

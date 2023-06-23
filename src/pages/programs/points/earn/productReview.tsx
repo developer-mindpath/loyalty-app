@@ -1,12 +1,12 @@
 import { memo } from "react";
 import { AlphaCard, Box, Layout, Page, Text } from "@shopify/polaris";
-import ProgramSummary from "../activities/programSummary";
-import ProgramStatus from "../activities/status";
-import ProgramIcon from "../activities/programIcon";
-import ProgramPointAmount from "../activities/programPointAmount";
-import LimitPointEarning from "../activities/limitPointEarning";
-import SelectReviewApp from "../activities/selectReviewApp";
-import EarnProvider from "../activities/earnProvider";
+import ProgramSummary from "@/pages/programs/points/activities/programSummary";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import ProgramPointAmount from "@/pages/programs/points/activities/programPointAmount";
+import LimitPointEarning from "@/pages/programs/points/activities/limitPointEarning";
+import SelectReviewApp from "@/pages/programs/points/activities/selectReviewApp";
+import EarnProvider from "@/pages/programs/points/activities/earnProvider";
 
 const title = "Post a Product Review - Photo";
 const parentURL = "/programs/points";

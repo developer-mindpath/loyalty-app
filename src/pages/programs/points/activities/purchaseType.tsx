@@ -1,5 +1,5 @@
 import { Box, ChoiceList } from "@shopify/polaris";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 
 const PurchaseType = () => {
   const { details, handleChange } = useRewardDetail();

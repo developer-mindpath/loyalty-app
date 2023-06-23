@@ -1,7 +1,7 @@
 import { Box, HorizontalStack } from "@shopify/polaris";
-import TextField from "../../../../components/textField";
-import ValidationUtil from "../../../../utils/validation";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import TextField from "@/components/textField";
+import ValidationUtil from "@/utils/validation";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 
 const RewardActivity = () => {
   const { details, handleChange } = useRewardDetail();

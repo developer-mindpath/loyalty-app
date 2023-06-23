@@ -8,10 +8,10 @@ import {
   TextField,
 } from "@shopify/polaris";
 import { useSearchParams } from "react-router-dom";
-import ProgramIcon from "../activities/programIcon";
-import ProgramStatus from "../activities/status";
-import ProgramPointAmount from "../activities/programPointAmount";
-import EarnProvider from "../activities/earnProvider";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramPointAmount from "@/pages/programs/points/activities/programPointAmount";
+import EarnProvider from "@/pages/programs/points/activities/earnProvider";
 
 const title = "Follow on ";
 const parentURL = "/programs/points";

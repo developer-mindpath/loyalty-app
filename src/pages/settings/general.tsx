@@ -10,8 +10,8 @@ import {
   VerticalStack,
 } from "@shopify/polaris";
 import { RefreshMinor } from "@shopify/polaris-icons";
-import SectionedLayout from "../../components/layouts/sectionedLayout";
-import SectionDivider from "../../components/layouts/sectionDivider";
+import SectionedLayout from "@/components/layouts/sectionedLayout";
+import SectionDivider from "@/components/layouts/sectionDivider";
 
 const GeneralSettings = () => {
   const [value, setSortValue] = useState<string>("members");

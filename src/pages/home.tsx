@@ -18,7 +18,7 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
-import SectionDivider from "../components/layouts/sectionDivider";
+import SectionDivider from "@/components/layouts/sectionDivider";
 
 const data = [
   {

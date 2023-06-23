@@ -3,15 +3,15 @@ import {
   getIsLoading,
   getOrderSettings,
   settingsActions,
-} from "../../../redux/reducers/settings";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import SettingsAction from "../../../redux/actions/settingsAction";
-import useContextualSave from "../../../hooks/useContextualSave";
+} from "@/redux/reducers/settings";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import SettingsAction from "@/redux/actions/settingsAction";
+import useContextualSave from "@/hooks/useContextualSave";
 import {
   IGetOrderSettingsResponse,
   IUpdateOrderSettingsRequest,
-} from "../../../types";
-import ObjectUtil from "../../../utils/object";
+} from "@/types";
+import ObjectUtil from "@/utils/object";
 
 /**
  * Email controller
@@ -37,9 +37,7 @@ export const OrderController = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await dispatch(
-        SettingsAction.getOrders()
-      ).unwrap();
+      const response = await dispatch(SettingsAction.getOrders()).unwrap();
       setInital(response.body);
     };
 

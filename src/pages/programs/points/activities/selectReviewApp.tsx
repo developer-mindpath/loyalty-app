@@ -1,8 +1,8 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { Select } from "@shopify/polaris";
-import { ProgramService } from "../../../../service/programService";
-import { usePointDetail } from "../../../../contexts/pointsDetail";
-import { IAppListItem } from "../../../../types/program";
+import { ProgramService } from "@/service/programService";
+import { usePointDetail } from "@/contexts/pointsDetail";
+import { IAppListItem } from "@/types/program";
 
 const SelectReviewApp = () => {
   const { details, handleChange } = usePointDetail();

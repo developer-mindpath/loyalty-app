@@ -1,20 +1,20 @@
-import APIUtils from "../utils/api";
-import { IResponseWithBody } from "../types";
+import APIUtils from "@/utils/api";
+import { IResponseWithBody } from "@/types";
 import {
   IAddEarnPointRequest,
   IGetEarnPointResponse,
   IAddEarnPointResponse,
   IUpdateEarnPoint,
   IEarnPointWithAction,
-} from "../types/program/points/earnPoint";
+} from "@/types/program/points/earnPoint";
 import {
   IAddRedeemRewardResponse,
   IAddRewardRequest,
   IGetRedeemRewardResponse,
   IRewardRedeemWithAction,
   IUpdateRewardRequest,
-} from "../types/program/points/redeemRewards";
-import { IAppListItem } from "../types/program";
+} from "@/types/program/points/redeemRewards";
+import { IAppListItem } from "@/types/program";
 
 export class ProgramService {
   /**

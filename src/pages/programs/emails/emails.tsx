@@ -1,7 +1,7 @@
 import { AlphaCard, Badge, Layout, Page, Text } from "@shopify/polaris";
 import { useState } from "react";
-import SectionDivider from "../../../components/layouts/sectionDivider";
-import PointsListItem from "../../../components/points/pointsListItem";
+import SectionDivider from "@/components/layouts/sectionDivider";
+import PointsListItem from "@/components/points/pointsListItem";
 import { StoreStatusMajor } from "@shopify/polaris-icons";
 
 const EmailProgram = () => {

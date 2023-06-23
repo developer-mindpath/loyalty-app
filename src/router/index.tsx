@@ -6,13 +6,13 @@ import {
 } from "react-router-dom";
 import { AppProvider, Frame } from "@shopify/polaris";
 import { LinkLikeComponentProps } from "@shopify/polaris/build/ts/latest/src/utilities/link";
-import AuthWrapper from "../components/guards/auth";
-import Login from "../pages/login";
-import MainLayout from "../layouts/mainLayout";
+import AuthWrapper from "@/components/guards/auth";
+import Login from "@/pages/login";
+import MainLayout from "@/layouts/mainLayout";
 import DashboardRoutes from "./auth";
-import ContextualSaveProvider from "../contexts/contextualSave";
+import ContextualSaveProvider from "@/contexts/contextualSave";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import store from "@/redux/store";
 
 function Link({
   children,

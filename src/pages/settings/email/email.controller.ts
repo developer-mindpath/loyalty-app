@@ -4,12 +4,12 @@ import {
   getEmailSettings,
   getIsLoading,
   settingsActions,
-} from "../../../redux/reducers/settings";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import SettingsAction from "../../../redux/actions/settingsAction";
-import useContextualSave from "../../../hooks/useContextualSave";
-import ObjectUtil from "../../../utils/object";
-import { ITextFieldRef } from "../../../components/textField";
+} from "@/redux/reducers/settings";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import SettingsAction from "@/redux/actions/settingsAction";
+import useContextualSave from "@/hooks/useContextualSave";
+import ObjectUtil from "@/utils/object";
+import { ITextFieldRef } from "@/components/textField";
 
 /**
  * Email controller

@@ -1,15 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ProgramService } from "../../service/programService";
+import { ProgramService } from "@/service/programService";
 import {
   IEarnPoint,
   IAddEarnPointRequest,
   IAddEarnPointResponse,
-} from "../../types/program/points/earnPoint";
+} from "@/types/program/points/earnPoint";
 import {
   IAddRedeemRewardResponse,
   IAddRewardRequest,
   IUpdateRewardRequest,
-} from "../../types/program/points/redeemRewards";
+} from "@/types/program/points/redeemRewards";
 
 export class EarnPoint {
   /**

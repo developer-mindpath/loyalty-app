@@ -1,4 +1,4 @@
-import { IValidValue } from "../types/program";
+import { IValidValue } from "@/types/program";
 import socialPlatforms from "./constants/socialPlatforms";
 
 export function getSocialPlatformNameFromString(input: string): string | null {

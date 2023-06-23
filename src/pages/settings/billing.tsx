@@ -10,7 +10,7 @@ import {
   Text,
 } from "@shopify/polaris";
 import { useNavigate } from "react-router-dom";
-import MathUtil from "../../utils/math";
+import MathUtil from "@/utils/math";
 
 const BillingSettings = () => {
   const navigate = useNavigate();

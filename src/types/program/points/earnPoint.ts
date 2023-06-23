@@ -1,5 +1,5 @@
-import { IAudit, ITimestamp } from "../../api";
-import { IWithAction } from "../../program";
+import type { IWithAction } from "@/types/program";
+import type { IAudit, ITimestamp } from "@/types/api";
 
 export interface IEarnPointAction extends IAudit, ITimestamp {
   id: number;

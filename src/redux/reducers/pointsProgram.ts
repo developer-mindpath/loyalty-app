@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IRootState } from "../store";
-import { EarnPoint, RedeemRewards } from "../actions/programActions";
+import { IRootState } from "@/redux/store";
+import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
 import {
   IEarnPoint,
   IEarnPointWithAction,
   IGetEarnPointResponse,
-} from "../../types/program/points/earnPoint";
+} from "@/types/program/points/earnPoint";
 import {
   IGetRedeemRewardResponse,
   IRewardRedeem,
   IRewardRedeemWithAction,
-} from "../../types/program/points/redeemRewards";
+} from "@/types/program/points/redeemRewards";
 
 interface IPointProgramState {
   earn: {

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { SettingService } from "../../service/settingsService";
+import { SettingService } from "@/service/settingsService";
 import {
   IUpdateEmailSettingRequest,
   IUpdateOrderSettingsRequest,
-} from "../../types";
+} from "@/types";
 
 class SettingsAction {
   /**

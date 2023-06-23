@@ -7,11 +7,11 @@ import {
   Text,
   TextField,
 } from "@shopify/polaris";
-import ProgramSummary from "../activities/programSummary";
-import ProgramStatus from "../activities/status";
-import ProgramIcon from "../activities/programIcon";
-import { usePointDetail } from "../../../../contexts/pointsDetail";
-import EarnProvider from "../activities/earnProvider";
+import ProgramSummary from "@/pages/programs/points/activities/programSummary";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import { usePointDetail } from "@/contexts/pointsDetail";
+import EarnProvider from "@/pages/programs/points/activities/earnProvider";
 
 const BirthdayActivity = () => {
   const { details, handleChange } = usePointDetail();

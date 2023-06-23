@@ -1,5 +1,5 @@
 import { memo } from "react";
-import CommingSoon from "../../components/commingSoon";
+import CommingSoon from "@/components/commingSoon";
 
 const IntegrationPage = () => {
   return <CommingSoon />;

@@ -1,17 +1,17 @@
 import { memo } from "react";
 import { AlphaCard, Layout, Page, Text } from "@shopify/polaris";
-import ProgramSummary from "../activities/programSummary";
-import ProgramStatus from "../activities/status";
-import ProgramIcon from "../activities/programIcon";
-import ReawrdProvider from "../activities/rewardProvider";
-import RewardTitleActivity from "../activities/rewardTitle";
-import RewardPointActivity from "../activities/pointType";
-import RewardActivity from "../activities/reward";
-import MinimumRequirement from "../activities/mininmumRequirement";
-import ApplyTo from "../activities/applyTo";
-import Expiration from "../activities/expiration";
-import PurchaseType from "../activities/purchaseType";
-import { useRewardDetail } from "../../../../contexts/reawardDetail";
+import ProgramSummary from "@/pages/programs/points/activities/programSummary";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import ReawrdProvider from "@/pages/programs/points/activities/rewardProvider";
+import RewardTitleActivity from "@/pages/programs/points/activities/rewardTitle";
+import RewardPointActivity from "@/pages/programs/points/activities/pointType";
+import RewardActivity from "@/pages/programs/points/activities/reward";
+import MinimumRequirement from "@/pages/programs/points/activities/mininmumRequirement";
+import ApplyTo from "@/pages/programs/points/activities/applyTo";
+import Expiration from "@/pages/programs/points/activities/expiration";
+import PurchaseType from "@/pages/programs/points/activities/purchaseType";
+import { useRewardDetail } from "@/contexts/reawardDetail";
 
 const CouponActivity = () => {
   const couponAmount = 20;

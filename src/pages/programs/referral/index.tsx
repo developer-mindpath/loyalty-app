@@ -13,7 +13,7 @@ import {
   VerticalStack,
 } from "@shopify/polaris";
 import Toggle from "react-toggle";
-import SectionDivider from "../../../components/layouts/sectionDivider";
+import SectionDivider from "@/components/layouts/sectionDivider";
 
 const ReferralPage = () => {
   return (

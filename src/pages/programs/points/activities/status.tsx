@@ -1,11 +1,8 @@
 import { ChangeEvent, useMemo } from "react";
 import Toggle from "react-toggle";
 import { AlphaCard, HorizontalStack, Badge, Box, Text } from "@shopify/polaris";
-import {
-  usePointDetail,
-  IPointDetailContext,
-} from "../../../../contexts/pointsDetail";
-import { IRewardDetailContext } from "../../../../contexts/reawardDetail";
+import { usePointDetail, IPointDetailContext } from "@/contexts/pointsDetail";
+import { IRewardDetailContext } from "@/contexts/reawardDetail";
 
 export interface IProgramStatusProps {
   handler?: () => IRewardDetailContext | IPointDetailContext;

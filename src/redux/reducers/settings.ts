@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IRootState } from "../store";
+import { IRootState } from "@/redux/store";
 import {
   IGetEmailSettingsResponse,
   IGetOrderSettingsResponse,
   IResponseWithBody,
-} from "../../types";
-import SettingsAction from "../actions/settingsAction";
+} from "@/types";
+import SettingsAction from "@/redux/actions/settingsAction";
 
 interface ISettingsState {
   settingsPage: {

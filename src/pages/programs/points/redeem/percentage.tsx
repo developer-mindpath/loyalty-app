@@ -9,11 +9,11 @@ import {
   Page,
   Text,
 } from "@shopify/polaris";
-import TextField from "../../../../components/textField";
-import ProgramStatus from "../activities/status";
-import ProgramIcon from "../activities/programIcon";
-import RewardTitleActivity from "../activities/rewardTitle";
-import ReawrdProvider from "../activities/rewardProvider";
+import TextField from "@/components/textField";
+import ProgramStatus from "@/pages/programs/points/activities/status";
+import ProgramIcon from "@/pages/programs/points/activities/programIcon";
+import RewardTitleActivity from "@/pages/programs/points/activities/rewardTitle";
+import ReawrdProvider from "@/pages/programs/points/activities/rewardProvider";
 
 export interface ICardHeading {
   title: string;

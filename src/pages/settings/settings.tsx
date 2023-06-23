@@ -18,7 +18,7 @@ import {
   ToolsMajor,
 } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const IconBox = styled.div`
   padding: 8px;
