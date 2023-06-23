@@ -48,7 +48,7 @@ jobs:
             docker pull registry.digitalocean.com/loyalityapp/loyalitywebapp:latest
 
             echo "=================Updating Container ==================="
-            echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}"  > env
+            echo "REACT_APP_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}"  > env
             echo "PORT=${{ secrets.PORT }}"  >> env
             echo "DB_HOST=${{ secrets.DB_HOST }}"  >> env
             echo "DB_PORT=${{ secrets.DB_PORT }}"  >> env
