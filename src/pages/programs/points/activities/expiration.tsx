@@ -8,10 +8,8 @@ const Expiration = () => {
     <Box paddingBlockStart="2">
       <Checkbox
         label="Set issued rewards to expire after a certain amount of time"
-        checked={details.reward_expiry === "on"}
-        onChange={(value) =>
-          handleChange("reward_expiry")(value ? "on" : "off")
-        }
+        checked={details.reward_expiry === 0}
+        onChange={(value) => handleChange("reward_expiry")(value ? 0 : 1)}
       />
     </Box>
   );

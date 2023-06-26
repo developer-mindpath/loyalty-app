@@ -32,7 +32,7 @@ export interface IRewardRedeem extends IAudit, ITimestamp {
   apply_to: string;
   collection_id: string;
   purchase_type: string;
-  reward_expiry: string;
+  reward_expiry: number;
   products: string;
   status: string;
   user_id: number;

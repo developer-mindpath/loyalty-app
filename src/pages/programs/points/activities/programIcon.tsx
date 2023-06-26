@@ -19,10 +19,11 @@ type IconTypes = "default" | "custom";
 
 export interface IProgramIconProps {
   title?: string;
+  defaultIcon?: string | null;
 }
 
 const ProgramIcon = (props: IProgramIconProps) => {
-  const { title = "Icon" } = props;
+  const { title = "Icon", defaultIcon } = props;
   const location = useLocation();
   const { details } = usePointDetail();
   const [files, setFiles] = useState<File[]>([]);
@@ -82,7 +83,12 @@ const ProgramIcon = (props: IProgramIconProps) => {
               />
               {selected === "default" && (
                 <Box paddingInlineStart="8">
-                  <img src={defaultImage} alt="Icon" width={25} height={25} />
+                  <img
+                    alt="Icon"
+                    width={25}
+                    height={25}
+                    src={defaultIcon ?? defaultImage}
+                  />
                 </Box>
               )}
             </HorizontalStack>

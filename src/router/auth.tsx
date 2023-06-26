@@ -13,8 +13,11 @@ import ReferalActivity from "@/pages/programs/points/earn/referral";
 import BirthdayActivity from "@/pages/programs/points/earn/birthday";
 import ProductReviewActivity from "@/pages/programs/points/earn/productReview";
 // Redeeming
-import PrecentageRedeem from "@/pages/programs/points/redeem/percentage";
 import CouponActivity from "@/pages/programs/points/redeem/coupon";
+import DiscountActivity from "@/pages/programs/points/redeem/discount";
+import PrecentageActivity from "@/pages/programs/points/redeem/percentage";
+import FreeProductActivity from "@/pages/programs/points/redeem/freeProduct";
+import FreeShippingActivity from "@/pages/programs/points/redeem/freeShipping";
 // Referral
 import ReferralPage from "@/pages/programs/referral";
 
@@ -63,10 +66,23 @@ const DashboardRoutes = (): JSX.Element => (
       element={<OrderActivity />}
     />
     <Route path="/programs/points/follow/:id" element={<FollowActivity />} />
+    {/* Redeem Reward */}
+    <Route
+      path="/programs/points/discount/:id"
+      element={<DiscountActivity />}
+    />
     <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
     <Route
-      path="/programs/points/redeem/precentage/:id"
-      element={<PrecentageRedeem />}
+      path="/programs/points/free-product/:id"
+      element={<FreeProductActivity />}
+    />
+    <Route
+      path="/programs/points/free-shipping/:id"
+      element={<FreeShippingActivity />}
+    />
+    <Route
+      path="/programs/points/percentage-off/:id"
+      element={<PrecentageActivity />}
     />
     {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
     {/* Settings */}

@@ -9,15 +9,14 @@ const RewardPointTypeActivity = () => {
   };
 
   return (
-    <Box paddingBlockStart="6" paddingBlockEnd="0">
+    <Box paddingBlockStart="4">
       <ChoiceList
-        title=""
+        title={undefined}
         selected={[details.points_type]}
         onChange={onChange}
         choices={[
-          { label: "Hidden", value: "hidden" },
-          { label: "Optional", value: "optional" },
-          { label: "Required", value: "required" },
+          { label: "Fixed amount of points", value: "fixed" },
+          { label: "Incremeneted points", value: "incremeneted" },
         ]}
       />
     </Box>

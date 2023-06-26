@@ -55,7 +55,7 @@ const RewardDetailContext = createContext<IRewardDetailContext>({
     apply_to: "",
     collection_id: "",
     purchase_type: "",
-    reward_expiry: "",
+    reward_expiry: 0,
     products: "",
     status: "",
     user_id: 0,
@@ -86,8 +86,8 @@ const RewardDetailProvider = ({ children }: PropsWithChildren) => {
           reward_key: searchParams.get("id") as string,
           reward_icon: searchParams.get("img") as string,
           reward_key_key_display_text:
-            (searchParams.get("name") as string) ??
-            details.pointRedeem.reward_key_key_display_text,
+            details.pointRedeem.reward_key_key_display_text ??
+            (searchParams.get("name") as string),
           reward_description: "Testing Description",
           ...details,
         })

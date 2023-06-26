@@ -1,19 +1,16 @@
 import { FC, ReactNode, memo } from "react";
-import {
-  AlphaCard,
-  Button,
-  Checkbox,
-  ChoiceList,
-  HorizontalStack,
-  Layout,
-  Page,
-  Text,
-} from "@shopify/polaris";
-import TextField from "@/components/textField";
+import { AlphaCard, Button, Layout, Page, Text } from "@shopify/polaris";
 import ProgramStatus from "@/pages/programs/points/activities/status";
 import ProgramIcon from "@/pages/programs/points/activities/programIcon";
 import RewardTitleActivity from "@/pages/programs/points/activities/rewardTitle";
 import ReawrdProvider from "@/pages/programs/points/activities/rewardProvider";
+import RewardActivity from "../activities/reward";
+import MinimumRequirement from "../activities/mininmumRequirement";
+import ApplyTo from "../activities/applyTo";
+import PurchaseType from "../activities/purchaseType";
+import Expiration from "../activities/expiration";
+import { useRewardDetail } from "@/contexts/reawardDetail";
+import { useSearchParams } from "react-router-dom";
 
 export interface ICardHeading {
   title: string;
@@ -37,9 +34,15 @@ const Card: FC<ICard> = ({ title, children }) => (
 );
 
 function PrecentageRedeem() {
+  const { details } = useRewardDetail();
+  const { pointRedeem } = details;
+  const [searchParams] = useSearchParams();
+  const defaultName = searchParams.get("name");
+  const defaultImage = searchParams.get("img");
+
   return (
     <Page
-      title="Percentage"
+      title={defaultName ?? pointRedeem?.reward_key_key_display_text}
       divider
       primaryAction={<Button primary>Create Reward</Button>}
       backAction={{ content: "Settings", url: "/programs/points" }}
@@ -52,83 +55,28 @@ function PrecentageRedeem() {
             </Card>
           </Layout.Section>
           <Layout.Section>
-            <Card title="Point Type">
-              <ChoiceList
-                title=""
-                choices={[
-                  { label: "Fixed amount of points", value: "fixedAmount" },
-                  { label: "Incremented points", value: "incremental" },
-                ]}
-                selected={["fixedAmount"]}
-                onChange={(e) => console.log(e)}
-              />
-            </Card>
-          </Layout.Section>
-          <Layout.Section>
             <Card title="Reward">
-              <HorizontalStack gap="4">
-                <TextField
-                  label="Points amount"
-                  autoComplete="off"
-                  value="500"
-                  suffix="points"
-                />
-                <TextField
-                  prefix="$"
-                  label="Discount"
-                  autoComplete="off"
-                  value="5"
-                />
-              </HorizontalStack>
+              <RewardActivity />
             </Card>
           </Layout.Section>
           <Layout.Section>
             <Card title="Minimum Cart Requirement">
-              <ChoiceList
-                title=""
-                choices={[
-                  { label: "None", value: "none" },
-                  { label: "Minimum cart value", value: "incremental" },
-                ]}
-                selected={["fixedAmount"]}
-                onChange={(e) => console.log(e)}
-              />
+              <MinimumRequirement />
             </Card>
           </Layout.Section>
           <Layout.Section>
             <Card title="Apply to">
-              <ChoiceList
-                title=""
-                choices={[
-                  { label: "Entire Order", value: "entire" },
-                  { label: "Collection", value: "collection" },
-                ]}
-                selected={["entire"]}
-                onChange={(e) => console.log(e)}
-              />
+              <ApplyTo />
             </Card>
           </Layout.Section>
           <Layout.Section>
             <Card title="Purchase Type (optional)">
-              <ChoiceList
-                title=""
-                choices={[
-                  { label: "One-time Purchase", value: "one-time" },
-                  { label: "Subscription", value: "subscription" },
-                  { label: "Both", value: "both" },
-                ]}
-                selected={[]}
-                onChange={(e) => console.log(e)}
-              />
+              <PurchaseType />
             </Card>
           </Layout.Section>
           <Layout.Section>
             <Card title="Reward Expiration">
-              <Checkbox
-                label="Set issued reward to expire after a certain amount of time"
-                checked
-                onChange={() => ({})}
-              />
+              <Expiration />
             </Card>
           </Layout.Section>
         </Layout.Section>
@@ -136,18 +84,18 @@ function PrecentageRedeem() {
           <Layout.Section>
             <Card title="Reward Summary">
               <ul>
-                <li>$5 off coupon</li>
+                <li>5.0% off entire order</li>
                 <li>Applies to all orders</li>
               </ul>
             </Card>
           </Layout.Section>
 
           <Layout.Section>
-            <ProgramStatus />
+            <ProgramStatus handler={useRewardDetail} />
           </Layout.Section>
 
           <Layout.Section>
-            <ProgramIcon />
+            <ProgramIcon defaultIcon={defaultImage} />
           </Layout.Section>
         </Layout.Section>
       </Layout>

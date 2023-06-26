@@ -8,9 +8,9 @@ const RewardActivity = () => {
 
   return (
     <Box paddingBlockStart="6" paddingBlockEnd="0">
-      <HorizontalStack>
+      <HorizontalStack align="space-around">
         <TextField
-          type="text"
+          type="number"
           suffix="points"
           label="Points Amount"
           value={details.fixed_points_amount?.toString()}
@@ -18,17 +18,15 @@ const RewardActivity = () => {
           autoComplete="off"
           validation={ValidationUtil.notEmpty}
         />
-        <Box paddingInlineStart="4">
-          <TextField
-            label="Discount"
-            prefix="$"
-            type="text"
-            value={details.fixed_points_discount?.toString()}
-            onChange={(value) => handleChange("fixed_points_discount")(value)}
-            autoComplete="off"
-            validation={ValidationUtil.notEmpty}
-          />
-        </Box>
+        <TextField
+          label="Discount"
+          prefix="$"
+          type="number"
+          value={details.fixed_points_discount?.toString()}
+          onChange={(value) => handleChange("fixed_points_discount")(value)}
+          autoComplete="off"
+          validation={ValidationUtil.notEmpty}
+        />
       </HorizontalStack>
     </Box>
   );
