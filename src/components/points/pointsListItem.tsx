@@ -1,4 +1,4 @@
-import { ChangeEvent, memo } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import Toggle from "react-toggle";
 import {
   Badge,
@@ -29,6 +29,7 @@ const PointListItem = (props: IPointListItemProps) => {
   const { id, name, icon, checked, points, path, disableDrag, handler } = props;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
 
   /**
    * Handle Toggle Update
@@ -39,7 +40,13 @@ const PointListItem = (props: IPointListItemProps) => {
     if (!id) return;
     if (!handler) return;
     const { checked } = e.target;
-    await dispatch(handler({ id, state: checked }));
+    try {
+      setLoading(true);
+      await dispatch(handler({ id, state: checked })).unwrap();
+    } catch (e) {
+      console.error(e);
+    }
+    setLoading(false);
   };
 
   return (
@@ -65,7 +72,11 @@ const PointListItem = (props: IPointListItemProps) => {
               Edit
             </Button>
             <Box paddingInlineStart="4">
-              <Toggle checked={checked} onChange={handleUpdate} />
+              <Toggle
+                checked={checked}
+                disabled={loading}
+                onChange={handleUpdate}
+              />
             </Box>
           </HorizontalStack>
         </Box>
