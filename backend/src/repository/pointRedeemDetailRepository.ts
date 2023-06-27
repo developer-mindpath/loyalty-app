@@ -33,7 +33,7 @@ export default class PointRedeemDetailRepository {
     pointRedeemId: number
   ): Promise<UpdateResult> {
     return await this._pointRedeemDetailModel.update(
-      { id: pointRedeemId },
+      { point_redeem_id: pointRedeemId },
       updatePointRedeemDetailData
     );
   }

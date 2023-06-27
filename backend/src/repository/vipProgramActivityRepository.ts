@@ -41,7 +41,16 @@ export default class VipProgramActivityRepository {
       const offset: number = paginationDTO.offset;
       queryBuilder.skip(offset).take(paginationDTO.limit);
     }
-    // queryBuilder.orderBy('loyalityProgramActivity.activity_date', 'ASC');
     return await queryBuilder.getRawMany();
+  }
+
+  public async getVipDetail(
+    customerId: number
+  ): Promise<Array<VipProgramActivityModel>> {
+    return await this._vipProgramActivityModel.find({
+      where: {
+        customer_id: customerId,
+      },
+    });
   }
 }

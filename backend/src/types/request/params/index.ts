@@ -78,3 +78,13 @@ export type PlanId = {
 export type PlanFeatureId = {
   planFeatureId: number;
 };
+
+export type PeriodQuery = {
+  startDate: string;
+  endDate: string;
+};
+
+export type Position = {
+  oldPosition: number;
+  newPosition: number;
+};

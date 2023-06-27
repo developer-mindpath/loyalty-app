@@ -6,6 +6,7 @@ import { UpdatePlanRequest } from "../types/request/plan/updatePlanRequest";
 import { PlanFeatureId, PlanId } from "../types/request/params";
 import { InsertPlanFeatureRequest } from "../types/request/plan/insertPlanFeatureRequest";
 import { UpdatePlanFeatureRequest } from "../types/request/plan/updatePlanFeatureRequest";
+import { InsertPlanFeatureAssignRequest } from "../types/request/plan/insertPlanFeatureAssignRequest";
 
 export = {
   0: joiValidationRequest<IEmptyObject, InsertPlanRequest, IEmptyObject>({
@@ -55,6 +56,17 @@ export = {
       feature_title: Joi.string().optional(),
       feature_description: Joi.string().optional(),
       feature_icon: Joi.number().optional(),
+      status: Joi.string().optional(),
+    },
+  }),
+  4: joiValidationRequest<
+    IEmptyObject,
+    InsertPlanFeatureAssignRequest,
+    IEmptyObject
+  >({
+    body: {
+      plan_id: Joi.number().required(),
+      plan_feature_id: Joi.number().required(),
       status: Joi.string().optional(),
     },
   }),
