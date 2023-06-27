@@ -71,6 +71,10 @@ const PointsController = () => {
     setIsModalOpen2(false);
   };
 
+  const handleOrderChange = (type: "earn" | "redeem") => {
+    
+  };
+
   return {
     getters: {
       active,

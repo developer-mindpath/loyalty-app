@@ -4,12 +4,17 @@ import {
   IEarnPoint,
   IAddEarnPointRequest,
   IAddEarnPointResponse,
+  IEarnPointWithAction,
+  IUpdateEarnPoint,
+  IOrderUpdate,
+  IStateUpdate,
 } from "@/types/program/points/earnPoint";
 import {
   IAddRedeemRewardResponse,
   IAddRewardRequest,
   IUpdateRewardRequest,
 } from "@/types/program/points/redeemRewards";
+import store from "../store";
 
 export class EarnPoint {
   /**
@@ -46,8 +51,47 @@ export class EarnPoint {
    */
   public static update = createAsyncThunk(
     "/program/points/earn/update",
-    async (payload: Partial<IEarnPoint>) => {
-      await ProgramService.updateEarnPointDetail(payload);
+    async (payload: IUpdateEarnPoint) => {
+      const { id, data, dataAction } = payload;
+      const { pointAction, ...rest } = data;
+      await ProgramService.updateEarnPointDetail({
+        ...rest,
+        ...dataAction,
+        point_action_id: parseInt(id),
+      });
+
+      return payload.data;
+    }
+  );
+
+  /**
+   * Update Order
+   */
+  public static changeOrder = createAsyncThunk(
+    "/program/points/earn/update/order",
+    async (payload: IOrderUpdate) => {
+      const { newIndex, oldIndex } = payload;
+      const list = store.getState().pointProgram.earn.list;
+      const { id } = list[oldIndex];
+      await ProgramService.updateEarnPointDetail({
+        point_action_id: id,
+        action_visible_order: newIndex,
+      });
+      return payload;
+    }
+  );
+
+  /**
+   * Update Order
+   */
+  public static changeState = createAsyncThunk(
+    "/program/points/earn/update/state",
+    async (payload: IStateUpdate) => {
+      const { id, state } = payload;
+      await ProgramService.updateEarnPointDetail({
+        point_action_id: id,
+        is_action_enabled: state ? 1 : 0,
+      });
       return payload;
     }
   );
@@ -90,7 +134,27 @@ export class RedeemRewards {
   public static update = createAsyncThunk(
     "/program/points/redeem/update",
     async (payload: IUpdateRewardRequest) => {
-      await ProgramService.updateRewardRedeemDetail(payload);
+      const { id, data, dataAction } = payload;
+      await ProgramService.updateRewardRedeemDetail({
+        ...data,
+        ...dataAction,
+        point_redeem_id: parseInt(id),
+      });
+      return payload.data;
+    }
+  );
+
+  /**
+   * Update State
+   */
+  public static changeState = createAsyncThunk(
+    "/program/points/redeem/update/state",
+    async (payload: IStateUpdate) => {
+      const { id, state } = payload;
+      await ProgramService.updateRewardRedeemDetail({
+        point_redeem_id: id,
+        is_reward_enabled: state ? 1 : 0,
+      });
       return payload;
     }
   );

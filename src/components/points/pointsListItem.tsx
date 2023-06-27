@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { ChangeEvent, memo } from "react";
 import Toggle from "react-toggle";
 import {
   Badge,
@@ -10,23 +10,37 @@ import {
 } from "@shopify/polaris";
 import { DragHandleMinor, EditMinor } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/store";
+import { AsyncThunk } from "@reduxjs/toolkit";
+import { IStateUpdate } from "@/types/program/points/earnPoint";
 
 interface IPointListItemProps {
-  name?: string;
   icon: string;
   path: string;
   checked: boolean;
+  disableDrag?: boolean;
+  id: number;
+  name?: string;
   points?: string | number;
+  handler?: AsyncThunk<IStateUpdate, IStateUpdate, any>;
 }
 
-const PointListItem = ({
-  name,
-  icon,
-  checked,
-  points,
-  path,
-}: IPointListItemProps) => {
+const PointListItem = (props: IPointListItemProps) => {
+  const { id, name, icon, checked, points, path, disableDrag, handler } = props;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  /**
+   * Handle Toggle Update
+   * @param {ChangeEvent<HTMLInputElement>} e
+   * @returns
+   */
+  const handleUpdate = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!id) return;
+    if (!handler) return;
+    const { checked } = e.target;
+    await dispatch(handler({ id, state: checked }));
+  };
 
   return (
     <Box paddingBlockStart="4" paddingBlockEnd="4">
@@ -51,24 +65,17 @@ const PointListItem = ({
               Edit
             </Button>
             <Box paddingInlineStart="4">
-              <Toggle
-                checked={checked}
-                onChange={(e) => {
-                  console.log("Working");
-                  e.stopPropagation();
-                }}
-                onClick={() => {
-                  console.log("Working Click");
-                }}
-                onKeyDown={() => {
-                  console.log("Working KeyDown");
-                }}
-              />
+              <Toggle checked={checked} onChange={handleUpdate} />
             </Box>
           </HorizontalStack>
         </Box>
 
-        <div style={{ width: "5%" }}>
+        <div
+          style={{
+            width: "5%",
+            display: disableDrag ? "none" : "initial",
+          }}
+        >
           <div
             data-movable-handle
             style={{ cursor: "grab", width: "fit-content" }}

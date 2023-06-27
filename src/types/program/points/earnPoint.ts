@@ -39,8 +39,13 @@ export interface IAddEarnPointRequest
   extends Partial<IEarnPoint>,
     Partial<IEarnPointAction> {}
 
+export type IUpdateEarnPointService = Partial<IEarnPoint & IEarnPointAction>;
 // Update Earn Points
-export type IUpdateEarnPoint = Partial<IEarnPoint>;
+export interface IUpdateEarnPoint {
+  id: string;
+  data: Partial<IEarnPointWithAction>;
+  dataAction: Partial<IEarnPointWithAction["pointAction"]>;
+}
 
 // <=====================Responses=====================>
 
@@ -51,4 +56,14 @@ export type IGetEarnPointResponse = Pick<IEarnPoint, "points_amounts"> &
 // Add Response
 export interface IAddEarnPointResponse {
   id: string;
+}
+
+export interface IOrderUpdate {
+  oldIndex: number;
+  newIndex: number;
+}
+
+export interface IStateUpdate {
+  id: number;
+  state: boolean;
 }

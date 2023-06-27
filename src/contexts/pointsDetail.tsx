@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import {
   IEarnPointAction,
   IEarnPointWithAction,
+  IUpdateEarnPoint,
 } from "@/types/program/points/earnPoint";
 import {
   getEarnDetails,
@@ -22,6 +23,7 @@ import { EarnPoint } from "@/redux/actions/programActions";
 import ObjectUtil from "@/utils/object";
 import useContextualSave from "@/hooks/useContextualSave";
 import { IValidValue } from "@/types/program";
+import { parseStringToObject } from "@/utils/string";
 
 export type ChangeHandlerType = (key: string) => (value: IValidValue) => void;
 
@@ -96,11 +98,12 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
 
     try {
       const payload = ObjectUtil.getChanges(initalState!, details);
+      const payloadAction = ObjectUtil.getChanges(
+        initalState?.pointAction!,
+        details.pointAction
+      );
       await dispatch(
-        EarnPoint.update({
-          ...payload,
-          point_action_id: parseInt(id),
-        })
+        EarnPoint.update({ id, data: payload, dataAction: payloadAction })
       );
       setIntialState(details);
     } catch (e) {
@@ -141,9 +144,16 @@ const PointDetailProvider = ({ children }: PropsWithChildren) => {
 
   const handleChange = useCallback(
     (key: string) => (value: string | boolean | number) => {
-      dispatch(programPointActions.updateEarnState({ key, value }));
+      const object = parseStringToObject<IEarnPointWithAction>(key, value);
+      dispatch(
+        programPointActions.setEarnDetails({
+          ...details,
+          ...object,
+          pointAction: { ...details.pointAction, ...object.pointAction },
+        })
+      );
     },
-    [dispatch]
+    [details, dispatch]
   );
 
   const value: IPointDetailContext = useMemo(

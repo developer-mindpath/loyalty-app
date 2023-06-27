@@ -52,7 +52,14 @@ export interface IAddRewardRequest
     Partial<IRewardRedeemAction> {}
 
 // Update Earn Points
-export type IUpdateRewardRequest = Partial<IRewardRedeem>;
+export type IUpdateRewardRequestService = Partial<
+  IRewardRedeem & IRewardRedeemAction
+>;
+export type IUpdateRewardRequest = {
+  id: string;
+  data: Partial<IRewardRedeemWithAction>;
+  dataAction: Partial<IRewardRedeemWithAction["pointRedeem"]>;
+};
 
 // <=====================Responses=====================>
 

@@ -4,15 +4,15 @@ import {
   IAddEarnPointRequest,
   IGetEarnPointResponse,
   IAddEarnPointResponse,
-  IUpdateEarnPoint,
   IEarnPointWithAction,
+  IUpdateEarnPointService,
 } from "@/types/program/points/earnPoint";
 import {
   IAddRedeemRewardResponse,
   IAddRewardRequest,
   IGetRedeemRewardResponse,
   IRewardRedeemWithAction,
-  IUpdateRewardRequest,
+  IUpdateRewardRequestService,
 } from "@/types/program/points/redeemRewards";
 import { IAppListItem } from "@/types/program";
 
@@ -73,7 +73,7 @@ export class ProgramService {
    * @return {Promise<void>}
    */
   public static async updateEarnPointDetail(
-    payload: IUpdateEarnPoint
+    payload: IUpdateEarnPointService
   ): Promise<void> {
     await APIUtils.send({
       url: `/api/point/earn/detail/${payload.point_action_id}`,
@@ -138,7 +138,7 @@ export class ProgramService {
    * @return {Promise<void>}
    */
   public static async updateRewardRedeemDetail(
-    payload: IUpdateRewardRequest
+    payload: IUpdateRewardRequestService
   ): Promise<void> {
     await APIUtils.send({
       url: `/api/point/redeem/detail/${payload.point_redeem_id}`,

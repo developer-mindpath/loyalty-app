@@ -5,6 +5,7 @@ import {
   IEarnPoint,
   IEarnPointWithAction,
   IGetEarnPointResponse,
+  IStateUpdate,
 } from "@/types/program/points/earnPoint";
 import {
   IGetRedeemRewardResponse,
@@ -166,6 +167,26 @@ const pointProgramSlice = createSlice({
       ) => {
         state.redeem.loading = false;
         state.redeem.details = { ...state.redeem.details, ...action.payload };
+      }
+    );
+    builder.addCase(
+      RedeemRewards.changeState.fulfilled,
+      (state: IPointProgramState, action: PayloadAction<IStateUpdate>) => {
+        const { id, state: checked } = action.payload;
+        const array = state.redeem.list;
+        const foundIndex = array.findIndex((value) => value.id === id);
+        array[foundIndex].is_reward_enabled = checked ? 1 : 0;
+        state.redeem.list = array;
+      }
+    );
+    builder.addCase(
+      EarnPoint.changeState.fulfilled,
+      (state: IPointProgramState, action: PayloadAction<IStateUpdate>) => {
+        const { id, state: checked } = action.payload;
+        const array = state.earn.list;
+        const foundIndex = array.findIndex((value) => value.id === id);
+        array[foundIndex].is_action_enabled = checked ? 1 : 0;
+        state.earn.list = array;
       }
     );
   },

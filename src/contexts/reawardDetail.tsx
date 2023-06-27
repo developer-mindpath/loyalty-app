@@ -111,11 +111,12 @@ const RewardDetailProvider = ({ children }: PropsWithChildren) => {
 
     try {
       const payload = ObjectUtil.getChanges(initalState!, details);
+      const payloadAction = ObjectUtil.getChanges(
+        initalState?.pointRedeem!,
+        details.pointRedeem
+      );
       await dispatch(
-        RedeemRewards.update({
-          ...payload,
-          point_redeem_id: parseInt(id),
-        })
+        RedeemRewards.update({ id, data: payload, dataAction: payloadAction })
       );
       setIntialState(details);
     } catch (e) {

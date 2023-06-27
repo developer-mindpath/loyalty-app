@@ -20,8 +20,11 @@ import PointsController from "./controller";
 import PointsListItem from "@/components/points/pointsListItem";
 import { earnType, rewardType } from "@/utils/constants/reward";
 import { getSocialPlatformNameFromString } from "@/utils/string";
+import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
+import { useAppDispatch } from "@/redux/store";
 
 function Points() {
+  const dispatch = useAppDispatch();
   const { getters, handlers } = PointsController();
   const {
     active,
@@ -131,8 +134,13 @@ function Points() {
             </div>
             <div style={{ display: earnLoading ? "none" : "block" }}>
               <List
-                values={earnList}
-                onChange={({ oldIndex, newIndex }) => {}}
+                values={[...earnList].sort(
+                  (a, b) =>
+                    a.action_visible_order || 0 - (b.action_visible_order || 0)
+                )}
+                onChange={({ targetRect, ...rest }) => {
+                  dispatch(EarnPoint.changeOrder(rest));
+                }}
                 lockVertically
                 renderList={({ children, props }) => (
                   <ul {...props}>{children}</ul>
@@ -150,13 +158,15 @@ function Points() {
                     >
                       <Box paddingInlineStart="1" paddingInlineEnd="6">
                         <PointsListItem
+                          id={value.id}
                           points={value.points_amounts}
                           name={value.action_key_display_text}
                           icon={value.action_icon}
-                          checked={value.status === "on"}
+                          checked={value.is_action_enabled === 1}
                           path={`/programs/points/${value.action_key}/${
                             value.id
                           }${platform ? `?platform=${platform}` : ""} `}
+                          handler={EarnPoint.changeState}
                         />
                       </Box>
                     </div>
@@ -213,8 +223,8 @@ function Points() {
             <div style={{ display: redeemLoading ? "none" : "block" }}>
               <List
                 values={redeemList}
-                onChange={({ oldIndex, newIndex }) => {}}
                 lockVertically
+                onChange={() => ({})}
                 renderList={({ children, props }) => (
                   <ul {...props}>{children}</ul>
                 )}
@@ -227,11 +237,14 @@ function Points() {
                     >
                       <Box paddingInlineEnd="6">
                         <PointsListItem
-                          points="500"
+                          disableDrag
+                          id={value.id}
+                          points={value.fixed_points_amount}
                           name={value.reward_key_key_display_text}
                           icon={value.reward_icon!}
                           checked={value.is_reward_enabled === 1}
                           path={`/programs/points/${value.reward_key}/${value.id}`}
+                          handler={RedeemRewards.changeState}
                         />
                       </Box>
                     </div>
