@@ -4,22 +4,36 @@ export type GetCustomerDetailsResponse = {
   customerEmail: string;
   customerType: string;
   customerBirthday: Date;
-  pointAction: string;
-  points: number;
-  pointDate: Date;
-  rewards: string;
-  rewardCode: string;
-  rewardStatus: string;
-  rewardDate: Date;
-  referredFriend: string;
-  referralStatus: string;
-  referralOrderTotal: string;
-  referredAt: Date;
-  referralUserLink: string;
-  vipAchievedTier: string;
-  vipInternalNote: string;
-  vipStartedAt: Date;
-  vipEndedAt: Date;
-  status: string;
+  points: Array<PointsCustomer>;
+  // rewards: Array<RewardsCustomer>;
+  vip: Array<VipCustomer>;
+  // recentOrders: Array<RecentOrdersCustomer>;
   createdAt: Date;
+};
+
+export type PointsCustomer = {
+  action: string;
+  points: number;
+  date: Date;
+};
+
+export type RewardsCustomer = {
+  reward: string;
+  code: string;
+  status: string;
+  date: Date;
+};
+
+export type VipCustomer = {
+  achievedTier: string;
+  internalNote: string;
+  startedAt: Date;
+  endedAt: Date;
+};
+
+export type RecentOrdersCustomer = {
+  order: string;
+  patmentStatus: string;
+  total: string;
+  date: Date;
 };

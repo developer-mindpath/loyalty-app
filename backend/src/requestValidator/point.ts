@@ -6,6 +6,7 @@ import {
   PointActionId,
   PointRedeemDetailId,
   PointRedeemId,
+  Position,
 } from "../types/request/params";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
 import { InsertPointRedeemRequest } from "../types/request/point/insertPointRedeemRequest";
@@ -117,6 +118,12 @@ export = {
   11: joiValidationRequest<PointRedeemDetailId, IEmptyObject>({
     path: {
       pointRedeemDetailId: Joi.number().required(),
+    },
+  }),
+  12: joiValidationRequest<IEmptyObject, IEmptyObject, Position>({
+    query: {
+      oldPosition: Joi.number().required(),
+      newPosition: Joi.number().required(),
     },
   }),
 };

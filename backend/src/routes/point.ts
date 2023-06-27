@@ -12,6 +12,7 @@ import {
   PointActionId,
   PointRedeemDetailId,
   PointRedeemId,
+  Position,
 } from "../types/request/params";
 import { GetPointEarnDetailResponse } from "../types/response/point/getPointEarnDetailResponse";
 import { UpdatePointEarnDetailRequest } from "../types/request/point/updatePointEarnDetailRequest";
@@ -70,7 +71,7 @@ router.patch<
 
 router.post<
   PathParams,
-  ResponseBody<IEmptyObject>,
+  ResponseBody<PostResponse>,
   RequestBody<InsertPointRedeemRequest>,
   QueryParams
 >("/redeem", checkToken, doValidation(pointValidations[5]), (...arg) =>
@@ -118,6 +119,13 @@ router.delete<
   checkToken,
   doValidation(pointValidations[11]),
   (...arg) => pointController.deletePointRedeemDetail(...arg)
+);
+
+router.patch<PathParams, ResponseBody, RequestBody, QueryParams<Position>>(
+  "/earn/position",
+  checkToken,
+  doValidation(pointValidations[12]),
+  (...arg) => pointController.updatePosition(...arg)
 );
 
 module.exports = { router, basePath: "/api/point" };

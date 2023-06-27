@@ -30,7 +30,7 @@ router.get<
   ResponseBody<GetCustomerDetailsResponse>,
   RequestBody,
   QueryParams
->("/detail", checkToken, (...arg) =>
+>("/detail/:customerId", checkToken, (...arg) =>
   customerController.getCustomerDetail(...arg)
 );
 

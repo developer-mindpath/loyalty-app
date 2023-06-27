@@ -3,7 +3,8 @@ import AppDataSource from "../database";
 import PaginationDTO from "../dto/paginationDTO";
 import { CustomerModel } from "../database/models/customer";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
-import { GetCustomerDetailsResponse } from "../types/response/customer/getCustomerDetailsResponse";
+import { MembersWithDate } from "../types/response/analytics/getAnalyticsResponse";
+import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
 
 export default class CustomerRepository {
   private _customerModel: Repository<CustomerModel>;
@@ -46,36 +47,57 @@ export default class CustomerRepository {
 
   public async getCustomerDetail(
     customerId: number
-  ): Promise<GetCustomerDetailsResponse> {
-    return {} as GetCustomerDetailsResponse;
-    // const queryBuilder = this._customerModel
-    //   .createQueryBuilder("customer")
-    //   .innerJoinAndSelect(
-    //     `customer.loyalityProgramActivity`,
-    //     "loyalityProgramActivity"
-    //   )
-    //   .innerJoinAndSelect(`customer.referralProgramActivity`, "referralProgramActivity")
-    //   .innerJoinAndSelect(`referralProgramActivity.referralModel`, "referralModel")
-    //   .innerJoinAndSelect(`customer.vipProgramActivity`, "vipProgramActivity")
-    //   .select([
-    //     "customer.id as customerId",
-    //     "customer.customer_name as customerName",
-    //     "customer.customer_email as customerEmail",
-    //     "customer.customer_type as customerType",
-    //     "customer.customer_birthday as customerBirthday",
-    //     "loyalityProgramActivity.point as points",
-    //     "loyalityProgramActivity.point_action as pointAction",
-    //     "loyalityProgramActivity.activity_date as pointDate",
-    //     "loyalityProgramActivity.activity_date as referredFriend",
-    //     "loyalityProgramActivity.activity_date as referralStatus",
-    //     "loyalityProgramActivity.activity_date as referralOrderTotal",
-    //     "loyalityProgramActivity.activity_date as referralUserLink",
-    //     "loyalityProgramActivity.activity_date as referredAt",
-    //     "vipProgramActivity.tier_title as vipTier",
-    //     "customer.created_at as createdAt",
-    //   ]);
-    // queryBuilder.where(`customer.user_id=${userId}`);
-    // queryBuilder.orderBy("createdAt", "DESC");
-    // return await queryBuilder.getRawMany();
+  ): Promise<Record<string, string | number> | undefined> {
+    const queryBuilder = this._customerModel
+      .createQueryBuilder("customer")
+      .select([
+        "customer.id as customerId",
+        "customer.customer_name as customerName",
+        "customer.customer_email as customerEmail",
+        "customer.customer_type as customerType",
+        "customer.customer_birthday as customerBirthday",
+        "customer.created_at as createdAt",
+      ]);
+    queryBuilder.where(`customer.id=${customerId}`);
+    return await queryBuilder.getRawOne();
+  }
+
+  public async getCustomersCount(
+    getAnalyticsDTO: GetAnalyticsDTO
+  ): Promise<Record<string, number> | undefined> {
+    const queryBuilder = this._customerModel
+      .createQueryBuilder("customer")
+      .select(["COUNT(customer.id) as count"]);
+    queryBuilder.where(`customer.user_id=${getAnalyticsDTO.user_id}`);
+    queryBuilder.andWhere(`customer.customer_type='Member'`);
+    queryBuilder.andWhere(
+      "Date(customer.customer_joining_date) BETWEEN :startDate AND :endDate",
+      {
+        startDate: getAnalyticsDTO.periodDTO.startDate,
+        endDate: getAnalyticsDTO.periodDTO.endDate,
+      }
+    );
+    return await queryBuilder.getRawOne();
+  }
+
+  public async getCustomersCountWithDate(
+    getAnalyticsDTO: GetAnalyticsDTO
+  ): Promise<Array<MembersWithDate>> {
+    const queryBuilder = this._customerModel
+      .createQueryBuilder("customer")
+      .select([
+        "COUNT(customer.id) as count",
+        "Date(customer.customer_joining_date) as date",
+      ]);
+    queryBuilder.where(`customer.user_id=${getAnalyticsDTO.user_id}`);
+    queryBuilder.andWhere(
+      "Date(customer.customer_joining_date) BETWEEN :startDate AND :endDate",
+      {
+        startDate: getAnalyticsDTO.periodDTO.startDate,
+        endDate: getAnalyticsDTO.periodDTO.endDate,
+      }
+    );
+    queryBuilder.groupBy("Date(customer.customer_joining_date)");
+    return await queryBuilder.getRawMany();
   }
 }

@@ -17,6 +17,7 @@ import { PlanFeatureId, PlanId } from "../types/request/params";
 import { GetPlanFeatureResponse } from "../types/response/plan/getPlanFeatureResponse";
 import { InsertPlanFeatureRequest } from "../types/request/plan/insertPlanFeatureRequest";
 import { UpdatePlanFeatureRequest } from "../types/request/plan/updatePlanFeatureRequest";
+import { InsertPlanFeatureAssignRequest } from "../types/request/plan/insertPlanFeatureAssignRequest";
 
 const planController = new PlanController();
 const router = express.Router();
@@ -74,4 +75,15 @@ router.patch<
   (...arg) => planController.updatePlanFeature(...arg)
 );
 
+router.post<
+  PathParams,
+  ResponseBody<IEmptyObject>,
+  RequestBody<InsertPlanFeatureAssignRequest>,
+  QueryParams
+>(
+  "/feature/assign/:planId/:planFeatureId",
+  checkToken,
+  doValidation(planValidations[4]),
+  (...arg) => planController.insertPlanFeatureAssign(...arg)
+);
 module.exports = { router, basePath: "/api/plan" };
