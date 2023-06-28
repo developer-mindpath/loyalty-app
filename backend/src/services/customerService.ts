@@ -56,26 +56,14 @@ export default class CustomerService {
           : "",
       };
     }
-    const pointDetailResponse = [];
-    for (let index = 0; index < customerPointDetails.length; index++) {
-      const customerPointDetail = customerPointDetails[index];
-      pointDetailResponse.push({
-        action: customerPointDetail.action ? customerPointDetail.action : "",
-        points: customerPointDetail.points
-          ? Number(customerPointDetail.points)
-          : 0,
-        date: new Date(customerPointDetail.date),
-      });
-    }
     const vipDetails = await this._vipProgramActivityService.getVipDetail(
       customerId
     );
-    const customerResponse = {
+    return {
       ...customerDetailResponse,
-      points: pointDetailResponse,
+      points: customerPointDetails,
       vip: vipDetails,
     } as GetCustomerDetailsResponse;
-    return customerResponse;
   }
 
   public async getCustomersCount(
