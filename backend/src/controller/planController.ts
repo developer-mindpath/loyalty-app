@@ -16,6 +16,8 @@ import { InsertPlanFeatureRequest } from "../types/request/plan/insertPlanFeatur
 import InsertPlanFeatureRequestDTO from "../dto/plan/insertPlanFeatureRequestDto";
 import { UpdatePlanFeatureRequest } from "../types/request/plan/updatePlanFeatureRequest";
 import UpdatePlanFeatureRequestDTO from "../dto/plan/updatePlanFeatureRequestDto";
+import InsertPlanFeatureAssignRequestDTO from "../dto/plan/insertPlanFeatureAssignRequestDto";
+import { InsertPlanFeatureAssignRequest } from "../types/request/plan/insertPlanFeatureAssignRequest";
 
 export default class PlanController {
   private _planService: PlanService;
@@ -160,6 +162,39 @@ export default class PlanController {
         req.userId!
       );
       await this._planService.updatePlanFeature(updatePlanFeatureRequestDTO);
+      response.status = StatusCodes.OK;
+      response.message = constants.API_RESPONSE.SUCCESS;
+      response.body = {};
+      res.status(StatusCodes.OK).send(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new ExpressError(StatusCodes.BAD_REQUEST, error.message));
+      } else {
+        next(error);
+      }
+    }
+  }
+
+  public async insertPlanFeatureAssign(
+    req: CustomRequest<
+      IEmptyObject,
+      IEmptyObject,
+      InsertPlanFeatureAssignRequest
+    >,
+    res: Response<APIResponse<IEmptyObject>>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const response = new APIResponse<IEmptyObject>();
+      const insertPlanFeatureAssignRequestDTO =
+        new InsertPlanFeatureAssignRequestDTO(
+          req.body,
+          req.userId!,
+          req.adminRef!
+        );
+      await this._planService.insertPlanFeatureAssign(
+        insertPlanFeatureAssignRequestDTO
+      );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = {};

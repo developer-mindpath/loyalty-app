@@ -12,6 +12,9 @@ import UpdatePointRedeemDetailRequestDTO from "../dto/point/updatePointRedeemDet
 import { GetPointRedeemDetailResponse } from "../types/response/point/getPointRedeemDetailResponse";
 import PointRedeemDetailService from "./pointRedeemDetailService";
 import { PostResponse } from "../types/response/postResponse";
+import { EarningPointsWithDate } from "../types/response/analytics/getAnalyticsResponse";
+import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
+import UpdatePointEarnPositionRequestDTO from "../dto/point/updatePointEarnPositionRequestDto";
 
 export default class PointService {
   private _pointRepository: PointRepository;
@@ -247,6 +250,28 @@ export default class PointService {
   ): Promise<DeleteResult> {
     return await this._pointRedeemDetailService.deletePointRedeemDetail(
       pointRedeemDetailId
+    );
+  }
+
+  public async getEarningPoints(
+    getAnalyticsDTO: GetAnalyticsDTO
+  ): Promise<Record<string, number> | undefined> {
+    return await this._pointRepository.getEarningPoints(getAnalyticsDTO);
+  }
+
+  public async getEarningPointsWithDate(
+    getAnalyticsDTO: GetAnalyticsDTO
+  ): Promise<Array<EarningPointsWithDate>> {
+    return await this._pointRepository.getEarningPointsWithDate(
+      getAnalyticsDTO
+    );
+  }
+
+  public async updatePosition(
+    updatePointEarnPositionRequestDTO: UpdatePointEarnPositionRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._pointRepository.updatePosition(
+      updatePointEarnPositionRequestDTO
     );
   }
 }

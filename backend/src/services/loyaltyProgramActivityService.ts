@@ -18,4 +18,12 @@ export default class LoyaltyProgramActivityService {
       paginationDTO
     );
   }
+
+  public async getCustomerPointDetails(
+    customerId: number
+  ): Promise<Array<Record<string, string | number>>> {
+    return await this._loyaltyProgramActivityRepository.getCustomerPointDetails(
+      customerId
+    );
+  }
 }

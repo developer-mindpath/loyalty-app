@@ -9,13 +9,18 @@ import InsertPlanFeatureRequestDTO from "../dto/plan/insertPlanFeatureRequestDto
 import { PlanFeatureModel } from "../database/models/planFeature";
 import PlanFeatureService from "./planFeatureService";
 import UpdatePlanFeatureRequestDTO from "../dto/plan/updatePlanFeatureRequestDto";
+import InsertPlanFeatureAssignRequestDTO from "../dto/plan/insertPlanFeatureAssignRequestDto";
+import PlanFeatureAssignService from "./planFeatureAssignService";
+import { PlanFeatureAssignedModel } from "../database/models/planFeatureAssigned";
 
 export default class PlanService {
   private _planRepository: PlanRepository;
   private _planFeatureService: PlanFeatureService;
+  private _planFeatureAssignService: PlanFeatureAssignService;
   constructor() {
     this._planRepository = new PlanRepository();
     this._planFeatureService = new PlanFeatureService();
+    this._planFeatureAssignService = new PlanFeatureAssignService();
   }
 
   public async insertPlan(
@@ -51,6 +56,14 @@ export default class PlanService {
   ): Promise<UpdateResult> {
     return await this._planFeatureService.updatePlanFeature(
       updatePlanFeatureRequestDTO
+    );
+  }
+
+  public async insertPlanFeatureAssign(
+    insertPlanFeatureAssignRequestDTO: InsertPlanFeatureAssignRequestDTO
+  ): Promise<PlanFeatureAssignedModel> {
+    return await this._planFeatureAssignService.insertPlanFeatureAssign(
+      insertPlanFeatureAssignRequestDTO
     );
   }
 }

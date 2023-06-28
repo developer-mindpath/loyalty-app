@@ -33,7 +33,23 @@ export default class LoyaltyProgramActivityRepository {
       const offset: number = paginationDTO.offset;
       queryBuilder.skip(offset).take(paginationDTO.limit);
     }
-    // queryBuilder.orderBy('loyalityProgramActivity.activity_date', 'ASC');
+    return await queryBuilder.getRawMany();
+  }
+
+  public async getCustomerPointDetails(
+    customerId: number
+  ): Promise<Array<Record<string, string | number>>> {
+    const queryBuilder = this._loyalityProgramActivityModel
+      .createQueryBuilder("loyalityProgramActivity")
+      .innerJoinAndSelect(`loyalityProgramActivity.pointAction`, "pointAction")
+      .innerJoinAndSelect(`pointAction.pointActionDetail`, "pointActionDetail")
+      .select([
+        "pointActionDetail.points_amounts as points",
+        "pointAction.action_key_display_text as action",
+        "pointAction.created_at as date",
+      ]);
+    queryBuilder.where(`loyalityProgramActivity.customer_id=${customerId}`);
+    queryBuilder.orderBy("pointAction.created_at", "DESC");
     return await queryBuilder.getRawMany();
   }
 }
