@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "@/redux/store";
-import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
+import {
+  EarnPoint,
+  ProgramActions,
+  RedeemRewards,
+} from "@/redux/actions/programActions";
 import {
   IEarnPoint,
   IEarnPointWithAction,
@@ -12,8 +16,10 @@ import {
   IRewardRedeem,
   IRewardRedeemWithAction,
 } from "@/types/program/points/redeemRewards";
+import { IProgramStatus } from "@/types/program";
 
 interface IPointProgramState {
+  status: IProgramStatus;
   earn: {
     loading: boolean;
     list: IGetEarnPointResponse[];
@@ -27,6 +33,7 @@ interface IPointProgramState {
 }
 
 const initialState: IPointProgramState = {
+  status: {} as IProgramStatus,
   earn: {
     loading: true,
     list: [],
@@ -72,6 +79,16 @@ const pointProgramSlice = createSlice({
       const { key, value } = action.payload;
       state.redeem.details = {
         ...state.redeem.details,
+        [key]: value,
+      };
+    },
+    updateProgramState: (
+      state: IPointProgramState,
+      action: PayloadAction<{ key: string; value: string | boolean | number }>
+    ) => {
+      const { key, value } = action.payload;
+      state.status = {
+        ...state.status,
         [key]: value,
       };
     },
@@ -189,10 +206,22 @@ const pointProgramSlice = createSlice({
         state.earn.list = array;
       }
     );
+    builder.addCase(ProgramActions.getStatus.fulfilled, (state, action) => {
+      state.status = action.payload;
+    });
+    builder.addCase(ProgramActions.getStatus.rejected, (state) => {
+      state.status = {
+        is_point_program_enabled: 0,
+        is_referal_program_enabled: 0,
+        is_vip_program_enabled: 0,
+      } as IProgramStatus;
+    });
   },
 });
 
 export const programPointActions = { ...pointProgramSlice.actions };
+
+export const getProgramState = (state: IRootState) => state.pointProgram.status;
 
 export const getEarnLoading = (state: IRootState) =>
   state.pointProgram.earn.loading;

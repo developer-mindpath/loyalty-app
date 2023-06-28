@@ -36,6 +36,7 @@ function Points() {
     statusLabel,
     redeemList,
     redeemLoading,
+    resetPoints,
   } = getters;
   const {
     handleModalClose1,
@@ -43,6 +44,7 @@ function Points() {
     handleModalOpen1,
     handleModalOpen2,
     handleToggleChange,
+    handleResetPoint,
   } = handlers;
 
   return (
@@ -260,7 +262,11 @@ function Points() {
         >
           <AlphaCard>
             <Box paddingBlockEnd="16">
-              <Checkbox label="Reset points balance to zero after a certain period" />
+              <Checkbox
+                checked={resetPoints}
+                label="Reset points balance to zero after a certain period"
+                onChange={handleResetPoint}
+              />
             </Box>
           </AlphaCard>
         </Layout.AnnotatedSection>

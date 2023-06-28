@@ -1,17 +1,22 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
 import {
   getEarnList,
   getEarnLoading,
+  getProgramState,
   getRedeemList,
   getRedeemLoading,
+  programPointActions,
 } from "@/redux/reducers/pointsProgram";
 
 const PointsController = () => {
   const dispatch = useAppDispatch();
-  const [active, setActive] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const state = useAppSelector(getProgramState);
+  const active = state?.is_point_program_enabled === 1;
+  const resetPoints = state?.reset_points_to_zero === 1;
+
   // Modal
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
@@ -45,8 +50,13 @@ const PointsController = () => {
     getRedeemData();
   }, [getRedeemData]);
 
-  const handleToggleChange = () => {
-    setActive(!active);
+  const handleToggleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      programPointActions.updateProgramState({
+        key: "is_point_program_enabled",
+        value: event.target.checked ? 1 : 0,
+      })
+    );
     if (!active) {
       setShowBanner(true);
       setTimeout(() => {
@@ -71,8 +81,15 @@ const PointsController = () => {
     setIsModalOpen2(false);
   };
 
-  const handleOrderChange = (type: "earn" | "redeem") => {
-    
+  const handleOrderChange = () => {};
+
+  const handleResetPoint = (selected: boolean) => {
+    dispatch(
+      programPointActions.updateProgramState({
+        key: "reset_points_to_zero",
+        value: selected ? 1 : 0,
+      })
+    );
   };
 
   return {
@@ -86,6 +103,7 @@ const PointsController = () => {
       earnLoading,
       redeemList,
       redeemLoading,
+      resetPoints,
     },
     handlers: {
       handleToggleChange,
@@ -93,6 +111,7 @@ const PointsController = () => {
       handleModalClose2,
       handleModalOpen1,
       handleModalOpen2,
+      handleResetPoint,
     },
   };
 };

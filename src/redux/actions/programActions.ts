@@ -1,10 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ProgramService } from "@/service/programService";
 import {
-  IEarnPoint,
   IAddEarnPointRequest,
   IAddEarnPointResponse,
-  IEarnPointWithAction,
   IUpdateEarnPoint,
   IOrderUpdate,
   IStateUpdate,
@@ -15,6 +13,15 @@ import {
   IUpdateRewardRequest,
 } from "@/types/program/points/redeemRewards";
 import store from "../store";
+
+export class ProgramActions {
+  /**
+   * Get Program Details
+   */
+  public static getStatus = createAsyncThunk("/program/get", () => {
+    return ProgramService.getProgramStatus();
+  });
+}
 
 export class EarnPoint {
   /**

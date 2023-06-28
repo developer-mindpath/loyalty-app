@@ -38,65 +38,83 @@ import EmailSettings from "@/pages/settings/email/email";
 
 // Others
 import CommingSoon from "@/components/commingSoon";
+import { useCallback, useEffect } from "react";
+import { useAppDispatch } from "@/redux/store";
+import { ProgramActions } from "@/redux/actions/programActions";
 
-const DashboardRoutes = (): JSX.Element => (
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/customers" element={<Customers />} />
-    <Route path="/feedback" element={<FeedbackPage />} />
-    {/* Programs */}
-    <Route path="/programs/referrals" element={<ReferralPage />} />
-    <Route path="/programs/points" element={<Points />} />
-    <Route path="/programs/email" element={<EmailProgram />} />
-    <Route path="/programs/email/:id" element={<EditEmailProgram />} />
-    <Route
-      path="/programs/points/review/:id"
-      element={<ProductReviewActivity />}
-    />
-    <Route path="/programs/points/referral/:id" element={<ReferalActivity />} />
-    <Route path="/programs/points/share/:id" element={<ShareActivity />} />
-    <Route path="/programs/points/sign_up/:id" element={<SignUpActivity />} />
-    <Route
-      path="/programs/points/birthday/:id"
-      element={<BirthdayActivity />}
-    />
-    <Route path="/programs/points/like/:id" element={<LikeActivity />} />
-    <Route
-      path="/programs/points/place_order/:id"
-      element={<OrderActivity />}
-    />
-    <Route path="/programs/points/follow/:id" element={<FollowActivity />} />
-    {/* Redeem Reward */}
-    <Route
-      path="/programs/points/discount/:id"
-      element={<DiscountActivity />}
-    />
-    <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
-    <Route
-      path="/programs/points/free-product/:id"
-      element={<FreeProductActivity />}
-    />
-    <Route
-      path="/programs/points/free-shipping/:id"
-      element={<FreeShippingActivity />}
-    />
-    <Route
-      path="/programs/points/percentage-off/:id"
-      element={<PrecentageActivity />}
-    />
-    {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
-    {/* Settings */}
-    <Route path="/settings" element={<Settings />} />
-    <Route path="settings/general" element={<GeneralSettings />} />
-    <Route path="settings/billing" element={<BillingSettings />} />
-    <Route path="settings/import" element={<ImportSettings />} />
-    <Route path="settings/rewards" element={<RewardSettings />} />
-    <Route path="settings/orders" element={<OrdersSettings />} />
-    <Route path="settings/email" element={<EmailSettings />} />
-    <Route path="settings/integrations" element={<CommingSoon />} />
-    <Route path="settings/webhooks" element={<CommingSoon />} />
-    <Route path="settings/toolkit" element={<CommingSoon />} />
-  </Routes>
-);
+const DashboardRoutes = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  const fetchData = useCallback(() => {
+    dispatch(ProgramActions.getStatus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/customers" element={<Customers />} />
+      <Route path="/feedback" element={<FeedbackPage />} />
+      {/* Programs */}
+      <Route path="/programs/referrals" element={<ReferralPage />} />
+      <Route path="/programs/points" element={<Points />} />
+      <Route path="/programs/email" element={<EmailProgram />} />
+      <Route path="/programs/email/:id" element={<EditEmailProgram />} />
+      <Route
+        path="/programs/points/review/:id"
+        element={<ProductReviewActivity />}
+      />
+      <Route
+        path="/programs/points/referral/:id"
+        element={<ReferalActivity />}
+      />
+      <Route path="/programs/points/share/:id" element={<ShareActivity />} />
+      <Route path="/programs/points/sign_up/:id" element={<SignUpActivity />} />
+      <Route
+        path="/programs/points/birthday/:id"
+        element={<BirthdayActivity />}
+      />
+      <Route path="/programs/points/like/:id" element={<LikeActivity />} />
+      <Route
+        path="/programs/points/place_order/:id"
+        element={<OrderActivity />}
+      />
+      <Route path="/programs/points/follow/:id" element={<FollowActivity />} />
+      {/* Redeem Reward */}
+      <Route
+        path="/programs/points/discount/:id"
+        element={<DiscountActivity />}
+      />
+      <Route path="/programs/points/coupon/:id" element={<CouponActivity />} />
+      <Route
+        path="/programs/points/free-product/:id"
+        element={<FreeProductActivity />}
+      />
+      <Route
+        path="/programs/points/free-shipping/:id"
+        element={<FreeShippingActivity />}
+      />
+      <Route
+        path="/programs/points/percentage-off/:id"
+        element={<PrecentageActivity />}
+      />
+      {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
+      {/* Settings */}
+      <Route path="/settings" element={<Settings />} />
+      <Route path="settings/general" element={<GeneralSettings />} />
+      <Route path="settings/billing" element={<BillingSettings />} />
+      <Route path="settings/import" element={<ImportSettings />} />
+      <Route path="settings/rewards" element={<RewardSettings />} />
+      <Route path="settings/orders" element={<OrdersSettings />} />
+      <Route path="settings/email" element={<EmailSettings />} />
+      <Route path="settings/integrations" element={<CommingSoon />} />
+      <Route path="settings/webhooks" element={<CommingSoon />} />
+      <Route path="settings/toolkit" element={<CommingSoon />} />
+    </Routes>
+  );
+};
 
 export default DashboardRoutes;

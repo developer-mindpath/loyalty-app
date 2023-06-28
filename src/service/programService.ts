@@ -14,9 +14,37 @@ import {
   IRewardRedeemWithAction,
   IUpdateRewardRequestService,
 } from "@/types/program/points/redeemRewards";
-import { IAppListItem } from "@/types/program";
+import { IProgramStatus, IAppListItem } from "@/types/program";
 
 export class ProgramService {
+  /**
+   * Get Program Status
+   * @return {Promise<void>}
+   */
+  public static async getProgramStatus(): Promise<IProgramStatus> {
+    const response = await APIUtils.send<IResponseWithBody<IProgramStatus>>({
+      url: "/api/program/status",
+      method: "GET",
+    });
+    return response.data.body;
+  }
+
+  /**
+   * Update Program Status
+   * @param {Partial<IProgramStatus>} payload
+   * @return {Promise<void>}
+   */
+  public static async updateProgramStatus(
+    payload: Partial<IProgramStatus>
+  ): Promise<void> {
+    const response = await APIUtils.send<void>({
+      url: "/api/program/status",
+      method: "PATCH",
+      data: payload,
+    });
+    return response.data;
+  }
+
   /**
    * Get Points
    * @returns {Promise<IPointResponse>}
