@@ -6,6 +6,7 @@ import {
   IAddEarnPointResponse,
   IEarnPointWithAction,
   IUpdateEarnPointService,
+  IOrderUpdate,
 } from "@/types/program/points/earnPoint";
 import {
   IAddRedeemRewardResponse,
@@ -193,5 +194,17 @@ export class ProgramService {
       { id: 2, app_title: "Handy" },
       { id: 3, app_title: "Mandy" },
     ]);
+  }
+
+  /**
+   * Change Order
+   * @param {IOrderUpdate} payload
+   */
+  public static async updateOrder(payload: IOrderUpdate): Promise<void> {
+    const { newIndex, oldIndex } = payload;
+    await APIUtils.send({
+      method: "PATCH",
+      url: `/api/point/earn/position?oldPosition=${oldIndex}&newPosition=${newIndex}`,
+    });
   }
 }

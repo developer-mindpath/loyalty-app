@@ -1,6 +1,10 @@
 import { useState, useMemo, useEffect, useCallback, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
+import {
+  EarnPoint,
+  ProgramActions,
+  RedeemRewards,
+} from "@/redux/actions/programActions";
 import {
   getEarnList,
   getEarnLoading,
@@ -50,13 +54,13 @@ const PointsController = () => {
     getRedeemData();
   }, [getRedeemData]);
 
-  const handleToggleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      programPointActions.updateProgramState({
-        key: "is_point_program_enabled",
-        value: event.target.checked ? 1 : 0,
+  const handleToggleChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    await dispatch(
+      ProgramActions.updateStatus({
+        is_point_program_enabled: event.target.checked ? 1 : 0,
       })
-    );
+    ).unwrap();
+
     if (!active) {
       setShowBanner(true);
       setTimeout(() => {
@@ -83,11 +87,10 @@ const PointsController = () => {
 
   const handleOrderChange = () => {};
 
-  const handleResetPoint = (selected: boolean) => {
-    dispatch(
-      programPointActions.updateProgramState({
-        key: "reset_points_to_zero",
-        value: selected ? 1 : 0,
+  const handleResetPoint = async (selected: boolean) => {
+    await dispatch(
+      ProgramActions.updateStatus({
+        reset_points_to_zero: selected ? 1 : 0,
       })
     );
   };

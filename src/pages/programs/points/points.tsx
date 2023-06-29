@@ -136,10 +136,7 @@ function Points() {
             </div>
             <div style={{ display: earnLoading ? "none" : "block" }}>
               <List
-                values={[...earnList].sort(
-                  (a, b) =>
-                    a.action_visible_order || 0 - (b.action_visible_order || 0)
-                )}
+                values={earnList}
                 onChange={({ targetRect, ...rest }) => {
                   dispatch(EarnPoint.changeOrder(rest));
                 }}

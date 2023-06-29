@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { IRootState } from "@/redux/store";
 import {
   EarnPoint,
@@ -105,7 +105,9 @@ const pointProgramSlice = createSlice({
         action: PayloadAction<IGetEarnPointResponse[]>
       ) => {
         state.earn.loading = false;
-        state.earn.list = action.payload;
+        state.earn.list = action.payload.sort(
+          (a, b) => a.action_visible_order - b.action_visible_order
+        );
       }
     );
     builder.addCase(
@@ -215,6 +217,18 @@ const pointProgramSlice = createSlice({
         is_referal_program_enabled: 0,
         is_vip_program_enabled: 0,
       } as IProgramStatus;
+    });
+    builder.addCase(ProgramActions.updateStatus.fulfilled, (state, action) => {
+      state.status = { ...state.status, ...action.payload };
+    });
+    builder.addCase(EarnPoint.changeOrder.fulfilled, (state, action) => {
+      const list = state.earn.list;
+      const { oldIndex, newIndex } = action.payload;
+      const swapList = list
+        .swapItems(oldIndex, newIndex)
+        .sort((a, b) => a.action_visible_order - b.action_visible_order);
+      console.log(current(swapList));
+      state.earn.list = swapList;
     });
   },
 });

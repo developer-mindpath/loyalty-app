@@ -12,7 +12,7 @@ import {
   IAddRewardRequest,
   IUpdateRewardRequest,
 } from "@/types/program/points/redeemRewards";
-import store from "../store";
+import { IProgramStatus } from "@/types/program";
 
 export class ProgramActions {
   /**
@@ -21,6 +21,17 @@ export class ProgramActions {
   public static getStatus = createAsyncThunk("/program/get", () => {
     return ProgramService.getProgramStatus();
   });
+
+  /**
+   * Get Program Details
+   */
+  public static updateStatus = createAsyncThunk(
+    "/program/update",
+    async (payload: Partial<IProgramStatus>) => {
+      await ProgramService.updateProgramStatus(payload);
+      return payload;
+    }
+  );
 }
 
 export class EarnPoint {
@@ -77,13 +88,7 @@ export class EarnPoint {
   public static changeOrder = createAsyncThunk(
     "/program/points/earn/update/order",
     async (payload: IOrderUpdate) => {
-      const { newIndex, oldIndex } = payload;
-      const list = store.getState().pointProgram.earn.list;
-      const { id } = list[oldIndex];
-      await ProgramService.updateEarnPointDetail({
-        point_action_id: id,
-        action_visible_order: newIndex,
-      });
+      ProgramService.updateOrder(payload);
       return payload;
     }
   );

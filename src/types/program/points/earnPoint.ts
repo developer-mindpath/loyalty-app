@@ -11,7 +11,7 @@ export interface IEarnPointAction extends IAudit, ITimestamp {
   admin_ref: number;
   action_description: string;
   is_action_enabled: number | null;
-  action_visible_order: number | null;
+  action_visible_order: number;
 }
 
 export interface IEarnPoint extends IAudit, ITimestamp {
