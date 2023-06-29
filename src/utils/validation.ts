@@ -14,32 +14,32 @@ class ValidationUtil {
     value: StringOrUndefined,
     required = false
   ): StringOrUndefined {
-    if (!required) return undefined;
-    if (!value) return "Field is Required";
+    if (!value && required) return "Field is Required";
+    return undefined;
   }
 
   public static email(
     value: StringOrUndefined,
     required = false
   ): StringOrUndefined {
-    if (!ValidationUtil.notEmpty(value, required)) return;
     if (!Regex.EMAIL.test(value!)) return "Please enter a valid Email Address";
+    return ValidationUtil.notEmpty(value, required);
   }
 
   public static domain(
     value: StringOrUndefined,
     required = false
   ): StringOrUndefined {
-    if (!ValidationUtil.notEmpty(value, required)) return;
     if (!Regex.DOMAIN.test(value!)) return "Please enter a valid URL";
+    return ValidationUtil.notEmpty(value, required);
   }
 
   public static domainPath(
     value: StringOrUndefined,
     required = false
   ): StringOrUndefined {
-    if (!ValidationUtil.notEmpty(value, required)) return;
     if (!Regex.DOMAIN_PATH.test(value!)) return "Please enter a valid URL";
+    return ValidationUtil.notEmpty(value, required);
   }
 
   public static len(
@@ -47,19 +47,19 @@ class ValidationUtil {
     required = false,
     options: { min: number; max: number }
   ): StringOrUndefined {
-    if (!ValidationUtil.notEmpty(value, required)) return;
     const { max, min } = options;
 
     if (value!.length > max) return `Cannot be More than ${max}`;
     if (value!.length > min) return `Cannot be less than ${min}`;
+    return ValidationUtil.notEmpty(value, required);
   }
 
   public static number(
     value: StringOrUndefined,
     required = false
   ): StringOrUndefined {
-    if (!ValidationUtil.notEmpty(value, required)) return;
     if (isNaN(Number(value))) return "Please enter a valid number";
+    return ValidationUtil.notEmpty(value, required);
   }
 }
 
