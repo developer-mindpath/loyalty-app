@@ -228,6 +228,12 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
                 url: "/branding/emails",
                 selected: isActiveNavItem("/branding/emails"),
               },
+              {
+                label: "Translation",
+                disabled: false,
+                url: "/branding/translations",
+                selected: isActiveNavItem("/branding/translations"),
+              },
             ]}
           />
         </StyledSubNav>

@@ -37,7 +37,7 @@ import Order from "./Order";
 import WidgetText from "./WidgetText";
 import "../styles/Widget.css";
 
-import { ConfigContext } from "../../../../App";
+// import { ConfigContext } from "../../../../App";
 // import { ConfigContext } from '../../Widget';
 import WidgetButton from "./WidgetButton";
 
@@ -58,19 +58,20 @@ const pageHeaders = {
 
 const ConfigPage = () => {
   const [activePage, setActivePage] = useState("nav");
-  const { config, setConfig } = useContext(ConfigContext);
+  // const { config, setConfig } = useContext(ConfigContext);
 
   return (
     <Page
       title={
-        <>
-          {activePage !== "nav" && (
-            <Button onClick={() => setActivePage("nav")}>
-              <Icon source={MobileChevronMajor} color="base" />
-            </Button>
-          )}{" "}
-          &nbsp; {pageHeaders[activePage]}
-        </>
+        'title'
+        // <>
+        //   {activePage !== "nav" && (
+        //     <Button onClick={() => setActivePage("nav")}>
+        //       <Icon source={MobileChevronMajor} color="base" />
+        //     </Button>
+        //   )}{" "}
+        //   &nbsp; {pageHeaders[activePage]}
+        // </>
       }
       fullWidth
     >
@@ -173,7 +174,7 @@ const ConfigPage = () => {
             <Card sectioned>
               {activePage === "colors" && <Colors />}
               {activePage === "corners" && (
-                <Corners config={config} setConfig={setConfig} />
+                <Corners />
               )}
               {activePage === "banner" && <Banner />}
               {activePage === "css" && <CustomCSS />}
@@ -188,7 +189,7 @@ const ConfigPage = () => {
           )}
         </Layout.Section>
         <Layout.Section oneHalf>
-          <Widget config={config} setConfig={setConfig} />
+          <Widget />
         </Layout.Section>
       </Layout>
     </Page>

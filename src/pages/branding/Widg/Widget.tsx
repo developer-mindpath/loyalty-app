@@ -9,13 +9,30 @@ import { Helmet } from "react-helmet";
 import { useState } from "react";
 import Tier from "./Tier";
 
-const Widget = ({ config }) => {
+const Widget = () => {
   const [page, setPage] = useState("default");
   const [loggedIn, setLoggedIn] = useState(false);
+  const config = {
+    launcherPadding: 20,
+    widgetRadius: '10',
+    fontPrimary: "Arial",
+    fontSecondary: "Helvetica",
+    customCSS: "",
+    textsTitle: "000000",
+    joinBlockTitle: "Join Now",
+    buttonsRadius: '5',
+    buttonBg: "000000",
+    buttonColor: "FFFFFF",
+    joinBlockButtonText: "Join",
+    textsDescription: "888888",
+    joinBlockFooterText: "Already have an account?",
+    linkColor: "0000FF",
+    panelsOrder: ["Earn Points", "Referral Program", "VIP Tiers"],
+    iconColor: "FF0000",
+    showBranding : true,
+  };
 
-  const maxHeight = `calc(100vh - ${parseInt(
-    config.launcherPadding * 3
-  )}px - 56px)`;
+  const maxHeight = `calc(100vh - ${config.launcherPadding * 3}px - 56px)`;
 
   return (
     <div
@@ -39,12 +56,7 @@ const Widget = ({ config }) => {
         `}</style>
       </Helmet>
 
-      <Header
-        config={config}
-        page={page}
-        setPage={setPage}
-        loggedIn={loggedIn}
-      />
+      <Header page={page} setPage={setPage} loggedIn={loggedIn} />
 
       {page === "default" && !loggedIn && (
         <Block>
@@ -64,7 +76,7 @@ const Widget = ({ config }) => {
               fontFamily: `${config.fontSecondary}, Helvetica, Arial, sans-serif`,
             }}
             className={styles.widgetBtn}
-            size="large"
+            // size="large"
             onClick={() => setLoggedIn(true)}
           >
             {config.joinBlockButtonText}
@@ -87,7 +99,7 @@ const Widget = ({ config }) => {
       )}
 
       {page === "default" &&
-        config.panelsOrder.map((item, index) => {
+        config.panelsOrder.map((item: string, index: number) => {
           if (item === "Earn Points")
             return (
               <EarnPoints key={index} setPage={setPage} loggedIn={loggedIn} />
@@ -98,6 +110,7 @@ const Widget = ({ config }) => {
             return (
               <VIPTiers key={index} setPage={setPage} loggedIn={loggedIn} />
             );
+          else return null;
         })}
 
       {page === "earn" && (

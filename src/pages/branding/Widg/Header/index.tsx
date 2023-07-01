@@ -1,8 +1,22 @@
-import { Icon } from '@shopify/polaris';
-import styles from './index.module.css';
-import { MobileBackArrowMajor } from '@shopify/polaris-icons';
+import { Icon } from "@shopify/polaris";
+import styles from "./index.module.css";
+import { MobileBackArrowMajor } from "@shopify/polaris-icons";
 
-const Header = ({ config, page, setPage, loggedIn }) => {
+interface IHeaderprops {
+  page: string;
+  setPage: (value: string) => void;
+  loggedIn: boolean;
+}
+
+const Header = ({ page, setPage, loggedIn }: IHeaderprops) => {
+  const config = {
+    widgetRadius: "10",
+    headerBg: "h5h5h5",
+    headerText: "headerText",
+    fontPrimary: "poppins",
+    widgetTitle: "widgetTitle",
+    widgetSubtitle: "widgetSubtitle",
+  };
   return (
     <div
       style={{
@@ -15,7 +29,7 @@ const Header = ({ config, page, setPage, loggedIn }) => {
       }}
       className={styles.widgetHeader}
     >
-      {page === 'default' ? (
+      {page === "default" ? (
         !loggedIn ? (
           <>
             <h2>{config.widgetTitle}</h2>
@@ -29,8 +43,8 @@ const Header = ({ config, page, setPage, loggedIn }) => {
         )
       ) : (
         <>
-          <button onClick={() => setPage('default')}>
-            <Icon source={MobileBackArrowMajor} color='subdued' />
+          <button onClick={() => setPage("default")}>
+            <Icon source={MobileBackArrowMajor} color="subdued" />
           </button>
           {loggedIn ? <h3>Your Points</h3> : <h3>{config.widgetTitle}</h3>}
         </>

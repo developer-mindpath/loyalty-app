@@ -1,10 +1,13 @@
 import { useState, useContext } from 'react';
 import { List, arrayMove } from 'react-movable';
 import { DragHandleMinor } from '@shopify/polaris-icons';
-import { ConfigContext } from '../../../../../App';
+// import { ConfigContext } from '../../../../../App';
 
 const Order = () => {
-  const { config, setConfig } = useContext(ConfigContext);
+  // const { config, setConfig } = useContext(ConfigContext);
+  const config = {
+    panelsOrder : [1,2,3,4],
+  }
   const [items, setItems] = useState(config.panelsOrder);
 
   return (
@@ -12,10 +15,10 @@ const Order = () => {
       values={items}
       onChange={({ oldIndex, newIndex }) => {
         setItems(arrayMove(items, oldIndex, newIndex));
-        setConfig((prev) => ({
-          ...prev,
-          panelsOrder: arrayMove(items, oldIndex, newIndex),
-        }));
+        // setConfig((prev) => ({
+        //   ...prev,
+        //   panelsOrder: arrayMove(items, oldIndex, newIndex),
+        // }));
       }}
       renderList={({ children, props }) => (
         <ul {...props} className='drag-list'>
