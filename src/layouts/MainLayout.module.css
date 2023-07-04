@@ -167,10 +167,6 @@
   color: #fff;
 }
 
-:global(.Polaris-Frame .Polaris-Text--subdued) {
-  color: #ffffffe0;
-}
-
 :global(.Polaris-Frame nav.Polaris-Navigation) {
   background: var(--background-color-navy);
 }

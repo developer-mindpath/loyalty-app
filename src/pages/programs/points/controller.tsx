@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback, ChangeEvent } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   EarnPoint,
   ProgramActions,

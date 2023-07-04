@@ -10,7 +10,7 @@ import {
 } from "@shopify/polaris";
 import { DragHandleMinor, EditMinor } from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hook";
 import { AsyncThunk } from "@reduxjs/toolkit";
 import { IStateUpdate } from "@/types/program/points/earnPoint";
 

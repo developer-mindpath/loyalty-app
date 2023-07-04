@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
-import { IRootState } from "@/redux/store";
+import type { IRootState } from "@/redux/types";
 import {
   EarnPoint,
   ProgramActions,

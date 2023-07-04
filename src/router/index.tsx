@@ -40,39 +40,37 @@ function Link({
   );
 }
 
-function RouterComponent() {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <AppProvider linkComponent={Link} i18n={{}}>
-          <Frame>
-            <ContextualSaveProvider>
-              <Routes>
-                <Route
-                  path="*"
-                  element={
-                    <AuthWrapper>
-                      <MainLayout>
-                        <DashboardRoutes />
-                      </MainLayout>
-                    </AuthWrapper>
-                  }
-                />
-                <Route
-                  path="/login"
-                  element={
-                    <AuthWrapper reverseGuard>
-                      <Login />
-                    </AuthWrapper>
-                  }
-                />
-              </Routes>
-            </ContextualSaveProvider>
-          </Frame>
-        </AppProvider>
-      </BrowserRouter>
-    </Provider>
-  );
-}
+const RouterComponent = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <AppProvider linkComponent={Link} i18n={{}}>
+        <Frame>
+          <ContextualSaveProvider>
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  <AuthWrapper>
+                    <MainLayout>
+                      <DashboardRoutes />
+                    </MainLayout>
+                  </AuthWrapper>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <AuthWrapper reverseGuard>
+                    <Login />
+                  </AuthWrapper>
+                }
+              />
+            </Routes>
+          </ContextualSaveProvider>
+        </Frame>
+      </AppProvider>
+    </BrowserRouter>
+  </Provider>
+);
 
 export default RouterComponent;

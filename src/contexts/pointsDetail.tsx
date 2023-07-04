@@ -9,7 +9,7 @@ import {
 } from "react";
 import { parseInt } from "lodash";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   IEarnPointAction,
   IEarnPointWithAction,

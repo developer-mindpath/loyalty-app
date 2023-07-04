@@ -21,7 +21,7 @@ import PointsListItem from "@/components/points/pointsListItem";
 import { earnType, rewardType } from "@/utils/constants/reward";
 import { getSocialPlatformNameFromString } from "@/utils/string";
 import { EarnPoint, RedeemRewards } from "@/redux/actions/programActions";
-import { useAppDispatch } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hook";
 
 function Points() {
   const dispatch = useAppDispatch();

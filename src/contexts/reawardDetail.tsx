@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { parseInt } from "lodash";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   getRedeemDetails,

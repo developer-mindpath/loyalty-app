@@ -5,7 +5,7 @@ import {
   getIsLoading,
   settingsActions,
 } from "@/redux/reducers/settings";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import SettingsAction from "@/redux/actions/settingsAction";
 import useContextualSave from "@/hooks/useContextualSave";
 import ObjectUtil from "@/utils/object";

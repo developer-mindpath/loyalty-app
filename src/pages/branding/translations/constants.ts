@@ -1,6 +1,6 @@
-import { ItranslationFields } from "./translations.controller";
+import { ITranslationFields } from "@/types/translations";
 
-export const labels: ItranslationFields = {
+export const labels: ITranslationFields = {
   ways_to_earn: "General ways to earn",
   ways_to_redeem: "General ways to redeem",
   sign_in: "General sign in",

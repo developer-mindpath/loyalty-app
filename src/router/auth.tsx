@@ -23,7 +23,7 @@ import ReferralPage from "@/pages/programs/referral";
 
 //branding
 import Translations from "@/pages/branding/translations/translations";
-import EmailDesign from "@/pages/branding/emailDesign"
+import EmailDesign from "@/pages/branding/emailDesign";
 
 // Pages
 import FeedbackPage from "@/pages/feedback";
@@ -43,7 +43,7 @@ import EmailSettings from "@/pages/settings/email/email";
 // Others
 import CommingSoon from "@/components/commingSoon";
 import { useCallback, useEffect } from "react";
-import { useAppDispatch } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hook";
 import { ProgramActions } from "@/redux/actions/programActions";
 
 const DashboardRoutes = (): JSX.Element => {
@@ -108,7 +108,7 @@ const DashboardRoutes = (): JSX.Element => {
       {/* Branding */}
       <Route path="/branding/translations" element={<Translations />} />
       <Route path="/branding/emails" element={<EmailDesign />} />
-      
+
       {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
       {/* Settings */}
       <Route path="/settings" element={<Settings />} />
