@@ -1,5 +1,6 @@
 import { GetDashboardResponse } from "../types/response/dashboard/getDashboardResponse";
 import DashboardRepository from "../repository/dashboardRepository";
+import { GetDashboardSalesGeneratedResponse } from "src/types/response/dashboard/getDashboardTotalSalesGeneratedResponse";
 
 export default class DashboardService {
   private _dashboardRepository: DashboardRepository;
@@ -25,5 +26,15 @@ export default class DashboardService {
       } as unknown as GetDashboardResponse;
     }
     return dashboardResponse ? dashboardResponse : ({} as GetDashboardResponse);
+  }
+
+  public async getDashboardSalesGenerated(_userId: number): Promise<GetDashboardSalesGeneratedResponse> {
+    return {
+      total: 0,
+      retentionRevenue: 0,
+      incentivizedRevenue: 0,
+      conversionRevenue: 0,
+      referralRevenue: 0,
+    };
   }
 }
