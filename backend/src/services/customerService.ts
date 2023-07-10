@@ -6,6 +6,7 @@ import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
 import VipProgramActivityService from "./vipProgramActivityService";
 import { GetCustomerDetailsResponse } from "../types/response/customer/getCustomerDetailsResponse";
 import LoyaltyProgramActivityService from "./loyaltyProgramActivityService";
+import InsertCustomerRequestDTO from "../dto/webhook/InsertCustomerRequestDto";
 
 export default class CustomerService {
   private _customerRepository: CustomerRepository;
@@ -77,6 +78,14 @@ export default class CustomerService {
   ): Promise<Array<MembersWithDate>> {
     return await this._customerRepository.getCustomersCountWithDate(
       getAnalyticsDTO
+    );
+  }
+
+  public async createCustomer(
+    insertCustomerRequestDTO: InsertCustomerRequestDTO
+  ): Promise<void> {
+    return await this._customerRepository.createCustomer(
+      insertCustomerRequestDTO
     );
   }
 }

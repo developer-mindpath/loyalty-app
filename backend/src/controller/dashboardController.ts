@@ -6,7 +6,9 @@ import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
 import { GetDashboardResponse } from "../types/response/dashboard/getDashboardResponse";
 import DashboardService from "../services/dashboardService";
-import { GetDashboardSalesGeneratedResponse } from "src/types/response/dashboard/getDashboardTotalSalesGeneratedResponse";
+import { GetDashboardSalesGeneratedResponse } from "../types/response/dashboard/getDashboardTotalSalesGeneratedResponse";
+import { SalesGeneratedParams } from "../types/request/params";
+import GetDashboardSalesDTO from "../dto/dashboard/getDashboardSalesDto";
 
 export default class DashboardController {
   private _dashboardService: DashboardService;
@@ -39,15 +41,22 @@ export default class DashboardController {
   }
 
   public async getDashboardSalesGenerated(
-    req: CustomRequest<IEmptyObject, GetDashboardSalesGeneratedResponse, IEmptyObject>,
+    req: CustomRequest<
+      IEmptyObject,
+      GetDashboardSalesGeneratedResponse,
+      IEmptyObject,
+      SalesGeneratedParams
+    >,
     res: Response<APIResponse<GetDashboardSalesGeneratedResponse>>,
     next: NextFunction
   ): Promise<void> {
     try {
       const response = new APIResponse<GetDashboardSalesGeneratedResponse>();
-      const widgetResponse = await this._dashboardService.getDashboardSalesGenerated(
-        req.userId!
-      );
+      const getDashboardSalesDto = new GetDashboardSalesDTO(req.query);
+      const widgetResponse =
+        await this._dashboardService.getDashboardSalesGenerated(
+          getDashboardSalesDto
+        );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
       response.body = widgetResponse;

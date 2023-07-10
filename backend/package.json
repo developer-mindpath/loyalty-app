@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "nodemon": "nodemon --exec ts-node ./src/index.ts",
     "prebuild": "rm -rf ./dist",
     "build": "tsc --build ./tsconfig.json && cp ./.env ./dist/.env",

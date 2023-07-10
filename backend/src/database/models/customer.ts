@@ -27,16 +27,19 @@ export class CustomerModel extends ModelTemplate {
   customer_joining_date: Date | null;
 
   @Column("varchar", { nullable: true })
+  shopify_customer_id: string | null;
+
+  @Column("varchar", { nullable: true })
   status: string | null;
 
-  @Column("int")
-  admin_ref: number;
+  @Column("int", { nullable: true })
+  admin_ref: number | null;
 
-  @Column("int")
-  user_id: number;
+  @Column("int", { nullable: true })
+  user_id: number | null;
 
-  @Column("int")
-  created_by: number;
+  @Column("int", { nullable: true })
+  created_by: number | null;
 
   @Column("int", { nullable: true })
   updated_by: number | null;

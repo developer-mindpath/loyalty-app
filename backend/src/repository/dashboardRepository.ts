@@ -2,6 +2,8 @@ import { GetDashboardResponse } from "../types/response/dashboard/getDashboardRe
 import { Repository } from "typeorm";
 import AppDataSource from "../database";
 import { CustomerModel } from "../database/models/customer";
+import axios from "axios";
+import { ShopifyOrderResponse } from "../types/response/dashboard/shopifyOrderResponse";
 
 export default class DashboardRepository {
   private _customerModel: Repository<CustomerModel>;
@@ -25,5 +27,18 @@ export default class DashboardRepository {
     queryBuilder.where(`customer.user_id=${userId}`);
     queryBuilder.andWhere(`customer.customer_type = 'Member'`);
     return (await queryBuilder.getRawMany()) as unknown as GetDashboardResponse;
+  }
+
+  public async getAllOrders(
+    accessToken: string,
+    store: string
+  ): Promise<Array<ShopifyOrderResponse>> {
+    const apiUrl = `https://${store}/admin/api/2023-04/orders.json?status=any`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.orders;
   }
 }

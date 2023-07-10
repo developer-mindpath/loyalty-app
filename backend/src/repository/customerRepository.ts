@@ -5,6 +5,7 @@ import { CustomerModel } from "../database/models/customer";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import { MembersWithDate } from "../types/response/analytics/getAnalyticsResponse";
 import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
+import InsertCustomerRequestDTO from "../dto/webhook/InsertCustomerRequestDto";
 
 export default class CustomerRepository {
   private _customerModel: Repository<CustomerModel>;
@@ -99,5 +100,11 @@ export default class CustomerRepository {
     );
     queryBuilder.groupBy("Date(customer.customer_joining_date)");
     return await queryBuilder.getRawMany();
+  }
+
+  public async createCustomer(
+    insertCustomerRequestDTO: InsertCustomerRequestDTO
+  ): Promise<void> {
+    await this._customerModel.save(insertCustomerRequestDTO);
   }
 }

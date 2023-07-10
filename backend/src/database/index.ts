@@ -59,6 +59,7 @@ import { VipTierModel } from "./models/vipTier";
 import { VipTierAdditionalBenefitsModel } from "./models/vipTierAdditionalBenefits";
 import { VipTierRewardsModel } from "./models/vipTierRewards";
 import { TranslationModel } from "./models/translation";
+import { AccessTokenConfigurationModel } from "./models/accessTokenConfiguration";
 config();
 
 const MODELS = [
@@ -121,6 +122,7 @@ const MODELS = [
   VipTierAdditionalBenefitsModel,
   VipTierRewardsModel,
   TranslationModel,
+  AccessTokenConfigurationModel,
 ];
 const AppDataSource = new DataSource({
   type: "mysql",
@@ -132,7 +134,7 @@ const AppDataSource = new DataSource({
   entities: MODELS,
   migrations: ["dist/database/migrations/*.js"],
   synchronize: false,
-  migrationsRun: false,
+  migrationsRun: true,
   logging: true,
   extra: {
     waitForConnections: true,

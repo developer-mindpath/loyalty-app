@@ -8,7 +8,8 @@ import {
 import { checkToken } from "../middleware/checkToken";
 import AnalyticsController from "../controller/analyticsController";
 import { GetAnalyticsResponse } from "../types/response/analytics/getAnalyticsResponse";
-import { PeriodQuery } from "../types/request/params";
+import { AnalyticsReferralsParams, PeriodQuery } from "../types/request/params";
+import { GetReferralsAnalyticsResponse } from "../types/response/analytics/getReferralsAnalyticsResponse";
 
 const analyticsController = new AnalyticsController();
 const router = express.Router();
@@ -18,6 +19,15 @@ router.get<
   ResponseBody<GetAnalyticsResponse>,
   RequestBody,
   QueryParams<PeriodQuery>
->("/", checkToken, (...arg) => analyticsController.getAnalytics(...arg));
+>("/points", checkToken, (...arg) => analyticsController.getAnalytics(...arg));
+
+router.get<
+  PathParams,
+  ResponseBody<GetReferralsAnalyticsResponse>,
+  RequestBody,
+  QueryParams<AnalyticsReferralsParams>
+>("/referrals", checkToken, (...arg) =>
+  analyticsController.getReferralsAnalytics(...arg)
+);
 
 module.exports = { router, basePath: "/api/analytics" };

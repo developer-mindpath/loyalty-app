@@ -8,10 +8,11 @@ import cors from "cors";
 import path from "path";
 import AppDataSource from "./database";
 import { ExpressError } from "./helper/errorHandler";
+import { webhookRoute } from "./routes/webhook";
 
 const port = process.env.PORT || 3001;
 const app = express();
-
+app.use("/webhook", express.raw({ type: "*/*" }), webhookRoute);
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
@@ -27,7 +28,8 @@ app.use(cors({ origin: "*" }));
 readdirSync(path.resolve(__dirname, "routes")).forEach((file) => {
   if (
     (file.includes(".js") || file.includes(".ts")) &&
-    !file.includes(".js.")
+    !file.includes(".js.") &&
+    !file.includes("webhook")
   ) {
     const { router, basePath } = require(`${__dirname}/routes/${file}`);
     app.use(basePath, router);

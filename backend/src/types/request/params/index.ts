@@ -88,3 +88,23 @@ export type Position = {
   oldPosition: number;
   newPosition: number;
 };
+
+export type SalesGeneratedParams = {
+  storeName: string;
+  utmCampaign: string;
+  utmMedium: string;
+  utmSource: string;
+  trackingTimeFrame: number;
+  discountCode: string;
+  interactionTimeFrame: number;
+  referralSource: string;
+};
+
+export type AnalyticsReferrals = {
+  shopName: string;
+  referralSource: string;
+  referralCompletedTag: string;
+  referredCustomerTag: string;
+};
+
+export type AnalyticsReferralsParams = PeriodQuery & AnalyticsReferrals;

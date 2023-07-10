@@ -1,22 +1,30 @@
-import { AfterLoad, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, Index } from 'typeorm';
-import { ModelTemplate } from './modelTemplate';
-import Cipher from '../../helper/cipher';
-@Entity({ name: 'accessTokenConfiguration' })
+import {
+  AfterLoad,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+} from "typeorm";
+import { ModelTemplate } from "./modelTemplate";
+import Cipher from "../../helper/cipher";
+@Entity({ name: "accessTokenConfiguration" })
 export class AccessTokenConfigurationModel extends ModelTemplate {
-  @Column('text', { nullable: false })
+  @Column("text", { nullable: false })
   accessToken: string;
 
   @CreateDateColumn({ nullable: true })
   @Index()
   expiryDate: Date | null;
 
-  @Column('text', { nullable: false })
+  @Column("varchar", { nullable: true })
   tokenType: string;
 
-  @Column('text', { nullable: false })
+  @Column("text", { nullable: true })
   refreshToken: string;
 
-  @Column('varchar', { unique: true, nullable: false, length: 250 })
+  @Column("varchar", { unique: true, nullable: false })
   serviceName: string;
 
   @BeforeInsert()

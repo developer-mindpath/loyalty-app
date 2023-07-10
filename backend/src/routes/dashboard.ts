@@ -8,7 +8,8 @@ import {
 import { checkToken } from "../middleware/checkToken";
 import { GetDashboardResponse } from "../types/response/dashboard/getDashboardResponse";
 import DashboardController from "../controller/dashboardController";
-import { GetDashboardSalesGeneratedResponse } from "src/types/response/dashboard/getDashboardTotalSalesGeneratedResponse";
+import { GetDashboardSalesGeneratedResponse } from "../types/response/dashboard/getDashboardTotalSalesGeneratedResponse";
+import { SalesGeneratedParams } from "../types/request/params";
 
 const dashboardController = new DashboardController();
 const router = express.Router();
@@ -18,13 +19,15 @@ router.get<
   ResponseBody<GetDashboardResponse>,
   RequestBody,
   QueryParams
-  >("/", checkToken, (...arg) => dashboardController.getDashboard(...arg));
+>("/", checkToken, (...arg) => dashboardController.getDashboard(...arg));
 
 router.get<
   PathParams,
   ResponseBody<GetDashboardSalesGeneratedResponse>,
   RequestBody,
-  QueryParams
-  >("/salesGenerated", checkToken, (...arg) => dashboardController.getDashboardSalesGenerated(...arg));
+  QueryParams<SalesGeneratedParams>
+>("/salesGenerated", checkToken, (...arg) =>
+  dashboardController.getDashboardSalesGenerated(...arg)
+);
 
 module.exports = { router, basePath: "/api/dashboard" };
