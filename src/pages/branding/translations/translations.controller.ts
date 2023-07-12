@@ -7,6 +7,7 @@ import {
   getTranslations,
   getTranslationsState,
   hasError,
+  translations,
 } from "@/redux/reducers/translations";
 
 export function translationsController() {
@@ -32,7 +33,7 @@ export function translationsController() {
       const response = await dispatch(TranslationActions.get()).unwrap();
       setInital(response);
     } catch (e) {
-      setInital(translationData);
+      setInital({});
     }
   }, []);
 
@@ -64,7 +65,9 @@ export function translationsController() {
 
   function handleChange(key: string) {
     return (value: string) => {
-      // TODO: dispatch here
+      dispatch(
+        translations.setTranslation({ ...translationData, [key]: value })
+      );
     };
   }
 

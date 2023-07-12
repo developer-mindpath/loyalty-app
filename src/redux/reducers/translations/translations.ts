@@ -163,8 +163,15 @@ const initialState: ITranslationsState = {
 
 const translationSlice = createSlice({
   name: "translations",
-  reducers: {},
   initialState: initialState,
+  reducers: {
+    setTranslation: (
+      state: ITranslationsState,
+      actions: PayloadAction<IGetTranslationResponse>
+    ) => {
+      state.translations = actions.payload;
+     }
+  },
   extraReducers: (builder) => {
     builder.addCase(TranslationActions.get.pending, (state) => {
       state.error = false;

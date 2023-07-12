@@ -23,7 +23,7 @@ import ReferralPage from "@/pages/programs/referral";
 
 //branding
 import Translations from "@/pages/branding/translations/translations";
-import EmailDesign from "@/pages/branding/emailDesign";
+import FloatingWidget from "@/pages/onsite/floatingWidget";
 
 // Pages
 import FeedbackPage from "@/pages/feedback";
@@ -107,7 +107,9 @@ const DashboardRoutes = (): JSX.Element => {
       />
       {/* Branding */}
       <Route path="/branding/translations" element={<Translations />} />
-      <Route path="/branding/emails" element={<EmailDesign />} />
+
+      {/* website display */}
+      <Route path="/display/widget" element={<FloatingWidget />} />
 
       {/* <Route path="/display/widget" element={<ConfigPage />} /> */}
       {/* Settings */}
