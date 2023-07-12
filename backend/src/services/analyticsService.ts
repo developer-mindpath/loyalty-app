@@ -5,19 +5,22 @@ import PointRedeemService from "./pointRedeemService";
 import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
 import GetReferralsAnalyticsDTO from "../dto/analytics/getReferralsAnalyticsDTO";
 import { GetReferralsAnalyticsResponse } from "../types/response/analytics/getReferralsAnalyticsResponse";
-import DashboardService from "./dashboardService";
-import { ShopifyOrderResponse } from "../types/response/dashboard/shopifyOrderResponse";
+import ShopifyHelper from "../helper/shopify/shopifyHelper";
+import { ShopifyService } from "./shopifyService";
+import { ShopifyRepository } from "../repository/shopifyRepository";
 
 export default class AnalyticsService {
   private _customerService: CustomerService;
   private _pointService: PointService;
   private _pointRedeemService: PointRedeemService;
-  private _dashboardService: DashboardService;
+  private _shopifyService: ShopifyService;
+  private _shopifyHelper: ShopifyHelper;
   constructor() {
     this._customerService = new CustomerService();
     this._pointService = new PointService();
     this._pointRedeemService = new PointRedeemService();
-    this._dashboardService = new DashboardService();
+    this._shopifyService = new ShopifyService(new ShopifyRepository());
+    this._shopifyHelper = new ShopifyHelper();
   }
 
   public async getAnalytics(
@@ -60,20 +63,21 @@ export default class AnalyticsService {
   public async getReferralsAnalytics(
     getReferralsAnalyticsDTO: GetReferralsAnalyticsDTO
   ): Promise<GetReferralsAnalyticsResponse> {
-    const orders = await this._dashboardService.getOrders(
+    const serviceName = `${getReferralsAnalyticsDTO.shopName}:shopify`;
+    const accessToken = await this._shopifyService.getAccessToken(serviceName);
+    const orders = await this._shopifyService.getAllOrders(
+      accessToken,
       getReferralsAnalyticsDTO.shopName
     );
-    const revenueAttributed = this._getReferralRevenue(
+    const revenueAttributed = this._shopifyHelper.getReferralRevenue(
       orders,
       getReferralsAnalyticsDTO.referralSource
     );
-
-    const referralsCompleted = this._getReferralsCompleted(
+    const referralsCompleted = this._shopifyHelper.getReferralsCompleted(
       orders,
       getReferralsAnalyticsDTO.referralCompletedTag
     );
-
-    const ordersGenerated = this._getReferredOrdersGenerated(
+    const ordersGenerated = this._shopifyHelper.getReferredOrdersGenerated(
       orders,
       getReferralsAnalyticsDTO.referredCustomerTag
     );
@@ -83,58 +87,5 @@ export default class AnalyticsService {
       referralsCompleted: referralsCompleted,
       ordersGenerated: ordersGenerated,
     };
-  }
-
-  private _getReferralRevenue(
-    orders: Array<ShopifyOrderResponse>,
-    referralSource: string
-  ): number {
-    // Filter orders by referral source
-    const referralOrders = orders.filter((order: ShopifyOrderResponse) => {
-      return (
-        order.source_name &&
-        order.source_name.toLowerCase() === referralSource.toLowerCase()
-      );
-    });
-    // Calculate referral revenue
-    const referralRevenue = referralOrders.reduce(
-      (totalRevenue: number, order: ShopifyOrderResponse) => {
-        return totalRevenue + parseFloat(order.total_price);
-      },
-      0
-    );
-    return referralRevenue;
-  }
-
-  private _getReferralsCompleted(
-    orders: Array<ShopifyOrderResponse>,
-    referralCompletedTag: string
-  ): number {
-    const completedReferrals: Set<string> = new Set();
-
-    // Track completed referrals
-    for (const order of orders) {
-      if (order.tags && order.tags.includes(referralCompletedTag)) {
-        if (order.referring_site) {
-          completedReferrals.add(order.referring_site);
-        }
-      }
-    }
-    return completedReferrals.size;
-  }
-
-  private _getReferredOrdersGenerated(
-    orders: Array<ShopifyOrderResponse>,
-    referredCustomerTag: string
-  ): number {
-    let referredCustomerOrderCount = 0;
-
-    // Track orders from referred customers
-    for (const order of orders) {
-      if (order.tags && order.tags.includes(referredCustomerTag)) {
-        referredCustomerOrderCount++;
-      }
-    }
-    return referredCustomerOrderCount;
   }
 }

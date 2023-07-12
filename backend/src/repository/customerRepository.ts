@@ -1,11 +1,13 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
+import lodash from "lodash";
 import AppDataSource from "../database";
 import PaginationDTO from "../dto/paginationDTO";
 import { CustomerModel } from "../database/models/customer";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import { MembersWithDate } from "../types/response/analytics/getAnalyticsResponse";
 import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
-import InsertCustomerRequestDTO from "../dto/webhook/InsertCustomerRequestDto";
+import InsertCustomerRequestDTO from "../dto/webhook/insertCustomerRequestDto";
+import UpdateCustomerRequestDTO from "../dto/webhook/updateCustomerRequestDto";
 
 export default class CustomerRepository {
   private _customerModel: Repository<CustomerModel>;
@@ -57,6 +59,7 @@ export default class CustomerRepository {
         "customer.customer_email as customerEmail",
         "customer.customer_type as customerType",
         "customer.customer_birthday as customerBirthday",
+        "customer.shopify_customer_id as shopifyCustomerId",
         "customer.created_at as createdAt",
       ]);
     queryBuilder.where(`customer.id=${customerId}`);
@@ -106,5 +109,13 @@ export default class CustomerRepository {
     insertCustomerRequestDTO: InsertCustomerRequestDTO
   ): Promise<void> {
     await this._customerModel.save(insertCustomerRequestDTO);
+  }
+
+  public async updateCustomer(
+    updateCustomerRequestDTO: UpdateCustomerRequestDTO
+  ): Promise<UpdateResult> {
+    const shopify_customer_id = updateCustomerRequestDTO.shopify_customer_id;
+    const data = lodash.omit(updateCustomerRequestDTO, ["shopify_customer_id"]);
+    return await this._customerModel.update({ shopify_customer_id }, data);
   }
 }

@@ -7,7 +7,7 @@ export type GetCustomerDetailsResponse = {
   points: Array<PointsCustomer>;
   // rewards: Array<RewardsCustomer>;
   vip: Array<VipCustomer>;
-  // recentOrders: Array<RecentOrdersCustomer>;
+  recentOrders: Array<RecentOrdersCustomer>;
   createdAt: Date;
 };
 

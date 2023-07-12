@@ -16,3 +16,9 @@ webhookRoute.post<PathParams, ResponseBody, RequestBody, QueryParams>(
   checkShopifyWebhookRequest,
   (...arg) => webhookController.createCustomer(...arg)
 );
+
+webhookRoute.post<PathParams, ResponseBody, RequestBody, QueryParams>(
+  "/update/customer",
+  checkShopifyWebhookRequest,
+  (...arg) => webhookController.updateCustomer(...arg)
+);

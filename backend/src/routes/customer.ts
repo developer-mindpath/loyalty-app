@@ -5,7 +5,11 @@ import {
   RequestBody,
   ResponseBody,
 } from "../types/request/customRequest";
-import { CustomerId, Pagination } from "../types/request/params";
+import {
+  CustomerDetailsParams,
+  CustomerId,
+  Pagination,
+} from "../types/request/params";
 import { doValidation } from "../helper/joi";
 import customerValidations from "../requestValidator/customer";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
@@ -29,7 +33,7 @@ router.get<
   PathParams<CustomerId>,
   ResponseBody<GetCustomerDetailsResponse>,
   RequestBody,
-  QueryParams
+  QueryParams<CustomerDetailsParams>
 >("/detail/:customerId", checkToken, (...arg) =>
   customerController.getCustomerDetail(...arg)
 );

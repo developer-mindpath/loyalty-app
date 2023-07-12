@@ -107,4 +107,11 @@ export type AnalyticsReferrals = {
   referredCustomerTag: string;
 };
 
+export type CustomerDetailsParams = {
+  storeName: string;
+};
+
+export type StoreName = {
+  storeName: string;
+};
 export type AnalyticsReferralsParams = PeriodQuery & AnalyticsReferrals;

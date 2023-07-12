@@ -7,6 +7,8 @@ export type ShopifyOrderResponse = {
   created_at: string;
   tags: string;
   referring_site: string;
+  name: string;
+  financial_status: string;
 };
 
 export type DiscountCodes = {

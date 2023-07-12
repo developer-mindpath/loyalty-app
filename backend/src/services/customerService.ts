@@ -1,3 +1,4 @@
+import { UpdateResult } from "typeorm";
 import PaginationDTO from "../dto/paginationDTO";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import CustomerRepository from "../repository/customerRepository";
@@ -6,16 +7,21 @@ import GetAnalyticsDTO from "../dto/analytics/getAnalyticsDTO";
 import VipProgramActivityService from "./vipProgramActivityService";
 import { GetCustomerDetailsResponse } from "../types/response/customer/getCustomerDetailsResponse";
 import LoyaltyProgramActivityService from "./loyaltyProgramActivityService";
-import InsertCustomerRequestDTO from "../dto/webhook/InsertCustomerRequestDto";
+import InsertCustomerRequestDTO from "../dto/webhook/insertCustomerRequestDto";
+import UpdateCustomerRequestDTO from "../dto/webhook/updateCustomerRequestDto";
+import { ShopifyService } from "./shopifyService";
+import { ShopifyRepository } from "../repository/shopifyRepository";
 
 export default class CustomerService {
   private _customerRepository: CustomerRepository;
   private _vipProgramActivityService: VipProgramActivityService;
   private _loyaltyProgramActivityService: LoyaltyProgramActivityService;
+  private _shopifyService: ShopifyService;
   constructor() {
     this._customerRepository = new CustomerRepository();
     this._vipProgramActivityService = new VipProgramActivityService();
     this._loyaltyProgramActivityService = new LoyaltyProgramActivityService();
+    this._shopifyService = new ShopifyService(new ShopifyRepository());
   }
 
   public async getCustomers(
@@ -26,7 +32,8 @@ export default class CustomerService {
   }
 
   public async getCustomerDetail(
-    customerId: number
+    customerId: number,
+    storeName: string
   ): Promise<GetCustomerDetailsResponse> {
     const customerDetails = await this._customerRepository.getCustomerDetail(
       customerId
@@ -60,10 +67,38 @@ export default class CustomerService {
     const vipDetails = await this._vipProgramActivityService.getVipDetail(
       customerId
     );
+    const shopifyCustomerId = customerDetails?.shopifyCustomerId
+      ? customerDetails.shopifyCustomerId
+      : 0;
+    const serviceName = `${storeName}:shopify`;
+    const accessToken = await this._shopifyService.getAccessToken(serviceName);
+    const shopifyCustomerDetailsById =
+      await this._shopifyService.getShopifyCustomerDetailByUsingId(
+        Number(shopifyCustomerId),
+        accessToken,
+        storeName
+      );
+    const shopifyOrderDetailsById =
+      await this._shopifyService.getShopifyOrderDetailsByUsingId(
+        shopifyCustomerDetailsById.last_order_id,
+        accessToken,
+        storeName
+      );
+
+    let recentOrderResponse = {};
+    if (shopifyOrderDetailsById) {
+      recentOrderResponse = {
+        order: shopifyOrderDetailsById.name,
+        patmentStatus: shopifyOrderDetailsById.financial_status,
+        total: shopifyOrderDetailsById.total_price,
+        date: new Date(shopifyOrderDetailsById.created_at),
+      };
+    }
     return {
       ...customerDetailResponse,
       points: customerPointDetails,
       vip: vipDetails,
+      recentOrders: recentOrderResponse,
     } as GetCustomerDetailsResponse;
   }
 
@@ -86,6 +121,14 @@ export default class CustomerService {
   ): Promise<void> {
     return await this._customerRepository.createCustomer(
       insertCustomerRequestDTO
+    );
+  }
+
+  public async updateCustomer(
+    updateCustomerRequestDTO: UpdateCustomerRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._customerRepository.updateCustomer(
+      updateCustomerRequestDTO
     );
   }
 }

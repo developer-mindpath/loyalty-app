@@ -2,6 +2,10 @@ import axios from "axios";
 import AppDataSource from "../database";
 import { AccessTokenConfigurationModel } from "../database/models/accessTokenConfiguration";
 import { Repository, UpdateResult } from "typeorm";
+import { ShopifyOrderResponse } from "../types/response/dashboard/shopifyOrderResponse";
+import { ShopifyCustomerResponse } from "../types/response/shopify/shopifyCustomerResponse";
+import { ProductResponse } from "../types/response/product/productResponse";
+import { CollectionResponse } from "../types/response/product/collectionResponse";
 
 export class ShopifyRepository {
   //   private _baseUrl: string;
@@ -52,5 +56,72 @@ export class ShopifyRepository {
       { serviceName: model.serviceName },
       { accessToken: model.accessToken }
     );
+  }
+
+  public async getAllOrders(
+    accessToken: string,
+    store: string
+  ): Promise<Array<ShopifyOrderResponse>> {
+    const apiUrl = `https://${store}/admin/api/2023-04/orders.json?status=any`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.orders;
+  }
+
+  public async getShopifyCustomerDetailByUsingId(
+    shopifyCustomerId: number,
+    accessToken: string,
+    storeName: string
+  ): Promise<ShopifyCustomerResponse> {
+    const apiUrl = `https://${storeName}/admin/api/2023-04/customers/${shopifyCustomerId}.json`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.customer;
+  }
+
+  public async getShopifyOrderDetailsByUsingId(
+    orderId: number,
+    accessToken: string,
+    storeName: string
+  ): Promise<ShopifyOrderResponse> {
+    const apiUrl = `https://${storeName}/admin/api/2023-04/orders/${orderId}.json`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.order;
+  }
+
+  public async getProducts(
+    storeName: string,
+    accessToken: string
+  ): Promise<Array<ProductResponse>> {
+    const apiUrl = `https://${storeName}/admin/api/2023-04/products.json`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.products;
+  }
+
+  public async getCollections(
+    storeName: string,
+    accessToken: string
+  ): Promise<Array<CollectionResponse>> {
+    const apiUrl = `https://${storeName}/admin/api/2023-04/custom_collections.json`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        "X-Shopify-Access-Token": accessToken,
+      },
+    });
+    return response.data.custom_collections;
   }
 }

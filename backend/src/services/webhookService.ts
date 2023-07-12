@@ -1,4 +1,6 @@
-import InsertCustomerRequestDTO from "../dto/webhook/InsertCustomerRequestDto";
+import { UpdateResult } from "typeorm";
+import UpdateCustomerRequestDTO from "../dto/webhook/updateCustomerRequestDto";
+import InsertCustomerRequestDTO from "../dto/webhook/insertCustomerRequestDto";
 import CustomerService from "./customerService";
 
 export default class WebhookService {
@@ -11,5 +13,11 @@ export default class WebhookService {
     insertCustomerRequestDTO: InsertCustomerRequestDTO
   ): Promise<void> {
     return await this._customerService.createCustomer(insertCustomerRequestDTO);
+  }
+
+  public async updateCustomer(
+    updateCustomerRequestDTO: UpdateCustomerRequestDTO
+  ): Promise<UpdateResult> {
+    return await this._customerService.updateCustomer(updateCustomerRequestDTO);
   }
 }

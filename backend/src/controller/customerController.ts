@@ -4,7 +4,11 @@ import CustomRequest from "../types/request/customRequest";
 import { APIResponse, IEmptyObject } from "../helper/errorHandler/apiResponse";
 import { ExpressError } from "../helper/errorHandler";
 import constants from "../constants";
-import { CustomerId, Pagination } from "../types/request/params";
+import {
+  CustomerDetailsParams,
+  CustomerId,
+  Pagination,
+} from "../types/request/params";
 import PaginationDTO from "../dto/paginationDTO";
 import { GetCustomerResponse } from "../types/response/customer/getCustomerResponse";
 import CustomerService from "../services/customerService";
@@ -52,7 +56,7 @@ export default class CustomerController {
       CustomerId,
       GetCustomerDetailsResponse,
       IEmptyObject,
-      IEmptyObject
+      CustomerDetailsParams
     >,
     res: Response<APIResponse<GetCustomerDetailsResponse>>,
     next: NextFunction
@@ -60,7 +64,8 @@ export default class CustomerController {
     try {
       const response = new APIResponse<GetCustomerDetailsResponse>();
       const customerResponse = await this._customerService.getCustomerDetail(
-        req.params.customerId
+        req.params.customerId,
+        req.query.storeName
       );
       response.status = StatusCodes.OK;
       response.message = constants.API_RESPONSE.SUCCESS;
